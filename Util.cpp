@@ -9,6 +9,8 @@
 #include "Point.hpp"
 #include "Util.hpp"
 
+#include "params.h"
+
 using namespace std;
 
 REAL Util::eps;

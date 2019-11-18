@@ -2,8 +2,9 @@
 //This copyright notice should remain at the top of this file.
 //
 
-#include <stdio.h>
 #include "Point.hpp"
+
+#include "params.h"
 
 REAL Point::eps;
 

@@ -7,6 +7,8 @@
 
 #include <vector>
 
+#include "params.h"
+
 #define U_QUIT  -1
 #define U_OK     1
 
@@ -21,9 +23,9 @@ public:
 	static REAL eps2;
 
     //-- scanning ranges for SimpleJoin--
-    static int r1[NUM_DIM+1][2];
-    static int r2[NUM_DIM+1][2];
-    static int r3[NUM_DIM+1][2];
+    static int r1[GPUNUMDIM + 1][2];
+    static int r2[GPUNUMDIM + 1][2];
+    static int r3[GPUNUMDIM + 1][2];
 
 	//static pPoint A;
 	//static pPoint B;

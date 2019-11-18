@@ -3,30 +3,29 @@
 //
 
 #ifndef POINT_HPP
-#define POINT_HPP 
+#define POINT_HPP
 
-#include "const.h"
-//#include "../DynArray.hpp"
+#include "params.h"
 
-class Point 
-{ 
-public: 
+class Point
+{
+public:
 	static REAL eps;
 
 	int id;
 
-	REAL x[NUM_DIM];
+	REAL x[GPUNUMDIM];
 
 	//DynArray<Point*> *relPoint;
- 
-	Point(); 
+
+	Point();
 	//void print();
 	//void print2();
 
 	bool operator<(Point const &p);
 	bool operator<=(Point const &p);
-};  
- 
+};
+
 typedef Point *pPoint;
- 
+
 #endif
