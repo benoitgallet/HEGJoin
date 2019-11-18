@@ -1,0 +1,544 @@
+//Copyright (c) 2013, Dmitri V. Kalashnikov. All rights reserved.
+//This copyright notice should remain at the top of this file.
+//
+
+#include <stdlib.h>
+#include <unistd.h>
+#include "omp.h"
+
+#include "Point.hpp"
+#include "Util.hpp"
+
+using namespace std;
+
+REAL Util::eps;
+REAL Util::eps2; //eps squared
+
+int Util::r1[GPUNUMDIM + 1][2]; //ranges for SimpleJoin
+int Util::r2[GPUNUMDIM + 1][2];
+int Util::r3[GPUNUMDIM + 1][2];
+
+int  Util::num_heur_calls = 0;
+int  Util::num_heur_fails = 0;
+
+
+//-----------------------------------------
+void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
+{
+    //-- define stat vars --
+    int num_buck = ceil(1 / eps) + 1;   //number of buckets
+    pPoint hA = new Point[num_buck];    //histogram for A
+    pPoint hB = new Point[num_buck];    //histogram for B
+    double d[NUM_DIM];                  //avg distance in each dim
+
+
+    //-- init stats to zeroes --
+    for(int i = 0; i < NUM_DIM; i++)
+        d[i] = 0;
+
+    for (int i = 0; i < num_buck; i++)
+    {
+        for (int j = 0; j < NUM_DIM; j++)
+        {
+            hA[i].x[j] = 0;
+            hB[i].x[j] = 0;
+        }
+    }
+
+
+    //-- sample points --
+    int sample_sz = 2000;
+
+
+    for (int i = 0; i < sample_sz; i++)
+    {
+        //-- get rnd point from A --
+        int rnd_i = (A_sz - 1) * rnd();
+        pPoint rnd_pA = &A[rnd_i];
+
+        //-- get rnd point from B --
+        rnd_i = (B_sz - 1) * rnd();
+        pPoint rnd_pB = &B[rnd_i];
+
+        //-- update stats --
+        for (int j = 0; j < NUM_DIM; j++)
+        {
+            d[j] += fabs(rnd_pA->x[j] - rnd_pB->x[j]);
+
+            int buck_i = (int) (rnd_pA->x[j] / eps);
+            hA[buck_i].x[j] += 1;
+
+            buck_i = (int) (rnd_pB->x[j] / eps);
+            hB[buck_i].x[j] += 1;
+        }
+    }
+
+
+    //-- compute fail factor f in each dimension --
+    double f[NUM_DIM];
+    double g[NUM_DIM];
+
+    for (int i = 0; i < NUM_DIM; i++)
+    {
+        f[i] = 0;
+
+        for (int j = 0; j < num_buck; j++)
+        {
+            if (j == 0)
+            {
+                f[i] += hA[j].x[i] * (hB[j].x[i] + hB[j+1].x[i]);
+                continue;
+            }
+            else if (j == (num_buck - 1) )
+            {
+                f[i] += hA[j].x[i] * (hB[j].x[i] + hB[j-1].x[i]);
+                continue;
+            }
+
+            f[i] += hA[j].x[i] * (hB[j].x[i] + hB[j-1].x[i] + hB[j+1].x[i]);
+        }
+
+    }
+
+
+    //-- normalizing f --
+    for (int i = 0; i < NUM_DIM; i++)
+    {
+        d[i] = d[i] / sample_sz;
+        f[i] = f[i] / (sample_sz * sample_sz);
+        g[i] = -d[i]; //f[i];
+        //printf("\n f[%d] = %f", i, f[i]);
+    }
+
+
+    //-- constracting map of remapping (not efficient) --
+    int map[NUM_DIM];
+
+    for (int i = 0; i < NUM_DIM; i++)
+    {
+        double min = 1000;
+        int min_j = -1;
+
+        for (int j = 0; j < NUM_DIM; j++)
+        {
+            if (g[j] < min)
+            {
+                min = g[j];
+                min_j = j;
+            }
+        }
+
+        map[i] = min_j;
+        g[min_j] = 2.0; // so that it is not min next time
+    }
+
+
+    printf("\n\n -- map --");
+    for (int i = 0; i < NUM_DIM; i++)
+    {
+        printf("\n s[%2d] = %.3f, d[%2d] = %.3f, map[%2d] = %2d", i, 1 - f[i], i, d[i], i, map[i]);
+    }
+    printf("\n-- --- --\n\n");
+
+
+    //-- reoder dimension in A --
+    for (int i = 0; i < A_sz; i++)
+    {
+        REAL x[NUM_DIM];
+
+
+        for (int j = 0; j < NUM_DIM; j++)
+            x[j] = A[i].x[j];
+
+        for (int j = 0; j < NUM_DIM; j++)
+            A[i].x[j] = x[map[j]];
+    }
+
+
+    //-- reoder dimension in B, if not self-join --
+    if(B != A)
+    {
+        for (int i = 0; i < B_sz; i++)
+        {
+            REAL x[NUM_DIM];
+
+
+            for (int j = 0; j < NUM_DIM; j++)
+                x[j] = B[i].x[j];
+
+            for (int j = 0; j < NUM_DIM; j++)
+                B[i].x[j] = x[map[j]];
+        }
+    }
+
+
+    //-- reorder stats accrodingly as well --
+    double *rs = new double[NUM_DIM];
+    double *rd = new double[NUM_DIM];
+
+    for (int j = 0; j < NUM_DIM; j++)
+    {
+        rs[j] = 1 - f[map[j]];
+        rd[j] = d[map[j]];
+    }
+
+
+    printf("\n\n -- remap --");
+    for (int i = 0; i < NUM_DIM; i++)
+    {
+        printf("\n rs[%2d] = %.3f, rd[%2d] = %.3f", i, rs[i], i, rd[i]);
+    }
+    printf("\n-- --- --\n\n");
+
+
+
+
+    //-- Case 1: zero inactive dimensions --
+    int sml_seq_sz = __min(1, NUM_DIM);
+
+    for (int i = 0; i < sml_seq_sz; i++)
+    {
+        r1[i][0] = 0;
+        r1[i][1] = NUM_DIM-1;
+
+        r2[i][0] = 0;
+        r2[i][1] = -1;
+
+        r3[i][0] = 0;
+        r3[i][1] = -1;
+    }
+
+
+    //-- Case 2: all dims are inactive --
+    r1[NUM_DIM][0] = 0;
+    r1[NUM_DIM][1] = NUM_DIM-1;
+
+    r2[NUM_DIM][0] = 0;
+    r2[NUM_DIM][1] = -1;
+
+    r3[NUM_DIM][0] = 0;
+    r3[NUM_DIM][1] = -1;
+
+
+
+
+    //-- Case 3: remaining cases --
+
+
+    //-- find first k s.t. rd[k] < eps/2 --
+    int k = NUM_DIM;
+
+    for (int i = 0; i < NUM_DIM; i++)
+    {
+        if (rd[i] < eps/2)
+        {
+            k = i;
+            break;
+        }
+    }
+
+
+
+    //--
+    for (int i = sml_seq_sz; i < NUM_DIM; i++)
+    {
+        //-- Case I: 1-interval --
+        if (rd[i] < eps/2)
+        {
+            r1[i][0] = 0;
+            r1[i][1] = NUM_DIM-1;
+
+            r2[i][0] = 0;
+            r2[i][1] = -1;
+
+            r3[i][0] = 0;
+            r3[i][1] = -1;
+
+            continue;
+        }
+
+        //-- Case II: 3-intervals --
+        if (k < NUM_DIM)
+        {
+            r1[i][0] = i;
+            r1[i][1] = k - 1;
+
+            r2[i][0] = 0;
+            r2[i][1] = i - 1;
+
+            r3[i][0] = k;
+            r3[i][1] = NUM_DIM-1;
+
+            continue;
+        }
+
+        //-- Case III: 2-interval --
+        r1[i][0] = i; //in simj, start by scanning first unproc dim
+        r1[i][1] = NUM_DIM-1;
+
+        r2[i][0] = 0;
+        r2[i][1] = i - 1;
+
+        r3[i][0] = 0;
+        r3[i][1] = -1;
+    }
+
+    //-- print scan table --
+    printf("\n--- scan table --");
+    for (int i = 0; i <= NUM_DIM; i++)
+    {
+        printf("\n  d=%2d: r1=[%2d,%2d] r2=[%2d,%2d] r3=[%2d,%2d]", i, r1[i][0], r1[i][1], r2[i][0], r2[i][1], r3[i][0], r3[i][1]);
+    }
+    printf("\n--- ------ --\n\n");
+
+
+    //getchar();
+}
+
+
+//-----------------------------------------
+int pcmp(const void *v1, const void *v2)
+{
+	pPoint p1 = (pPoint)v1;
+	pPoint p2 = (pPoint)v2;
+
+	for (int i = 0; i < NUM_DIM; i++)
+	{
+		int d = ((int) (p1->x[i]/Util::eps)) - ((int) (p2->x[i]/Util::eps));
+
+		if (d != 0)
+			return d;
+	}
+
+	return 0;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+uint64_t Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result)
+{
+	pPoint fst_A = &A[frA];
+	pPoint lst_A = &A[toA];
+	pPoint fst_B = &B[frB];
+	pPoint lst_B = &B[toB];
+
+	int i;
+	for (i = start_dim; i < GPUNUMDIM; i++)
+	{
+		int lo_A = (int) (fst_A->x[i] / eps);
+		int hi_B = (int) (lst_B->x[i] / eps);
+
+		if (lo_A > hi_B + 1) // lo_B--------hi_B  lo_A--------hi_A
+			return;
+
+		int lo_B = (int) (fst_B->x[i] / eps);
+		int hi_A = (int) (lst_A->x[i] / eps);
+
+		if (lo_B > hi_A + 1) // lo_A--------hi_A  lo_B---------hi_B
+			return;
+
+		if ( (lo_A < hi_A) || (lo_B < hi_B) ) // the remaining dimensions will always intersect
+		{
+			start_dim = i;
+			break;
+		}
+	}
+
+	int A_sz = toA - frA + 1;
+	int B_sz = toB - frB + 1;
+
+	if (A_sz < MINLEN && B_sz < MINLEN)
+	{
+		simpleJoin4(A, frA, toA, B, frB, toB, i, result);
+
+		return;
+	}
+
+	if (A_sz >= MINLEN && B_sz >= MINLEN)
+	{
+        // printf("\nCase 2 (self-thread)\n");
+		egoJoin(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoin(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoin(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
+		egoJoin(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		return;
+	}
+
+	//-- case 3--
+	if (A_sz >= MINLEN && B_sz < MINLEN)
+	{
+        // printf("\nCase 3 (self-thread)\n");
+		egoJoin(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
+		egoJoin(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
+		return;
+	}
+
+	//-- case 4 --
+	if (A_sz < MINLEN && B_sz >= MINLEN)
+	{
+        // printf("\nCase 4 (self-thread)\n");
+		egoJoin(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoin(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		return;
+	}
+}
+
+
+
+void Util::simpleJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result)
+{
+	for (int i = frA; i <= toA; i++)
+	{
+		pPoint p = &A[i];
+
+		for (int j = frB; j <= toB; j++)
+		{
+			pPoint q = &B[j];
+
+			REAL sum = 0;
+
+			for (int k = 0; k < GPUNUMDIM; k++)
+			{
+				REAL dx = (p->x[k] - q->x[k]);
+				dx = dx * dx;
+				sum += dx;
+
+				if (sum > eps2)
+					goto stop1;
+			}
+
+			result->push_back(p->id);
+			result->push_back(q->id);
+
+			stop1: ;
+		}
+	}
+
+	return;
+}
+
+
+
+void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result)
+{
+	int r1_beg = r1[m][0];
+    int r1_end = r1[m][1];
+
+    int r2_end = r2[m][1];
+
+    int r3_beg = r3[m][0];
+    int r3_end = r3[m][1];
+
+	if (r3_end == -1) // 1 or 2 intervals
+    {
+        if (r2_end == -1) // 1 interval
+        {
+            simpleJoin3(A, frA, toA, B, frB, toB, result);
+            return;
+        }
+
+        //-- 2 intervals --
+        for (int i = frA; i <= toA; i++)
+        {
+            pPoint p = &A[i];
+
+            for (int j = frB; j <= toB; j++)
+            {
+                pPoint q = &B[j];
+
+                REAL sum = 0;
+
+                //-- scan over range 1 --
+                for (int k = r1_beg; k <= GPUNUMDIM - 1; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+
+                //-- scan over range 2 --
+                for (int k = 0; k <= r2_end; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+
+                result->push_back(p->id);
+                result->push_back(q->id);
+
+            stop_2_int: ;
+
+            }
+        }
+
+        return;
+    }
+
+
+	//-- 3 intervals --
+	for (int i = frA; i <= toA; i++)
+	{
+		pPoint p = &A[i];
+
+		for (int j = frB; j <= toB; j++)
+		{
+			pPoint q = &B[j];
+
+			REAL sum = 0;
+
+            //-- scan over range 1 --
+            for (int k = r1_beg; k <= r1_end; k++)
+            {
+                REAL dx = (p->x[k] - q->x[k]);
+                dx = dx * dx;
+                sum += dx;
+
+                if (sum > eps2)
+                    goto stop2;
+            }
+
+            //-- scan over range 2 --
+            for (int k = 0; k <= r2_end; k++)
+            {
+                REAL dx = (p->x[k] - q->x[k]);
+                dx = dx * dx;
+                sum += dx;
+
+                if (sum > eps2)
+                    goto stop2;
+            }
+
+            //-- scan over range 3 --
+            for (int k = r3_beg; k <= GPUNUMDIM - 1; k++)
+            {
+                REAL dx = (p->x[k] - q->x[k]);
+                dx = dx * dx;
+                sum += dx;
+
+                if (sum > eps2)
+                    goto stop2;
+            }
+
+			result->push_back(p->id);
+			result->push_back(q->id);
+
+        stop2: ;
+
+		}
+	}
+
+	return;
+}
+
+////////////////////////////////////////////////////////////////////////////////
