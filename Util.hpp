@@ -35,15 +35,10 @@ public:
 	// static void egoJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, pThreadParam param);
 	static uint64_t Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result);
 	// static void simpleJoin (pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result);
-	static void Util::simpleJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result);
+	static void simpleJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result);
     // static void simpleJoin2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result, int i);
-	static void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result);
+	static void simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result);
     static void reorderDim(pPoint A, int A_sz, pPoint B, int B_sz);
-
-	//-- aux --
-	static void add_job(pJobs pjobs, int frA, int toA, int frB, int toB, int start_dim);
-	static int  get_job(pJobs pjobs, int &frA, int &toA, int &frB, int &toB, int &start_dim, ThreadParam *param);
-
 };
 
 

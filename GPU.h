@@ -42,8 +42,6 @@ void distanceTableNDGridBatches(
         unsigned int * nNDMaskElems,
         unsigned int * originPointIndex,
         unsigned int * dev_originPointIndex,
-        DTYPE * sortedDatabase,
-        DTYPE * dev_sortedDatabase,
         struct neighborTableLookup * neighborTable,
         std::vector<struct neighborDataPtrs> * pointersToNeighbors,
         uint64_t * totalNeighbors);
