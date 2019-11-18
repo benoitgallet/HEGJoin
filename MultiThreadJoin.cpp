@@ -13,7 +13,7 @@
 #include "params.h"
 #include "WorkQueue.h"
 
-uint64_t Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, int num_threads, unsigned int * egoMapping)
+uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, int num_threads, unsigned int * egoMapping)
 {
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	for(int i = 0; i < CPU_THREADS; ++i)
