@@ -322,7 +322,7 @@ int pcmp(const void *v1, const void *v2)
 
 
 
-uint64_t Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result)
+void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result)
 {
 	pPoint fst_A = &A[frA];
 	pPoint lst_A = &A[toA];
@@ -364,10 +364,10 @@ uint64_t Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB,
 	if (A_sz >= MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 2 (self-thread)\n");
-		egoJoin(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		egoJoin(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
-		egoJoin(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
-		egoJoin(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoinV2A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoinV2A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoinV2A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
+		egoJoinV2A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
 		return;
 	}
 
@@ -375,8 +375,8 @@ uint64_t Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB,
 	if (A_sz >= MINLEN && B_sz < MINLEN)
 	{
         // printf("\nCase 3 (self-thread)\n");
-		egoJoin(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
-		egoJoin(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
+		egoJoinV2A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
+		egoJoinV2A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
 		return;
 	}
 
@@ -384,8 +384,8 @@ uint64_t Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB,
 	if (A_sz < MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 4 (self-thread)\n");
-		egoJoin(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		egoJoin(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoinV2A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoinV2A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
 		return;
 	}
 }
