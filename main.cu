@@ -72,7 +72,7 @@ int main(int argc, char * argv[])
     unsigned int nNonEmptyCells = 0;
 
     generateNDGridDimensions(&NDdataPoints, epsilon, minArr, maxArr, nCells, &totalCells);
-    printf("[GPU] ~ Total cells (including empty): %lld\n", totalCells);
+    printf("[GPU] ~ Total cells (including empty): %lu\n", totalCells);
 
     struct grid * index;
     struct gridCellLookup * gridCellLookupArr;
@@ -94,16 +94,13 @@ int main(int argc, char * argv[])
     std::vector<struct neighborDataPtrs> pointersToNeighbors(DBSIZE);
 
     DTYPE * database = new DTYPE [DBSIZE * GPUNUMDIM];
-    #pragma omp parallel for
+    for(unsigned int i = 0; i < DBSIZE; ++i)
     {
-        for(unsigned int i = 0; i < DBSIZE; ++i)
+        for(unsigned int j = 0; j < GPUNUMDIM; ++j)
         {
-            for(unsigned int j = 0; j < GPUNUMDIM; ++j)
-            {
-                database[i * GPUNUMDIM + j] = NDdataPoints[i][j];
-            }
-            // std::copy(NDdataPoints[i].begin(), NDdataPoints[i].end(), database + i * GPUNUMDIM);
+            database[i * GPUNUMDIM + j] = NDdataPoints[i][j];
         }
+        // std::copy(NDdataPoints[i].begin(), NDdataPoints[i].end(), database + i * GPUNUMDIM);
     }
 
     DTYPE * dev_epsilon;
