@@ -390,7 +390,7 @@ uint64_t Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB,
 
 
 
-void Util::simpleJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result)
+void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result)
 {
 	for (int i = frA; i <= toA; i++)
 	{
