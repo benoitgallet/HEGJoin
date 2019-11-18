@@ -364,10 +364,10 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz >= MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 2 (self-thread)\n");
-		egoJoinV2(, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		egoJoinV2(, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
-		egoJoinV2(, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
-		egoJoinV2(, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
 		return;
 	}
 
@@ -375,8 +375,8 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz >= MINLEN && B_sz < MINLEN)
 	{
         // printf("\nCase 3 (self-thread)\n");
-		egoJoinV2(, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
-		egoJoinV2(, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
+		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
 		return;
 	}
 
@@ -384,8 +384,8 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz < MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 4 (self-thread)\n");
-		egoJoinV2(, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		egoJoinV2(, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
 		return;
 	}
 }
