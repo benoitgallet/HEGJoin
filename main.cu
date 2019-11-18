@@ -162,7 +162,7 @@ int main(int argc, char * argv[])
                 unsigned int B_sz = DBSIZE;
 
                 Point * A = new Point[DBSIZE + 1];
-                for(int i = 0; i < datasetSize; ++i)
+                for(int i = 0; i < DBSIZE; ++i)
                 {
                     pPoint p = & A[i];
                     p->id = i;
