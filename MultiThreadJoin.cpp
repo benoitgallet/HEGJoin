@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <cstdint>
+#include "omp.h"
 
 #include "Point.hpp"
 #include "Util.hpp"
@@ -40,14 +41,17 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 			for(int i = 0; i < CPU_BATCH_SIZE; ++i)
 			{
 				unsigned int index = egoMapping[cpuBatch.first + i];
-				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector);
+				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
 			}
 
 			cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 		}while(0 != cpuBatch.second);
 
-		result[tid] += resultVector.size();
+		results[tid] += resultVector->size();
+		
 		delete[] batch;
+		resultVector->clear();
+		resultVector->shrink_to_fit();
 	}
 	double tEnd = omp_get_wtime();
 
