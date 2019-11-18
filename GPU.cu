@@ -733,17 +733,17 @@ void distanceTableNDGridBatches(
                 cudaEventRecord(startKernel[tid], stream[tid]);
                 #if UNICOMP
                     kernelNDGridIndexGlobalUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
-                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid,
+                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
                         dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
                         dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
                 #elif LID_UNICOMP
                     kernelNDGridIndexGlobalLinearIDUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
-                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid,
+                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
                         dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
                         dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
                 #else
                     kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
-                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid,
+                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
                         dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
                         dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
                 #endif
@@ -922,17 +922,17 @@ void distanceTableNDGridBatches(
             cudaEventRecord(startKernel[tid]);
             #if UNICOMP
                 kernelNDGridIndexGlobalUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[0], &dev_N[tid],
-                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid,
+                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
                     dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
                     dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
             #elif LID_UNICOMP
                 kernelNDGridIndexGlobalLinearIDUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[0], &dev_N[tid],
-                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid,
+                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
                     dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
                     dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
             #else
                 kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[0], &dev_N[tid],
-                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid,
+                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
                     dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
                     dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
             #endif
