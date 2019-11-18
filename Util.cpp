@@ -4,6 +4,8 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <math.h>
+#include <list>
 #include "omp.h"
 
 #include "Point.hpp"
@@ -20,9 +22,6 @@ int Util::r1[GPUNUMDIM + 1][2]; //ranges for SimpleJoin
 int Util::r2[GPUNUMDIM + 1][2];
 int Util::r3[GPUNUMDIM + 1][2];
 
-int  Util::num_heur_calls = 0;
-int  Util::num_heur_fails = 0;
-
 
 //-----------------------------------------
 void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
@@ -31,16 +30,16 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
     int num_buck = ceil(1 / eps) + 1;   //number of buckets
     pPoint hA = new Point[num_buck];    //histogram for A
     pPoint hB = new Point[num_buck];    //histogram for B
-    double d[NUM_DIM];                  //avg distance in each dim
+    double d[GPUNUMDIM];                  //avg distance in each dim
 
 
     //-- init stats to zeroes --
-    for(int i = 0; i < NUM_DIM; i++)
+    for(int i = 0; i < GPUNUMDIM; i++)
         d[i] = 0;
 
     for (int i = 0; i < num_buck; i++)
     {
-        for (int j = 0; j < NUM_DIM; j++)
+        for (int j = 0; j < GPUNUMDIM; j++)
         {
             hA[i].x[j] = 0;
             hB[i].x[j] = 0;
@@ -63,7 +62,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         pPoint rnd_pB = &B[rnd_i];
 
         //-- update stats --
-        for (int j = 0; j < NUM_DIM; j++)
+        for (int j = 0; j < GPUNUMDIM; j++)
         {
             d[j] += fabs(rnd_pA->x[j] - rnd_pB->x[j]);
 
@@ -77,10 +76,10 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     //-- compute fail factor f in each dimension --
-    double f[NUM_DIM];
-    double g[NUM_DIM];
+    double f[GPUNUMDIM];
+    double g[GPUNUMDIM];
 
-    for (int i = 0; i < NUM_DIM; i++)
+    for (int i = 0; i < GPUNUMDIM; i++)
     {
         f[i] = 0;
 
@@ -104,7 +103,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     //-- normalizing f --
-    for (int i = 0; i < NUM_DIM; i++)
+    for (int i = 0; i < GPUNUMDIM; i++)
     {
         d[i] = d[i] / sample_sz;
         f[i] = f[i] / (sample_sz * sample_sz);
@@ -114,14 +113,14 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     //-- constracting map of remapping (not efficient) --
-    int map[NUM_DIM];
+    int map[GPUNUMDIM];
 
-    for (int i = 0; i < NUM_DIM; i++)
+    for (int i = 0; i < GPUNUMDIM; i++)
     {
         double min = 1000;
         int min_j = -1;
 
-        for (int j = 0; j < NUM_DIM; j++)
+        for (int j = 0; j < GPUNUMDIM; j++)
         {
             if (g[j] < min)
             {
@@ -136,7 +135,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     printf("\n\n -- map --");
-    for (int i = 0; i < NUM_DIM; i++)
+    for (int i = 0; i < GPUNUMDIM; i++)
     {
         printf("\n s[%2d] = %.3f, d[%2d] = %.3f, map[%2d] = %2d", i, 1 - f[i], i, d[i], i, map[i]);
     }
@@ -146,13 +145,13 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
     //-- reoder dimension in A --
     for (int i = 0; i < A_sz; i++)
     {
-        REAL x[NUM_DIM];
+        REAL x[GPUNUMDIM];
 
 
-        for (int j = 0; j < NUM_DIM; j++)
+        for (int j = 0; j < GPUNUMDIM; j++)
             x[j] = A[i].x[j];
 
-        for (int j = 0; j < NUM_DIM; j++)
+        for (int j = 0; j < GPUNUMDIM; j++)
             A[i].x[j] = x[map[j]];
     }
 
@@ -162,23 +161,23 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
     {
         for (int i = 0; i < B_sz; i++)
         {
-            REAL x[NUM_DIM];
+            REAL x[GPUNUMDIM];
 
 
-            for (int j = 0; j < NUM_DIM; j++)
+            for (int j = 0; j < GPUNUMDIM; j++)
                 x[j] = B[i].x[j];
 
-            for (int j = 0; j < NUM_DIM; j++)
+            for (int j = 0; j < GPUNUMDIM; j++)
                 B[i].x[j] = x[map[j]];
         }
     }
 
 
     //-- reorder stats accrodingly as well --
-    double *rs = new double[NUM_DIM];
-    double *rd = new double[NUM_DIM];
+    double *rs = new double[GPUNUMDIM];
+    double *rd = new double[GPUNUMDIM];
 
-    for (int j = 0; j < NUM_DIM; j++)
+    for (int j = 0; j < GPUNUMDIM; j++)
     {
         rs[j] = 1 - f[map[j]];
         rd[j] = d[map[j]];
@@ -186,7 +185,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     printf("\n\n -- remap --");
-    for (int i = 0; i < NUM_DIM; i++)
+    for (int i = 0; i < GPUNUMDIM; i++)
     {
         printf("\n rs[%2d] = %.3f, rd[%2d] = %.3f", i, rs[i], i, rd[i]);
     }
@@ -196,12 +195,12 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     //-- Case 1: zero inactive dimensions --
-    int sml_seq_sz = __min(1, NUM_DIM);
+    int sml_seq_sz = __min(1, GPUNUMDIM);
 
     for (int i = 0; i < sml_seq_sz; i++)
     {
         r1[i][0] = 0;
-        r1[i][1] = NUM_DIM-1;
+        r1[i][1] = GPUNUMDIM-1;
 
         r2[i][0] = 0;
         r2[i][1] = -1;
@@ -212,14 +211,14 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     //-- Case 2: all dims are inactive --
-    r1[NUM_DIM][0] = 0;
-    r1[NUM_DIM][1] = NUM_DIM-1;
+    r1[GPUNUMDIM][0] = 0;
+    r1[GPUNUMDIM][1] = GPUNUMDIM-1;
 
-    r2[NUM_DIM][0] = 0;
-    r2[NUM_DIM][1] = -1;
+    r2[GPUNUMDIM][0] = 0;
+    r2[GPUNUMDIM][1] = -1;
 
-    r3[NUM_DIM][0] = 0;
-    r3[NUM_DIM][1] = -1;
+    r3[GPUNUMDIM][0] = 0;
+    r3[GPUNUMDIM][1] = -1;
 
 
 
@@ -228,9 +227,9 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     //-- find first k s.t. rd[k] < eps/2 --
-    int k = NUM_DIM;
+    int k = GPUNUMDIM;
 
-    for (int i = 0; i < NUM_DIM; i++)
+    for (int i = 0; i < GPUNUMDIM; i++)
     {
         if (rd[i] < eps/2)
         {
@@ -242,13 +241,13 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
     //--
-    for (int i = sml_seq_sz; i < NUM_DIM; i++)
+    for (int i = sml_seq_sz; i < GPUNUMDIM; i++)
     {
         //-- Case I: 1-interval --
         if (rd[i] < eps/2)
         {
             r1[i][0] = 0;
-            r1[i][1] = NUM_DIM-1;
+            r1[i][1] = GPUNUMDIM-1;
 
             r2[i][0] = 0;
             r2[i][1] = -1;
@@ -260,7 +259,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         }
 
         //-- Case II: 3-intervals --
-        if (k < NUM_DIM)
+        if (k < GPUNUMDIM)
         {
             r1[i][0] = i;
             r1[i][1] = k - 1;
@@ -269,14 +268,14 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
             r2[i][1] = i - 1;
 
             r3[i][0] = k;
-            r3[i][1] = NUM_DIM-1;
+            r3[i][1] = GPUNUMDIM-1;
 
             continue;
         }
 
         //-- Case III: 2-interval --
         r1[i][0] = i; //in simj, start by scanning first unproc dim
-        r1[i][1] = NUM_DIM-1;
+        r1[i][1] = GPUNUMDIM-1;
 
         r2[i][0] = 0;
         r2[i][1] = i - 1;
@@ -287,7 +286,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
     //-- print scan table --
     printf("\n--- scan table --");
-    for (int i = 0; i <= NUM_DIM; i++)
+    for (int i = 0; i <= GPUNUMDIM; i++)
     {
         printf("\n  d=%2d: r1=[%2d,%2d] r2=[%2d,%2d] r3=[%2d,%2d]", i, r1[i][0], r1[i][1], r2[i][0], r2[i][1], r3[i][0], r3[i][1]);
     }
@@ -304,7 +303,7 @@ int pcmp(const void *v1, const void *v2)
 	pPoint p1 = (pPoint)v1;
 	pPoint p2 = (pPoint)v2;
 
-	for (int i = 0; i < NUM_DIM; i++)
+	for (int i = 0; i < GPUNUMDIM; i++)
 	{
 		int d = ((int) (p1->x[i]/Util::eps)) - ((int) (p2->x[i]/Util::eps));
 

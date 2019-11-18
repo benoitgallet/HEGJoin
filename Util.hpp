@@ -6,6 +6,7 @@
 #define UTIL_HPP
 
 #include <vector>
+#include <unistd.h>
 
 #include "params.h"
 
