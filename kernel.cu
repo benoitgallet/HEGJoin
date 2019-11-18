@@ -88,9 +88,6 @@ __global__ void sortByWorkLoadGlobal(
 	unsigned int indexes[NUMINDEXEDDIM];
 	unsigned int loopRng[NUMINDEXEDDIM];
 
-	unsigned int nbNeighborCell = 0;
-	unsigned int neighborIndex = neighborCellIndex[tid];
-
 	for (loopRng[0] = rangeFilteredCellIdsMin[0]; loopRng[0] <= rangeFilteredCellIdsMax[0]; loopRng[0]++)
 		for (loopRng[1] = rangeFilteredCellIdsMin[1]; loopRng[1] <= rangeFilteredCellIdsMax[1]; loopRng[1]++)
 		#include "kernelloops.h"
@@ -1203,11 +1200,7 @@ __global__ void kernelNDGridIndexGlobalUnicomp(
 	DTYPE point[GPUNUMDIM];
 	for (int i = 0; i < GPUNUMDIM; i++)
 	{
-		#if SORT_BY_WORKLOAD
-			point[i] = sortedCells[pointId * GPUNUMDIM + i];
-		#else
-			point[i] = database[pointOffset + i];
-		#endif
+		point[i] = sortedCells[pointId * GPUNUMDIM + i];
 	}
 
 	//calculate the coords of the Cell for the point
