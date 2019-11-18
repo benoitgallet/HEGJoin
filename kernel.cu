@@ -668,25 +668,11 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 		return;
 	}
 
-	#if SORT_BY_WORKLOAD
-		// unsigned int pointID = atomicAdd(&counterEstimator, int(1));
-		// pointID = pointID * (*sampleOffset) * GPUNUMDIM;
-		// pointID = pointID * (*sampleOffset / 1.25) * GPUNUMDIM;
-	#else
-		unsigned int pointID = tid  * (*sampleOffset) * GPUNUMDIM;
-	#endif
-
 	//make a local copy of the point
 	DTYPE point[GPUNUMDIM];
 	for (int i = 0; i < GPUNUMDIM; i++)
 	{
-		#if SORT_BY_WORKLOAD
-			// point[i] = sortedDatabase[pointID + i];
 			point[i] = database[ originPointIndex[tid] * GPUNUMDIM + i ];
-			// point[i] = database[tid * GPUNUMDIM + i];
-		#else
-			point[i] = database[pointID + i];
-		#endif
 	}
 
 	//calculate the coords of the Cell for the point
