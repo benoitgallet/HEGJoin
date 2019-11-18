@@ -6,6 +6,7 @@
 #define UTIL_HPP
 
 #include <vector>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include "params.h"
@@ -40,6 +41,8 @@ public:
     // static void simpleJoin2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result, int i);
 	static void simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result);
     static void reorderDim(pPoint A, int A_sz, pPoint B, int B_sz);
+
+	static REAL rnd();
 };
 
 

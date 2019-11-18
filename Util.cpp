@@ -543,3 +543,17 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
+
+REAL Util::rnd()
+{
+	const double d2p31m = 2147483647;
+	const double d2p31  = 2147483711.0;
+
+	static double seed = 1234567.0; //init only one time
+
+	seed = 16807 * seed - floor(16807 * seed / d2p31m) * d2p31m;
+
+	return (REAL)(fabs(seed / d2p31));
+}
