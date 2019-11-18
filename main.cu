@@ -57,7 +57,7 @@ int main(int argc, char * argv[])
     printf("Dimensionality: %d\n", dim);
     printf("Search mode: %d\n", searchMode);
 
-    std::vector< std::vector<DTYPE> > NDdataPoints(datasetSize);
+    std::vector< std::vector<DTYPE> > NDdataPoints();
     double tBeginReadDataset = omp_get_wtime();
     importNDDataset(&NDdataPoints, filename);
     double tEndReadDataset = omp_get_wtime();
