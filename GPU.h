@@ -19,7 +19,6 @@
 void distanceTableNDGridBatches(
         int searchMode,
         unsigned int * DBSIZE,
-        DTYPE fraction,
         DTYPE * epsilon,
         DTYPE * dev_epsilon,
         DTYPE * database,

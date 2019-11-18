@@ -42,4 +42,4 @@ uint64_t getLinearID_nDimensions(
 
 
 
-#endif MAIN_H
+#endif

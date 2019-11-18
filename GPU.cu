@@ -313,7 +313,6 @@ unsigned long long callGPUBatchEst(
 void distanceTableNDGridBatches(
         int searchMode,
         unsigned int * DBSIZE,
-        DTYPE fraction,
         DTYPE * epsilon,
         DTYPE * dev_epsilon,
         DTYPE * database,
@@ -350,17 +349,6 @@ void distanceTableNDGridBatches(
 	cudaError_t errCode;
 
 	cout << "\n[GPU] ~ ** Sometimes the GPU will error on a previous execution and you won't know. \n[GPU] ~ Last error start of function: " << cudaGetLastError() << '\n';
-    cout.flush();
-
-	///////////////////////////////////
-	//COPY THE DATABASE TO THE GPU
-	///////////////////////////////////
-
-	// unsigned int * DBSIZE = new unsigned int;
-    // (*DBSIZE) = NDdataPoints->size();
-    unsigned int gpuSize = (*DBSIZE) * fraction;
-
-    cout << "[GPU] ~ In main GPU method, DBSIZE = " << gpuSize << '\n';
     cout.flush();
 
 

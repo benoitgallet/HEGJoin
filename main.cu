@@ -12,8 +12,10 @@
 #include "structs.h"
 #include "SortByWorkload.h"
 #include "WorkQueue.h"
+#include "GPU.h"
 
 #include "Point.hpp"
+#include "Util.hpp"
 
 using std::cout;
 using std::endl;
@@ -33,7 +35,7 @@ int main(int argc, char * argv[])
     char filename[256];
     strcpy(filename, argv[FILENAME_ARG]);
 
-    int datasetSize = atoi(argv[DATASETSIZE_ARG]);
+    // int datasetSize = atoi(argv[DATASETSIZE_ARG]);
     DTYPE epsilon = atof(argv[EPSILON_ARG]);
     int dim = atoi(argv[DIM_ARG]);
     int searchMode = atoi(argv[SEARCHMODE_ARG]);
@@ -122,7 +124,7 @@ int main(int argc, char * argv[])
     sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
             gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
             gridCellNDMask, &dev_gridCellNDMask, gridCellNDMaskOffsets, &dev_gridCellNDMaskOffsets, nNDMaskElems, &originPointIndex, &dev_originPointIndex,
-            &sortedDatabase, &dev_sortedDatabase, &sortedCellIds);
+            nullptr);
     double tEndSort = omp_get_wtime();
     double sortTime = tEndSort - tStartSort;
 
@@ -145,7 +147,7 @@ int main(int argc, char * argv[])
         if(0 == tid) // GPU part
         {
             double tBeginGPU = omp_get_wtime();
-            distanceTableNDGridBatches(searchMode, &DBSIZE, fraction, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
+            distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
                     indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
                     &nNonEmptyCells, dev_nNonEmptyCells, gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
                     nNDMaskElems, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
@@ -156,6 +158,9 @@ int main(int argc, char * argv[])
         {
             if(searchMode != SM_GPU)
             {
+                unsigned int A_sz = DBSIZE;
+                unsigned int B_sz = DBSIZE;
+
                 Point * A = new Point[datasetSize + 1];
                 for(int i = 0; i < datasetSize; ++i)
                 {
@@ -224,7 +229,7 @@ int main(int argc, char * argv[])
     printf("   [RESULT] ~ Total result set size on the GPU: %lu\n", totalNeighbors);
     printf("   [RESULT] ~ Total result set size on the CPU: %lu\n", totalNeighborsCPU);
 
-    printf("[RESULT] ~ Total execution time: %f\n", (tEnd - tBegin) + sortTime);
+    printf("[RESULT] ~ Total execution time: %f\n", (tEnd - tStart) + sortTime);
     printf("   [RESULT] ~ Total execution time for the GPU: %f", gpuTime);
     printf("   [RESULT] ~ Total execution time for the CPU: %f (Reorder: %f, sort: %f)\n", egoTime, egoReorder, egoSort);
 
