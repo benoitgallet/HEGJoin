@@ -1,5 +1,19 @@
 #include <utility>
-#include <math.h>
+#include <iostream>
+
+using std::cout;
+
+template <typename T>
+inline T min(T a, T b)
+{
+    return (a < b) ? a : b;
+}
+
+template <typename T>
+inline T max(T a, T b)
+{
+    return (a > b) ? a : b;
+}
 
 unsigned int queueIndex = 0;
 unsigned int queueIndexCPU = 0;
