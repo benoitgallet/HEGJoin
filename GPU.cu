@@ -465,7 +465,7 @@ void distanceTableNDGridBatches(
 	unsigned int GPUBufferSize = 0;
 
 	double tstartbatchest = omp_get_wtime();
-    estimatedNeighbors = callGPUBatchEst(DBSIZE, 0, *DBSIZE, dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon,
+    estimatedNeighbors = callGPUBatchEst(DBSIZE, 0, *DBSIZE, dev_database, nullptr, dev_originPointIndex, dev_epsilon,
             dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, dev_gridCellNDMask,
             dev_gridCellNDMaskOffsets, &numBatches, &GPUBufferSize);
 	double tendbatchest = omp_get_wtime();
