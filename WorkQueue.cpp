@@ -1,4 +1,5 @@
 #include <utility>
+#include <math.h>
 
 unsigned int queueIndex = 0;
 unsigned int queueIndexCPU = 0;
