@@ -8,6 +8,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <unistd.h>
+#include <cstdint>
 
 #include "params.h"
 

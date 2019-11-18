@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
+#include <cstdint>
 
 #include "Point.hpp"
 #include "Util.hpp"
