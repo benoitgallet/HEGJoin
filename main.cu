@@ -57,6 +57,9 @@ int main(int argc, char * argv[])
     printf("Dimensionality: %d\n", dim);
     printf("Search mode: %d\n", searchMode);
 
+    Util::eps = epsilon;
+    Util::eps2 = epsilon * epsilon;
+
     std::vector< std::vector<DTYPE> > NDdataPoints;
     double tBeginReadDataset = omp_get_wtime();
     importNDDataset(&NDdataPoints, filename);
@@ -68,6 +71,7 @@ int main(int argc, char * argv[])
 
     sortInNDBins(&NDdataPoints);
 
+    printf("Converting the dataset for Super-EGO\n");
     Point * A = new Point[DBSIZE + 1];
     for(int i = 0; i < DBSIZE; ++i)
     {
