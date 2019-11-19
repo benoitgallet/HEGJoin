@@ -190,7 +190,7 @@ int main(int argc, char * argv[])
                 // std::sort(sortedDatabaseTmp, sortedDatabaseTmp + (*nNonEmptyCells),
                 //         [](const schedulingCell& a, const schedulingCell& b){ return a.nbPoints > b.nbPoints; });
                 // auto egoSortLamba = [](Point const &v1, Point const &v2) -> int
-                auto egoSortLamba = [](pPoint a, pPoint b) -> int
+                auto egoSortLamba = [](const pPoint a, const pPoint b) -> int
                 {
                     // pPoint p1 = a;
                 	// pPoint p2 = b;
