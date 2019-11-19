@@ -65,6 +65,18 @@ int main(int argc, char * argv[])
 
     sortInNDBins(&NDdataPoints);
 
+    Point * A = new Point[DBSIZE + 1];
+    for(int i = 0; i < DBSIZE; ++i)
+    {
+        pPoint p = & A[i];
+        p->id = i;
+        for(int j = 0; j < NUMINDEXEDDIM; ++j)
+        {
+            p->x[j] = NDdataPoints[i][j];
+        }
+    }
+    Point * B = A;
+
     DTYPE * minArr = new DTYPE [NUMINDEXEDDIM];
     DTYPE * maxArr = new DTYPE [NUMINDEXEDDIM];
     unsigned int * nCells = new unsigned int [NUMINDEXEDDIM];
@@ -157,19 +169,6 @@ int main(int argc, char * argv[])
             {
                 unsigned int A_sz = DBSIZE;
                 unsigned int B_sz = DBSIZE;
-
-                Point * A = new Point[DBSIZE + 1];
-                for(int i = 0; i < DBSIZE; ++i)
-                {
-                    pPoint p = & A[i];
-                    p->id = i;
-                    for(int j = 0; j < NUMINDEXEDDIM; ++j)
-                    {
-                        p->x[j] = NDdataPoints[i][j];
-                    }
-                }
-
-                Point * B = A;
 
                 double tBeginEgo = omp_get_wtime();
 

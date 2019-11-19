@@ -29,8 +29,8 @@ int Util::r3[GPUNUMDIM + 1][2];
 void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 {
     //-- define stat vars --
-    // int num_buck = ceil(1 / eps) + 1;   //number of buckets
-	int num_buck = 1201;
+    int num_buck = ceil(1 / eps) + 1;   //number of buckets
+	// int num_buck = 1201;
     pPoint hA = new Point[num_buck];    //histogram for A
     pPoint hB = new Point[num_buck];    //histogram for B
     double d[GPUNUMDIM];                  //avg distance in each dim
@@ -49,10 +49,8 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         }
     }
 
-
     //-- sample points --
     int sample_sz = 2000;
-
 
     for (int i = 0; i < sample_sz; i++)
     {
@@ -76,7 +74,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
             hB[buck_i].x[j] += 1;
         }
     }
-
 
     //-- compute fail factor f in each dimension --
     double f[GPUNUMDIM];
@@ -104,7 +101,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
     }
 
-
     //-- normalizing f --
     for (int i = 0; i < GPUNUMDIM; i++)
     {
@@ -113,7 +109,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         g[i] = -d[i]; //f[i];
         //printf("\n f[%d] = %f", i, f[i]);
     }
-
 
     //-- constracting map of remapping (not efficient) --
     int map[GPUNUMDIM];
@@ -136,7 +131,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         g[min_j] = 2.0; // so that it is not min next time
     }
 
-
     printf("\n\n -- map --");
     for (int i = 0; i < GPUNUMDIM; i++)
     {
@@ -144,12 +138,10 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
     }
     printf("\n-- --- --\n\n");
 
-
     //-- reoder dimension in A --
     for (int i = 0; i < A_sz; i++)
     {
         REAL x[GPUNUMDIM];
-
 
         for (int j = 0; j < GPUNUMDIM; j++)
             x[j] = A[i].x[j];
@@ -157,7 +149,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         for (int j = 0; j < GPUNUMDIM; j++)
             A[i].x[j] = x[map[j]];
     }
-
 
     //-- reoder dimension in B, if not self-join --
     if(B != A)
@@ -175,7 +166,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         }
     }
 
-
     //-- reorder stats accrodingly as well --
     double *rs = new double[GPUNUMDIM];
     double *rd = new double[GPUNUMDIM];
@@ -186,16 +176,12 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         rd[j] = d[map[j]];
     }
 
-
     printf("\n\n -- remap --");
     for (int i = 0; i < GPUNUMDIM; i++)
     {
         printf("\n rs[%2d] = %.3f, rd[%2d] = %.3f", i, rs[i], i, rd[i]);
     }
     printf("\n-- --- --\n\n");
-
-
-
 
     //-- Case 1: zero inactive dimensions --
     int sml_seq_sz = __min(1, GPUNUMDIM);
@@ -212,7 +198,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         r3[i][1] = -1;
     }
 
-
     //-- Case 2: all dims are inactive --
     r1[GPUNUMDIM][0] = 0;
     r1[GPUNUMDIM][1] = GPUNUMDIM-1;
@@ -223,12 +208,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
     r3[GPUNUMDIM][0] = 0;
     r3[GPUNUMDIM][1] = -1;
 
-
-
-
     //-- Case 3: remaining cases --
-
-
     //-- find first k s.t. rd[k] < eps/2 --
     int k = GPUNUMDIM;
 
@@ -240,8 +220,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
             break;
         }
     }
-
-
 
     //--
     for (int i = sml_seq_sz; i < GPUNUMDIM; i++)
@@ -294,9 +272,6 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
         printf("\n  d=%2d: r1=[%2d,%2d] r2=[%2d,%2d] r3=[%2d,%2d]", i, r1[i][0], r1[i][1], r2[i][0], r2[i][1], r3[i][0], r3[i][1]);
     }
     printf("\n--- ------ --\n\n");
-
-
-    //getchar();
 }
 
 

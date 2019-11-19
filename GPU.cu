@@ -1138,7 +1138,7 @@ void distanceTableNDGridBatches(
     cout.flush();
 	// printf("\nTime freeing memory: %f", tFreeEnd - tFreeStart);
 	// }
-	cout << "\n[GPU] ~ ** last error at end of fn batches (could be from freeing memory): " << cudaGetLastError();
+	cout << "\n[GPU] ~ ** last error at end of fn batches (could be from freeing memory): " << cudaGetLastError() << "\n\n";
     cout.flush();
 
 } // NDGridIndexGlobal
