@@ -647,6 +647,7 @@ void distanceTableNDGridBatches(
     float * kernelTimes = new float[GPUSTREAMS];
     unsigned int * nbKernelInvocation = new unsigned int[GPUSTREAMS];
     unsigned int * nbQueryPoint = new unsigned int [GPUSTREAMS];
+    double computeTime = 0;
 
     for(int i = 0; i < GPUSTREAMS; ++i)
     {
@@ -827,6 +828,7 @@ void distanceTableNDGridBatches(
 
         } // parallel section
         double tEndCompute = omp_get_wtime();
+        computeTime = tEndCompute - tStartCompute;
     }
     else
     { // searchModes that have a fixed number of queries (e.g., original GPU kernel or static partitioning)
@@ -1046,8 +1048,9 @@ void distanceTableNDGridBatches(
     	} //END LOOP OVER THE GPU BATCHES
 
         double computeEndTime = omp_get_wtime();
-        cout << "[GPU | RESULT] ~ Compute time for the GPU = " << computeEndTime - computeTimeStart << '\n';
-        cout.flush();
+        computeTime = computeEndTime - computeTimeStart;
+        // cout << "[GPU | RESULT] ~ Compute time for the GPU = " << computeEndTime - computeTimeStart << '\n';
+        // cout.flush();
 
     }
 
@@ -1057,7 +1060,7 @@ void distanceTableNDGridBatches(
         nbQueryPointTotal += nbQueryPoint[i];
     }
     printf("[GPU | RESULT] ~ Query points computed by the GPU: %d\n", nbQueryPointTotal);
-    printf("[GPU | RESULT] ~ Compute time for the GPU: %f\n", tEndCompute - tStartCompute);
+    printf("[GPU | RESULT] ~ Compute time for the GPU: %f\n", computeTime);
 
     cout << "[GPU] ~ Total result set size on host: " << totalResultsLoop << "\033[00m\n";
     cout.flush();
