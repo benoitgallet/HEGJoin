@@ -176,6 +176,8 @@ int main(int argc, char * argv[])
 
                 double tBeginEgo = omp_get_wtime();
 
+                setQueueIndex(0);
+
                 printf("[EGO] ~ Reordering the dimensions\n");
                 double tStartReorder = omp_get_wtime();
                 Util::reorderDim(A, A_sz, B, B_sz);
