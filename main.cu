@@ -63,6 +63,9 @@ int main(int argc, char * argv[])
     double tEndReadDataset = omp_get_wtime();
     printf("Time to read the dataset: %f\n", tEndReadDataset - tBeginReadDataset);
 
+    unsigned int DBSIZE = NDdataPoints.size();
+    setQueueIndexCPU(DBSIZE);
+
     sortInNDBins(&NDdataPoints);
 
     Point * A = new Point[DBSIZE + 1];
@@ -96,9 +99,6 @@ int main(int argc, char * argv[])
     populateNDGridIndexAndLookupArray(&NDdataPoints, epsilon, &gridCellLookupArr, &index,
             indexLookupArr, minArr,  nCells, totalCells, &nNonEmptyCells, &gridCellNDMask,
             gridCellNDMaskOffsets, nNDMaskElems);
-
-    unsigned int DBSIZE = NDdataPoints.size();
-    setQueueIndexCPU(DBSIZE);
 
     //Neighbortable storage -- the result
     neighborTableLookup * neighborTable = new neighborTableLookup [NDdataPoints.size()];
