@@ -668,7 +668,7 @@ void distanceTableNDGridBatches(
 
             do
             {
-                nbQueryPoint[tid] += gpuBatch.second - gpuBatch.first + 1;
+                nbQueryPoint[tid] += gpuBatch.second - gpuBatch.first;
                 printf("[GPU | T_%d] ~ New batch: begin = %d, end = %d\n", tid, gpuBatch.first, gpuBatch.second);
 
                 errCode = cudaMemcpy( &dev_batchBegin[tid], &gpuBatch.first, sizeof(unsigned int), cudaMemcpyHostToDevice );
@@ -680,7 +680,7 @@ void distanceTableNDGridBatches(
             	}
 
                 // N[tid] = batchSize;
-                N[tid] = gpuBatch.second - gpuBatch.first + 1;
+                N[tid] = gpuBatch.second - gpuBatch.first;
                 errCode = cudaMemcpyAsync( &dev_N[tid], &N[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
         		if(errCode != cudaSuccess)
                 {
@@ -1050,6 +1050,13 @@ void distanceTableNDGridBatches(
 
     }
 
+    unsigned int nbQueryPointTotal = 0;
+    for(int i = 0; i < GPUSTREAMS; ++i)
+    {
+        nbQueryPointTotal += nbQueryPoint[i];
+    }
+    printf("[RESULT] ~ Query points computed by the GPU: %d\n", nbQueryPointTotal);
+
     cout << "[GPU] ~ Total result set size on host: " << totalResultsLoop << "\033[00m\n";
     cout.flush();
 
@@ -1072,13 +1079,13 @@ void distanceTableNDGridBatches(
     //     kernelExecutionTime += kernelTimes[i];
     // }
     // cout << "[RESULT] ~ Total kernel execution times: " << kernelExecutionTime << ", average = " << kernelExecutionTime / nbKernelInvocation << '\n';
-    cout << "[RESULT] ~ Total kernel execution times: " << '\n';
-    for(int i = 0; i < GPUSTREAMS; ++i)
-    {
-        cout << "  [RESULT] ~ Stream " << i << ", " << nbQueryPoint[i] << " queries computed: total kernel time = " << kernelTimes[i]
-            << ", average = " << kernelTimes[i] / nbKernelInvocation[i] << '\n';
-    }
-    cout.flush();
+    // cout << "[RESULT] ~ Total kernel execution times: " << '\n';
+    // for(int i = 0; i < GPUSTREAMS; ++i)
+    // {
+    //     cout << "  [RESULT] ~ Stream " << i << ", " << nbQueryPoint[i] << " queries computed: total kernel time = " << kernelTimes[i]
+    //         << ", average = " << kernelTimes[i] / nbKernelInvocation[i] << '\n';
+    // }
+    // cout.flush();
 
 
 

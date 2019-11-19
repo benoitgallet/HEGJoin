@@ -17,9 +17,11 @@
 uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, int num_threads, unsigned int * egoMapping)
 {
 	uint64_t * results = new uint64_t[CPU_THREADS];
+	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
 	for(int i = 0; i < CPU_THREADS; ++i)
 	{
 		results[i] = 0;
+		nbQueries[i] = 0;
 	}
 
 	double tStart = omp_get_wtime();
@@ -38,6 +40,7 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 
 		do
 		{
+			nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 			for(int i = 0; i < CPU_BATCH_SIZE; ++i)
 			{
 				unsigned int index = egoMapping[cpuBatch.first + i];
@@ -55,13 +58,16 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 	}
 	double tEnd = omp_get_wtime();
 
-	printf("[RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
-
 	uint64_t result = 0;
+	unsigned int nbQueriesTotal = 0;
 	for(int i = 0; i < CPU_THREADS; ++i)
 	{
 		result += results[i];
+		nbQueriesTotal += nbQueries[i];
 	}
+
+	printf("[RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
+	printf("[RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);
 
 	delete[] results;
 
