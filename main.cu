@@ -192,8 +192,8 @@ int main(int argc, char * argv[])
                 // auto egoSortLamba = [](Point const &v1, Point const &v2) -> int
                 auto egoSortLamba = [](const Point &a, const Point &b) -> int
                 {
-                    pPoint p1 = &a;
-                	pPoint p2 = &b;
+                    pPoint p1 = a;
+                	pPoint p2 = b;
 
                 	for (int i = 0; i < GPUNUMDIM; i++)
                 	{
