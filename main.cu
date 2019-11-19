@@ -160,10 +160,10 @@ int main(int argc, char * argv[])
         if(0 == tid) // GPU part
         {
             double tBeginGPU = omp_get_wtime();
-            distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
-                    indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
-                    &nNonEmptyCells, dev_nNonEmptyCells, gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
-                    nNDMaskElems, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
+            // distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
+            //         indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
+            //         &nNonEmptyCells, dev_nNonEmptyCells, gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
+            //         nNDMaskElems, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
             double tEndGPU = omp_get_wtime();
             gpuTime = tEndGPU - tBeginGPU;
         }
