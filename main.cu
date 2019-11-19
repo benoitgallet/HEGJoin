@@ -205,7 +205,7 @@ int main(int argc, char * argv[])
                 	}
 
                 	return 0;
-                // };
+                };
                 std::sort(A, A + A_sz, egoSortLambda);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
