@@ -45,7 +45,7 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 			for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 			{
 				unsigned int index = egoMapping[ originPointIndex[i] ];
-				&batch[i] = &A[index];
+				batch[i] = A[index];
 				Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
 			}
 			// for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
