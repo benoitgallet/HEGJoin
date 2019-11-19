@@ -189,23 +189,23 @@ int main(int argc, char * argv[])
                 double tStartEGOSort = omp_get_wtime();
                 // std::sort(sortedDatabaseTmp, sortedDatabaseTmp + (*nNonEmptyCells),
                 //         [](const schedulingCell& a, const schedulingCell& b){ return a.nbPoints > b.nbPoints; });
-                auto egoSortLamba = [](Point const &v1, Point const &v2) -> int
-                {
-                    // pPoint p1 = (pPoint)v1;
-                	// pPoint p2 = (pPoint)v2;
-
-                	for (int i = 0; i < GPUNUMDIM; i++)
-                	{
-                		// int d = ((int) (p1->x[i]/Util::eps)) - ((int) (p2->x[i]/Util::eps));
-                        int d = ((int) (v1.x[i] / Util::eps)) - ((int) (v2.x[i] / Util::eps));
-
-                		if (d != 0)
-                			return d;
-                	}
-
-                	return 0;
-                };
-                std::sort(A, A + A_sz, egoSortLamba);
+                // auto egoSortLamba = [](Point const &v1, Point const &v2) -> int
+                // {
+                //     // pPoint p1 = (pPoint)v1;
+                // 	// pPoint p2 = (pPoint)v2;
+                //
+                // 	for (int i = 0; i < GPUNUMDIM; i++)
+                // 	{
+                // 		// int d = ((int) (p1->x[i]/Util::eps)) - ((int) (p2->x[i]/Util::eps));
+                //         int d = ((int) (v1.x[i] / Util::eps)) - ((int) (v2.x[i] / Util::eps));
+                //
+                // 		if (d != 0)
+                // 			return d;
+                // 	}
+                //
+                // 	return 0;
+                // };
+                std::sort(A, A + A_sz, pcmp);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
