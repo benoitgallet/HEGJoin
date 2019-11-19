@@ -37,5 +37,6 @@
 
 #define SM_GPU 0
 #define SM_HYBRID 1
+#define SM_CPU 2
 
 #endif
