@@ -207,11 +207,13 @@ int main(int argc, char * argv[])
                 // 	return 0;
                 // };
                 std::sort(A, A + A_sz,
-                    [](pPoint a, pPoint b) -> int {
+                    [](Point a, Point b) -> int {
                         for (int i = 0; i < GPUNUMDIM; i++)
                     	{
+                            pPoint p1 = &a;
+                            pPoint p2 = &b;
                     		// int d = ((int) (p1->x[i]/Util::eps)) - ((int) (p2->x[i]/Util::eps));
-                            int d = ((int) (a->x[i] / Util::eps)) - ((int) (a->x[i] / Util::eps));
+                            int d = ((int) (p1->x[i] / Util::eps)) - ((int) (p2->x[i] / Util::eps));
 
                     		if (d != 0)
                     			return d;
