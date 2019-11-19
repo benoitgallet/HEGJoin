@@ -1,5 +1,5 @@
 #include <utility>
-#include <iostream>
+#include <stdio.h>
 
 using std::cout;
 
@@ -87,6 +87,5 @@ void setQueueIndexCPU(unsigned int index)
 
 void displayIndexes()
 {
-    cout << "[QUEUE] ~ Index GPU: " << queueIndex << ", index CPU: " << queueIndexCPU << '\n';
-    cout.flush();
+    printf("[QUEUE] ~ GPU index: %d, CPU index: %d\n", queueIndex, queueIndexCPU);
 }

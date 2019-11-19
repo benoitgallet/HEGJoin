@@ -225,6 +225,8 @@ int main(int argc, char * argv[])
     } // parallel section
     double tEnd = omp_get_wtime();
 
+    displayIndexes();
+
     printf("[RESULT] ~ Total result set size: %lu\n", totalNeighbors + totalNeighborsCPU);
     printf("   [RESULT] ~ Total result set size on the GPU: %lu\n", totalNeighbors);
     printf("   [RESULT] ~ Total result set size on the CPU: %lu\n", totalNeighborsCPU);
