@@ -206,7 +206,7 @@ int main(int argc, char * argv[])
                 //
                 // 	return 0;
                 // };
-                std::sort(&A[0], &A[0] + A_sz,
+                std::sort(A, A + A_sz,
                     [](pPoint a, pPoint b) -> int {
                         for (int i = 0; i < GPUNUMDIM; i++)
                     	{
