@@ -36,7 +36,7 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 		do
 		{
 			cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
-		}while(cpuBatch.first < cpuBatch.second);
+		}while(cpuBatch.second < cpuBatch.first);
 
 		do
 		{
