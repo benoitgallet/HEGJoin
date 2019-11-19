@@ -216,7 +216,7 @@ int main(int argc, char * argv[])
                 for(int i = 0; i < 10; i++)
                 {
                     printf("[TEST | %d] ~ Dataset = %f, %f | Point = %f, %f | Index = %d | Mapping = %d\n",
-                        database[i * GPUNUMDIM], database[i * GPUNUMDIM + 1], (&A[i])->x[0], (&A[i])->x[1], originPointIndex[i], egoMapping[i]);
+                        i, database[i * GPUNUMDIM], database[i * GPUNUMDIM + 1], (&A[i])->x[0], (&A[i])->x[1], originPointIndex[i], egoMapping[i]);
                 }
 
                 totalNeighborsCPU = Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, CPU_THREADS, egoMapping);
