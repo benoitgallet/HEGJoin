@@ -188,7 +188,7 @@ int main(int argc, char * argv[])
                 double tStartEGOSort = omp_get_wtime();
                 // std::sort(sortedDatabaseTmp, sortedDatabaseTmp + (*nNonEmptyCells),
                 //         [](const schedulingCell& a, const schedulingCell& b){ return a.nbPoints > b.nbPoints; });
-                // auto egoSortLamba = [](const void * v1, const void * v2) -> int
+                // auto egoSortLamba = [](Point const &v1, Point const &v2) -> int
                 // {
                 //     pPoint p1 = (pPoint)v1;
                 // 	pPoint p2 = (pPoint)v2;

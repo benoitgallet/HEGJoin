@@ -370,13 +370,17 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 
 void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result)
 {
-	for (int i = frA; i <= toA; i++)
+	// for (int i = frA; i <= toA; i++)
+	for(int i = frB; i <= toB; ++i)
 	{
-		pPoint p = &A[i];
+		// pPoint p = &A[i];
+		pPoint q = &B[i];
 
-		for (int j = frB; j <= toB; j++)
+		// for (int j = frB; j <= toB; j++)
+		for(int j = frA; j <= toA; ++j)
 		{
-			pPoint q = &B[j];
+			// pPoint q = &B[j];
+			pPoint p = &A[j];
 
 			REAL sum = 0;
 
@@ -421,13 +425,17 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
         }
 
         //-- 2 intervals --
-        for (int i = frA; i <= toA; i++)
+        // for (int i = frA; i <= toA; i++)
+		for(int i = frB; i <= toB; ++i)
         {
-            pPoint p = &A[i];
+            // pPoint p = &A[i];
+			pPoint q = &B[i];
 
-            for (int j = frB; j <= toB; j++)
+            // for (int j = frB; j <= toB; j++)
+			for(int j = frA; j <= toA; ++j)
             {
-                pPoint q = &B[j];
+                // pPoint q = &B[j];
+				pPoint p = &A[j];
 
                 REAL sum = 0;
 
@@ -466,13 +474,17 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
 
 
 	//-- 3 intervals --
-	for (int i = frA; i <= toA; i++)
+	// for (int i = frA; i <= toA; i++)
+	for(int i = frB; i <= toB; ++i)
 	{
-		pPoint p = &A[i];
+		// pPoint p = &A[i];
+		pPoint q = &B[i];
 
-		for (int j = frB; j <= toB; j++)
+		// for (int j = frB; j <= toB; j++)
+		for(int j = frA; j <= toA; ++j)
 		{
-			pPoint q = &B[j];
+			// pPoint q = &B[j];
+			pPoint p = &A[j];
 
 			REAL sum = 0;
 

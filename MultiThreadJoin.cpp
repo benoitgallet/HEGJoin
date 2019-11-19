@@ -42,17 +42,17 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 		do
 		{
 			nbQueries[tid] += cpuBatch.second - cpuBatch.first;
-			for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
-			{
-				unsigned int index = egoMapping[ originPointIndex[i] ];
-				batch[i] = A[index];
-				Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
-			}
 			// for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 			// {
 			// 	unsigned int index = egoMapping[ originPointIndex[i] ];
-			// 	Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+			// 	batch[i] = A[index];
+			// 	Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
 			// }
+			for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
+			{
+				unsigned int index = egoMapping[ originPointIndex[i] ];
+				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+			}
 
 			cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 		}while(0 != cpuBatch.second);
