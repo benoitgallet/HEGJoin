@@ -227,7 +227,7 @@ int main(int argc, char * argv[])
     printf("   [RESULT] ~ Total result set size on the CPU: %lu\n", totalNeighborsCPU);
 
     printf("[RESULT] ~ Total execution time: %f\n", (tEnd - tStart) + sortTime);
-    printf("   [RESULT] ~ Total execution time for the GPU: %f", gpuTime);
+    printf("   [RESULT] ~ Total execution time for the GPU: %f\n", gpuTime);
     printf("   [RESULT] ~ Total execution time for the CPU: %f (Reorder: %f, sort: %f)\n", egoTime, egoReorder, egoSort);
 
     if(egoTime < gpuTime)

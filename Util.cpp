@@ -29,7 +29,8 @@ int Util::r3[GPUNUMDIM + 1][2];
 void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 {
     //-- define stat vars --
-    int num_buck = ceil(1 / eps) + 1;   //number of buckets
+    // int num_buck = ceil(1 / eps) + 1;   //number of buckets
+	int num_buck = 1201;
     pPoint hA = new Point[num_buck];    //histogram for A
     pPoint hB = new Point[num_buck];    //histogram for B
     double d[GPUNUMDIM];                  //avg distance in each dim
