@@ -4,6 +4,7 @@
 #include <vector>
 #include <math.h>
 #include <set>
+#include <algorithm>
 
 #include "omp.h"
 
