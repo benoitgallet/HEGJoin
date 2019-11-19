@@ -659,6 +659,7 @@ void distanceTableNDGridBatches(
 
     if (SM_HYBRID == searchMode)
     {
+        double tStartCompute = omp_get_wtime();
         #pragma omp parallel reduction(+: totalResultsLoop) num_threads(GPUSTREAMS)
         {
             unsigned int tid = omp_get_thread_num();
@@ -825,7 +826,7 @@ void distanceTableNDGridBatches(
             }while(0 != gpuBatch.second);
 
         } // parallel section
-
+        double tEndCompute = omp_get_wtime();
     }
     else
     { // searchModes that have a fixed number of queries (e.g., original GPU kernel or static partitioning)
@@ -1045,7 +1046,7 @@ void distanceTableNDGridBatches(
     	} //END LOOP OVER THE GPU BATCHES
 
         double computeEndTime = omp_get_wtime();
-        cout << "[RESULT] ~ Compute time for the GPU = " << computeEndTime - computeTimeStart << '\n';
+        cout << "[GPU | RESULT] ~ Compute time for the GPU = " << computeEndTime - computeTimeStart << '\n';
         cout.flush();
 
     }
@@ -1055,7 +1056,8 @@ void distanceTableNDGridBatches(
     {
         nbQueryPointTotal += nbQueryPoint[i];
     }
-    printf("[RESULT] ~ Query points computed by the GPU: %d\n", nbQueryPointTotal);
+    printf("[GPU | RESULT] ~ Query points computed by the GPU: %d\n", nbQueryPointTotal);
+    printf("[GPU | RESULT] ~ Compute time for the GPU: %f\n", tEndCompute - tStartCompute);
 
     cout << "[GPU] ~ Total result set size on host: " << totalResultsLoop << "\033[00m\n";
     cout.flush();

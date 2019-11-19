@@ -69,8 +69,6 @@ int main(int argc, char * argv[])
     unsigned int DBSIZE = NDdataPoints.size();
     setQueueIndexCPU(DBSIZE);
 
-    sortInNDBins(&NDdataPoints);
-
     printf("Converting the dataset for Super-EGO\n");
     Point * A = new Point[DBSIZE + 1];
     for(int i = 0; i < DBSIZE; ++i)
@@ -83,6 +81,8 @@ int main(int argc, char * argv[])
         }
     }
     Point * B = A;
+
+    sortInNDBins(&NDdataPoints);
 
     DTYPE * minArr = new DTYPE [NUMINDEXEDDIM];
     DTYPE * maxArr = new DTYPE [NUMINDEXEDDIM];
@@ -231,7 +231,7 @@ int main(int argc, char * argv[])
     printf("   [RESULT] ~ Total result set size on the GPU: %lu\n", totalNeighbors);
     printf("   [RESULT] ~ Total result set size on the CPU: %lu\n", totalNeighborsCPU);
 
-    printf("[RESULT] ~ Total execution time: %f\n", (tEnd - tStart) + sortTime);
+    printf("[RESULT] ~ Total execution time: %f (including %f to sort by workload)\n", (tEnd - tStart) + sortTime, sortTime);
     printf("   [RESULT] ~ Total execution time for the GPU: %f\n", gpuTime);
     printf("   [RESULT] ~ Total execution time for the CPU: %f (Reorder: %f, sort: %f)\n", egoTime, egoReorder, egoSort);
 

@@ -66,8 +66,8 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 		nbQueriesTotal += nbQueries[i];
 	}
 
-	printf("[RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
-	printf("[RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);
+	printf("[EGO | RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);
+	printf("[EGO | RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
 
 	delete[] results;
 
