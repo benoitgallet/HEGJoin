@@ -41,9 +41,9 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 		do
 		{
 			nbQueries[tid] += cpuBatch.second - cpuBatch.first;
-			for(int i = 0; i < CPU_BATCH_SIZE; ++i)
+			for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 			{
-				unsigned int index = egoMapping[cpuBatch.first + i];
+				unsigned int index = egoMapping[i];
 				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
 			}
 

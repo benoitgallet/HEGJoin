@@ -213,12 +213,12 @@ int main(int argc, char * argv[])
                     egoMapping[p->id] = i;
                 }
 
-                for(int i = 0; i < 10; i++)
-                {
-                    // printf("[TEST | %d] ~ Dataset = %f, %f | Point = %f, %f | Index = %d | Mapping = %d\n",
-                    //     i, database[i * GPUNUMDIM], database[i * GPUNUMDIM + 1], (&A[i])->x[0], (&A[i])->x[1], originPointIndex[i], egoMapping[i]);
-                    printf("[TEST | %d] ~ %d -> %d\n", i, (&A[i])->id, egoMapping[(&A[i])->id]);
-                }
+                // for(int i = 0; i < 10; i++)
+                // {
+                //     // printf("[TEST | %d] ~ Dataset = %f, %f | Point = %f, %f | Index = %d | Mapping = %d\n",
+                //     //     i, database[i * GPUNUMDIM], database[i * GPUNUMDIM + 1], (&A[i])->x[0], (&A[i])->x[1], originPointIndex[i], egoMapping[i]);
+                //     printf("[TEST | %d] ~ %d -> %d\n", i, (&A[i])->id, egoMapping[(&A[i])->id]);
+                // }
 
                 totalNeighborsCPU = Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, CPU_THREADS, egoMapping);
 
