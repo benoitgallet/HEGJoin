@@ -14,7 +14,7 @@
 #include "params.h"
 #include "WorkQueue.h"
 
-uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, int num_threads, unsigned int * egoMapping)
+uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, int num_threads, unsigned int * egoMapping, unsigned int * originPointIndex)
 {
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
@@ -43,7 +43,8 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 			nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 			for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 			{
-				unsigned int index = egoMapping[i];
+				// unsigned int index = egoMapping[i];
+				unsigned int index = egoMapping[ originPointIndex[i] ];
 				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
 			}
 

@@ -160,10 +160,10 @@ int main(int argc, char * argv[])
         if(0 == tid) // GPU part
         {
             double tBeginGPU = omp_get_wtime();
-            // distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
-            //         indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
-            //         &nNonEmptyCells, dev_nNonEmptyCells, gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
-            //         nNDMaskElems, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
+            distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
+                    indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
+                    &nNonEmptyCells, dev_nNonEmptyCells, gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
+                    nNDMaskElems, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
             double tEndGPU = omp_get_wtime();
             gpuTime = tEndGPU - tBeginGPU;
         }
@@ -176,7 +176,7 @@ int main(int argc, char * argv[])
 
                 double tBeginEgo = omp_get_wtime();
 
-                setQueueIndex(0);
+                // setQueueIndex(0); // Un-comment when using only Super-EGO
 
                 printf("[EGO] ~ Reordering the dimensions\n");
                 double tStartReorder = omp_get_wtime();
@@ -222,7 +222,7 @@ int main(int argc, char * argv[])
                 //     printf("[TEST | %d] ~ %d -> %d\n", i, (&A[i])->id, egoMapping[(&A[i])->id]);
                 // }
 
-                totalNeighborsCPU = Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, CPU_THREADS, egoMapping);
+                totalNeighborsCPU = Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, CPU_THREADS, egoMapping, originPointIndex);
 
                 double tEndEgo = omp_get_wtime();
                 egoTime = tEndEgo - tBeginEgo;

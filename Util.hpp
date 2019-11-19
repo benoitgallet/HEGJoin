@@ -43,7 +43,7 @@ public:
 	//static pPoint B;
 
 	// static resCont* multiThreadJoin(pPoint A, int A_sz, pPoint B, int B_sz, int num_threads);
-	static uint64_t multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, int num_threads, unsigned int * egoMapping);
+	static uint64_t multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, int num_threads, unsigned int * egoMapping, unsigned int * originPointIndex);
 	// static void egoJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, pThreadParam param);
 	static void egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result);
 	// static void simpleJoin (pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result);
