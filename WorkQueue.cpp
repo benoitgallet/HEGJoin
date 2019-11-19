@@ -1,8 +1,6 @@
 #include <utility>
 #include <stdio.h>
 
-using std::cout;
-
 template <typename T>
 inline T min(T a, T b)
 {
