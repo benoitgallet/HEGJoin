@@ -46,9 +46,9 @@ int main(int argc, char * argv[])
         return 1;
     }
 
-    if(epsilon <= 0.0)
+    if(epsilon <= 0.0 || 1.0 < epsilon)
     {
-        printf("Error: epsilon should be positive\n");
+        printf("Error: epsilon should be between ]0, 1]\n");
         return 1;
     }
 
@@ -77,7 +77,7 @@ int main(int argc, char * argv[])
     {
         pPoint p = & A[i];
         p->id = i;
-        for(int j = 0; j < NUMINDEXEDDIM; ++j)
+        for(int j = 0; j < GPUNUMDIM; ++j)
         {
             p->x[j] = NDdataPoints[i][j];
         }
@@ -226,9 +226,6 @@ int main(int argc, char * argv[])
 
                 double tEndEgo = omp_get_wtime();
                 egoTime = tEndEgo - tBeginEgo;
-
-                delete[] A;
-
             } // searchMode
         } // Super-EGO
     } // parallel section
@@ -264,6 +261,8 @@ int main(int argc, char * argv[])
     delete[] indexLookupArr;
     delete[] neighborTable;
     delete[] database;
+
+    delete[] A;
 
     cudaFree(dev_epsilon);
     cudaFree(dev_database);
