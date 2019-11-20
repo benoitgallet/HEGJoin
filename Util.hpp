@@ -53,8 +53,6 @@ public:
     static void reorderDim(pPoint A, int A_sz, pPoint B, int B_sz);
 
 	static REAL rnd();
-
-	static void timSort(Point * array, int n);
 };
 
 
