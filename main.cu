@@ -31,7 +31,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
             return d;
         }
     }
-    return p1.id < p2.id;
+    return p1.id <= p2.id;
 }
 
 int main(int argc, char * argv[])
