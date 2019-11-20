@@ -48,7 +48,7 @@ bool Point::operator<(Point const &p)
 		if ( (int) (x[i] / eps) > (int)(p.x[i] / eps) ) return false;
 	}
 
-	return false;
+	return true;
     // for (int i = 0; i < GPUNUMDIM; i++)
 	// {
 	// 	int d = ((int) (p.x[i] / eps)) - ((int) (x[i] / eps));
