@@ -42,22 +42,22 @@ Point::Point()
 //-------------------------------------------
 bool Point::operator<(Point const &p)
 {
-	// for (int i = 0; i < GPUNUMDIM; i++)
-	// {
-	// 	if ( (int) (x[i] / eps) < (int)(p.x[i] / eps) ) return true;
-	// 	if ( (int) (x[i] / eps) > (int)(p.x[i] / eps) ) return false;
-	// }
-    //
-	// return false;
-    for (int i = 0; i < GPUNUMDIM; i++)
+	for (int i = 0; i < GPUNUMDIM; i++)
 	{
-		int d = ((int) (p.x[i] / eps)) - ((int) (x[i] / eps));
-
-		if (d != 0)
-			return d;
+		if ( (int) (x[i] / eps) < (int)(p.x[i] / eps) ) return true;
+		if ( (int) (x[i] / eps) > (int)(p.x[i] / eps) ) return false;
 	}
 
-	return 0;
+	return false;
+    // for (int i = 0; i < GPUNUMDIM; i++)
+	// {
+	// 	int d = ((int) (p.x[i] / eps)) - ((int) (x[i] / eps));
+    //
+	// 	if (d != 0)
+	// 		return d;
+	// }
+    //
+	// return 0;
 }
 
 //-------------------------------------------
