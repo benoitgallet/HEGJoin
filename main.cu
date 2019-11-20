@@ -32,6 +32,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
         }
     }
     // return 0;
+    return;
 }
 
 int main(int argc, char * argv[])
@@ -206,13 +207,15 @@ int main(int argc, char * argv[])
                 Util::reorderDim(A, A_sz, B, B_sz);
                 double tEndReorder = omp_get_wtime();
                 egoReorder = tEndReorder - tStartReorder;
+                printf("[EGO] ~ Done reordering in %f\n", egoReorder);
 
-                printf("[EGO] ~ EGO sorting of A\n");
+                printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
                 std::sort(A, A + A_sz - 1, egoSortFunction);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
+                printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort)
 
                 unsigned int * egoMapping = new unsigned int[DBSIZE];
                 for(int i = 0; i < DBSIZE; ++i)
@@ -228,7 +231,9 @@ int main(int argc, char * argv[])
                 //     printf("[TEST | %d] ~ %d -> %d\n", i, (&A[i])->id, egoMapping[(&A[i])->id]);
                 // }
 
+                printf("[EGO] ~ Beginning the computation\n";)
                 totalNeighborsCPU = Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, CPU_THREADS, egoMapping, originPointIndex);
+                printf("[EGO] ~ Done with the computation\n");
 
                 double tEndEgo = omp_get_wtime();
                 egoTime = tEndEgo - tBeginEgo;
