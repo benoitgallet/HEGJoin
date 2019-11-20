@@ -40,7 +40,7 @@ Point::Point()
 } */
 
 //-------------------------------------------
-bool Point::operator<(Point &p)
+bool Point::operator<(Point const &p)
 {
 	for (int i = 0; i < GPUNUMDIM; i++)
 	{
