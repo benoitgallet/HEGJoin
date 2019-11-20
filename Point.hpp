@@ -23,6 +23,7 @@ public:
 	//void print2();
 
 	bool operator<(Point const &p);
+	bool operator==(Point const &p);
 	bool operator<=(Point const &p);
 };
 
