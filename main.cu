@@ -32,7 +32,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
         }
     }
     // return 0;
-    return;
+    return 1;
 }
 
 int main(int argc, char * argv[])

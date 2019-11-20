@@ -775,11 +775,13 @@ void distanceTableNDGridBatches(
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
                     cout.flush();
         		}
+                #if !SILENT_GPU
         		else{
                     cout << "[GPU] ~ Result set size within epsilon: " << cnt[tid] << '\n';
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
                     cout.flush();
         		}
+                #endif
 
         		// double endKernel = omp_get_wtime();
 
