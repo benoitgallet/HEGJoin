@@ -276,7 +276,7 @@ void Util::reorderDim(pPoint A, int A_sz, pPoint B, int B_sz)
 
 
 //-----------------------------------------
-int pcmp(const void *v1, const void *v2)
+inline int pcmp(const void *v1, const void *v2)
 {
 	pPoint p1 = (pPoint)v1;
 	pPoint p2 = (pPoint)v2;

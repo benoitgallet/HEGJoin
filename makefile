@@ -11,8 +11,6 @@ FLAGS = -std=c++11 -O3 -Xcompiler -fopenmp -arch=compute_60 -code=sm_60 -lcuda -
 CFLAGS = -c -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES
 CFLAGS2 = -std=c++11 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op
 
-silent: $(EXECUTABLE) 1>/dev/null 2>/dev/null
-
 all: $(EXECUTABLE)
 
 main.o: main.cu params.h
