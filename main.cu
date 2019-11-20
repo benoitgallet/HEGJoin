@@ -215,7 +215,7 @@ int main(int argc, char * argv[])
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
-                printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort)
+                printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
 
                 unsigned int * egoMapping = new unsigned int[DBSIZE];
                 for(int i = 0; i < DBSIZE; ++i)
@@ -231,7 +231,7 @@ int main(int argc, char * argv[])
                 //     printf("[TEST | %d] ~ %d -> %d\n", i, (&A[i])->id, egoMapping[(&A[i])->id]);
                 // }
 
-                printf("[EGO] ~ Beginning the computation\n";)
+                printf("[EGO] ~ Beginning the computation\n");
                 totalNeighborsCPU = Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, CPU_THREADS, egoMapping, originPointIndex);
                 printf("[EGO] ~ Done with the computation\n");
 
