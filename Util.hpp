@@ -25,7 +25,7 @@
 #endif
 
 class CellRect;
-inline int pcmp(const void *v1, const void *v2);
+__inline__ int pcmp(const void *v1, const void *v2);
 
 class Util
 {
