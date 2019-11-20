@@ -38,7 +38,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 		if ( (int) (p1.x[i] / Util::eps) > (int)(p2.x[i] / Util::eps) ) return false;
 	}
 
-	return true;
+	return false;
 }
 
 int main(int argc, char * argv[])
