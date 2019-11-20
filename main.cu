@@ -210,7 +210,8 @@ int main(int argc, char * argv[])
 
                 printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
-                std::stable_sort(A, A + A_sz, egoSortFunction);
+                // std::stable_sort(A, A + A_sz, egoSortFunction);
+                Util::timSort(A, A_sz);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
