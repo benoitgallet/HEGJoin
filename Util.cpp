@@ -575,7 +575,7 @@ void insertionSort(Point * array, int left, int right)
 
 void merge(Point * array, int left, int middle, int right)
 {
-	innt n1 = middle - left + 1;
+	int n1 = middle - left + 1;
 	int n2 = right - middle;
 
 	Point * leftArr = new Point[n1];
