@@ -61,13 +61,13 @@ bool Point::operator<(Point const &p)
 }
 
 //-------------------------------------------
-bool Point::operator<=(Point const &p)
-{
-	for (int i = 0; i < GPUNUMDIM; i++)
-	{
-		if ( (int) (x[i] / eps) < (int)(p.x[i] / eps) ) return true;
-		if ( (int) (x[i] / eps) > (int)(p.x[i] / eps) ) return false;
-	}
-
-	return true;
-}
+// bool Point::operator<=(Point const &p)
+// {
+// 	for (int i = 0; i < GPUNUMDIM; i++)
+// 	{
+// 		if ( (int) (x[i] / eps) < (int)(p.x[i] / eps) ) return true;
+// 		if ( (int) (x[i] / eps) > (int)(p.x[i] / eps) ) return false;
+// 	}
+//
+// 	return true;
+// }
