@@ -283,22 +283,22 @@ int pcmp(const void *v1, const void *v2)
 	pPoint p1 = (pPoint)v1;
 	pPoint p2 = (pPoint)v2;
 
-	// for (int i = 0; i < GPUNUMDIM; i++)
-	// {
-	// 	int d = ((int) (p1->x[i]/Util::eps)) - ((int) (p2->x[i]/Util::eps));
-	//
-	// 	if (d != 0)
-	// 		return d;
-	// }
-	//
-	// return 0;
 	for (int i = 0; i < GPUNUMDIM; i++)
 	{
-		if ( (int) (p1->x[i] / Util::eps) < (int)(p2->x[i] / Util::eps) ) return true;
-		if ( (int) (p1->x[i] / Util::eps) > (int)(p2->x[i] / Util::eps) ) return false;
+		int d = ((int) (p1->x[i]/Util::eps)) - ((int) (p2->x[i]/Util::eps));
+
+		if (d != 0)
+			return d;
 	}
 
-	return false;
+	return 0;
+	// for (int i = 0; i < GPUNUMDIM; i++)
+	// {
+	// 	if ( (int) (p1->x[i] / Util::eps) < (int)(p2->x[i] / Util::eps) ) return true;
+	// 	if ( (int) (p1->x[i] / Util::eps) > (int)(p2->x[i] / Util::eps) ) return false;
+	// }
+	//
+	// return false;
 }
 
 
