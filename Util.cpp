@@ -567,7 +567,7 @@ void insertionSort(Point * array, int low, int high)
 	{
 		p = array[i];
 		j = i - 1;
-		while(0 <= j && key < array[j])
+		while(0 <= j && p < array[j])
 		{
 			array[j + 1] = array[j];
 			j = j - 1;
