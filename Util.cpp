@@ -665,3 +665,63 @@ void Util::quickSort(Point * array, int low, int high)
 		}
 	}
 }
+
+
+
+void stableQuickSort(Point * array, int low, int high)
+{
+	if(high - low <= 1)
+	{
+		return;
+	}
+
+	int mid = (high - low) / 2;
+	Point pivot = array[mid];
+
+	std::vector<Point> smaller(mid);
+	std::vector<Point> greater(mid);
+
+	for(int i = 0; i < high - low; ++i)
+	{
+		Point val = array[i];
+		if(i != mid)
+		{
+			if(val < pivot)
+			{
+				smaller.push_back(val);
+			}
+			else
+			{
+				if(pivot < val)
+				{
+					greater.push_back(val);
+				}
+				else
+				{
+					if(i < mid)
+					{
+						smaller.push_back(val);
+					}
+					else
+					{
+						greater.push_back(val);
+					}
+				}
+			}
+		}
+	}
+
+	for(int i = 0; i < smaller.size(); ++i)
+	{
+		array[i] = smaller[i];
+	}
+	for(int i = 0; i < greater.size(); ++i)
+	{
+		array[mid + i] = greater[i];
+	}
+
+	smaller.clear();
+	smaller.shrink_to_fit();
+	greater.clear();
+	greater.shrink_to_fit();
+}
