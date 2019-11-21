@@ -39,7 +39,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 			return d;
 	}
 
-	return 0;
+	return 1;
 }
 
 
