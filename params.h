@@ -26,7 +26,7 @@
 
 // Limits the output produced by the GPU when computing
 // 0 to limit, 1 to output everything
-#define SILENT_GPU 0
+#define SILENT_GPU 1
 
 /******************************************************************************/
 /* Code should not be modified below this line                                */

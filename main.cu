@@ -220,7 +220,7 @@ int main(int argc, char * argv[])
                 printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
                 // Util::egoSort(A, A_sz);
-                qsort(A, A_sz, sizeof(Point), pcmp);
+                // qsort(A, A_sz, sizeof(Point), pcmp);
 
                 // #pragma omp parallel num_threads(CPU_THREADS)
                 // {
@@ -228,7 +228,7 @@ int main(int argc, char * argv[])
                 //     unsigned int size = A_sz / CPU_THREADS;
                 //     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
                 // }
-                // std::stable_sort(A, A + A_sz, egoSortFunction);
+                std::stable_sort(A, A + A_sz, egoSortFunction);
 
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
