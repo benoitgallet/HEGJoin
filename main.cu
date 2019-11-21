@@ -5,7 +5,6 @@
 #include <math.h>
 #include <set>
 #include <algorithm>
-#include <execution>
 
 #include "omp.h"
 
@@ -21,26 +20,6 @@
 
 using std::cout;
 using std::endl;
-
-bool egoSortFunction(Point const& p1, Point const& p2)
-{
-    // for(int i = 0; i < GPUNUMDIM; ++i)
-    // {
-    //     int d = ((int) (p1.x[i] / Util::eps)) - ((int) (p2.x[i] / Util::eps));
-    //     if(0 != d)
-    //     {
-    //         return d;
-    //     }
-    // }
-    // return p1.id < p2.id;
-    for (int i = 0; i < GPUNUMDIM; i++)
-	{
-		if ( (int) (p1.x[i] / Util::eps) < (int)(p2.x[i] / Util::eps) ) return true;
-		if ( (int) (p1.x[i] / Util::eps) > (int)(p2.x[i] / Util::eps) ) return false;
-	}
-
-	return false;
-}
 
 
 
@@ -220,7 +199,8 @@ int main(int argc, char * argv[])
 
                 printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
-                std::stable_sort(std::execution::par, A, A + A_sz, egoSortFunction);
+                Util::egoSort(A, A_sz);
+                // std::stable_sort(std::execution::par, A, A + A_sz, egoSortFunction);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;

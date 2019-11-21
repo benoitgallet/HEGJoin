@@ -11,6 +11,8 @@
 #include "omp.h"
 #include <utility>
 #include <cmath>
+#include <algorithm>
+#include <execution>
 
 #include "Point.hpp"
 #include "Util.hpp"
@@ -555,3 +557,21 @@ REAL Util::rnd()
 
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
+bool egoSortFunction(Point const& p1, Point const& p2)
+{
+    for (int i = 0; i < GPUNUMDIM; i++)
+	{
+		if ( (int) (p1.x[i] / Util::eps) < (int)(p2.x[i] / Util::eps) ) return true;
+		if ( (int) (p1.x[i] / Util::eps) > (int)(p2.x[i] / Util::eps) ) return false;
+	}
+
+	return false;
+}
+
+
+void Util::egoSort(Point * a, int end)
+{
+	std::stable_sort(std::execution::par, a, a + end, egoSortFunction);
+}
