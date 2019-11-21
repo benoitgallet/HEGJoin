@@ -218,10 +218,9 @@ int main(int argc, char * argv[])
                 {
                     unsigned int tid = omp_get_thread_num();
                     unsigned int size = A_sz / CPU_THREADS;
-                    unsigned int end = min(tid * size, A_sz);
-                    std::stable_sort(A, A + end, egoSortFunction);
+                    std::stable_sort(A, A + min(tid * size, A_sz), egoSortFunction);
                 }
-                std::stable_sort(A, A_sz, egoSortFunction);
+                std::stable_sort(A, A + A_sz, egoSortFunction);
 
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
