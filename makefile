@@ -7,9 +7,9 @@ CC = nvcc -g
 CXX = g++ -g
 EXECUTABLE = main
 
-FLAGS = -std=c++17 -O3 -Xcompiler -fopenmp -arch=compute_60 -code=sm_60 -lcuda -lineinfo
+FLAGS = -std=c++14 -O3 -Xcompiler -fopenmp -arch=compute_60 -code=sm_60 -lcuda -lineinfo
 CFLAGS = -c -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES
-CFLAGS2 = -std=c++11 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op
+CFLAGS2 = -std=c++17 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op
 
 all: $(EXECUTABLE)
 
