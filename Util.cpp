@@ -559,7 +559,7 @@ REAL Util::rnd()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-bool egoSortFunction(Point const& p1, Point const& p2)
+bool egoSortFunction2(Point const& p1, Point const& p2)
 {
     for (int i = 0; i < GPUNUMDIM; i++)
 	{
@@ -573,5 +573,5 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 
 void Util::egoSort(Point * a, int end)
 {
-	std::stable_sort(std::execution::par, a, a + end, egoSortFunction);
+	std::stable_sort(std::execution::par, a, a + end, egoSortFunction2);
 }
