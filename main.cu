@@ -220,7 +220,7 @@ int main(int argc, char * argv[])
                 printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
                 // Util::egoSort(A, A_sz);
-                qsort(A, A_sz, sizeof(Point), egoSortFunction);
+                qsort(A, A_sz, sizeof(Point), pcmp);
 
                 // #pragma omp parallel num_threads(CPU_THREADS)
                 // {
