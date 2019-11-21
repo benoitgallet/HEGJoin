@@ -3,8 +3,8 @@ OBJECTS = import_dataset.o WorkQueue.o
 CUDAOBJECTS = SortByWorkload.o GPU.o kernel.o main.o
 EGOSOURCES = multiThreadJoin.cpp Util.cpp Point.cpp
 EGOBJECTS = Point.o Util.o MultiThreadJoin.o
-CC = nvcc
-CXX = g++
+CC = nvcc -g
+CXX = g++ -g
 EXECUTABLE = main
 
 FLAGS = -std=c++11 -O3 -Xcompiler -fopenmp -arch=compute_60 -code=sm_60 -lcuda -lineinfo
