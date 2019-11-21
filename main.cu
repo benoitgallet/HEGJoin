@@ -210,9 +210,18 @@ int main(int argc, char * argv[])
 
                 printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
-                Util::egoSort(A, A_sz);
+                // Util::egoSort(A, A_sz);
                 // std::stable_sort(std::execution::par, A, A + A_sz, egoSortFunction);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
+
+                #pragma omp parallel num_threads(CPU_THREADS)
+                {
+                    unsigned int tid = omp_get_thread_num();
+                    unsigned int size = A_sz / CPU_THREADS;
+                    std::stable_sort(A, A + __min(tid * size, A_sz), egoSortFunction);
+                }
+                std::stable_sort(A, A_sz, egoSortFunction);
+
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
                 printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
