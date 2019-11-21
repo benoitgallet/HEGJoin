@@ -675,7 +675,7 @@ void Util::stableQuickSort(Point * array, int low, int high)
 		return;
 	}
 
-	int mid = (high - low) / 2;
+	int mid = (high - 1 - low) / 2;
 	Point pivot = array[mid];
 
 	std::vector<Point> smaller(mid);
