@@ -582,15 +582,15 @@ int partition(Point * array, int low, int high)
 {
 	// Use the median-of-three to select the pivot
 	int mid = (low + high) / 2;
-	if(array[mid] < array[low])
+	if(array[mid] < array[low] && mid != low)
 	{
 		std::swap(array[low], array[mid]);
 	}
-	if(array[high] < array[low])
+	if(array[high] < array[low] && high != low)
 	{
 		std::swap(array[low], array[high]);
 	}
-	if(array[mid] < array[high])
+	if(array[mid] < array[high] && mid != high)
 	{
 		std::swap(array[mid], array[high]);
 	}
@@ -603,7 +603,10 @@ int partition(Point * array, int low, int high)
 		if(array[j] < pivot)
 		{
 			i++;
-			std::swap(array[i], array[j]);
+			if(i != j)
+			{
+				std::swap(array[i], array[j]);
+			}
 		}
 	}
 	std::swap(array[i + 1], array[high]);
