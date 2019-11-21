@@ -711,6 +711,9 @@ void Util::stableQuickSort(Point * array, int low, int high)
 		}
 	}
 
+	smaller.shrink_to_fit();
+	greater.shrink_to_fit();
+
 	for(int i = 0; i < smaller.size(); ++i)
 	{
 		array[i] = smaller[i];
