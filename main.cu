@@ -41,6 +41,8 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 	return false;
 }
 
+
+
 int main(int argc, char * argv[])
 {
 
@@ -217,7 +219,8 @@ int main(int argc, char * argv[])
 
                 printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
-                std::stable_sort(A, A + A_sz, egoSortFunction);
+                Util::quickSort(A, 0, A_sz - 1);
+                // std::stable_sort(A, A + A_sz, egoSortFunction);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;

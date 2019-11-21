@@ -555,3 +555,110 @@ REAL Util::rnd()
 
 
 ////////////////////////////////////////////////////////////////////////////////
+
+
+
+void insertionSort(Point * array, int low, int high)
+{
+	int i, j;
+	int size = high - low + 1;
+	Point p;
+	for(i = low + 1; i < size; ++i)
+	{
+		p = array[i];
+		j = i - 1;
+		while(0 <= j && key < array[j])
+		{
+			array[j + 1] = array[j];
+			j = j - 1;
+		}
+		array[j + 1] = p;
+	}
+}
+
+
+
+int partition(Point * array, int low, int high)
+{
+	// Use the median-of-three to select the pivot
+	int mid = (low + high) / 2;
+	if(array[mid] < array[low])
+	{
+		std::swap(array[low], array[mid]);
+	}
+	if(array[high] < array[low])
+	{
+		std::swap(array[low], array[high]);
+	}
+	if(array[mid] < array[high])
+	{
+		std::swap(array[mid], array[high]);
+	}
+	Point pivot = array[high];
+
+	int i = (low - 1);
+
+	for(int j = low; j <= high - 1; ++j)
+	{
+		if(array[j] < pivot)
+		{
+			i++;
+			std::swap(array[i], array[j]);
+		}
+	}
+	std::swap(array[i + 1], array[high]);
+	return i + 1;
+}
+
+void Util::quickSort(Point * array, int low, int high)
+{
+	if(low < high)
+	{
+		int mid = partition(array, low, high);
+
+		int sizeLeft = mid - 1 - low;
+		int sizeRight = high - mid + 1;
+		// Compute the smallest partition first
+		// Use insertion sort when the size of the array is too low
+		if(sizeLeft <= sizeRight)
+		{
+			if(sizeLeft <= 15)
+			{
+				insertionSort(array, low, mid - 1);
+			}
+			else
+			{
+				quickSort(array, low, mid - 1);
+			}
+
+			if(sizeRight <= 15)
+			{
+				insertionSort(array, mid + 1, high);
+			}
+			else
+			{
+				quickSort(array, mid + 1, high);
+			}
+		}
+		else
+		{
+			if(sizeRight <= 15)
+			{
+				insertionSort(array, mid + 1, high);
+			}
+			else
+			{
+				quickSort(array, mid + 1, high);
+			}
+
+			if(sizeLeft <= 15)
+			{
+				insertionSort(array, low, mid - 1);
+			}
+			else
+			{
+				quickSort(array, low, mid - 1);
+			}
+		}
+	}
+}
