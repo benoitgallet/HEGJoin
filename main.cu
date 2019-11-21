@@ -31,7 +31,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 	// }
     //
 	// return false;
-    for (int i = 0; i < NUM_DIM; i++)
+    for (int i = 0; i < GPUNUMDIM; i++)
 	{
 		int d = ((int) (p1.x[i] / Util::eps)) - ((int) (p2.x[i] / Util::eps));
 
