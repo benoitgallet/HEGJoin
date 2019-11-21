@@ -25,7 +25,8 @@
 #define LID_UNICOMP 0
 
 // Limits the output produced by the GPU when computing
-#define SILENT_GPU 1
+// 0 to limit, 1 to output everything
+#define SILENT_GPU 0
 
 /******************************************************************************/
 /* Code should not be modified below this line                                */
