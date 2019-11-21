@@ -668,7 +668,7 @@ void Util::quickSort(Point * array, int low, int high)
 
 
 
-void stableQuickSort(Point * array, int low, int high)
+void Util::stableQuickSort(Point * array, int low, int high)
 {
 	if(high - low <= 1)
 	{

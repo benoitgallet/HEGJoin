@@ -55,6 +55,7 @@ public:
 	static REAL rnd();
 
 	static void quickSort(Point * array, int low, int high);
+	static void stableQuickSort(Point * array, int low, int high);
 };
 
 
