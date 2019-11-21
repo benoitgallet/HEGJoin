@@ -4,8 +4,7 @@
 #include <vector>
 #include <math.h>
 #include <set>
-// #include <algorithm>
-#include <parallel/algorithm>
+#include <algorithm>
 
 #include "omp.h"
 
@@ -211,8 +210,7 @@ int main(int argc, char * argv[])
 
                 printf("[EGO] ~ EGO-sorting of A\n");
                 double tStartEGOSort = omp_get_wtime();
-                // Util::egoSort(A, A_sz);
-                __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
+                Util::egoSort(A, A_sz);
                 // std::stable_sort(std::execution::par, A, A + A_sz, egoSortFunction);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
                 double tEndEGOSort = omp_get_wtime();
