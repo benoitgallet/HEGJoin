@@ -218,8 +218,8 @@ int main(int argc, char * argv[])
                 {
                     unsigned int tid = omp_get_thread_num();
                     unsigned int size = A_sz / CPU_THREADS;
-                    unsigned int min = min(tid * size, A_sz);
-                    std::stable_sort(A, A + min, egoSortFunction);
+                    unsigned int end = min(tid * size, A_sz);
+                    std::stable_sort(A, A + end, egoSortFunction);
                 }
                 std::stable_sort(A, A_sz, egoSortFunction);
 
