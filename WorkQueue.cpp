@@ -16,7 +16,12 @@ inline T min(T a, T b)
 // }
 unsigned int max(unsigned int a, unsigned int b)
 {
-    return (a > b) ? a : b;
+    // return (a > b) ? a : b;
+    if(a < b)
+    {
+        return b;
+    }
+    return a;
 }
 
 unsigned int queueIndex = 0;
