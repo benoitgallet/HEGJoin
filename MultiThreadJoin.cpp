@@ -45,19 +45,19 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 			{
 				// printf("[EGO | T_%d] ~ Begin: %d, end: %d\n", tid, cpuBatch.first, cpuBatch.second);
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
-				unsigned int batchIndex = 0;
-				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
-				{
-					unsigned int index = egoMapping[ originPointIndex[i] ];
-					batch[batchIndex] = A[index];
-					batchIndex++;
-				}
-				Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
-				// for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				// unsigned int batchIndex = 0;
+				// for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				// {
 				// 	unsigned int index = egoMapping[ originPointIndex[i] ];
-				// 	Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+				// 	batch[batchIndex] = A[index];
+				// 	batchIndex++;
 				// }
+				// Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
+				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				{
+					unsigned int index = egoMapping[ originPointIndex[i] ];
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+				}
 
 				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
