@@ -219,11 +219,11 @@ int main(int argc, char * argv[])
                 unsigned int nbThreads = min(8, CPU_THREADS);
                 unsigned int size = A_sz / CPU_THREADS;
                 double tStartEGOSort = omp_get_wtime();
-                #pragma omp parallel num_threads(nbThreads)
-                {
-                    unsigned int tid = omp_get_thread_num();
-                    std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
-                }
+                // #pragma omp parallel num_threads(nbThreads)
+                // {
+                //     unsigned int tid = omp_get_thread_num();
+                //     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
+                // }
                 double tMidEgoSort = omp_get_wtime();
                 std::stable_sort(A, A + A_sz, egoSortFunction);
                 double tEndEGOSort = omp_get_wtime();
