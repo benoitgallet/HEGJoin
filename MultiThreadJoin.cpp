@@ -41,6 +41,7 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 
 		do
 		{
+			printf("[EGO | T_%d] ~ Begin: %d, end: %d\n", tid, cpuBatch.first, cpuBatch.second);
 			nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 			// for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 			// {
