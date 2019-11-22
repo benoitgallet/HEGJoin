@@ -25,20 +25,18 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 	}
 
 	double tStart = omp_get_wtime();
-	// if(searchMode == SM_HYBRID)
-	// {
+	if(searchMode == SM_HYBRID)
+	{
 		#pragma omp parallel num_threads(CPU_THREADS)
 		{
 			unsigned int tid = omp_get_thread_num();
-
 			std::vector<int> resultVector;
-
 			std::pair<unsigned int, unsigned int> cpuBatch;
-			// unsigned int * batch = new unsigned int[CPU_BATCH_SIZE];
-			Point * batch = new Point[CPU_BATCH_SIZE];
+			// Point * batch = new Point[CPU_BATCH_SIZE];
+
 			do
 			{
-				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
+				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 			}while(cpuBatch.second < cpuBatch.first);
 
 			do
@@ -59,7 +57,7 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
 				}
 
-				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
+				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
 
 			results[tid] += resultVector.size();
@@ -68,11 +66,35 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 			resultVector.clear();
 			resultVector.shrink_to_fit();
 		}
-	// }
-	// else // only use the CPU, not the GPU
-	// {
-	//
-	// }
+	}
+	else // only use the CPU, not the GPU
+	{
+		#pragma omp parallel num_threads(CPU_THREADS)
+		{
+			unsigned int tid = omp_get_thread_num();
+			std::vector<int> resultVector;
+			std::pair<unsigned int, unsigned int> cpuBatch;
+
+			do
+			{
+				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
+
+				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				{
+					unsigned int index = egoMapping[ originPointIndex[i] ];
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+				}
+
+				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
+			}while(0 != cpuBatch.second);
+
+			results[tid] += resultVector.size();
+
+			delete[] batch;
+			resultVector.clear();
+			resultVector.shrink_to_fit();
+		}
+	}
 	double tEnd = omp_get_wtime();
 
 	uint64_t result = 0;
