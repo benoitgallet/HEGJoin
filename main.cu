@@ -217,38 +217,30 @@ int main(int argc, char * argv[])
                 // Then sort everything, which is fast as the array is 'quasi-sorted'
                 // Or multi-way merge
                 unsigned int size = A_sz / CPU_THREADS;
-                int * indexes = new int[CPU_THREADS];
                 #pragma omp parallel num_threads(CPU_THREADS)
                 {
                     unsigned int tid = omp_get_thread_num();
                     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
-                    indexes[tid] = tid * size;
                 }
-                // std::stable_sort(A, A + A_sz, egoSortFunction);
-                Point * A_sorted = new Point[A_sz];
-                for(int i = 0; i < A_sz; ++i)
+                size = A_sz / (CPU_THREADS / 2);
+                #pragma omp parallel num_threads(CPU_THREADS / 2)
                 {
-                    Point min = A[ indexes[0] ];
-                    int minIndex = 0;
-                    for(int j = 1; j < CPU_THREADS; ++j)
-                    {
-                        if(A[ indexes[j] ] < min)
-                        {
-                            if(A[ indexes[j] ].id < min.id)
-                            {
-                                min = A[ indexes[j] ];
-                                minIndex = j;
-                            }
-                        }
-                    }
-                    A_sorted[i] = A[ indexes[minIndex] ];
-                    indexes[minIndex]++;
+                    unsigned int tid = omp_get_thread_num();
+                    std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
                 }
-                delete[] A;
-                A = A_sorted;
-                B = A;
-
-
+                size = A_sz / (CPU_THREADS / 4);
+                #pragma omp parallel num_threads(CPU_THREADS / 4)
+                {
+                    unsigned int tid = omp_get_thread_num();
+                    std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
+                }
+                size = A_sz / (CPU_THREADS / 8);
+                #pragma omp parallel num_threads(CPU_THREADS / 8)
+                {
+                    unsigned int tid = omp_get_thread_num();
+                    std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
+                }
+                std::stable_sort(A, A + A_sz, egoSortFunction);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
                 printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
