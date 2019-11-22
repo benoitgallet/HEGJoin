@@ -62,7 +62,6 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 
 			results[tid] += resultVector.size();
 
-			delete[] batch;
 			resultVector.clear();
 			resultVector.shrink_to_fit();
 		}
@@ -90,7 +89,6 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 
 			results[tid] += resultVector.size();
 
-			delete[] batch;
 			resultVector.clear();
 			resultVector.shrink_to_fit();
 		}
