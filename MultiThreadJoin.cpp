@@ -36,7 +36,7 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 		Point * batch = new Point[CPU_BATCH_SIZE];
 		do
 		{
-			cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
+			cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
 		}while(cpuBatch.second < cpuBatch.first);
 
 		do
@@ -55,7 +55,7 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
 			}
 
-			cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
+			cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
 		}while(0 != cpuBatch.second);
 
 		results[tid] += resultVector.size();

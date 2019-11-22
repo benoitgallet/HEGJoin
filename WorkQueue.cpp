@@ -25,8 +25,8 @@
 //     return a;
 // }
 
-unsigned int queueIndex = 0;
-unsigned int queueIndexCPU = 0;
+unsigned int queueIndex = 1;
+unsigned int queueIndexCPU = 1;
 
 bool gpuOffset = false;
 
