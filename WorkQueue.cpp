@@ -42,7 +42,7 @@ std::pair<unsigned int, unsigned int> getBatchFromQueue(
             if(queueIndex < DBSIZE && queueIndex < queueIndexCPU && queueIndex != queueIndexCPU)
             {
                 begin = queueIndex;
-                end = min(begin + batchSize, queueIndexCPU);
+                end = std::min(begin + batchSize, queueIndexCPU);
                 queueIndex = end;
             }else{
                 begin = 0;
@@ -68,7 +68,7 @@ std::pair<unsigned int, unsigned int> getBatchFromQueueCPU(
         {
             if(0 < queueIndexCPU && queueIndex < queueIndexCPU && queueIndex != queueIndexCPU)
             {
-                begin = max(queueIndex, queueIndexCPU - batchSize);
+                begin = std::max(queueIndex, queueIndexCPU - batchSize);
                 end = queueIndexCPU;
                 queueIndexCPU = begin;
                 displayIndexes();
