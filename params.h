@@ -1,8 +1,8 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define GPUNUMDIM 16
-#define NUMINDEXEDDIM 6
+#define GPUNUMDIM 2
+#define NUMINDEXEDDIM 2
 
 #define BLOCKSIZE 256
 
@@ -14,8 +14,8 @@
 
 // Note: Super-EGO does not work using double precision
 // TODO should merge the two variables together
-#define DTYPE float // precision used by the GPU component
-#define REAL float  // precision used by Super-EGO
+#define DTYPE double // precision used by the GPU component
+#define REAL double  // precision used by Super-EGO
 
 // Used by Super-EGO
 #define MINLEN 32
