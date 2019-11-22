@@ -234,8 +234,11 @@ int main(int argc, char * argv[])
                     {
                         if(A[ indexes[j] ] < min)
                         {
-                            min = A[ indexes[j] ];
-                            minIndex = j;
+                            if(A[ indexes[j] ]->id < min->id)
+                            {
+                                min = A[ indexes[j] ];
+                                minIndex = j;
+                            }
                         }
                     }
                     A_sorted[i] = A[ indexes[minIndex] ];
