@@ -234,7 +234,7 @@ int main(int argc, char * argv[])
                     {
                         if(A[ indexes[j] ] < min)
                         {
-                            if(A[ indexes[j] ]->id < min->id)
+                            if(A[ indexes[j] ].id < min.id)
                             {
                                 min = A[ indexes[j] ];
                                 minIndex = j;
