@@ -56,7 +56,7 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 			}
 
 			cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
-		}while(0 != cpuBatch.second);
+		}while(0 != cpuBatch.second && 0 <= cpuBatch.first && 0 <= cpuBatch.second);
 
 		results[tid] += resultVector.size();
 
