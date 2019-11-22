@@ -224,7 +224,7 @@ int main(int argc, char * argv[])
                     unsigned int tid = omp_get_thread_num();
                     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
                 }
-                double tMidEgoSort = omp_get_wtime
+                double tMidEgoSort = omp_get_wtime();
                 std::stable_sort(A, A + A_sz, egoSortFunction);
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
