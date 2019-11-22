@@ -30,7 +30,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 		if ( (int) (p1.x[i] / Util::eps) > (int)(p2.x[i] / Util::eps) ) return false;
 	}
 
-	return p1.id < p2.id;
+	return false;
     // for (int i = 0; i < GPUNUMDIM; i++)
 	// {
 	// 	int d = ((int) (p1.x[i] / Util::eps)) - ((int) (p2.x[i] / Util::eps));
@@ -222,12 +222,12 @@ int main(int argc, char * argv[])
                 // Util::egoSort(A, A_sz);
                 // qsort(A, A_sz, sizeof(Point), pcmp);
 
-                // #pragma omp parallel num_threads(CPU_THREADS)
-                // {
-                //     unsigned int tid = omp_get_thread_num();
-                //     unsigned int size = A_sz / CPU_THREADS;
-                //     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
-                // }
+                #pragma omp parallel num_threads(CPU_THREADS)
+                {
+                    unsigned int tid = omp_get_thread_num();
+                    unsigned int size = A_sz / CPU_THREADS;
+                    std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
+                }
                 std::stable_sort(A, A + A_sz, egoSortFunction);
 
                 double tEndEGOSort = omp_get_wtime();
