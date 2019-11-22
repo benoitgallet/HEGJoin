@@ -232,7 +232,7 @@ int main(int argc, char * argv[])
                 {
                     key = A[i];
                     j = i - 1;
-                    while(0 <= j && key < A[j])
+                    while(0 <= j && egoSortFunction(key, A[j]))
                     {
                         A[j + 1] = A[j];
                         j = j - 1;
