@@ -1,6 +1,8 @@
 #include <utility>
 #include <stdio.h>
 
+#include "WorkQueue.h"
+
 template <typename T>
 inline T min(T a, T b)
 {
