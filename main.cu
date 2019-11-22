@@ -260,7 +260,7 @@ int main(int argc, char * argv[])
                 // }
 
                 printf("[EGO] ~ Beginning the computation\n");
-                totalNeighborsCPU = Util::multiThreadJoinWorkQueue(A, A_sz, B, B_sz, egoMapping, originPointIndex);
+                totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex);
                 printf("[EGO] ~ Done with the computation\n");
 
                 double tEndEgo = omp_get_wtime();

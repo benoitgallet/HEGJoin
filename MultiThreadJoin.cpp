@@ -14,7 +14,7 @@
 #include "params.h"
 #include "WorkQueue.h"
 
-uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, unsigned int * egoMapping, unsigned int * originPointIndex)
+uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A_sz, pPoint B, int B_sz, unsigned int * egoMapping, unsigned int * originPointIndex)
 {
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
@@ -25,45 +25,52 @@ uint64_t Util::multiThreadJoinWorkQueue(pPoint A, int A_sz, pPoint B, int B_sz, 
 	}
 
 	double tStart = omp_get_wtime();
-	#pragma omp parallel num_threads(CPU_THREADS)
-	{
-		unsigned int tid = omp_get_thread_num();
-
-		std::vector<int> resultVector;
-
-		std::pair<unsigned int, unsigned int> cpuBatch;
-		// unsigned int * batch = new unsigned int[CPU_BATCH_SIZE];
-		Point * batch = new Point[CPU_BATCH_SIZE];
-		do
+	// if(searchMode == SM_HYBRID)
+	// {
+		#pragma omp parallel num_threads(CPU_THREADS)
 		{
-			cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
-		}while(cpuBatch.second < cpuBatch.first);
+			unsigned int tid = omp_get_thread_num();
 
-		do
-		{
-			printf("[EGO | T_%d] ~ Begin: %d, end: %d\n", tid, cpuBatch.first, cpuBatch.second);
-			nbQueries[tid] += cpuBatch.second - cpuBatch.first;
-			// for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
-			// {
-			// 	unsigned int index = egoMapping[ originPointIndex[i] ];
-			// 	batch[i] = A[index];
-			// 	Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
-			// }
-			for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+			std::vector<int> resultVector;
+
+			std::pair<unsigned int, unsigned int> cpuBatch;
+			// unsigned int * batch = new unsigned int[CPU_BATCH_SIZE];
+			Point * batch = new Point[CPU_BATCH_SIZE];
+			do
 			{
-				unsigned int index = egoMapping[ originPointIndex[i] ];
-				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
-			}
+				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
+			}while(cpuBatch.second < cpuBatch.first);
 
-			cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
-		}while(0 != cpuBatch.second);
+			do
+			{
+				// printf("[EGO | T_%d] ~ Begin: %d, end: %d\n", tid, cpuBatch.first, cpuBatch.second);
+				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
+				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				{
+					unsigned int index = egoMapping[ originPointIndex[i] ];
+					batch[i] = A[index];
+				}
+				Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
+				// for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				// {
+				// 	unsigned int index = egoMapping[ originPointIndex[i] ];
+				// 	Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+				// }
 
-		results[tid] += resultVector.size();
+				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
+			}while(0 != cpuBatch.second);
 
-		delete[] batch;
-		resultVector.clear();
-		resultVector.shrink_to_fit();
-	}
+			results[tid] += resultVector.size();
+
+			delete[] batch;
+			resultVector.clear();
+			resultVector.shrink_to_fit();
+		}
+	// }
+	// else // only use the CPU, not the GPU
+	// {
+	//
+	// }
 	double tEnd = omp_get_wtime();
 
 	uint64_t result = 0;

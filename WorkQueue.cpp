@@ -1,29 +1,19 @@
 #include <utility>
-#include <algorithm>
 #include <stdio.h>
 
 #include "WorkQueue.h"
 
-// template <typename T>
-// inline T min(T a, T b)
-// {
-//     return (a < b) ? a : b;
-// }
-//
-// // template <typename T>
-// // inline T max(T a, T b)
-// // {
-// //     return (a > b) ? a : b;
-// // }
-// unsigned int max(unsigned int a, unsigned int b)
-// {
-//     // return (a > b) ? a : b;
-//     if(a < b)
-//     {
-//         return b;
-//     }
-//     return a;
-// }
+template <typename T>
+inline T min(T a, T b)
+{
+    return (a < b) ? a : b;
+}
+
+template <typename T>
+inline T max(T a, T b)
+{
+    return (a > b) ? a : b;
+}
 
 unsigned int queueIndex = 1;
 unsigned int queueIndexCPU = 1;
@@ -42,7 +32,7 @@ std::pair<unsigned int, unsigned int> getBatchFromQueue(
             if(queueIndex < DBSIZE && queueIndex < queueIndexCPU && queueIndex != queueIndexCPU)
             {
                 begin = queueIndex;
-                end = std::min(begin + batchSize, queueIndexCPU);
+                end = min(begin + batchSize, queueIndexCPU);
                 queueIndex = end;
             }else{
                 begin = 0;
@@ -68,7 +58,7 @@ std::pair<unsigned int, unsigned int> getBatchFromQueueCPU(
         {
             if(0 < queueIndexCPU && queueIndex < queueIndexCPU && queueIndex != queueIndexCPU)
             {
-                begin = std::max(queueIndex, queueIndexCPU - batchSize);
+                begin = max(queueIndex, queueIndexCPU - batchSize);
                 end = queueIndexCPU;
                 queueIndexCPU = begin;
                 displayIndexes();
