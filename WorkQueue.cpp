@@ -3,26 +3,26 @@
 
 #include "WorkQueue.h"
 
-template <typename T>
-inline T min(T a, T b)
-{
-    return (a < b) ? a : b;
-}
-
 // template <typename T>
-// inline T max(T a, T b)
+// inline T min(T a, T b)
 // {
-//     return (a > b) ? a : b;
+//     return (a < b) ? a : b;
 // }
-unsigned int max(unsigned int a, unsigned int b)
-{
-    // return (a > b) ? a : b;
-    if(a < b)
-    {
-        return b;
-    }
-    return a;
-}
+//
+// // template <typename T>
+// // inline T max(T a, T b)
+// // {
+// //     return (a > b) ? a : b;
+// // }
+// unsigned int max(unsigned int a, unsigned int b)
+// {
+//     // return (a > b) ? a : b;
+//     if(a < b)
+//     {
+//         return b;
+//     }
+//     return a;
+// }
 
 unsigned int queueIndex = 0;
 unsigned int queueIndexCPU = 0;
