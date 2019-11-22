@@ -1,4 +1,5 @@
 #include <utility>
+#include <algorithm>
 #include <stdio.h>
 
 #include "WorkQueue.h"
