@@ -165,7 +165,7 @@ int main(int argc, char * argv[])
     double egoTime = 0.0;
     double egoReorder = 0.0;
     double egoSort = 0.0;
-    double midSort = 0.0;
+    // double midSort = 0.0;
 
     double tStart = omp_get_wtime();
     #pragma omp parallel num_threads(2)
@@ -216,33 +216,34 @@ int main(int argc, char * argv[])
                 // First sort smaller partitions in parallel
                 // Then sort everything, which is fast as the array is 'quasi-sorted'
                 // Or multi-way merge
-                unsigned int nbThreads = min(8, CPU_THREADS);
-                unsigned int size = A_sz / CPU_THREADS;
+                // unsigned int nbThreads = min(8, CPU_THREADS);
+                // unsigned int size = A_sz / CPU_THREADS;
                 double tStartEGOSort = omp_get_wtime();
-                #pragma omp parallel num_threads(nbThreads)
-                {
-                    unsigned int tid = omp_get_thread_num();
-                    std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
-                }
-                double tMidEgoSort = omp_get_wtime();
-                // std::stable_sort(A, A + A_sz, egoSortFunction);
-                int i, j;
-                Point key;
-                for(int i = 1; i < A_sz; ++i)
-                {
-                    key = A[i];
-                    j = i - 1;
-                    while(0 <= j && !egoSortFunction(key, A[j]))
-                    {
-                        A[j + 1] = A[j];
-                        j = j - 1;
-                    }
-                    A[j + 1] = key;
-                }
+                // #pragma omp parallel num_threads(nbThreads)
+                // {
+                //     unsigned int tid = omp_get_thread_num();
+                //     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
+                // }
+                // double tMidEgoSort = omp_get_wtime();
+                std::stable_sort(A, A + A_sz, egoSortFunction);
+                // int i, j;
+                // Point key;
+                // for(int i = 1; i < A_sz; ++i)
+                // {
+                //     key = A[i];
+                //     j = i - 1;
+                //     while(0 <= j && !egoSortFunction(key, A[j]))
+                //     {
+                //         A[j + 1] = A[j];
+                //         j = j - 1;
+                //     }
+                //     A[j + 1] = key;
+                // }
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
-                midSort = tMidEgoSort - tStartEGOSort;
-                printf("[EGO] ~ Done EGO-sorting in %f (step 1: %f, step 2: %f)\n", egoSort, midSort, egoSort - midSort);
+                // midSort = tMidEgoSort - tStartEGOSort;
+                // printf("[EGO] ~ Done EGO-sorting in %f (step 1: %f, step 2: %f)\n", egoSort, midSort, egoSort - midSort);
+                printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
 
                 unsigned int * egoMapping = new unsigned int[DBSIZE];
                 for(int i = 0; i < DBSIZE; ++i)
