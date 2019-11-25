@@ -16,8 +16,8 @@ EXPO4D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_4_pts_10
 EXPO6D2M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_6_pts_2000000.txt"
 EXPO6D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_6_pts_10000000.txt"
 
-sed -i'4s/.*/#define GPUNUMDIM 2/' params.h
-sed -i'5s/.*/#define NUMINDEXEDDIM 2/' params.h
+sed -i '4s/.*/#define GPUNUMDIM 2/' params.h
+sed -i '5s/.*/#define NUMINDEXEDDIM 2/' params.h
 make clean
 make 1>/dev/null 2>/dev/null
 
@@ -329,8 +329,8 @@ echo '-----'
 echo
 echo
 
-sed -i'4s/.*/#define GPUNUMDIM 3/' params.h
-sed -i'5s/.*/#define NUMINDEXEDDIM 3/' params.h
+sed -i '4s/.*/#define GPUNUMDIM 3/' params.h
+sed -i '5s/.*/#define NUMINDEXEDDIM 3/' params.h
 make clean
 make 1>/dev/null 2>/dev/null
 
@@ -642,8 +642,8 @@ echo '-----'
 echo
 echo
 
-sed -i'4s/.*/#define GPUNUMDIM 4/' params.h
-sed -i'5s/.*/#define NUMINDEXEDDIM 4/' params.h
+sed -i '4s/.*/#define GPUNUMDIM 4/' params.h
+sed -i '5s/.*/#define NUMINDEXEDDIM 4/' params.h
 make clean
 make 1>/dev/null 2>/dev/null
 
@@ -802,8 +802,8 @@ echo '-----'
 echo
 echo
 
-sed -i'4s/.*/#define GPUNUMDIM 6/' params.h
-sed -i'5s/.*/#define NUMINDEXEDDIM 6/' params.h
+sed -i '4s/.*/#define GPUNUMDIM 6/' params.h
+sed -i '5s/.*/#define NUMINDEXEDDIM 6/' params.h
 make clean
 make 1>/dev/null 2>/dev/null
 

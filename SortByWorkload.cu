@@ -334,7 +334,7 @@ void sortByWorkLoad(
     cudaFree(dev_sortedDatabaseTmp);
 
     unsigned int decileMark = (*nNonEmptyCells) / 10;
-    cout << "[SORT] ~ Total number of candidate point to refine: " << accNeighbor << '\n';
+    cout << "[SORT] ~ Total number of candidate points to refine: " << accNeighbor << '\n';
     cout << "[SORT] ~ Number of candidates: min = " << minNeighbor << ", median = " << sortedDatabaseTmp[(*nNonEmptyCells) / 2].nbPoints << ", max = " << maxNeighbor << ", avg = " << accNeighbor / (*nNonEmptyCells) << '\n';
     cout << "[SORT] ~ Deciles number of candidates: \n";
     for(int i = 1; i < 10; ++i)

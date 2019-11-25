@@ -49,15 +49,6 @@ bool Point::operator<(Point const &p)
 	}
 
 	return false;
-    // for (int i = 0; i < GPUNUMDIM; i++)
-	// {
-	// 	int d = ((int) (p.x[i] / eps)) - ((int) (x[i] / eps));
-    //
-	// 	if (d != 0)
-	// 		return d;
-	// }
-    //
-	// return 0;
 }
 
 bool Point::operator==(Point const &p)

@@ -215,7 +215,7 @@ int main(int argc, char * argv[])
 
                 // First sort smaller partitions in parallel
                 // Then sort everything, which is fast as the array is 'quasi-sorted'
-                // Or multi-way merge
+                // using either another stable sort or an insertion sort
                 // unsigned int nbThreads = min(8, CPU_THREADS);
                 // unsigned int size = A_sz / CPU_THREADS;
                 double tStartEGOSort = omp_get_wtime();
@@ -251,14 +251,7 @@ int main(int argc, char * argv[])
                     pPoint p = &A[i];
                     egoMapping[p->id] = i;
                 }
-
-                // for(int i = 0; i < 10; i++)
-                // {
-                //     // printf("[TEST | %d] ~ Dataset = %f, %f | Point = %f, %f | Index = %d | Mapping = %d\n",
-                //     //     i, database[i * GPUNUMDIM], database[i * GPUNUMDIM + 1], (&A[i])->x[0], (&A[i])->x[1], originPointIndex[i], egoMapping[i]);
-                //     printf("[TEST | %d] ~ %d -> %d\n", i, (&A[i])->id, egoMapping[(&A[i])->id]);
-                // }
-
+                
                 printf("[EGO] ~ Beginning the computation\n");
                 totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex);
                 printf("[EGO] ~ Done with the computation\n");
