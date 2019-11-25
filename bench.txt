@@ -1,0 +1,2071 @@
+sed: -e expression #1, char 2: extra characters after command
+sed: -e expression #1, char 2: extra characters after command
+rm import_dataset.o WorkQueue.o
+rm SortByWorkload.o GPU.o kernel.o main.o
+rm Point.o Util.o MultiThreadJoin.o
+rm main
+~ SW2DA
+# GPU
+## Epsilon 0.000833333
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 0.854763
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 551971936
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.103517 (including 0.177612 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.925804
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.925804
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 0.863061
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 551971936
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 3.804617 (including 0.176353 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.627763
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.627763
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 0.861728
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 551971936
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 3.816245 (including 0.209303 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.606829
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.606829
+## Epsilon 0.001666667
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 2.704321
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 1998759580
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 5.680438 (including 0.201926 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.478381
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 5.478381
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 2.722661
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 1998759580
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 5.735712 (including 0.206219 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.529367
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 5.529367
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 2.794385
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 1998759580
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 5.829887 (including 0.207656 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.621546
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 5.621546
+## Epsilon 0.002500000
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 5.515173
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 4231178662
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 8.542554 (including 0.206295 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.336114
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 8.336114
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 5.634457
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 4231178662
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 8.608562 (including 0.206960 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.400884
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 8.400884
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 5.669978
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 4231178662
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 8.630412 (including 0.172447 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.457866
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 8.457866
+## Epsilon 0.003333333
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 9.954832
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 7195435078
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.912701 (including 0.175983 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.736622
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.736622
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 9.970424
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 7195435078
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.670740 (including 0.171804 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.498838
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.498838
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 9.917477
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 7195435078
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.848442 (including 0.171464 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.676885
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.676885
+## Epsilon 0.004166667
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 15.642045
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 10849914916
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 18.298967 (including 0.171242 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 18.127628
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 18.127628
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 15.393845
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 10849914916
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 18.248456 (including 0.172112 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 18.075844
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 18.075844
+[GPU | RESULT] ~ Query points computed by the GPU: 1864620
+[GPU | RESULT] ~ Compute time for the GPU: 15.388312
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 10849914916
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 18.408852 (including 0.202981 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 18.205731
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 18.205731
+
+# Hybrid
+## Epsilon 0.000833333
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1087700
+[EGO | RESULT] ~ Compute time for Super-EGO: 1.973991
+[GPU | RESULT] ~ Query points computed by the GPU: 776920
+[GPU | RESULT] ~ Compute time for the GPU: 0.608547
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 427290420
+   [RESULT] ~ Total result set size on the CPU: 124681516
+[RESULT] ~ Total execution time: 3.445780 (including 0.175961 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.269730
+   [RESULT] ~ Total execution time for the CPU: 2.571511 (Reorder: 0.011277, sort: 0.572149)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.698219
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1169600
+[EGO | RESULT] ~ Compute time for Super-EGO: 1.858670
+[GPU | RESULT] ~ Query points computed by the GPU: 695020
+[GPU | RESULT] ~ Compute time for the GPU: 0.649119
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 403695477
+   [RESULT] ~ Total result set size on the CPU: 148276459
+[RESULT] ~ Total execution time: 3.473769 (including 0.176570 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.297111
+   [RESULT] ~ Total execution time for the CPU: 2.615855 (Reorder: 0.011286, sort: 0.733013)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.681256
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1174656
+[EGO | RESULT] ~ Compute time for Super-EGO: 1.981615
+[GPU | RESULT] ~ Query points computed by the GPU: 689964
+[GPU | RESULT] ~ Compute time for the GPU: 0.638777
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 402166582
+   [RESULT] ~ Total result set size on the CPU: 149805354
+[RESULT] ~ Total execution time: 3.821547 (including 0.175886 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.645568
+   [RESULT] ~ Total execution time for the CPU: 2.787683 (Reorder: 0.011243, sort: 0.779346)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.857885
+## Epsilon 0.001666667
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1340608
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.166468
+[GPU | RESULT] ~ Query points computed by the GPU: 524012
+[GPU | RESULT] ~ Compute time for the GPU: 1.755617
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 1225229492
+   [RESULT] ~ Total result set size on the CPU: 773530088
+[RESULT] ~ Total execution time: 4.581684 (including 0.172698 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.408451
+   [RESULT] ~ Total execution time for the CPU: 3.773074 (Reorder: 0.010932, sort: 0.582993)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.635377
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1423008
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.467991
+[GPU | RESULT] ~ Query points computed by the GPU: 441612
+[GPU | RESULT] ~ Compute time for the GPU: 1.700219
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 1102695876
+   [RESULT] ~ Total result set size on the CPU: 896063704
+[RESULT] ~ Total execution time: 4.763220 (including 0.172926 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.590204
+   [RESULT] ~ Total execution time for the CPU: 3.912966 (Reorder: 0.011030, sort: 0.422359)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.677238
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1447542
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.159018
+[GPU | RESULT] ~ Query points computed by the GPU: 417078
+[GPU | RESULT] ~ Compute time for the GPU: 1.794252
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 1064325882
+   [RESULT] ~ Total result set size on the CPU: 934433698
+[RESULT] ~ Total execution time: 4.823620 (including 0.174844 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.648685
+   [RESULT] ~ Total execution time for the CPU: 3.954271 (Reorder: 0.011124, sort: 0.770197)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.694414
+## Epsilon 0.002500000
+[GPU | RESULT] ~ Query points computed by the GPU: 408684
+[GPU | RESULT] ~ Compute time for the GPU: 3.222821
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1455936
+[EGO | RESULT] ~ Compute time for Super-EGO: 5.204836
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 2178569390
+   [RESULT] ~ Total result set size on the CPU: 2052609272
+[RESULT] ~ Total execution time: 6.328493 (including 0.170862 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.157540
+   [RESULT] ~ Total execution time for the CPU: 5.651933 (Reorder: 0.011124, sort: 0.424370)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.505608
+[GPU | RESULT] ~ Query points computed by the GPU: 404844
+[GPU | RESULT] ~ Compute time for the GPU: 3.333722
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1459776
+[EGO | RESULT] ~ Compute time for Super-EGO: 5.289917
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 2166163101
+   [RESULT] ~ Total result set size on the CPU: 2065015561
+[RESULT] ~ Total execution time: 6.447738 (including 0.172946 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.274297
+   [RESULT] ~ Total execution time for the CPU: 5.738601 (Reorder: 0.011036, sort: 0.426067)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.535695
+[GPU | RESULT] ~ Query points computed by the GPU: 390636
+[GPU | RESULT] ~ Compute time for the GPU: 3.341743
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1473984
+[EGO | RESULT] ~ Compute time for Super-EGO: 5.207745
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 2117903192
+   [RESULT] ~ Total result set size on the CPU: 2113275470
+[RESULT] ~ Total execution time: 6.402347 (including 0.172594 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.229662
+   [RESULT] ~ Total execution time for the CPU: 5.658648 (Reorder: 0.011227, sort: 0.426767)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.571014
+## Epsilon 0.003333333
+[GPU | RESULT] ~ Query points computed by the GPU: 410190
+[GPU | RESULT] ~ Compute time for the GPU: 5.383086
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1454430
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.098858
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 3634231839
+   [RESULT] ~ Total result set size on the CPU: 3561203239
+[RESULT] ~ Total execution time: 8.240358 (including 0.172350 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.067916
+   [RESULT] ~ Total execution time for the CPU: 7.735908 (Reorder: 0.011142, sort: 0.613166)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.332008
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1446972
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.655482
+[GPU | RESULT] ~ Query points computed by the GPU: 417648
+[GPU | RESULT] ~ Compute time for the GPU: 5.386707
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 3676859350
+   [RESULT] ~ Total result set size on the CPU: 3518575728
+[RESULT] ~ Total execution time: 8.193957 (including 0.171549 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.022307
+   [RESULT] ~ Total execution time for the CPU: 7.295209 (Reorder: 0.011120, sort: 0.615546)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.727099
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1500288
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.059467
+[GPU | RESULT] ~ Query points computed by the GPU: 364332
+[GPU | RESULT] ~ Compute time for the GPU: 5.494251
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 3346134238
+   [RESULT] ~ Total result set size on the CPU: 3849300840
+[RESULT] ~ Total execution time: 8.433075 (including 0.211886 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.221050
+   [RESULT] ~ Total execution time for the CPU: 7.511635 (Reorder: 0.012045, sort: 0.428233)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.709415
+## Epsilon 0.004166667
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1484992
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.845597
+[GPU | RESULT] ~ Query points computed by the GPU: 379628
+[GPU | RESULT] ~ Compute time for the GPU: 8.204025
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 5101041386
+   [RESULT] ~ Total result set size on the CPU: 5748873530
+[RESULT] ~ Total execution time: 11.241872 (including 0.201223 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.040527
+   [RESULT] ~ Total execution time for the CPU: 10.316281 (Reorder: 0.008831, sort: 0.450933)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.724246
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1483520
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.780743
+[GPU | RESULT] ~ Query points computed by the GPU: 381100
+[GPU | RESULT] ~ Compute time for the GPU: 8.093218
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 5114470742
+   [RESULT] ~ Total result set size on the CPU: 5735444174
+[RESULT] ~ Total execution time: 11.182310 (including 0.204388 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 10.977790
+   [RESULT] ~ Total execution time for the CPU: 10.235168 (Reorder: 0.012069, sort: 0.431181)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.742622
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1473220
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.852748
+[GPU | RESULT] ~ Query points computed by the GPU: 391400
+[GPU | RESULT] ~ Compute time for the GPU: 8.251842
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 5200562306
+   [RESULT] ~ Total result set size on the CPU: 5649352610
+[RESULT] ~ Total execution time: 11.281416 (including 0.202701 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.078578
+   [RESULT] ~ Total execution time for the CPU: 10.305035 (Reorder: 0.011985, sort: 0.427028)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.773543
+
+# Super-EGO
+## Epsilon 0.000833333
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 1.483471
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 551971936
+[RESULT] ~ Total execution time: 2.162564 (including 0.211514 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 1.950883 (Reorder: 0.012102, sort: 0.443249)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 1.950883
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 1.458700
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 551971936
+[RESULT] ~ Total execution time: 2.080328 (including 0.178409 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 1.901801 (Reorder: 0.011167, sort: 0.419946)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 1.901801
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 1.399553
+[RESULT] ~ Total result set size: 551971936
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 551971936
+[RESULT] ~ Total execution time: 2.077449 (including 0.213102 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 1.864154 (Reorder: 0.011936, sort: 0.440636)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 1.864154
+## Epsilon 0.001666667
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.294463
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 1998759580
+[RESULT] ~ Total execution time: 3.928747 (including 0.225222 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 3.703413 (Reorder: 0.009239, sort: 0.390571)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 3.703413
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.244478
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 1998759580
+[RESULT] ~ Total execution time: 3.851502 (including 0.173766 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 3.677451 (Reorder: 0.011246, sort: 0.410137)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 3.677451
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.328984
+[RESULT] ~ Total result set size: 1998759580
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 1998759580
+[RESULT] ~ Total execution time: 3.933870 (including 0.174480 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 3.759273 (Reorder: 0.011190, sort: 0.407600)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 3.759273
+## Epsilon 0.002500000
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 5.948268
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 4231178662
+[RESULT] ~ Total execution time: 6.568646 (including 0.172972 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 6.395526 (Reorder: 0.011034, sort: 0.424822)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 6.395526
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.100324
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 4231178662
+[RESULT] ~ Total execution time: 6.719063 (including 0.173201 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 6.545594 (Reorder: 0.011256, sort: 0.422707)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 6.545594
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.059078
+[RESULT] ~ Total result set size: 4231178662
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 4231178662
+[RESULT] ~ Total execution time: 6.716676 (including 0.204132 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 6.512347 (Reorder: 0.012001, sort: 0.429577)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 6.512347
+## Epsilon 0.003333333
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.251918
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 7195435078
+[RESULT] ~ Total execution time: 9.924252 (including 0.244388 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 9.679684 (Reorder: 0.012053, sort: 0.404617)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 9.679684
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.086589
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 7195435078
+[RESULT] ~ Total execution time: 9.740819 (including 0.203593 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 9.537068 (Reorder: 0.012077, sort: 0.427224)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 9.537068
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.110579
+[RESULT] ~ Total result set size: 7195435078
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 7195435078
+[RESULT] ~ Total execution time: 9.765078 (including 0.205243 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 9.559633 (Reorder: 0.011955, sort: 0.425640)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 9.559633
+## Epsilon 0.004166667
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 13.662456
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 10849914916
+[RESULT] ~ Total execution time: 14.294740 (including 0.202872 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 14.091712 (Reorder: 0.011985, sort: 0.406049)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 14.091712
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 13.589855
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 10849914916
+[RESULT] ~ Total execution time: 14.237954 (including 0.204260 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 14.033538 (Reorder: 0.012064, sort: 0.420477)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 14.033538
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
+[EGO | RESULT] ~ Compute time for Super-EGO: 13.737476
+[RESULT] ~ Total result set size: 10849914916
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 10849914916
+[RESULT] ~ Total execution time: 14.372441 (including 0.210182 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 14.162008 (Reorder: 0.012170, sort: 0.401133)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 14.162008
+
+
+-----
+
+
+~ SW2DB
+# GPU
+## Epsilon 0.000277778
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 0.755694
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 474507879
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.000516 (including 0.290532 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.709859
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.709859
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 0.754973
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 474507879
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.046422 (including 0.283646 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.762647
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.762647
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 0.733345
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 474507879
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 3.872498 (including 0.284949 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.587427
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.587427
+## Epsilon 0.000555556
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 2.378413
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 1778933411
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 5.630945 (including 0.259170 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.371639
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 5.371639
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 2.333581
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 1778933411
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 5.352405 (including 0.260217 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.092082
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 5.092082
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 2.443762
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 1778933411
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 5.671438 (including 0.256824 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.414484
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 5.414484
+## Epsilon 0.000833333
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 4.976636
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 3890111805
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 8.030509 (including 0.243277 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 7.787093
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 7.787093
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 5.060414
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 3890111805
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 8.132571 (including 0.242104 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 7.890322
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 7.890322
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 5.090106
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 3890111805
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 8.165110 (including 0.243748 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 7.921216
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 7.921216
+## Epsilon 0.001111111
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 9.007758
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 6791227785
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.092758 (including 0.273044 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.819593
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 11.819593
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 8.839899
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 6791227785
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 11.945684 (including 0.237369 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.708184
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 11.708184
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 8.943187
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 6791227785
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 11.897962 (including 0.245688 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.652163
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 11.652163
+## Epsilon 0.001388889
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 14.016629
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 10460764393
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 17.034584 (including 0.189594 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 16.844885
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 16.844885
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 13.641360
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 10460764393
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 16.703584 (including 0.253951 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 16.449507
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 16.449507
+[GPU | RESULT] ~ Query points computed by the GPU: 5159737
+[GPU | RESULT] ~ Compute time for the GPU: 13.804732
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 10460764393
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 16.980984 (including 0.190368 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 16.790511
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 16.790511
+
+# Hybrid
+## Epsilon 0.000277778
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2515136
+[EGO | RESULT] ~ Compute time for Super-EGO: 0.991958
+[GPU | RESULT] ~ Query points computed by the GPU: 2644601
+[GPU | RESULT] ~ Compute time for the GPU: 0.689235
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 407816034
+   [RESULT] ~ Total result set size on the CPU: 66691845
+[RESULT] ~ Total execution time: 3.706641 (including 0.235430 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.471103
+   [RESULT] ~ Total execution time for the CPU: 2.739692 (Reorder: 0.065276, sort: 1.639307)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.731411
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2110808
+[EGO | RESULT] ~ Compute time for Super-EGO: 0.949401
+[GPU | RESULT] ~ Query points computed by the GPU: 3048929
+[GPU | RESULT] ~ Compute time for the GPU: 0.664614
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 431653619
+   [RESULT] ~ Total result set size on the CPU: 42854260
+[RESULT] ~ Total execution time: 3.547160 (including 0.225751 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.321317
+   [RESULT] ~ Total execution time for the CPU: 2.688793 (Reorder: 0.060866, sort: 1.633268)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.632524
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1951232
+[EGO | RESULT] ~ Compute time for Super-EGO: 0.911464
+[GPU | RESULT] ~ Query points computed by the GPU: 3208505
+[GPU | RESULT] ~ Compute time for the GPU: 0.660035
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 439305451
+   [RESULT] ~ Total result set size on the CPU: 35202428
+[RESULT] ~ Total execution time: 3.677038 (including 0.224842 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.452102
+   [RESULT] ~ Total execution time for the CPU: 2.609280 (Reorder: 0.065763, sort: 1.587359)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.842822
+## Epsilon 0.000555556
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3376137
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.307267
+[GPU | RESULT] ~ Query points computed by the GPU: 1783600
+[GPU | RESULT] ~ Compute time for the GPU: 1.750287
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 1271174874
+   [RESULT] ~ Total result set size on the CPU: 507758537
+[RESULT] ~ Total execution time: 4.510576 (including 0.205624 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.304856
+   [RESULT] ~ Total execution time for the CPU: 3.691033 (Reorder: 0.063608, sort: 1.275001)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.613824
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3393408
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.830760
+[GPU | RESULT] ~ Query points computed by the GPU: 1766329
+[GPU | RESULT] ~ Compute time for the GPU: 1.823558
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 1264424815
+   [RESULT] ~ Total result set size on the CPU: 514508596
+[RESULT] ~ Total execution time: 5.016219 (including 0.257610 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.758484
+   [RESULT] ~ Total execution time for the CPU: 4.024158 (Reorder: 0.066393, sort: 1.097030)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.734326
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3455808
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.917151
+[GPU | RESULT] ~ Query points computed by the GPU: 1703929
+[GPU | RESULT] ~ Compute time for the GPU: 1.891238
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 1239642815
+   [RESULT] ~ Total result set size on the CPU: 539290596
+[RESULT] ~ Total execution time: 4.897347 (including 0.251306 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.645926
+   [RESULT] ~ Total execution time for the CPU: 4.018610 (Reorder: 0.026931, sort: 1.047042)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.627316
+## Epsilon 0.000833333
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3744505
+[EGO | RESULT] ~ Compute time for Super-EGO: 4.387043
+[GPU | RESULT] ~ Query points computed by the GPU: 1415232
+[GPU | RESULT] ~ Compute time for the GPU: 3.418190
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 2440881358
+   [RESULT] ~ Total result set size on the CPU: 1449230447
+[RESULT] ~ Total execution time: 6.499239 (including 0.194402 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.304736
+   [RESULT] ~ Total execution time for the CPU: 5.616051 (Reorder: 0.029417, sort: 1.164917)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.688685
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3608128
+[EGO | RESULT] ~ Compute time for Super-EGO: 4.417415
+[GPU | RESULT] ~ Query points computed by the GPU: 1551609
+[GPU | RESULT] ~ Compute time for the GPU: 3.453361
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 2574195507
+   [RESULT] ~ Total result set size on the CPU: 1315916298
+[RESULT] ~ Total execution time: 6.547134 (including 0.247979 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.299036
+   [RESULT] ~ Total execution time for the CPU: 5.632912 (Reorder: 0.067984, sort: 1.112019)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.666125
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3721728
+[EGO | RESULT] ~ Compute time for Super-EGO: 4.102784
+[GPU | RESULT] ~ Query points computed by the GPU: 1438009
+[GPU | RESULT] ~ Compute time for the GPU: 3.498801
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 2463409596
+   [RESULT] ~ Total result set size on the CPU: 1426702209
+[RESULT] ~ Total execution time: 6.413827 (including 0.195990 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.217735
+   [RESULT] ~ Total execution time for the CPU: 5.526166 (Reorder: 0.029242, sort: 1.336891)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.691569
+## Epsilon 0.001111111
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3779072
+[EGO | RESULT] ~ Compute time for Super-EGO: 5.833403
+[GPU | RESULT] ~ Query points computed by the GPU: 1380665
+[GPU | RESULT] ~ Compute time for the GPU: 5.576100
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 4194901361
+   [RESULT] ~ Total result set size on the CPU: 2596326424
+[RESULT] ~ Total execution time: 8.401321 (including 0.191278 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.209539
+   [RESULT] ~ Total execution time for the CPU: 7.550662 (Reorder: 0.029301, sort: 1.322512)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.658877
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3973006
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.154539
+[GPU | RESULT] ~ Query points computed by the GPU: 1186731
+[GPU | RESULT] ~ Compute time for the GPU: 5.896396
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 3832265629
+   [RESULT] ~ Total result set size on the CPU: 2958962156
+[RESULT] ~ Total execution time: 8.915035 (including 0.217024 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.697922
+   [RESULT] ~ Total execution time for the CPU: 8.021720 (Reorder: 0.063868, sort: 1.443199)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.676201
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3921409
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.117101
+[GPU | RESULT] ~ Query points computed by the GPU: 1238328
+[GPU | RESULT] ~ Compute time for the GPU: 5.805248
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 3932047872
+   [RESULT] ~ Total result set size on the CPU: 2859179913
+[RESULT] ~ Total execution time: 8.725215 (including 0.192123 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.532996
+   [RESULT] ~ Total execution time for the CPU: 7.896482 (Reorder: 0.027587, sort: 1.373335)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.636514
+## Epsilon 0.001388889
+[GPU | RESULT] ~ Query points computed by the GPU: 1203257
+[GPU | RESULT] ~ Compute time for the GPU: 8.517921
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3956480
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.454244
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 5928680604
+   [RESULT] ~ Total result set size on the CPU: 4532083789
+[RESULT] ~ Total execution time: 11.452990 (including 0.189249 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.263643
+   [RESULT] ~ Total execution time for the CPU: 10.903162 (Reorder: 0.027819, sort: 1.367716)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.360481
+[GPU | RESULT] ~ Query points computed by the GPU: 1175745
+[GPU | RESULT] ~ Compute time for the GPU: 8.658444
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3983992
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.915227
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 5845266328
+   [RESULT] ~ Total result set size on the CPU: 4615498065
+[RESULT] ~ Total execution time: 11.713792 (including 0.269425 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.443773
+   [RESULT] ~ Total execution time for the CPU: 11.057369 (Reorder: 0.030822, sort: 1.085080)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.386404
+[EGO | RESULT] ~ Query points computed by Super-EGO: 3972577
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.438017
+[GPU | RESULT] ~ Query points computed by the GPU: 1187160
+[GPU | RESULT] ~ Compute time for the GPU: 8.789855
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 5878757999
+   [RESULT] ~ Total result set size on the CPU: 4582006394
+[RESULT] ~ Total execution time: 11.695849 (including 0.191934 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 11.503818
+   [RESULT] ~ Total execution time for the CPU: 10.857740 (Reorder: 0.029271, sort: 1.350399)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.646078
+
+# Super-EGO
+## Epsilon 0.000277778
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.086459
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 474507879
+[RESULT] ~ Total execution time: 3.549767 (including 0.324942 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 3.224711 (Reorder: 0.026687, sort: 1.080434)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 3.224711
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.085940
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 474507879
+[RESULT] ~ Total execution time: 3.485121 (including 0.233028 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 3.251954 (Reorder: 0.060594, sort: 1.073923)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 3.251954
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.077832
+[RESULT] ~ Total result set size: 474507879
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 474507879
+[RESULT] ~ Total execution time: 3.555269 (including 0.253133 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 3.301981 (Reorder: 0.029990, sort: 1.159488)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 3.301981
+## Epsilon 0.000555556
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 4.243036
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 1778933411
+[RESULT] ~ Total execution time: 5.577957 (including 0.204690 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 5.372994 (Reorder: 0.064026, sort: 1.038121)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 5.372994
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 4.183308
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 1778933411
+[RESULT] ~ Total execution time: 5.590130 (including 0.268148 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 5.321679 (Reorder: 0.068142, sort: 1.042387)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 5.321679
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 4.277054
+[RESULT] ~ Total result set size: 1778933411
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 1778933411
+[RESULT] ~ Total execution time: 5.707341 (including 0.270583 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 5.436584 (Reorder: 0.069152, sort: 1.062468)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 5.436584
+## Epsilon 0.000833333
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.354514
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3890111805
+[RESULT] ~ Total execution time: 8.770466 (including 0.326328 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 8.443989 (Reorder: 0.069802, sort: 0.994593)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 8.443989
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.315563
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3890111805
+[RESULT] ~ Total execution time: 8.707972 (including 0.243890 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 8.463240 (Reorder: 0.032248, sort: 1.087408)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 8.463240
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.343173
+[RESULT] ~ Total result set size: 3890111805
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3890111805
+[RESULT] ~ Total execution time: 8.746752 (including 0.243838 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 8.502755 (Reorder: 0.032191, sort: 1.097682)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 8.502755
+## Epsilon 0.001111111
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 11.552864
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 6791227785
+[RESULT] ~ Total execution time: 12.901315 (including 0.198149 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 12.702528 (Reorder: 0.030050, sort: 1.091013)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 12.702528
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 11.687719
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 6791227785
+[RESULT] ~ Total execution time: 13.083848 (including 0.271319 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 12.812340 (Reorder: 0.049712, sort: 1.051521)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 12.812340
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 11.586575
+[RESULT] ~ Total result set size: 6791227785
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 6791227785
+[RESULT] ~ Total execution time: 12.973507 (including 0.233810 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 12.739549 (Reorder: 0.032411, sort: 1.092222)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 12.739549
+## Epsilon 0.001388889
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 17.219496
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 10460764393
+[RESULT] ~ Total execution time: 18.590074 (including 0.232277 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 18.357561 (Reorder: 0.032366, sort: 1.077928)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 18.357561
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 17.226087
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 10460764393
+[RESULT] ~ Total execution time: 18.565231 (including 0.235105 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 18.329882 (Reorder: 0.026924, sort: 1.054489)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 18.329882
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
+[EGO | RESULT] ~ Compute time for Super-EGO: 17.338470
+[RESULT] ~ Total result set size: 10460764393
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 10460764393
+[RESULT] ~ Total execution time: 18.710556 (including 0.233908 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 18.476393 (Reorder: 0.032152, sort: 1.078097)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 18.476393
+
+
+-----
+
+
+~ EXPO2D2M
+# GPU
+## Epsilon 0.0004
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 1.153169
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 795511612
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.378984 (including 0.213994 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.164839
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 4.164839
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 1.135333
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 795511612
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.062095 (including 0.176762 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.884834
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.884834
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 1.125502
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 795511612
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.178082 (including 0.214616 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.963334
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 3.963334
+## Epsilon 0.0008
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 4.198924
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 3132601994
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 7.123267 (including 0.174182 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.948940
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 6.948940
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 4.143969
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 3132601994
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 6.959203 (including 0.173634 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.785064
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 6.785064
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 4.037621
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 3132601994
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 6.847238 (including 0.173823 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.673321
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 6.673321
+## Epsilon 0.0012
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 9.750486
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 6950152730
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.470022 (including 0.173775 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.296151
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.296151
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 9.884612
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 6950152730
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.843000 (including 0.173312 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.669598
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.669598
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 9.672423
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 6950152730
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.732041 (including 0.206445 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.525467
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.525467
+## Epsilon 0.0016
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 18.104241
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 12187940424
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 21.232776 (including 0.203859 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 21.028789
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 21.028789
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 17.737555
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 12187940424
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 20.937562 (including 0.203469 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 20.733963
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 20.733963
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 18.916046
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 12187940424
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 21.971467 (including 0.204074 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 21.767264
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 21.767264
+## Epsilon 0.0020
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 29.644881
+[RESULT] ~ Total result set size: 18786829142
+   [RESULT] ~ Total result set size on the GPU: 18786829142
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 32.924925 (including 0.205130 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 32.719665
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 32.719665
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 30.276068
+[RESULT] ~ Total result set size: 18786829142
+   [RESULT] ~ Total result set size on the GPU: 18786829142
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 33.644644 (including 0.205718 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 33.438788
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 33.438788
+[GPU | RESULT] ~ Query points computed by the GPU: 2000000
+[GPU | RESULT] ~ Compute time for the GPU: 30.807069
+[RESULT] ~ Total result set size: 18786829142
+   [RESULT] ~ Total result set size on the GPU: 18786829142
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 34.125010 (including 0.203788 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 33.921110
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 33.921110
+
+# Hybrid
+## Epsilon 0.0004
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1142864
+[EGO | RESULT] ~ Compute time for Super-EGO: 1.695543
+[GPU | RESULT] ~ Query points computed by the GPU: 857136
+[GPU | RESULT] ~ Compute time for the GPU: 0.872789
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 625091045
+   [RESULT] ~ Total result set size on the CPU: 170420567
+[RESULT] ~ Total execution time: 3.648369 (including 0.256086 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.392180
+   [RESULT] ~ Total execution time for the CPU: 2.726095 (Reorder: 0.011257, sort: 0.999294)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.666085
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1214292
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.154911
+[GPU | RESULT] ~ Query points computed by the GPU: 785708
+[GPU | RESULT] ~ Compute time for the GPU: 0.940101
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 597060033
+   [RESULT] ~ Total result set size on the CPU: 198451579
+[RESULT] ~ Total execution time: 3.838440 (including 0.208368 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.629956
+   [RESULT] ~ Total execution time for the CPU: 2.888046 (Reorder: 0.011522, sort: 0.708715)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.741910
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1208128
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.232030
+[GPU | RESULT] ~ Query points computed by the GPU: 791872
+[GPU | RESULT] ~ Compute time for the GPU: 0.903545
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 599583017
+   [RESULT] ~ Total result set size on the CPU: 195928595
+[RESULT] ~ Total execution time: 3.956722 (including 0.211748 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 3.744838
+   [RESULT] ~ Total execution time for the CPU: 2.976144 (Reorder: 0.012720, sort: 0.714853)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.768695
+## Epsilon 0.0008
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1410944
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.910694
+[GPU | RESULT] ~ Query points computed by the GPU: 589056
+[GPU | RESULT] ~ Compute time for the GPU: 2.996887
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 1973874816
+   [RESULT] ~ Total result set size on the CPU: 1158727178
+[RESULT] ~ Total execution time: 5.812670 (including 0.172689 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.639890
+   [RESULT] ~ Total execution time for the CPU: 4.919551 (Reorder: 0.011910, sort: 0.968785)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.720339
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1392183
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.928710
+[GPU | RESULT] ~ Query points computed by the GPU: 607817
+[GPU | RESULT] ~ Compute time for the GPU: 2.962158
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 2014192544
+   [RESULT] ~ Total result set size on the CPU: 1118409450
+[RESULT] ~ Total execution time: 5.800944 (including 0.174060 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.626795
+   [RESULT] ~ Total execution time for the CPU: 4.937379 (Reorder: 0.011925, sort: 0.968147)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.689415
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1431397
+[EGO | RESULT] ~ Compute time for Super-EGO: 4.390280
+[GPU | RESULT] ~ Query points computed by the GPU: 568603
+[GPU | RESULT] ~ Compute time for the GPU: 3.008389
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 1929064535
+   [RESULT] ~ Total result set size on the CPU: 1203537459
+[RESULT] ~ Total execution time: 6.029337 (including 0.173692 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 5.855146
+   [RESULT] ~ Total execution time for the CPU: 5.206278 (Reorder: 0.011907, sort: 0.778397)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.648868
+## Epsilon 0.0012
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1475072
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.454366
+[GPU | RESULT] ~ Query points computed by the GPU: 524928
+[GPU | RESULT] ~ Compute time for the GPU: 6.531665
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 4034710111
+   [RESULT] ~ Total result set size on the CPU: 2915442619
+[RESULT] ~ Total execution time: 9.364369 (including 0.172768 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 9.191507
+   [RESULT] ~ Total execution time for the CPU: 8.492290 (Reorder: 0.011925, sort: 0.996951)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.699217
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1440386
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.503596
+[GPU | RESULT] ~ Query points computed by the GPU: 559614
+[GPU | RESULT] ~ Compute time for the GPU: 6.295722
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 4212998404
+   [RESULT] ~ Total result set size on the CPU: 2737154326
+[RESULT] ~ Total execution time: 9.273335 (including 0.209260 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 9.063943
+   [RESULT] ~ Total execution time for the CPU: 8.293978 (Reorder: 0.013364, sort: 0.754873)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.769965
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1440386
+[EGO | RESULT] ~ Compute time for Super-EGO: 7.072408
+[GPU | RESULT] ~ Query points computed by the GPU: 559614
+[GPU | RESULT] ~ Compute time for the GPU: 6.202797
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 4212998404
+   [RESULT] ~ Total result set size on the CPU: 2737154326
+[RESULT] ~ Total execution time: 9.014507 (including 0.173643 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 8.840774
+   [RESULT] ~ Total execution time for the CPU: 8.101004 (Reorder: 0.011947, sort: 0.989163)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.739770
+## Epsilon 0.0016
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1431734
+[EGO | RESULT] ~ Compute time for Super-EGO: 12.087456
+[GPU | RESULT] ~ Query points computed by the GPU: 568266
+[GPU | RESULT] ~ Compute time for the GPU: 10.672775
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 7419840829
+   [RESULT] ~ Total result set size on the CPU: 4768099595
+[RESULT] ~ Total execution time: 13.597248 (including 0.172937 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 13.424219
+   [RESULT] ~ Total execution time for the CPU: 12.802529 (Reorder: 0.011978, sort: 0.686054)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.621690
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1490705
+[EGO | RESULT] ~ Compute time for Super-EGO: 12.851926
+[GPU | RESULT] ~ Query points computed by the GPU: 509295
+[GPU | RESULT] ~ Compute time for the GPU: 11.610939
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 6884204641
+   [RESULT] ~ Total result set size on the CPU: 5303735783
+[RESULT] ~ Total execution time: 14.530614 (including 0.172453 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 14.358052
+   [RESULT] ~ Total execution time for the CPU: 13.547126 (Reorder: 0.011944, sort: 0.666523)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.810926
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1502080
+[EGO | RESULT] ~ Compute time for Super-EGO: 12.742926
+[GPU | RESULT] ~ Query points computed by the GPU: 497920
+[GPU | RESULT] ~ Compute time for the GPU: 11.468165
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 6778988299
+   [RESULT] ~ Total result set size on the CPU: 5408952125
+[RESULT] ~ Total execution time: 14.334762 (including 0.173383 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 14.161289
+   [RESULT] ~ Total execution time for the CPU: 13.440544 (Reorder: 0.011821, sort: 0.669020)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.720745
+## Epsilon 0.0020
+[GPU | RESULT] ~ Query points computed by the GPU: 453312
+[GPU | RESULT] ~ Compute time for the GPU: 19.049771
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1546688
+[EGO | RESULT] ~ Compute time for Super-EGO: 20.501040
+[RESULT] ~ Total result set size: 18786829140
+   [RESULT] ~ Total result set size on the GPU: 9665896717
+   [RESULT] ~ Total result set size on the CPU: 9120932423
+[RESULT] ~ Total execution time: 22.053517 (including 0.173427 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 21.879999
+   [RESULT] ~ Total execution time for the CPU: 21.280308 (Reorder: 0.011886, sort: 0.745079)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.599691
+[GPU | RESULT] ~ Query points computed by the GPU: 500224
+[GPU | RESULT] ~ Compute time for the GPU: 17.773393
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1499776
+[EGO | RESULT] ~ Compute time for Super-EGO: 20.394243
+[RESULT] ~ Total result set size: 18786829140
+   [RESULT] ~ Total result set size on the GPU: 10403219368
+   [RESULT] ~ Total result set size on the CPU: 8383609772
+[RESULT] ~ Total execution time: 21.321958 (including 0.171962 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 20.516950
+   [RESULT] ~ Total execution time for the CPU: 21.149894 (Reorder: 0.011943, sort: 0.721782)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 0.632943
+[GPU | RESULT] ~ Query points computed by the GPU: 491776
+[GPU | RESULT] ~ Compute time for the GPU: 17.637359
+[EGO | RESULT] ~ Query points computed by Super-EGO: 1508224
+[EGO | RESULT] ~ Compute time for Super-EGO: 20.130461
+[RESULT] ~ Total result set size: 18786829140
+   [RESULT] ~ Total result set size on the GPU: 10281692504
+   [RESULT] ~ Total result set size on the CPU: 8505136636
+[RESULT] ~ Total execution time: 21.095227 (including 0.181016 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 20.635064
+   [RESULT] ~ Total execution time for the CPU: 20.914117 (Reorder: 0.011922, sort: 0.749683)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 0.279053
+
+# Super-EGO
+## Epsilon 0.0004
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.240821
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 795511612
+[RESULT] ~ Total execution time: 3.207762 (including 0.211365 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 2.995665 (Reorder: 0.012961, sort: 0.725357)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 2.995665
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.252282
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 795511612
+[RESULT] ~ Total execution time: 3.204082 (including 0.214276 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 2.989666 (Reorder: 0.012579, sort: 0.708096)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 2.989666
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.223561
+[RESULT] ~ Total result set size: 795511612
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 795511612
+[RESULT] ~ Total execution time: 3.121740 (including 0.211033 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 2.910551 (Reorder: 0.010711, sort: 0.660284)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 2.910551
+## Epsilon 0.0008
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.604282
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3132601994
+[RESULT] ~ Total execution time: 7.498192 (including 0.174261 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 7.323818 (Reorder: 0.012161, sort: 0.690556)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 7.323818
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.641812
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3132601994
+[RESULT] ~ Total execution time: 7.614599 (including 0.240062 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 7.374371 (Reorder: 0.013052, sort: 0.703261)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 7.374371
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.642143
+[RESULT] ~ Total result set size: 3132601994
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3132601994
+[RESULT] ~ Total execution time: 7.558055 (including 0.204859 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 7.353064 (Reorder: 0.010657, sort: 0.684620)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 7.353064
+## Epsilon 0.0012
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 13.677967
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 6950152730
+[RESULT] ~ Total execution time: 14.599596 (including 0.218752 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 14.380648 (Reorder: 0.012388, sort: 0.671558)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 14.380648
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 13.632603
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 6950152730
+[RESULT] ~ Total execution time: 14.525882 (including 0.203133 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 14.322548 (Reorder: 0.010682, sort: 0.664597)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 14.322548
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 13.602988
+[RESULT] ~ Total result set size: 6950152730
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 6950152730
+[RESULT] ~ Total execution time: 14.515203 (including 0.205635 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 14.308811 (Reorder: 0.012905, sort: 0.675000)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 14.308811
+## Epsilon 0.0016
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 23.292837
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 12187940424
+[RESULT] ~ Total execution time: 24.199918 (including 0.213148 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 23.986621 (Reorder: 0.012876, sort: 0.662409)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 23.986621
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 23.201903
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 12187940424
+[RESULT] ~ Total execution time: 24.095273 (including 0.216801 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 23.878300 (Reorder: 0.010389, sort: 0.650692)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 23.878300
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 23.249362
+[RESULT] ~ Total result set size: 12187940424
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 12187940424
+[RESULT] ~ Total execution time: 24.169990 (including 0.205398 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 23.964022 (Reorder: 0.012927, sort: 0.684015)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 23.964022
+## Epsilon 0.0020
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 39.126542
+[RESULT] ~ Total result set size: 18786829140
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 18786829140
+[RESULT] ~ Total execution time: 40.037026 (including 0.205208 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 39.831615 (Reorder: 0.012931, sort: 0.675014)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 39.831615
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 37.003915
+[RESULT] ~ Total result set size: 18786829140
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 18786829140
+[RESULT] ~ Total execution time: 37.907131 (including 0.205002 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 37.701925 (Reorder: 0.013008, sort: 0.667193)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 37.701925
+[EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 37.821166
+[RESULT] ~ Total result set size: 18786829140
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 18786829140
+[RESULT] ~ Total execution time: 38.719445 (including 0.205799 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 38.513413 (Reorder: 0.012921, sort: 0.661588)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 38.513413
+
+
+-----
+
+
+~ EXPO2D10M
+# GPU
+## Epsilon 0.00008
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 1.295322
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 812740972
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.526625 (including 0.366528 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.159968
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 4.159968
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 1.386310
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 812740972
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.602632 (including 0.360481 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.242033
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 4.242033
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 1.287253
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 812740972
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.429681 (including 0.374551 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.055020
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 4.055020
+## Epsilon 0.00016
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 4.311824
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 3212375264
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 7.650433 (including 0.302147 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 7.348162
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 7.348162
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 4.241439
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 3212375264
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 7.457191 (including 0.303379 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 7.153690
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 7.153690
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 4.392384
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 3212375264
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 7.733140 (including 0.308056 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 7.424961
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 7.424961
+## Epsilon 0.00024
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 9.138685
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 7195739034
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.369865 (including 0.280058 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.089679
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.089679
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 9.037555
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 7195739034
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.466995 (including 0.279187 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.187670
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.187670
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 9.211454
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 7195739034
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 12.267603 (including 0.223459 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 12.044048
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 12.044048
+## Epsilon 0.00032
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 16.579809
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 12749977124
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 19.696788 (including 0.214633 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 19.482051
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 19.482051
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 16.613419
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 12749977124
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 20.050310 (including 0.216624 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 19.833582
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 19.833582
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 16.133272
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 12749977124
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 19.220141 (including 0.216485 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 19.003557
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 19.003557
+## Epsilon 0.00040
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 25.439911
+[RESULT] ~ Total result set size: 19862179562
+   [RESULT] ~ Total result set size on the GPU: 19862179562
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 28.747307 (including 0.296062 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 28.451092
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 28.451092
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 25.670932
+[RESULT] ~ Total result set size: 19862179562
+   [RESULT] ~ Total result set size on the GPU: 19862179562
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 29.202963 (including 0.229767 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 28.973080
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 28.973080
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 25.199528
+[RESULT] ~ Total result set size: 19862179562
+   [RESULT] ~ Total result set size on the GPU: 19862179562
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 28.633980 (including 0.322432 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 28.311408
+   [RESULT] ~ Total execution time for the CPU: 0.000000 (Reorder: 0.000000, sort: 0.000000)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 28.311408
+
+# Hybrid
+## Epsilon 0.00008
+[GPU | RESULT] ~ Query points computed by the GPU: 10000000
+[GPU | RESULT] ~ Compute time for the GPU: 1.330964
+[EGO | RESULT] ~ Query points computed by Super-EGO: 0
+[EGO | RESULT] ~ Compute time for Super-EGO: 0.051933
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 812740972
+   [RESULT] ~ Total result set size on the CPU: 0
+[RESULT] ~ Total execution time: 4.549339 (including 0.362973 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.186256
+   [RESULT] ~ Total execution time for the CPU: 3.734428 (Reorder: 0.055914, sort: 3.481036)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.451828
+[EGO | RESULT] ~ Query points computed by Super-EGO: 609536
+[EGO | RESULT] ~ Compute time for Super-EGO: 0.194987
+[GPU | RESULT] ~ Query points computed by the GPU: 9390464
+[GPU | RESULT] ~ Compute time for the GPU: 1.282928
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 811229518
+   [RESULT] ~ Total result set size on the CPU: 1511454
+[RESULT] ~ Total execution time: 4.447744 (including 0.403290 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.044334
+   [RESULT] ~ Total execution time for the CPU: 3.456772 (Reorder: 0.059258, sort: 3.038917)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.587562
+[EGO | RESULT] ~ Query points computed by Super-EGO: 836096
+[EGO | RESULT] ~ Compute time for Super-EGO: 0.234446
+[GPU | RESULT] ~ Query points computed by the GPU: 9163904
+[GPU | RESULT] ~ Compute time for the GPU: 1.275986
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 810038707
+   [RESULT] ~ Total result set size on the CPU: 2702265
+[RESULT] ~ Total execution time: 4.360713 (including 0.277189 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 4.083434
+   [RESULT] ~ Total execution time for the CPU: 3.465134 (Reorder: 0.055992, sort: 3.027904)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.618300
+## Epsilon 0.00016
+[GPU | RESULT] ~ Query points computed by the GPU: 4814784
+[GPU | RESULT] ~ Compute time for the GPU: 3.743860
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5185216
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.522263
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 2674174538
+   [RESULT] ~ Total result set size on the CPU: 538200726
+[RESULT] ~ Total execution time: 6.575733 (including 0.296595 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.279016
+   [RESULT] ~ Total execution time for the CPU: 5.717958 (Reorder: 0.058557, sort: 3.000957)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.561058
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5277808
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.697372
+[GPU | RESULT] ~ Query points computed by the GPU: 4722192
+[GPU | RESULT] ~ Compute time for the GPU: 3.761152
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 2650136603
+   [RESULT] ~ Total result set size on the CPU: 562238661
+[RESULT] ~ Total execution time: 6.821416 (including 0.303306 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.517989
+   [RESULT] ~ Total execution time for the CPU: 5.920072 (Reorder: 0.058400, sort: 3.002942)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.597917
+[EGO | RESULT] ~ Query points computed by Super-EGO: 5301056
+[EGO | RESULT] ~ Compute time for Super-EGO: 2.558742
+[GPU | RESULT] ~ Query points computed by the GPU: 4698944
+[GPU | RESULT] ~ Compute time for the GPU: 3.754799
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 2644011132
+   [RESULT] ~ Total result set size on the CPU: 568364132
+[RESULT] ~ Total execution time: 6.867587 (including 0.236283 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 6.631199
+   [RESULT] ~ Total execution time for the CPU: 5.924003 (Reorder: 0.054866, sort: 3.142962)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.707196
+## Epsilon 0.00024
+[GPU | RESULT] ~ Query points computed by the GPU: 3515008
+[GPU | RESULT] ~ Compute time for the GPU: 7.276257
+[EGO | RESULT] ~ Query points computed by Super-EGO: 6484992
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.487232
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 5084012344
+   [RESULT] ~ Total result set size on the CPU: 2111726690
+[RESULT] ~ Total execution time: 10.173404 (including 0.249064 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 9.924242
+   [RESULT] ~ Total execution time for the CPU: 9.569333 (Reorder: 0.087203, sort: 2.853036)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.354909
+[GPU | RESULT] ~ Query points computed by the GPU: 3635456
+[GPU | RESULT] ~ Compute time for the GPU: 7.091014
+[EGO | RESULT] ~ Query points computed by Super-EGO: 6364544
+[EGO | RESULT] ~ Compute time for Super-EGO: 6.137471
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 5183571401
+   [RESULT] ~ Total result set size on the CPU: 2012167633
+[RESULT] ~ Total execution time: 9.954059 (including 0.230173 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 9.723788
+   [RESULT] ~ Total execution time for the CPU: 9.267807 (Reorder: 0.054318, sort: 2.925476)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.455981
+[EGO | RESULT] ~ Query points computed by Super-EGO: 6269184
+[EGO | RESULT] ~ Compute time for Super-EGO: 5.860586
+[GPU | RESULT] ~ Query points computed by the GPU: 3730816
+[GPU | RESULT] ~ Compute time for the GPU: 6.854192
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 5259727311
+   [RESULT] ~ Total result set size on the CPU: 1936011723
+[RESULT] ~ Total execution time: 9.927233 (including 0.282865 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 9.644232
+   [RESULT] ~ Total execution time for the CPU: 9.005350 (Reorder: 0.058182, sort: 2.942124)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.638882
+## Epsilon 0.00032
+[GPU | RESULT] ~ Query points computed by the GPU: 3198960
+[GPU | RESULT] ~ Compute time for the GPU: 12.064461
+[EGO | RESULT] ~ Query points computed by Super-EGO: 6801040
+[EGO | RESULT] ~ Compute time for Super-EGO: 11.489714
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 8513138548
+   [RESULT] ~ Total result set size on the CPU: 4236838576
+[RESULT] ~ Total execution time: 15.115369 (including 0.270432 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 14.844799
+   [RESULT] ~ Total execution time for the CPU: 14.581337 (Reorder: 0.058528, sort: 2.868616)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.263462
+[GPU | RESULT] ~ Query points computed by the GPU: 3183296
+[GPU | RESULT] ~ Compute time for the GPU: 12.142528
+[EGO | RESULT] ~ Query points computed by Super-EGO: 6816704
+[EGO | RESULT] ~ Compute time for Super-EGO: 11.586064
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 8487564824
+   [RESULT] ~ Total result set size on the CPU: 4262412300
+[RESULT] ~ Total execution time: 15.217735 (including 0.216279 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 15.001356
+   [RESULT] ~ Total execution time for the CPU: 14.632121 (Reorder: 0.086438, sort: 2.818734)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.369234
+[GPU | RESULT] ~ Query points computed by the GPU: 3247360
+[GPU | RESULT] ~ Compute time for the GPU: 11.825174
+[EGO | RESULT] ~ Query points computed by Super-EGO: 6752640
+[EGO | RESULT] ~ Compute time for Super-EGO: 11.501253
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 8590792190
+   [RESULT] ~ Total result set size on the CPU: 4159184934
+[RESULT] ~ Total execution time: 14.914197 (including 0.214480 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 14.699627
+   [RESULT] ~ Total execution time for the CPU: 14.580429 (Reorder: 0.053658, sort: 2.876284)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.119198
+## Epsilon 0.00040
+[GPU | RESULT] ~ Query points computed by the GPU: 2681536
+[GPU | RESULT] ~ Compute time for the GPU: 20.749845
+[EGO | RESULT] ~ Query points computed by Super-EGO: 7318464
+[EGO | RESULT] ~ Compute time for Super-EGO: 20.793877
+[RESULT] ~ Total result set size: 19862179562
+   [RESULT] ~ Total result set size on the GPU: 11847821843
+   [RESULT] ~ Total result set size on the CPU: 8014357719
+[RESULT] ~ Total execution time: 24.032261 (including 0.221374 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 23.581953
+   [RESULT] ~ Total execution time for the CPU: 23.810770 (Reorder: 0.086842, sort: 2.791704)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 0.228817
+[EGO | RESULT] ~ Query points computed by Super-EGO: 7063296
+[EGO | RESULT] ~ Compute time for Super-EGO: 17.696464
+[GPU | RESULT] ~ Query points computed by the GPU: 2936704
+[GPU | RESULT] ~ Compute time for the GPU: 18.909792
+[RESULT] ~ Total result set size: 19862179562
+   [RESULT] ~ Total result set size on the GPU: 12565370701
+   [RESULT] ~ Total result set size on the CPU: 7296808861
+[RESULT] ~ Total execution time: 22.033521 (including 0.294427 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 21.738978
+   [RESULT] ~ Total execution time for the CPU: 21.057160 (Reorder: 0.049960, sort: 3.150542)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.681817
+[EGO | RESULT] ~ Query points computed by Super-EGO: 7234880
+[EGO | RESULT] ~ Compute time for Super-EGO: 19.556253
+[GPU | RESULT] ~ Query points computed by the GPU: 2765120
+[GPU | RESULT] ~ Compute time for the GPU: 20.380802
+[RESULT] ~ Total result set size: 19862179562
+   [RESULT] ~ Total result set size on the GPU: 12089348886
+   [RESULT] ~ Total result set size on the CPU: 7772830676
+[RESULT] ~ Total execution time: 23.819796 (including 0.283955 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 23.535722
+   [RESULT] ~ Total execution time for the CPU: 22.598081 (Reorder: 0.093337, sort: 2.812477)
+[RESULT] ~ The CPU ended before the GPU, with a difference of: 0.937641
+
+# Super-EGO
+## Epsilon 0.00008
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.917012
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 812740972
+[RESULT] ~ Total execution time: 7.402977 (including 0.280154 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 7.122079 (Reorder: 0.091176, sort: 2.975826)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 7.122079
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.899654
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 812740972
+[RESULT] ~ Total execution time: 7.335308 (including 0.295845 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 7.038683 (Reorder: 0.083437, sort: 2.920898)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 7.038683
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 3.975800
+[RESULT] ~ Total result set size: 812740972
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 812740972
+[RESULT] ~ Total execution time: 7.474879 (including 0.280190 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 7.194583 (Reorder: 0.056819, sort: 3.026873)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 7.194583
+## Epsilon 0.00016
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 8.814455
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3212375264
+[RESULT] ~ Total execution time: 12.189242 (including 0.303218 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 11.885902 (Reorder: 0.049731, sort: 2.886925)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 11.885902
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 9.030457
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3212375264
+[RESULT] ~ Total execution time: 12.419282 (including 0.236584 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 12.181913 (Reorder: 0.056355, sort: 2.960007)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 12.181913
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 8.933457
+[RESULT] ~ Total result set size: 3212375264
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 3212375264
+[RESULT] ~ Total execution time: 12.327034 (including 0.237005 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 12.089871 (Reorder: 0.056500, sort: 2.965341)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 12.089871
+## Epsilon 0.00024
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 17.012318
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 7195739034
+[RESULT] ~ Total execution time: 20.365739 (including 0.224138 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 20.141420 (Reorder: 0.055468, sort: 2.938926)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 20.141420
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 17.095448
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 7195739034
+[RESULT] ~ Total execution time: 20.416364 (including 0.222955 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 20.193259 (Reorder: 0.056435, sort: 2.906565)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 20.193259
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 17.158945
+[RESULT] ~ Total result set size: 7195739034
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 7195739034
+[RESULT] ~ Total execution time: 20.489204 (including 0.223685 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 20.265332 (Reorder: 0.056502, sort: 2.913743)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 20.265332
+## Epsilon 0.00032
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 28.829163
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 12749977124
+[RESULT] ~ Total execution time: 32.126481 (including 0.216256 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 31.910042 (Reorder: 0.056196, sort: 2.889079)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 31.910042
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 28.864011
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 12749977124
+[RESULT] ~ Total execution time: 32.139843 (including 0.215823 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 31.923865 (Reorder: 0.054420, sort: 2.869887)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 31.923865
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 28.886233
+[RESULT] ~ Total result set size: 12749977124
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 12749977124
+[RESULT] ~ Total execution time: 32.228390 (including 0.215938 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 32.012323 (Reorder: 0.056095, sort: 2.935288)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 32.012323
+## Epsilon 0.00040
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 46.211291
+[RESULT] ~ Total result set size: 19862179560
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 19862179560
+[RESULT] ~ Total execution time: 49.445335 (including 0.213119 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 49.232092 (Reorder: 0.051456, sort: 2.834511)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 49.232092
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 47.388879
+[RESULT] ~ Total result set size: 19862179560
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 19862179560
+[RESULT] ~ Total execution time: 50.624685 (including 0.213271 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 50.411242 (Reorder: 0.050769, sort: 2.836483)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 50.411242
+[EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
+[EGO | RESULT] ~ Compute time for Super-EGO: 46.342797
+[RESULT] ~ Total result set size: 19862179560
+   [RESULT] ~ Total result set size on the GPU: 0
+   [RESULT] ~ Total result set size on the CPU: 19862179560
+[RESULT] ~ Total execution time: 49.620186 (including 0.212790 to sort by workload)
+   [RESULT] ~ Total execution time for the GPU: 0.000000
+   [RESULT] ~ Total execution time for the CPU: 49.407182 (Reorder: 0.054842, sort: 2.872906)
+[RESULT] ~ The GPU ended before the CPU, with a difference of: 49.407182
+
+
+-----
+
+
+sed: -e expression #1, char 2: extra characters after command
+sed: -e expression #1, char 2: extra characters after command
+rm import_dataset.o WorkQueue.o
+rm SortByWorkload.o GPU.o kernel.o main.o
+rm Point.o Util.o MultiThreadJoin.o
+rm main
+~ SW3DA
+# GPU
+## Epsilon 0.001299791
+## Epsilon 0.002599582
+## Epsilon 0.003899373
+## Epsilon 0.005199163
+## Epsilon 0.006498954
+
+# Hybrid
+## Epsilon 0.001299791
+## Epsilon 0.002599582
+## Epsilon 0.003899373
+## Epsilon 0.005199163
+## Epsilon 0.006498954
+
+# Super-EGO
+## Epsilon 0.001299791
+## Epsilon 0.002599582
+## Epsilon 0.003899373
+## Epsilon 0.005199163
+## Epsilon 0.006498954
+
+
+-----
+
+
+~ SW3DB
+# GPU
+## Epsilon 0.000425660
+## Epsilon 0.000851319
+## Epsilon 0.001276979
+## Epsilon 0.001702639
+## Epsilon 0.002128298
+
+# Hybrid
+## Epsilon 0.000425660
+## Epsilon 0.000851319
+## Epsilon 0.001276979
+## Epsilon 0.001702639
+## Epsilon 0.002128298
+
+# Super-EGO
+## Epsilon 0.000425660
+## Epsilon 0.000851319
+## Epsilon 0.001276979
+## Epsilon 0.001702639
+## Epsilon 0.002128298
+
+
+-----
+
+
+~ EXPO3D2M
+# GPU
+## Epsilon 0.001
+## Epsilon 0.002
+## Epsilon 0.003
+## Epsilon 0.004
+## Epsilon 0.005
+
+# Hybrid
+## Epsilon 0.001
+## Epsilon 0.002
+## Epsilon 0.003
+## Epsilon 0.004
+## Epsilon 0.005
+
+# Super-EGO
+## Epsilon 0.001
+## Epsilon 0.002
+## Epsilon 0.003
+## Epsilon 0.004
+## Epsilon 0.005
+
+
+-----
+
+
+~ EXPO3D10M
+# GPU
+## Epsilon 0.00009
+## Epsilon 0.0006
+## Epsilon 0.0009
+## Epsilon 0.0012
+## Epsilon 0.0015
+
+# Hybrid
+## Epsilon 0.00009
+## Epsilon 0.0006
+## Epsilon 0.0009
+## Epsilon 0.0012
+## Epsilon 0.0015
+
+# Super-EGO
+## Epsilon 0.00009
+## Epsilon 0.0006
+## Epsilon 0.0009
+## Epsilon 0.0012
+## Epsilon 0.0015
+
+
+-----
+
+
+sed: -e expression #1, char 2: extra characters after command
+sed: -e expression #1, char 2: extra characters after command
+rm import_dataset.o WorkQueue.o
+rm SortByWorkload.o GPU.o kernel.o main.o
+rm Point.o Util.o MultiThreadJoin.o
+rm main
+~ EXPO4D2M
+# GPU
+## Epsilon 0.002
+## Epsilon 0.004
+## Epsilon 0.006
+## Epsilon 0.008
+## Epsilon 0.010
+
+# Hybrid
+## Epsilon 0.002
+## Epsilon 0.004
+## Epsilon 0.006
+## Epsilon 0.008
+## Epsilon 0.010
+
+# Super-EGO
+## Epsilon 0.002
+## Epsilon 0.004
+## Epsilon 0.006
+## Epsilon 0.008
+## Epsilon 0.010
+
+
+-----
+
+
+~ EXPO4D10M
+# GPU
+## Epsilon 0.00032
+## Epsilon 0.0016
+## Epsilon 0.0024
+## Epsilon 0.0032
+## Epsilon 0.0040
+
+# Hybrid
+## Epsilon 0.00032
+## Epsilon 0.0016
+## Epsilon 0.0024
+## Epsilon 0.0032
+## Epsilon 0.0040
+
+# Super-EGO
+## Epsilon 0.00032
+## Epsilon 0.0016
+## Epsilon 0.0024
+## Epsilon 0.0032
+## Epsilon 0.0040
+
+
+-----
+
+
+sed: -e expression #1, char 2: extra characters after command
+sed: -e expression #1, char 2: extra characters after command
+rm import_dataset.o WorkQueue.o
+rm SortByWorkload.o GPU.o kernel.o main.o
+rm Point.o Util.o MultiThreadJoin.o
+rm main
+~ EXPO6D2M
+# GPU
+## Epsilon 0.003
+## Epsilon 0.006
+## Epsilon 0.009
+## Epsilon 0.012
+## Epsilon 0.015
+
+# Hybrid
+## Epsilon 0.003
+## Epsilon 0.006
+## Epsilon 0.009
+## Epsilon 0.012
+## Epsilon 0.015
+
+# Super-EGO
+## Epsilon 0.003
+## Epsilon 0.006
+## Epsilon 0.009
+## Epsilon 0.012
+## Epsilon 0.015
+
+
+-----
+
+
+~ EXPO6D10M
+# GPU
+## Epsilon 0.0016
+## Epsilon 0.0032
+## Epsilon 0.0048
+## Epsilon 0.0064
+## Epsilon 0.0080
+
+# Hybrid
+## Epsilon 0.0016
+## Epsilon 0.0032
+## Epsilon 0.0048
+## Epsilon 0.0064
+## Epsilon 0.0080
+
+# Super-EGO
+## Epsilon 0.0016
+## Epsilon 0.0032
+## Epsilon 0.0048
+## Epsilon 0.0064
+## Epsilon 0.0080
