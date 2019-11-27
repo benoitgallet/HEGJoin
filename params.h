@@ -1,8 +1,8 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define GPUNUMDIM 2
-#define NUMINDEXEDDIM 2
+#define GPUNUMDIM 6
+#define NUMINDEXEDDIM 6
 
 #define BLOCKSIZE 256
 
