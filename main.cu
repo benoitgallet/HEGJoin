@@ -210,15 +210,13 @@ int main(int argc, char * argv[])
                 printf("[EGO] ~ Done reordering in %f\n", egoReorder);
 
                 printf("[EGO] ~ EGO-sorting of A\n");
-                // Util::egoSort(A, A_sz);
-                // qsort(A, A_sz, sizeof(Point), pcmp);
-
                 // First sort smaller partitions in parallel
                 // Then sort everything, which is fast as the array is 'quasi-sorted'
                 // using either another stable sort or an insertion sort
                 // unsigned int nbThreads = min(8, CPU_THREADS);
                 // unsigned int size = A_sz / CPU_THREADS;
                 double tStartEGOSort = omp_get_wtime();
+                // qsort(A, A_sz, sizeof(Point), pcmp);
                 // #pragma omp parallel num_threads(nbThreads)
                 // {
                 //     unsigned int tid = omp_get_thread_num();
@@ -251,7 +249,7 @@ int main(int argc, char * argv[])
                     pPoint p = &A[i];
                     egoMapping[p->id] = i;
                 }
-                
+
                 printf("[EGO] ~ Beginning the computation\n");
                 totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex);
                 printf("[EGO] ~ Done with the computation\n");
