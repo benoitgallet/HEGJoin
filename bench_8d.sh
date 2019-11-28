@@ -5,7 +5,7 @@ EXPO8D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_8_pts_10
 
 sed -i '4s/.*/#define GPUNUMDIM 8/' params.h
 sed -i '5s/.*/#define NUMINDEXEDDIM 8/' params.h
-make clean
+make clean 1>/dev/null 2>/dev/null
 make 1>/dev/null 2>/dev/null
 
 echo '~ EXPO8D2M'

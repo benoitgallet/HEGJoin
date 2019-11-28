@@ -26,7 +26,7 @@ sed -i '669s/.*/std::pair<unsigned int, unsigned int> gpuBatch = getBatchFromQue
 
 sed -i '4s/.*/#define GPUNUMDIM 2/' params.h
 sed -i '5s/.*/#define NUMINDEXEDDIM 2/' params.h
-make clean
+make clean 1>/dev/null 2>/dev/null
 make 1>/dev/null 2>/dev/null
 
 echo '~ SW2DA'
@@ -147,7 +147,7 @@ echo
 
 sed -i '4s/.*/#define GPUNUMDIM 3/' params.h
 sed -i '5s/.*/#define NUMINDEXEDDIM 3/' params.h
-make clean
+make clean 1>/dev/null 2>/dev/null
 make 1>/dev/null 2>/dev/null
 
 echo '~ SW3DA'
@@ -268,7 +268,7 @@ echo
 
 sed -i '4s/.*/#define GPUNUMDIM 4/' params.h
 sed -i '5s/.*/#define NUMINDEXEDDIM 4/' params.h
-make clean
+make clean 1>/dev/null 2>/dev/null
 make 1>/dev/null 2>/dev/null
 
 echo '~ EXPO4D2M'
@@ -331,7 +331,7 @@ echo
 
 sed -i '4s/.*/#define GPUNUMDIM 6/' params.h
 sed -i '5s/.*/#define NUMINDEXEDDIM 6/' params.h
-make clean
+make clean 1>/dev/null 2>/dev/null
 make 1>/dev/null 2>/dev/null
 
 echo '~ EXPO6D2M'
@@ -394,7 +394,7 @@ echo
 
 sed -i '4s/.*/#define GPUNUMDIM 8/' params.h
 sed -i '5s/.*/#define NUMINDEXEDDIM 8/' params.h
-make clean
+make clean 1>/dev/null 2>/dev/null
 make 1>/dev/null 2>/dev/null
 
 echo '~ EXPO8D2M'
