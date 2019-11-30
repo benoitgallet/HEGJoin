@@ -479,7 +479,7 @@ void distanceTableNDGridBatches(
 
     // sets the batch size for the queue and the queue index, considering the offset reserved for the GPU
     setQueueIndex(GPUSTREAMS * (*DBSIZE / numBatches));
-    // setQueueIndex(0);
+// setQueueIndex(0);
 
 	/////////////////////////////////////////////////////////
 	//END BATCH ESTIMATOR
@@ -665,8 +665,8 @@ void distanceTableNDGridBatches(
         #pragma omp parallel reduction(+: totalResultsLoop) num_threads(GPUSTREAMS)
         {
             unsigned int tid = omp_get_thread_num();
-            std::pair<unsigned int, unsigned int> gpuBatch = std::make_pair(tid * batchSize, tid * batchSize + batchSize);
-
+std::pair<unsigned int, unsigned int> gpuBatch = std::make_pair(tid * batchSize, tid * batchSize + batchSize);
+// std::pair<unsigned int, unsigned int> gpuBatch = getBatchFromQueue(*DBSIZE, batchSize);
 
             unsigned int localBatchCounter = tid;
 

@@ -216,14 +216,14 @@ int main(int argc, char * argv[])
                 // unsigned int nbThreads = min(8, CPU_THREADS);
                 // unsigned int size = A_sz / CPU_THREADS;
                 double tStartEGOSort = omp_get_wtime();
-                // qsort(A, A_sz, sizeof(Point), pcmp);
+// qsort(A, A_sz, sizeof(Point), pcmp);
                 // #pragma omp parallel num_threads(nbThreads)
                 // {
                 //     unsigned int tid = omp_get_thread_num();
                 //     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
                 // }
                 // double tMidEgoSort = omp_get_wtime();
-                std::stable_sort(A, A + A_sz, egoSortFunction);
+std::stable_sort(A, A + A_sz, egoSortFunction);
                 // int i, j;
                 // Point key;
                 // for(int i = 1; i < A_sz; ++i)
@@ -251,7 +251,7 @@ int main(int argc, char * argv[])
                 }
 
                 printf("[EGO] ~ Beginning the computation\n");
-                totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex);
+totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex);
                 printf("[EGO] ~ Done with the computation\n");
 
                 double tEndEgo = omp_get_wtime();
