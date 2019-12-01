@@ -22,6 +22,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.631432 (Reorder: 0.011131, sort: 0.609487)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.631432
+
 ## Epsilon 0.001666667
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -44,6 +45,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.601122 (Reorder: 0.009968, sort: 0.582810)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.601122
+
 ## Epsilon 0.002500000
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -66,6 +68,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.593440 (Reorder: 0.011200, sort: 0.571833)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.593440
+
 ## Epsilon 0.003333333
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -88,6 +91,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.585114 (Reorder: 0.011186, sort: 0.563629)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.585114
+
 ## Epsilon 0.004166667
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -139,6 +143,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.599066 (Reorder: 0.031795, sort: 1.535418)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.599066
+
 ## Epsilon 0.000555556
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -161,6 +166,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.522413 (Reorder: 0.031308, sort: 1.462279)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.522413
+
 ## Epsilon 0.000833333
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -183,6 +189,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.479466 (Reorder: 0.029933, sort: 1.422376)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.479466
+
 ## Epsilon 0.001111111
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -205,6 +212,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.481489 (Reorder: 0.029812, sort: 1.430423)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.481489
+
 ## Epsilon 0.001388889
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -256,6 +264,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.932028 (Reorder: 0.020193, sort: 0.899075)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.932028
+
 ## Epsilon 0.0008
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -278,6 +287,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.929669 (Reorder: 0.012989, sort: 0.900911)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.929669
+
 ## Epsilon 0.0012
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -300,6 +310,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.896825 (Reorder: 0.012771, sort: 0.869533)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.896825
+
 ## Epsilon 0.0016
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -322,6 +333,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.860705 (Reorder: 0.010688, sort: 0.838459)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.860705
+
 ## Epsilon 0.0020
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -373,6 +385,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 4.359673 (Reorder: 0.056710, sort: 4.170883)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 4.359673
+
 ## Epsilon 0.00016
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -395,6 +408,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 4.265224 (Reorder: 0.056597, sort: 4.076626)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 4.265224
+
 ## Epsilon 0.00024
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -417,6 +431,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 4.199184 (Reorder: 0.059728, sort: 4.005713)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 4.199184
+
 ## Epsilon 0.00032
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -439,6 +454,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 4.132109 (Reorder: 0.090766, sort: 3.907537)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 4.132109
+
 ## Epsilon 0.00040
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -490,6 +506,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.727043 (Reorder: 0.017064, sort: 0.698311)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.727043
+
 ## Epsilon 0.002599582
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -512,6 +529,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.704736 (Reorder: 0.016829, sort: 0.675422)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.704736
+
 ## Epsilon 0.003899373
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -534,6 +552,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.693673 (Reorder: 0.016686, sort: 0.665839)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.693673
+
 ## Epsilon 0.005199163
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -556,6 +575,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 0.666181 (Reorder: 0.015499, sort: 0.639743)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.666181
+
 ## Epsilon 0.006498954
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -607,6 +627,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.784055 (Reorder: 0.042863, sort: 1.707204)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.784055
+
 ## Epsilon 0.000851319
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -629,6 +650,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.715731 (Reorder: 0.040904, sort: 1.643269)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.715731
+
 ## Epsilon 0.001276979
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -651,6 +673,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.666702 (Reorder: 0.041053, sort: 1.595294)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.666702
+
 ## Epsilon 0.001702639
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -673,6 +696,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.650491 (Reorder: 0.041120, sort: 1.580076)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.650491
+
 ## Epsilon 0.002128298
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -724,6 +748,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.094484 (Reorder: 0.035262, sort: 1.046126)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.094484
+
 ## Epsilon 0.002
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -746,6 +771,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.079635 (Reorder: 0.016693, sort: 1.045167)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.079635
+
 ## Epsilon 0.003
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -768,6 +794,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.060411 (Reorder: 0.016463, sort: 1.027077)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.060411
+
 ## Epsilon 0.004
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -790,6 +817,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.028283 (Reorder: 0.016395, sort: 0.994870)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.028283
+
 ## Epsilon 0.005
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -819,10 +847,15 @@
 
 ~ EXPO3D10M
 # Super-EGO
+
 ## Epsilon 0.00009
+
 ## Epsilon 0.0006
+
 ## Epsilon 0.0009
+
 ## Epsilon 0.0012
+
 ## Epsilon 0.0015
 
 
@@ -853,6 +886,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.281295 (Reorder: 0.045171, sort: 1.220325)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.281295
+
 ## Epsilon 0.004
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -875,6 +909,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.233343 (Reorder: 0.043282, sort: 1.174215)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.233343
+
 ## Epsilon 0.006
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -897,6 +932,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.248859 (Reorder: 0.044760, sort: 1.188660)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.248859
+
 ## Epsilon 0.008
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -919,6 +955,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.223491 (Reorder: 0.042510, sort: 1.165778)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.223491
+
 ## Epsilon 0.010
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -970,6 +1007,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 6.616260 (Reorder: 0.096010, sort: 6.380284)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 6.616260
+
 ## Epsilon 0.0016
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -992,6 +1030,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 7.647006 (Reorder: 0.121540, sort: 7.383124)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 7.647006
+
 ## Epsilon 0.0024
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1014,6 +1053,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 6.338358 (Reorder: 0.084432, sort: 6.117213)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 6.338358
+
 ## Epsilon 0.0032
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1036,6 +1076,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 6.276610 (Reorder: 0.081485, sort: 6.057755)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 6.276610
+
 ## Epsilon 0.0040
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1087,6 +1128,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.301346 (Reorder: 0.054822, sort: 1.228259)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.301346
+
 ## Epsilon 0.006
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1109,6 +1151,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.583875 (Reorder: 0.028567, sort: 1.531217)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.583875
+
 ## Epsilon 0.009
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1131,6 +1174,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.633677 (Reorder: 0.029799, sort: 1.579358)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.633677
+
 ## Epsilon 0.012
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1153,6 +1197,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.505523 (Reorder: 0.059516, sort: 1.427846)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.505523
+
 ## Epsilon 0.015
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1204,6 +1249,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 7.104506 (Reorder: 0.118863, sort: 6.838034)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 7.104506
+
 ## Epsilon 0.0032
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1226,6 +1272,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 7.606750 (Reorder: 0.123881, sort: 7.334733)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 7.606750
+
 ## Epsilon 0.0048
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1248,6 +1295,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 7.926842 (Reorder: 0.124725, sort: 7.652815)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 7.926842
+
 ## Epsilon 0.0064
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1270,6 +1318,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 8.034842 (Reorder: 0.131321, sort: 7.755260)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 8.034842
+
 ## Epsilon 0.0080
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1321,6 +1370,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.425697 (Reorder: 0.043420, sort: 1.359474)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.425697
+
 ## Epsilon 0.006
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1343,6 +1393,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.565656 (Reorder: 0.072154, sort: 1.470754)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.565656
+
 ## Epsilon 0.009
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1365,6 +1416,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.681944 (Reorder: 0.048867, sort: 1.611515)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.681944
+
 ## Epsilon 0.012
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1387,6 +1439,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.738389 (Reorder: 0.042209, sort: 1.675106)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 1.738389
+
 ## Epsilon 0.015
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1438,6 +1491,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 7.805454 (Reorder: 0.154289, sort: 7.487367)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 7.805454
+
 ## Epsilon 0.004
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1460,6 +1514,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 9.449706 (Reorder: 0.200670, sort: 9.078144)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 9.449706
+
 ## Epsilon 0.006
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1482,6 +1537,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 9.081389 (Reorder: 0.167107, sort: 8.748733)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 9.081389
+
 ## Epsilon 0.008
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
@@ -1504,6 +1560,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 9.848126 (Reorder: 0.181649, sort: 9.489413)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 9.848126
+
 ## Epsilon 0.010
 [RESULT] ~ Total result set size: 0
    [RESULT] ~ Total result set size on the GPU: 0
