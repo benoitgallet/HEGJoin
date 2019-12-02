@@ -216,7 +216,7 @@ int main(int argc, char * argv[])
                 // unsigned int nbThreads = min(8, CPU_THREADS);
                 // unsigned int size = A_sz / CPU_THREADS;
                 double tStartEGOSort = omp_get_wtime();
-// qsort(A, A_sz, sizeof(Point), pcmp);
+//qsort(A, A_sz, sizeof(Point), pcmp);
                 // #pragma omp parallel num_threads(nbThreads)
                 // {
                 //     unsigned int tid = omp_get_thread_num();
