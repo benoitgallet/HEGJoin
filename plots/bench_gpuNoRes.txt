@@ -1,4 +1,3 @@
-sed: -e expression #1, char 52: unknown option to `s'
 ~ SW2DA
 # Hybrid
 ## Epsilon 0.000833333
@@ -35,6 +34,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.452182
    [RESULT] ~ Total execution time for the CPU: 2.795617 (Reorder: 0.011313, sort: 0.761976)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.656565
+
 ## Epsilon 0.001666667
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1423008
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.980804
@@ -69,6 +69,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.558015
    [RESULT] ~ Total execution time for the CPU: 3.807121 (Reorder: 0.012047, sort: 0.758757)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.750894
+
 ## Epsilon 0.002500000
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1405056
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.813013
@@ -103,6 +104,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 6.035363
    [RESULT] ~ Total execution time for the CPU: 5.564800 (Reorder: 0.012389, sort: 0.745932)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.470563
+
 ## Epsilon 0.003333333
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1491720
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.763138
@@ -137,6 +139,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 8.254314
    [RESULT] ~ Total execution time for the CPU: 8.023850 (Reorder: 0.011234, sort: 0.440082)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.230464
+
 ## Epsilon 0.004166667
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1488670
 [EGO | RESULT] ~ Compute time for Super-EGO: 9.734321
@@ -212,6 +215,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.589524
    [RESULT] ~ Total execution time for the CPU: 2.871671 (Reorder: 0.065870, sort: 1.781044)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.717853
+
 ## Epsilon 0.000555556
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3327488
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.426726
@@ -246,6 +250,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.646989
    [RESULT] ~ Total execution time for the CPU: 3.993172 (Reorder: 0.069865, sort: 1.085910)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.653817
+
 ## Epsilon 0.000833333
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3773989
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.482396
@@ -280,6 +285,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 6.148650
    [RESULT] ~ Total execution time for the CPU: 5.429453 (Reorder: 0.031994, sort: 1.359638)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.719198
+
 ## Epsilon 0.001111111
 [EGO | RESULT] ~ Query points computed by Super-EGO: 4041802
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.318389
@@ -314,6 +320,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 8.593224
    [RESULT] ~ Total execution time for the CPU: 7.894654 (Reorder: 0.031948, sort: 1.392257)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.698570
+
 ## Epsilon 0.001388889
 [GPU | RESULT] ~ Query points computed by the GPU: 1107255
 [GPU | RESULT] ~ Compute time for the GPU: 8.873034
@@ -389,6 +396,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.584206
    [RESULT] ~ Total execution time for the CPU: 2.883279 (Reorder: 0.013203, sort: 0.756572)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.700927
+
 ## Epsilon 0.0008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1396352
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.820582
@@ -423,6 +431,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 5.718439
    [RESULT] ~ Total execution time for the CPU: 5.007585 (Reorder: 0.011984, sort: 0.771199)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.710854
+
 ## Epsilon 0.0012
 [GPU | RESULT] ~ Query points computed by the GPU: 587136
 [GPU | RESULT] ~ Compute time for the GPU: 6.040132
@@ -457,6 +466,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 9.242155
    [RESULT] ~ Total execution time for the CPU: 8.546386 (Reorder: 0.011885, sort: 0.806917)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.695768
+
 ## Epsilon 0.0016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1486912
 [EGO | RESULT] ~ Compute time for Super-EGO: 12.252398
@@ -491,6 +501,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 14.125050
    [RESULT] ~ Total execution time for the CPU: 13.353940 (Reorder: 0.012968, sort: 0.766739)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.771110
+
 ## Epsilon 0.0020
 [GPU | RESULT] ~ Query points computed by the GPU: 483200
 [GPU | RESULT] ~ Compute time for the GPU: 17.928050
@@ -566,6 +577,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.138621
    [RESULT] ~ Total execution time for the CPU: 3.521779 (Reorder: 0.059418, sort: 3.272846)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.616842
+
 ## Epsilon 0.00016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5277808
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.520667
@@ -600,6 +612,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 6.253875
    [RESULT] ~ Total execution time for the CPU: 5.655094 (Reorder: 0.055303, sort: 3.174379)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.598781
+
 ## Epsilon 0.00024
 [EGO | RESULT] ~ Query points computed by Super-EGO: 6208394
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.729991
@@ -634,6 +647,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 9.471681
    [RESULT] ~ Total execution time for the CPU: 8.867385 (Reorder: 0.054211, sort: 3.214133)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.604296
+
 ## Epsilon 0.00032
 [GPU | RESULT] ~ Query points computed by the GPU: 3222656
 [GPU | RESULT] ~ Compute time for the GPU: 12.273132
@@ -668,6 +682,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 15.385313
    [RESULT] ~ Total execution time for the CPU: 15.011066 (Reorder: 0.058584, sort: 3.029435)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.374247
+
 ## Epsilon 0.00040
 [EGO | RESULT] ~ Query points computed by Super-EGO: 7105843
 [EGO | RESULT] ~ Compute time for Super-EGO: 17.692754
@@ -743,6 +758,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.482097
    [RESULT] ~ Total execution time for the CPU: 2.764398 (Reorder: 0.015426, sort: 0.753229)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.717699
+
 ## Epsilon 0.002599582
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1228476
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.985659
@@ -777,6 +793,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 5.365914
    [RESULT] ~ Total execution time for the CPU: 4.663860 (Reorder: 0.014870, sort: 0.600875)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.702054
+
 ## Epsilon 0.003899373
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1318080
 [EGO | RESULT] ~ Compute time for Super-EGO: 8.247641
@@ -811,6 +828,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 10.024620
    [RESULT] ~ Total execution time for the CPU: 9.335156 (Reorder: 0.016034, sort: 0.809621)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.689464
+
 ## Epsilon 0.005199163
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1417792
 [EGO | RESULT] ~ Compute time for Super-EGO: 15.761659
@@ -845,6 +863,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 17.485121
    [RESULT] ~ Total execution time for the CPU: 16.683454 (Reorder: 0.016785, sort: 0.833848)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.801668
+
 ## Epsilon 0.006498954
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1506581
 [EGO | RESULT] ~ Compute time for Super-EGO: 27.224442
@@ -920,6 +939,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.052333
    [RESULT] ~ Total execution time for the CPU: 2.342331 (Reorder: 0.040662, sort: 1.595379)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.710002
+
 ## Epsilon 0.000851319
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2306560
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.924865
@@ -954,6 +974,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.895075
    [RESULT] ~ Total execution time for the CPU: 3.283941 (Reorder: 0.040021, sort: 1.668798)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.611134
+
 ## Epsilon 0.001276979
 [GPU | RESULT] ~ Query points computed by the GPU: 2080569
 [GPU | RESULT] ~ Compute time for the GPU: 3.250776
@@ -988,6 +1009,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 5.685261
    [RESULT] ~ Total execution time for the CPU: 5.102062 (Reorder: 0.073029, sort: 1.612948)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.583200
+
 ## Epsilon 0.001702639
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3213760
 [EGO | RESULT] ~ Compute time for Super-EGO: 7.018876
@@ -1022,6 +1044,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 9.012306
    [RESULT] ~ Total execution time for the CPU: 8.389356 (Reorder: 0.039841, sort: 1.481852)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.622950
+
 ## Epsilon 0.002128298
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3559040
 [EGO | RESULT] ~ Compute time for Super-EGO: 12.967014
@@ -1097,6 +1120,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.130503
    [RESULT] ~ Total execution time for the CPU: 2.220788 (Reorder: 0.041114, sort: 1.203046)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.909715
+
 ## Epsilon 0.002
 [EGO | RESULT] ~ Query points computed by Super-EGO: 976758
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.382611
@@ -1131,6 +1155,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.090316
    [RESULT] ~ Total execution time for the CPU: 3.413958 (Reorder: 0.017730, sort: 1.074144)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.676358
+
 ## Epsilon 0.003
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1289536
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.517271
@@ -1165,6 +1190,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 7.004440
    [RESULT] ~ Total execution time for the CPU: 6.333310 (Reorder: 0.017671, sort: 1.119108)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.671130
+
 ## Epsilon 0.004
 [GPU | RESULT] ~ Query points computed by the GPU: 617024
 [GPU | RESULT] ~ Compute time for the GPU: 10.443689
@@ -1199,6 +1225,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 13.400242
    [RESULT] ~ Total execution time for the CPU: 12.812005 (Reorder: 0.016536, sort: 1.112566)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.588237
+
 ## Epsilon 0.005
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1439872
 [EGO | RESULT] ~ Compute time for Super-EGO: 22.288933
@@ -1241,9 +1268,13 @@ sed: -e expression #1, char 52: unknown option to `s'
 ~ EXPO3D10M
 # Hybrid
 ## Epsilon 0.00009
+
 ## Epsilon 0.0006
+
 ## Epsilon 0.0009
+
 ## Epsilon 0.0012
+
 ## Epsilon 0.0015
 
 
@@ -1286,6 +1317,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 3.039354
    [RESULT] ~ Total execution time for the CPU: 2.206747 (Reorder: 0.022144, sort: 1.264889)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.832607
+
 ## Epsilon 0.004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 652416
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.128584
@@ -1320,6 +1352,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.058556
    [RESULT] ~ Total execution time for the CPU: 3.358171 (Reorder: 0.044709, sort: 1.129575)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.700385
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1130304
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.722094
@@ -1354,6 +1387,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 8.724184
    [RESULT] ~ Total execution time for the CPU: 8.034607 (Reorder: 0.019869, sort: 1.299739)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.689577
+
 ## Epsilon 0.008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1366528
 [EGO | RESULT] ~ Compute time for Super-EGO: 22.888727
@@ -1388,6 +1422,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 24.816013
    [RESULT] ~ Total execution time for the CPU: 24.017165 (Reorder: 0.050418, sort: 1.051314)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.798848
+
 ## Epsilon 0.010
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1466688
 [EGO | RESULT] ~ Compute time for Super-EGO: 54.923487
@@ -1463,6 +1498,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 0.874433
    [RESULT] ~ Total execution time for the CPU: 4.610665 (Reorder: 0.091603, sort: 4.338737)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 3.736232
+
 ## Epsilon 0.0016
 [GPU | RESULT] ~ Query points computed by the GPU: 10000000
 [GPU | RESULT] ~ Compute time for the GPU: 1.944966
@@ -1497,6 +1533,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.596113
    [RESULT] ~ Total execution time for the CPU: 4.870585 (Reorder: 0.096245, sort: 4.577776)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.274471
+
 ## Epsilon 0.0024
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1246848
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.007177
@@ -1531,6 +1568,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 7.470798
    [RESULT] ~ Total execution time for the CPU: 6.847910 (Reorder: 0.131745, sort: 4.819754)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.622887
+
 ## Epsilon 0.0032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3843456
 [EGO | RESULT] ~ Compute time for Super-EGO: 10.243283
@@ -1565,6 +1603,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 16.466256
    [RESULT] ~ Total execution time for the CPU: 15.908833 (Reorder: 0.090591, sort: 4.792302)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.557423
+
 ## Epsilon 0.0040
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5810240
 [EGO | RESULT] ~ Compute time for Super-EGO: 36.522232
@@ -1640,6 +1679,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 1.698331
    [RESULT] ~ Total execution time for the CPU: 1.189914 (Reorder: 0.058745, sort: 1.099799)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.508417
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 328576
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.833626
@@ -1674,6 +1714,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.285586
    [RESULT] ~ Total execution time for the CPU: 3.114094 (Reorder: 0.043338, sort: 1.463248)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 1.171492
+
 ## Epsilon 0.009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 396928
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.603307
@@ -1708,6 +1749,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 4.904721
    [RESULT] ~ Total execution time for the CPU: 4.186949 (Reorder: 0.062007, sort: 1.440915)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.717772
+
 ## Epsilon 0.012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 859072
 [EGO | RESULT] ~ Compute time for Super-EGO: 9.690047
@@ -1742,6 +1784,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 11.421333
    [RESULT] ~ Total execution time for the CPU: 10.665640 (Reorder: 0.061780, sort: 1.192857)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.755692
+
 ## Epsilon 0.015
 
 
@@ -1784,6 +1827,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 7.914901
    [RESULT] ~ Total execution time for the CPU: 5.892375 (Reorder: 0.124886, sort: 5.135918)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 2.022526
+
 ## Epsilon 0.0032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 0
 [EGO | RESULT] ~ Compute time for Super-EGO: 0.010937
@@ -1818,6 +1862,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 14.778021
    [RESULT] ~ Total execution time for the CPU: 8.939665 (Reorder: 0.123766, sort: 5.517036)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 5.838356
+
 ## Epsilon 0.0048
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1171712
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.451702
@@ -1852,6 +1897,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 13.359970
    [RESULT] ~ Total execution time for the CPU: 11.436894 (Reorder: 0.103341, sort: 5.765371)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 1.923076
+
 ## Epsilon 0.0064
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1462080
 [EGO | RESULT] ~ Compute time for Super-EGO: 9.205943
@@ -1886,6 +1932,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 15.409669
    [RESULT] ~ Total execution time for the CPU: 14.549390 (Reorder: 0.148508, sort: 5.726756)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.860279
+
 ## Epsilon 0.0080
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3190016
 [EGO | RESULT] ~ Compute time for Super-EGO: 29.586179
@@ -1961,6 +2008,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 6.223387
    [RESULT] ~ Total execution time for the CPU: 2.426148 (Reorder: 0.036769, sort: 1.159290)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 3.797239
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 500000
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.296450
@@ -1995,6 +2043,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 10.348003
    [RESULT] ~ Total execution time for the CPU: 3.659912 (Reorder: 0.075285, sort: 1.240099)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 6.688092
+
 ## Epsilon 0.009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 500000
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.134148
@@ -2029,6 +2078,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 9.741849
    [RESULT] ~ Total execution time for the CPU: 5.622939 (Reorder: 0.048388, sort: 1.392969)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 4.118911
+
 ## Epsilon 0.012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 415680
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.300577
@@ -2063,6 +2113,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 10.463650
    [RESULT] ~ Total execution time for the CPU: 6.934899 (Reorder: 0.071972, sort: 1.600091)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 3.528751
+
 ## Epsilon 0.015
 [EGO | RESULT] ~ Query points computed by Super-EGO: 557888
 [EGO | RESULT] ~ Compute time for Super-EGO: 9.299309
@@ -2138,6 +2189,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 31.052780
    [RESULT] ~ Total execution time for the CPU: 17.639528 (Reorder: 0.135862, sort: 5.631857)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 13.413253
+
 ## Epsilon 0.004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2500000
 [EGO | RESULT] ~ Compute time for Super-EGO: 15.002446
@@ -2172,6 +2224,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 74.206752
    [RESULT] ~ Total execution time for the CPU: 21.896836 (Reorder: 0.200813, sort: 6.140954)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 52.309916
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2500000
 [EGO | RESULT] ~ Compute time for Super-EGO: 25.106645
@@ -2206,6 +2259,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 76.207347
    [RESULT] ~ Total execution time for the CPU: 32.140354 (Reorder: 0.177371, sort: 6.731819)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 44.066993
+
 ## Epsilon 0.008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2564224
 [EGO | RESULT] ~ Compute time for Super-EGO: 38.688553
@@ -2240,6 +2294,7 @@ sed: -e expression #1, char 52: unknown option to `s'
    [RESULT] ~ Total execution time for the GPU: 58.776078
    [RESULT] ~ Total execution time for the CPU: 55.301234 (Reorder: 0.132123, sort: 6.743301)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 3.474844
+
 ## Epsilon 0.010
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2429184
 [EGO | RESULT] ~ Compute time for Super-EGO: 46.323683
