@@ -255,8 +255,8 @@ unsigned long long callGPUBatchEst(
     // }else{
     //     GPUBufferSize = 1000000;
     // }
-	// unsigned int GPUBufferSize = 50000000;
-    unsigned int GPUBufferSize = 100000000;
+	unsigned int GPUBufferSize = 50000000;
+    // unsigned int GPUBufferSize = 100000000;
 
     // #if SORT_BY_WORKLOAD
     //     #if LID_UNICOMP
