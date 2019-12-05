@@ -295,8 +295,11 @@ void sortByWorkLoad(
     cout << "[SORT] ~ Kernel time to sort by workload: " << timeKernel << '\n';
     cout.flush();
 
+    double tBeginSort = omp_get_wtime();
     std::sort(sortedDatabaseTmp, sortedDatabaseTmp + (*nNonEmptyCells),
             [](const schedulingCell& a, const schedulingCell& b){ return a.nbPoints > b.nbPoints; });
+    double tEndSort = omp_get_wtime();
+    printf("[SORT] ~ Time to call std::sort = %f", tEndSort - tBeginSort);
 
     (*originPointIndex) = new unsigned int [(*DBSIZE)];
 
