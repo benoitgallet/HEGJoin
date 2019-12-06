@@ -112,8 +112,8 @@ __global__ void sortByWorkLoadGlobal(
 	for(int n = 0; n < NUMINDEXEDDIM; n++)
 	{
 		nDCellIDs[n] = (point[n] - minArr[n]) / (*epsilon);
-		nDMinCellIDs = max(0, nDCellIDs[n] - 1);;
-		nDMaxCellIDs = min(nCells[n] - 1, nDCellIDs[n] + 1);
+		nDMinCellIDs[i] = max(0, nDCellIDs[n] - 1);;
+		nDMaxCellIDs[i] = min(nCells[n] - 1, nDCellIDs[n] + 1);
 
 		// bool foundMin = 0;
 		// bool foundMax = 0;
@@ -736,8 +736,8 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 	{
 
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon
-		nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
+		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 
 
 		///////////////////////////
@@ -1157,8 +1157,8 @@ __global__ void kernelNDGridIndexGlobal(
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
+		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 
 		//compare the point's range of cell IDs in each dimension to the filter mask
 		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
