@@ -140,6 +140,7 @@ int main(int argc, char * argv[])
             indexLookupArr, &dev_indexLookupArr, &gridCellLookupArr, &dev_gridCellLookupArr, &nNonEmptyCells, &dev_nNonEmptyCells,
             nCells, &dev_nCells);
 
+    cudaError_t errCode;
     errCode = cudaMemcpy(dev_index, index, sizeof(struct grid) * nNonEmptyCells, cudaMemcpyHostToDevice);
 	if(errCode != cudaSuccess)
     {
