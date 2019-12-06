@@ -307,6 +307,8 @@ void sortByWorkLoad(
     // unsigned int minNeighbor = (*DBSIZE);
     unsigned int maxNeighbor = sortedDatabaseTmp[0].nbPoints;
     unsigned int minNeighbor = sortedDatabaseTmp[(*nNonEmptyCells) - 1].nbPoints;
+    cout << "max = " << maxNeighbor << '\n';
+    cout << "min = " << minNeighbor << '\n';
     uint64_t accNeighbor = 0;
 
     int prec = 0;
