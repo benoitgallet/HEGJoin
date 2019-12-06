@@ -83,7 +83,7 @@ int main(int argc, char * argv[])
     unsigned int DBSIZE = NDdataPoints.size();
     setQueueIndexCPU(DBSIZE);
 
-    sortInNDBins(&NDdataPoints);
+    // sortInNDBins(&NDdataPoints);
 
     printf("Converting the dataset for Super-EGO\n");
     Point * A = new Point[DBSIZE + 1];
@@ -98,31 +98,6 @@ int main(int argc, char * argv[])
     }
     Point * B = A;
 
-    DTYPE * minArr = new DTYPE [NUMINDEXEDDIM];
-    DTYPE * maxArr = new DTYPE [NUMINDEXEDDIM];
-    unsigned int * nCells = new unsigned int [NUMINDEXEDDIM];
-    uint64_t totalCells = 0;
-    unsigned int nNonEmptyCells = 0;
-
-    generateNDGridDimensions(&NDdataPoints, epsilon, minArr, maxArr, nCells, &totalCells);
-    printf("[GPU] ~ Total cells (including empty): %lu\n", totalCells);
-
-    struct grid * index;
-    struct gridCellLookup * gridCellLookupArr;
-    unsigned int * gridCellNDMask;
-    unsigned int * nNDMaskElems = new unsigned int;
-    unsigned int * gridCellNDMaskOffsets = new unsigned int [NUMINDEXEDDIM * 2];
-    unsigned int * indexLookupArr = new unsigned int[NDdataPoints.size()];
-
-    populateNDGridIndexAndLookupArray(&NDdataPoints, epsilon, &gridCellLookupArr, &index,
-            indexLookupArr, minArr,  nCells, totalCells, &nNonEmptyCells, &gridCellNDMask,
-            gridCellNDMaskOffsets, nNDMaskElems);
-
-    //Neighbortable storage -- the result
-    neighborTableLookup * neighborTable = new neighborTableLookup [NDdataPoints.size()];
-    // neighborTableLookup * neighborTable = new neighborTableLookup[DBSIZE * fraction];
-    std::vector<struct neighborDataPtrs> pointersToNeighbors(DBSIZE);
-
     DTYPE * database = new DTYPE [DBSIZE * GPUNUMDIM];
     for(unsigned int i = 0; i < DBSIZE; ++i)
     {
@@ -133,6 +108,22 @@ int main(int argc, char * argv[])
         // std::copy(NDdataPoints[i].begin(), NDdataPoints[i].end(), database + i * GPUNUMDIM);
     }
 
+    DTYPE * minArr = new DTYPE [NUMINDEXEDDIM];
+    DTYPE * maxArr = new DTYPE [NUMINDEXEDDIM];
+    unsigned int * nCells = new unsigned int [NUMINDEXEDDIM];
+    uint64_t totalCells = 0;
+    unsigned int nNonEmptyCells = 0;
+
+    generateNDGridDimensions(&NDdataPoints, epsilon, minArr, maxArr, nCells, &totalCells);
+    // printf("[GPU] ~ Total cells (including empty): %lu\n", totalCells);
+
+    struct grid * index;
+    struct gridCellLookup * gridCellLookupArr;
+    // unsigned int * gridCellNDMask;
+    // unsigned int * nNDMaskElems = new unsigned int;
+    // unsigned int * gridCellNDMaskOffsets = new unsigned int [NUMINDEXEDDIM * 2];
+    unsigned int * indexLookupArr = new unsigned int[NDdataPoints.size()];
+
     DTYPE * dev_epsilon;
     DTYPE * dev_database;
     struct grid * dev_index;
@@ -141,16 +132,29 @@ int main(int argc, char * argv[])
     DTYPE * dev_minArr;
     unsigned int * dev_nCells;
     unsigned int * dev_nNonEmptyCells;
-    unsigned int * dev_gridCellNDMask;
-    unsigned int * dev_gridCellNDMaskOffsets;
+
+    // populateNDGridIndexAndLookupArray(&NDdataPoints, epsilon, &gridCellLookupArr, &index,
+    //         indexLookupArr, minArr,  nCells, totalCells, &nNonEmptyCells, &gridCellNDMask,
+    //         gridCellNDMaskOffsets, nNDMaskElems);
+    gridIndexingGPU(&DBSIZE, database, &dev_database, &epsilon, &dev_epsilon, minArr, &dev_minArr, &index, &dev_index,
+            indexLookupArr, &dev_indexLookupArr, &gridCellLookupArr, &dev_gridCellLookupArr, &nNonEmptyCells, &dev_nNonEmptyCells,
+            nCells, &dev_nCells);
+
+    //Neighbortable storage -- the result
+    neighborTableLookup * neighborTable = new neighborTableLookup [NDdataPoints.size()];
+    // neighborTableLookup * neighborTable = new neighborTableLookup[DBSIZE * fraction];
+    std::vector<struct neighborDataPtrs> pointersToNeighbors(DBSIZE);
+
+    // unsigned int * dev_gridCellNDMask;
+    // unsigned int * dev_gridCellNDMaskOffsets;
 
     unsigned int * originPointIndex;
     unsigned int * dev_originPointIndex;
 
     double tStartSort = omp_get_wtime();
-    sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
-            gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
-            gridCellNDMask, &dev_gridCellNDMask, gridCellNDMaskOffsets, &dev_gridCellNDMaskOffsets, nNDMaskElems, &originPointIndex, &dev_originPointIndex,
+    sortByWorkLoad(searchMode, &DBSIZE, /*&epsilon,*/ &dev_epsilon, /*database,*/ &dev_database, /*index,*/ &dev_index, /*indexLookupArr,*/ &dev_indexLookupArr,
+            /*gridCellLookupArr,*/ &dev_gridCellLookupArr, /*minArr,*/ &dev_minArr, /*nCells,*/ &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
+            /*gridCellNDMask,*/ &dev_gridCellNDMask, /*gridCellNDMaskOffsets, &dev_gridCellNDMaskOffsets, nNDMaskElems,*/ &originPointIndex, &dev_originPointIndex,
             nullptr);
     double tEndSort = omp_get_wtime();
     double sortTime = tEndSort - tStartSort;
@@ -179,8 +183,8 @@ int main(int argc, char * argv[])
                 double tBeginGPU = omp_get_wtime();
                 distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
                         indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
-                        &nNonEmptyCells, dev_nNonEmptyCells, gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
-                        nNDMaskElems, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
+                        &nNonEmptyCells, dev_nNonEmptyCells, /*gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
+                        nNDMaskElems,*/ originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
                 double tEndGPU = omp_get_wtime();
                 gpuTime = tEndGPU - tBeginGPU;
             }
@@ -286,8 +290,8 @@ int main(int argc, char * argv[])
     delete[] minArr;
     delete[] maxArr;
     delete[] nCells;
-    delete nNDMaskElems;
-    delete[] gridCellNDMaskOffsets;
+    // delete nNDMaskElems;
+    // delete[] gridCellNDMaskOffsets;
     delete[] indexLookupArr;
     delete[] neighborTable;
     delete[] database;
@@ -302,8 +306,8 @@ int main(int argc, char * argv[])
     cudaFree(dev_minArr);
     cudaFree(dev_nCells);
     cudaFree(dev_nNonEmptyCells);
-    cudaFree(dev_gridCellNDMask);
-    cudaFree(dev_gridCellNDMaskOffsets);
+    // cudaFree(dev_gridCellNDMask);
+    // cudaFree(dev_gridCellNDMaskOffsets);
 
     delete[] originPointIndex;
     cudaFree(dev_originPointIndex);

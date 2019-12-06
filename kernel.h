@@ -5,6 +5,17 @@
 #include "params.h"
 
 
+__global__ void kernelIndexComputeNonemptyCells(
+		DTYPE * database,
+		unsigned int * N,
+		DTYPE * epsilon,
+		DTYPE * minArr,
+		unsigned int * nCells,
+		uint64_t * pointCellArr,
+		unsigned int * databaseVal,
+		bool enumerate);
+
+
 __global__ void sortByWorkLoadGlobal(
 		DTYPE * database,
 		DTYPE * epsilon,
@@ -14,8 +25,8 @@ __global__ void sortByWorkLoadGlobal(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets,
 		schedulingCell * sortedCells);
 
 
@@ -28,8 +39,8 @@ __global__ void sortByWorkLoadLidUnicomp(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets,
 		schedulingCell * sortedCells);
 
 
@@ -42,8 +53,8 @@ __global__ void sortByWorkLoadUnicomp(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets,
 		schedulingCell * sortedCells);
 
 
@@ -158,9 +169,9 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * cnt,
-		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets);
+		unsigned int * nNonEmptyCells);
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets);
 
 
 __global__ void kernelNDGridIndexBatchEstimatorUnicompAdaptive(
@@ -177,9 +188,9 @@ __global__ void kernelNDGridIndexBatchEstimatorUnicompAdaptive(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * cnt,
-		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets);
+		unsigned int * nNonEmptyCells);
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets);
 
 
 __global__ void kernelNDGridIndexBatchEstimatorLidUnicompAdaptive(
@@ -196,9 +207,9 @@ __global__ void kernelNDGridIndexBatchEstimatorLidUnicompAdaptive(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * cnt,
-		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets);
+		unsigned int * nNonEmptyCells);
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets);
 
 
 __global__ void kernelNDGridIndexGlobal(
@@ -217,8 +228,8 @@ __global__ void kernelNDGridIndexGlobal(
 		unsigned int * nCells,
 		unsigned int * cnt,
 		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets,
 		int * pointIDKey,
 		int * pointInDistVal);
 

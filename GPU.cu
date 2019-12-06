@@ -62,7 +62,331 @@ uint64_t getLinearID_nDimensions2(unsigned int * indexes, unsigned int * dimLen,
 }
 
 
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+void gridIndexingGPU(
+    unsigned int * DBSIZE,
+    DTYPE * database,
+    DTYPE ** dev_database,
+    DTYPE * epsilon,
+    DTYPE ** dev_epsilon,
+    DTYPE * minArr,
+    DTYPE ** dev_minArr,
+    struct grid ** index,
+    struct grid ** dev_index,
+    unsigned int * indexLookupArr,
+    unsigned int ** dev_indexLookupArr,
+    struct gridCellLookup ** gridCellLookupArr,
+    struct gridCellLookup ** dev_gridCellLookupArr,
+    unsigned int * nNonEmptyCells,
+    unsigned int ** nNonEmptyCells,
+    unsigned int * nCells,
+    unsigned int ** dev_nCells)
+{
+
+    cudaError_t errCode;
+
+    double tStartAllocGPU = omp_get_wtime();
+
+    errCode = cudaMalloc( (void**)dev_database, sizeof(DTYPE) * (GPUNUMDIM) * (*DBSIZE));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Alloc database -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc( (void**)dev_epsilon, sizeof(DTYPE));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Alloc epsilon -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc((void**)dev_minArr, sizeof(DTYPE) * (NUMINDEXEDDIM));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Alloc minArr -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc( (void**)dev_index, sizeof(struct grid) * (*nNonEmptyCells));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Alloc grid index -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc( (void**)dev_indexLookupArr, sizeof(unsigned int) * (*DBSIZE));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: lookup array allocation -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc( (void**)dev_gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: copy grid cell lookup array allocation -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc((void**)dev_nNonEmptyCells, sizeof(unsigned int));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Alloc nNonEmptyCells -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc((void**)dev_nCells, sizeof(unsigned int) * (NUMINDEXEDDIM));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Alloc nCells -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    uint64_t * dev_pointCellArr;
+    errCode = cudaMalloc((void**)dev_pointCellArr, sizeof(uint64_t) * (*DBSIZE));
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: point cell array alloc -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    unsigned int * dev_databaseVal;
+	errCode = cudaMalloc((void**)&dev_databaseVal, sizeof(unsigned int) * (*DBSIZE));
+	if(errCode != cudaSuccess) {
+    	cout << "[INDEX] ~ Error: Alloc databaseVal -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    unsigned int * N = new unsigned int;
+	unsigned int * dev_N;
+	errCode = cudaMalloc((void**)&dev_N, sizeof(unsigned int) * GPUSTREAMS);
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Alloc dev_N -- error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    double tEndAllocGPU = omp_get_wtime();
+    cout << "[INDEX] ~ Time to allocate on the GPU: " << tEndAllocGPU - tStartAllocGPU << "\n\n";
+    cout.flush();
+
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+
+
+    double tStartCopyGPU = omp_get_wtime();
+
+    errCode = cudaMemcpy( (*dev_database), database, sizeof(DTYPE) * (GPUNUMDIM) * (*DBSIZE), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: database copy to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy( (*dev_epsilon), epsilon, sizeof(DTYPE), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: epsilon copy to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy( (*dev_minArr), minArr, sizeof(DTYPE) * (NUMINDEXEDDIM), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Copy minArr to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy( (*dev_index), index, sizeof(struct grid) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: grid index copy to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy( (*dev_indexLookupArr), indexLookupArr, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: copy lookup array to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy( (*dev_gridCellLookupArr), gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: copy grid cell lookup array to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy( (*dev_nNonEmptyCells), nNonEmptyCells, sizeof(unsigned int), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: nNonEmptyCells copy to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy( (*dev_nCells), nCells, sizeof(unsigned int) * (NUMINDEXEDDIM), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: Copy nCells to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy(dev_N, DBSIZE, sizeof(unsigned int), cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: database size Got error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    double tEndCopyGPU = omp_get_wtime();
+    cout << "[INDEX] ~ Time to copy to the GPU: " << tEndCopyGPU - tStartCopyGPU << "\n\n";
+    cout.flush();
+
+
+
+    ////////////////////////////////////////////////////////////////////////////
+
+
+
+    const int TOTALBLOCKS = ceil((1.0 * (*DBSIZE)) / (1.0 * BLOCKSIZE));
+	printf("[INDEX] ~ Total blocks: %d\n",TOTALBLOCKS);
+
+	kernelIndexComputeNonemptyCells<<<TOTALBLOCKS, BLOCKSIZE>>>(dev_database, dev_DBSIZE, dev_epsilon, dev_minArr,
+            dev_nCells, dev_pointCellArr, nullptr, false);
+    cudaDeviceSynchronize();
+
+    thrust::device_ptr<uint64_t> dev_pointCellArr_ptr(dev_pointCellArr);
+	thrust::device_ptr<uint64_t> dev_new_end;
+
+	try
+    {
+		//first sort
+		thrust::sort(thrust::device, dev_pointCellArr_ptr, dev_pointCellArr_ptr + (*DBSIZE)); //, thrust::greater<uint64_t>()
+		//then unique
+		dev_new_end = thrust::unique(thrust::device, dev_pointCellArr_ptr, dev_pointCellArr_ptr + (*DBSIZE));
+	}
+	catch(std::bad_alloc &e)
+	{
+	 	std::cerr << "[INDEX] ~ Ran out of memory while sorting" << std::endl;
+	    exit(-1);
+    }
+
+    uint64_t * new_end = thrust::raw_pointer_cast(dev_new_end);
+    uint64_t numNonEmptyCells = std::distance(dev_pointCellArr_ptr, dev_new_end);
+    printf("[INDEX] ~ Number of full cells (non-empty): %lu\n", numNonEmptyCells);
+    *nNonEmptyCells = numNonEmptyCells;
+    (*gridCellLookupArr) = new struct gridCellLookup[numNonEmptyCells];
+    uint64_t * pointCellArrTmp = new uint64_t[numNonEmptyCells];
+    errCode = cudaMemcpy(pointCellArrTmp, dev_pointCellArr, sizeof(uint64_t) * numNonEmptyCells, cudaMemcpyDeviceToHost);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: pointCellArrTmp memcpy Got error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+	for (uint64_t i = 0; i < numNonEmptyCells; ++i)
+	{
+		(*gridCellLookupArr)[i].idx = i;
+		(*gridCellLookupArr)[i].gridLinearID = pointCellArrTmp[i];
+	}
+
+    kernelIndexComputeNonemptyCells<<<TOTALBLOCKS, BLOCKSIZE>>>(dev_database, dev_DBSIZE, dev_epsilon, dev_minArr,
+            dev_nCells, dev_pointCellArr, dev_databaseVal, true);
+
+    try
+	{
+    	thrust::sort_by_key(thrust::device, dev_pointCellArr, dev_pointCellArr + (*DBSIZE), dev_databaseVal);
+	}
+	catch(std::bad_alloc &e)
+	{
+		std::cerr << "[INDEX] ~ Ran out of memory while sorting key/value pairs" << std::endl;
+	    exit(-1);
+	}
+
+    uint64_t * cellKey = new uint64_t[(*DBSIZE)];
+    errCode = cudaMemcpy(cellKey, dev_pointCellArr, sizeof(uint64_t) * (*DBSIZE), cudaMemcpyDeviceToHost);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: pointCellArr memcpy Got error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy(indexLookupArr, dev_databaseVal, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyDeviceToHost);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: databaseIDValue memcpy Got error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    (*index) = new grid[numNonEmptyCells];
+    (*index)[0].indexmin = 0;
+	uint64_t cnt=0;
+	for (uint64_t i = 1; i < (*DBSIZE); ++i)
+    {
+		if (cellKey[i - 1] != cellKey[i])
+		{
+			//grid index
+			cnt++;
+			(*index)[cnt].indexmin = i;
+			(*index)[cnt - 1].indexmax = i - 1;
+		}
+	}
+	(*index)[numNonEmptyCells - 1].indexmax = (*DBSIZE) - 1;
+
+    printf("[INDEX] ~ Full cells: %d (%f, fraction full)\n", (unsigned int)numNonEmptyCells, numNonEmptyCells * 1.0 / double(totalCells));
+	printf("[INDEX] ~ Empty cells: %ld (%f, fraction empty)\n", totalCells - (unsigned int)numNonEmptyCells, (totalCells - numNonEmptyCells * 1.0) / double(totalCells));
+	printf("[INDEX] ~ Size of index that would be sent to GPU (GiB) -- (if full index sent), excluding the data lookup arr: %f\n",
+        (double)sizeof(struct grid) * (totalCells) / (1024.0 * 1024.0 * 1024.0));
+	printf("[INDEX] ~ Size of compressed index to be sent to GPU (GiB), excluding the data and grid lookup arr: %f\n",
+        (double)sizeof(struct grid) * (numNonEmptyCells * 1.0) / (1024.0 * 1024.0 * 1024.0));
+	printf("[INDEX] ~ When copying from entire index to compressed index: number of non-empty cells: %lu\n", numNonEmptyCells);
+
+    delete N;
+    delete[] pointCellArrTmp;
+    cudaFree(dev_pointCellArr);
+    cudaFree(dev_databaseVal);
+    cudaFree(dev_N);
+
+    double tEndIndexGPU = omp_get_wtime();
+    cout << "[INDEX] ~ Time to index using the GPU (including allocating and transfering memory): " << tEndIndexGPU - tStartAllocGPU << '\n';
+    cout.flush();
+
+}
 
 
 
@@ -82,8 +406,8 @@ unsigned long long callGPUBatchEst(
     DTYPE * dev_minArr,
 	unsigned int * dev_nCells,
     unsigned int * dev_nNonEmptyCells,
-    unsigned int * dev_gridCellNDMask,
-	unsigned int * dev_gridCellNDMaskOffsets,
+    // unsigned int * dev_gridCellNDMask,
+	// unsigned int * dev_gridCellNDMaskOffsets,
     unsigned int * retNumBatches,
     unsigned int * retGPUBufferSize)
 {
@@ -329,11 +653,11 @@ void distanceTableNDGridBatches(
         unsigned int * dev_nCells,
         unsigned int * nNonEmptyCells,
         unsigned int * dev_nNonEmptyCells,
-        unsigned int * gridCellNDMask,
-        unsigned int * dev_gridCellNDMask,
-        unsigned int * gridCellNDMaskOffsets,
-        unsigned int * dev_gridCellNDMaskOffsets,
-        unsigned int * nNDMaskElems,
+        // unsigned int * gridCellNDMask,
+        // unsigned int * dev_gridCellNDMask,
+        // unsigned int * gridCellNDMaskOffsets,
+        // unsigned int * dev_gridCellNDMaskOffsets,
+        // unsigned int * nNDMaskElems,
         unsigned int * originPointIndex,
         unsigned int * dev_originPointIndex,
         struct neighborTableLookup * neighborTable,
@@ -346,7 +670,7 @@ void distanceTableNDGridBatches(
 	//CUDA error code:
 	cudaError_t errCode;
 
-	cout << "\n[GPU] ~ ** Sometimes the GPU will error on a previous execution and you won't know. \n[GPU] ~ Last error start of function: " << cudaGetLastError() << '\n';
+	cout << "\n[GPU] ~ Sometimes the GPU will error on a previous execution and you won't know. \n[GPU] ~ Last error start of function: " << cudaGetLastError() << '\n';
     cout.flush();
 
 
@@ -466,8 +790,8 @@ void distanceTableNDGridBatches(
 
 	double tstartbatchest = omp_get_wtime();
     estimatedNeighbors = callGPUBatchEst(DBSIZE, 0, *DBSIZE, dev_database, nullptr, dev_originPointIndex, dev_epsilon,
-            dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, dev_gridCellNDMask,
-            dev_gridCellNDMaskOffsets, &numBatches, &GPUBufferSize);
+            dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, /*dev_gridCellNDMask,
+            dev_gridCellNDMaskOffsets,*/ &numBatches, &GPUBufferSize);
 	double tendbatchest = omp_get_wtime();
 
     cout << "[GPU] ~ Time to estimate batches: " << tendbatchest - tstartbatchest << '\n';
@@ -665,8 +989,8 @@ void distanceTableNDGridBatches(
         #pragma omp parallel reduction(+: totalResultsLoop) num_threads(GPUSTREAMS)
         {
             unsigned int tid = omp_get_thread_num();
-std::pair<unsigned int, unsigned int> gpuBatch = std::make_pair(tid * batchSize, tid * batchSize + batchSize);
-// std::pair<unsigned int, unsigned int> gpuBatch = getBatchFromQueue(*DBSIZE, batchSize);
+            std::pair<unsigned int, unsigned int> gpuBatch = std::make_pair(tid * batchSize, tid * batchSize + batchSize);
+            // std::pair<unsigned int, unsigned int> gpuBatch = getBatchFromQueue(*DBSIZE, batchSize);
 
             unsigned int localBatchCounter = tid;
 
@@ -742,18 +1066,18 @@ std::pair<unsigned int, unsigned int> gpuBatch = std::make_pair(tid * batchSize,
                 #if UNICOMP
                     kernelNDGridIndexGlobalUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
                         &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
-                        dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, /*dev_gridCellNDMask,
+                        dev_gridCellNDMaskOffsets,*/ dev_pointIDKey[tid], dev_pointInDistValue[tid]);
                 #elif LID_UNICOMP
                     kernelNDGridIndexGlobalLinearIDUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
                         &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
-                        dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, /*dev_gridCellNDMask,
+                        dev_gridCellNDMaskOffsets,*/ dev_pointIDKey[tid], dev_pointInDistValue[tid]);
                 #else
                     kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
                         &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
-                        dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, /*dev_gridCellNDMask,
+                        dev_gridCellNDMaskOffsets,*/ dev_pointIDKey[tid], dev_pointInDistValue[tid]);
                 #endif
                 cudaEventRecord(stopKernel[tid], stream[tid]);
 
@@ -948,18 +1272,18 @@ std::pair<unsigned int, unsigned int> gpuBatch = std::make_pair(tid * batchSize,
             #if UNICOMP
                 kernelNDGridIndexGlobalUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[0], &dev_N[tid],
                     &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
-                    dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, /*dev_gridCellNDMask,
+                    dev_gridCellNDMaskOffsets,*/ dev_pointIDKey[tid], dev_pointInDistValue[tid]);
             #elif LID_UNICOMP
                 kernelNDGridIndexGlobalLinearIDUnicomp<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[0], &dev_N[tid],
                     &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
-                    dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, /*dev_gridCellNDMask,
+                    dev_gridCellNDMaskOffsets,*/ dev_pointIDKey[tid], dev_pointInDistValue[tid]);
             #else
                 kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[0], &dev_N[tid],
                     &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, dev_gridCellNDMask,
-                    dev_gridCellNDMaskOffsets, dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells, /*dev_gridCellNDMask,
+                    dev_gridCellNDMaskOffsets,*/ dev_pointIDKey[tid], dev_pointInDistValue[tid]);
             #endif
             cudaEventRecord(stopKernel[tid]);
 

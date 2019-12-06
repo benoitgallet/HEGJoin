@@ -27,6 +27,50 @@ __device__ void print(unsigned int tid, unsigned int value)
 
 
 
+/******************************************************************************/
+
+
+
+__global__ void kernelIndexComputeNonemptyCells(
+	DTYPE * database,
+	unsigned int * N,
+	DTYPE * epsilon,
+	DTYPE * minArr,
+	unsigned int * nCells,
+	uint64_t * pointCellArr,
+	unsigned int * databaseVal,
+	bool enumerate)
+{
+	unsigned int tid = blockIdx.x * BLOCKSIZE + threadIdx.x;
+
+	if(*N <= tid)
+	{
+		return;
+	}
+
+	unsigned int pointID = tid * GPUNUMDIM;
+
+	unsigned int tmpNDCellIdx[NUMINDEXEDDIM];
+	for (int j = 0; j < NUMINDEXEDDIM; j++)
+	{
+		tmpNDCellIdx[j] = ((database[pointID + j] - minArr[j]) / (*epsilon));
+	}
+	uint64_t linearID = getLinearID_nDimensionsGPU(tmpNDCellIdx, nCells, NUMINDEXEDDIM);
+
+	pointCellArr[tid] = linearID;
+
+	if(enumerate)
+	{
+		databaseVal[tid] = tid;
+	}
+}
+
+
+
+/******************************************************************************/
+
+
+
 __global__ void sortByWorkLoadGlobal(
 		DTYPE * database,
 		DTYPE * epsilon,
@@ -36,8 +80,8 @@ __global__ void sortByWorkLoadGlobal(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets,
 		schedulingCell * sortedCells)
 {
 
@@ -55,13 +99,13 @@ __global__ void sortByWorkLoadGlobal(
 	DTYPE point[GPUNUMDIM];
 	for(int i = 0; i < GPUNUMDIM; ++i)
 	{
-			point[i] = database[tmpId * GPUNUMDIM + i];
+		point[i] = database[tmpId * GPUNUMDIM + i];
 	}
 
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
 
-	unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
+	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
 
 	for(int n = 0; n < NUMINDEXEDDIM; n++)
 	{
@@ -69,27 +113,29 @@ __global__ void sortByWorkLoadGlobal(
 		unsigned int nDMinCellIDs = max(0, nDCellIDs[n] - 1);;
 		unsigned int nDMaxCellIDs = min(nCells[n] - 1, nDCellIDs[n] + 1);
 
-		bool foundMin = 0;
-		bool foundMax = 0;
-
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-				gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMin = 1;
-		}
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-				gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMax = 1;
-		}
-
-		rangeFilteredCellIdsMin[n] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		rangeFilteredCellIdsMax[n] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
+		// bool foundMin = 0;
+		// bool foundMax = 0;
+		//
+		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
+		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
+		// 	foundMin = 1;
+		// }
+		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
+		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
+		// 	foundMax = 1;
+		// }
+		//
+		// rangeFilteredCellIdsMin[n] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
+		// rangeFilteredCellIdsMax[n] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
 	}
 
 	unsigned int indexes[NUMINDEXEDDIM];
 	unsigned int loopRng[NUMINDEXEDDIM];
 
-	for (loopRng[0] = rangeFilteredCellIdsMin[0]; loopRng[0] <= rangeFilteredCellIdsMax[0]; loopRng[0]++)
-		for (loopRng[1] = rangeFilteredCellIdsMin[1]; loopRng[1] <= rangeFilteredCellIdsMax[1]; loopRng[1]++)
+	// for (loopRng[0] = rangeFilteredCellIdsMin[0]; loopRng[0] <= rangeFilteredCellIdsMax[0]; loopRng[0]++)
+	// 	for (loopRng[1] = rangeFilteredCellIdsMin[1]; loopRng[1] <= rangeFilteredCellIdsMax[1]; loopRng[1]++)
+	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
+		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
 		#include "kernelloops.h"
 		{
 			for (int x = 0; x < NUMINDEXEDDIM; x++){
@@ -118,6 +164,7 @@ __global__ void sortByWorkLoadGlobal(
 
 
 //TODO use the unicomp pattern
+//TODO modify to use the new GPU index
 __global__ void sortByWorkLoadUnicomp(
 		DTYPE * database,
 		DTYPE * epsilon,
@@ -224,7 +271,7 @@ __global__ void sortByWorkLoadUnicomp(
 /******************************************************************************/
 
 
-
+//TODO modify to use the new GPU index
 __global__ void sortByWorkLoadLidUnicomp(
 		DTYPE* database,
 		DTYPE* epsilon,
@@ -365,14 +412,14 @@ __device__ uint64_t getLinearID_nDimensionsGPU(
 
 
 __forceinline__ __device__ void evalPoint(
-		unsigned int* indexLookupArr,
+		unsigned int * indexLookupArr,
 		int k,
-		DTYPE* database,
-		DTYPE* epsilon,
-		DTYPE* point,
-		unsigned int* cnt,
-		int* pointIDKey,
-		int* pointInDistVal,
+		DTYPE * database,
+		DTYPE * epsilon,
+		DTYPE * point,
+		unsigned int * cnt,
+		int * pointIDKey,
+		int * pointInDistVal,
 		int pointIdx,
 		bool differentCell)
 {
@@ -410,19 +457,21 @@ __forceinline__ __device__ void evalPoint(
 
 
 __device__ void evaluateCell(
-		unsigned int* nCells,
-		unsigned int* indexes,
+		unsigned int * nCells,
+		unsigned int * indexes,
 		struct gridCellLookup * gridCellLookupArr,
-		unsigned int* nNonEmptyCells,
-		DTYPE* database, DTYPE* epsilon,
+		unsigned int * nNonEmptyCells,
+		DTYPE * database,
+		DTYPE * epsilon,
 		struct grid * index,
 		unsigned int * indexLookupArr,
-		DTYPE* point, unsigned int* cnt,
-		int* pointIDKey,
-		int* pointInDistVal,
+		DTYPE * point,
+		unsigned int * cnt,
+		int * pointIDKey,
+		int * pointInDistVal,
 		int pointIdx,
 		bool differentCell,
-		unsigned int* nDCellIDs)
+		unsigned int * nDCellIDs)
 {
 	//compare the linear ID with the gridCellLookupArr to determine if the cell is non-empty: this can happen because one point says
 	//a cell in a particular dimension is non-empty, but that's because it was related to a different point (not adjacent to the query point)
@@ -437,7 +486,7 @@ __device__ void evaluateCell(
 		struct gridCellLookup * resultBinSearch = thrust::lower_bound(thrust::seq, gridCellLookupArr, gridCellLookupArr + (*nNonEmptyCells), gridCellLookup(tmp));
 		unsigned int GridIndex = resultBinSearch->idx;
 
-		for(int k = index[GridIndex].indexmin; k <= index[GridIndex].indexmax; k++){
+		for(int k = index[GridIndex].indexmin; k <= index[GridIndex].indexmax; ++k){
 			evalPoint(indexLookupArr, k, database, epsilon, point, cnt, pointIDKey, pointInDistVal, pointIdx, differentCell);
 		}
 	}
@@ -654,9 +703,9 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * cnt,
-		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets)
+		unsigned int * nNonEmptyCells)
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets)
 {
 
 	unsigned int tid = blockIdx.x * BLOCKSIZE + threadIdx.x;
@@ -670,14 +719,14 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 	DTYPE point[GPUNUMDIM];
 	for (int i = 0; i < GPUNUMDIM; i++)
 	{
-			point[i] = database[ originPointIndex[tid] * GPUNUMDIM + i ];
+		point[i] = database[ originPointIndex[tid] * GPUNUMDIM + i ];
 	}
 
 	//calculate the coords of the Cell for the point
 	//and the min/max ranges in each dimension
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
+	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
 
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
@@ -695,21 +744,21 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 
 		//compare the point's range of cell IDs in each dimension to the filter mask
 		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		bool foundMin = 0;
-		bool foundMax = 0;
+		// bool foundMin = 0;
+		// bool foundMax = 0;
 
 		//we go throgh each dimension and compare the range of the query points min/max cell ids to the filtered ones
 		//find out which ones in the range exist based on the min/max
 		//then determine the appropriate ranges
 
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-				gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMin = 1;
-		}
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-				gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMax = 1;
-		}
+		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
+		// 		gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
+		// 	foundMin = 1;
+		// }
+		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
+		// 		gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
+		// 	foundMax = 1;
+		// }
 
 		// cases:
 		// found the min and max
@@ -718,8 +767,8 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 		//you don't find the min or max -- then only check the mid
 		//you always find the mid because it's in the cell of the point you're looking for
 
-		rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
+		// rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
+		// rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
 	}
 
 	///////////////////////////////////////
@@ -729,8 +778,8 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 	unsigned int indexes[NUMINDEXEDDIM];
 	unsigned int loopRng[NUMINDEXEDDIM];
 
-	for (loopRng[0] = rangeFilteredCellIdsMin[0]; loopRng[0] <= rangeFilteredCellIdsMax[0]; loopRng[0]++)
-		for (loopRng[1] = rangeFilteredCellIdsMin[1]; loopRng[1] <= rangeFilteredCellIdsMax[1]; loopRng[1]++)
+	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
+		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
 		#include "kernelloops.h"
 		{ //beginning of loop body
 
@@ -776,11 +825,10 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 				}
 			}
 		} //end loop body
-
 }
 
 
-
+// TODO modify to use the new index
 __global__ void kernelNDGridIndexBatchEstimatorUnicompAdaptive(
 		unsigned int sampleBegin,
 		unsigned int sampleEnd,
@@ -890,7 +938,7 @@ __global__ void kernelNDGridIndexBatchEstimatorUnicompAdaptive(
 }
 
 
-
+// TODO modify to use the new index
 __global__ void kernelNDGridIndexBatchEstimatorLidUnicompAdaptive(
 		unsigned int sampleBegin,
 		unsigned int sampleEnd,
@@ -1072,8 +1120,8 @@ __global__ void kernelNDGridIndexGlobal(
 		unsigned int * nCells,
 		unsigned int * cnt,
 		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
+		// unsigned int * gridCellNDMask,
+		// unsigned int * gridCellNDMaskOffsets,
 		int * pointIDKey,
 		int * pointInDistVal)
 {
@@ -1097,8 +1145,8 @@ __global__ void kernelNDGridIndexGlobal(
 	//calculate the coords of the Cell for the point
 	//and the min/max ranges in each dimension
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
+	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
 
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
@@ -1108,27 +1156,27 @@ __global__ void kernelNDGridIndexGlobal(
 
 		//compare the point's range of cell IDs in each dimension to the filter mask
 		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		bool foundMin = 0;
-		bool foundMax = 0;
-
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-				gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMin = 1;
-		}
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-				gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMax = 1;
-		}
-
-		rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
+		// bool foundMin = 0;
+		// bool foundMax = 0;
+		//
+		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
+		// 		gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
+		// 	foundMin = 1;
+		// }
+		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
+		// 		gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
+		// 	foundMax = 1;
+		// }
+		//
+		// rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
+		// rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
 	}
 
 	unsigned int indexes[NUMINDEXEDDIM];
 	unsigned int loopRng[NUMINDEXEDDIM];
 
-	for (loopRng[0] = rangeFilteredCellIdsMin[0]; loopRng[0] <= rangeFilteredCellIdsMax[0]; loopRng[0]++)
-		for (loopRng[1] = rangeFilteredCellIdsMin[1]; loopRng[1] <= rangeFilteredCellIdsMax[1]; loopRng[1]++)
+	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
+		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
 		#include "kernelloops.h"
 		{ //beginning of loop body
 
@@ -1149,6 +1197,7 @@ __global__ void kernelNDGridIndexGlobal(
 
 
 // Global memory kernel - Unicomp version ("Unicomp")
+// TODO modify to use the new index
 __global__ void kernelNDGridIndexGlobalUnicomp(
 		unsigned int * batchBegin,
 		unsigned int * N,
@@ -1240,6 +1289,7 @@ __global__ void kernelNDGridIndexGlobalUnicomp(
 
 
 // Global memory kernel - Linear ID comparison (Need to find a name : L-Unicomp ? Lin-Unicomp ? LId-Unicomp ?)
+// TODO modify to use the new index
 __global__ void kernelNDGridIndexGlobalLinearIDUnicomp(
 		unsigned int * batchBegin,
 		unsigned int * N,

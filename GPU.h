@@ -16,6 +16,25 @@
 // #include <thrust/fill.h>
 // #include <thrust/sequence.h>
 
+void gridIndexingGPU(
+    unsigned int * DBSIZE,
+    DTYPE * database,
+    DTYPE ** dev_database,
+    DTYPE * epsilon,
+    DTYPE ** dev_epsilon,
+    DTYPE * minArr,
+    DTYPE ** dev_minArr,
+    struct grid ** index,
+    struct grid ** dev_index,
+    unsigned int * indexLookupArr,
+    unsigned int ** dev_indexLookupArr,
+    struct gridCellLookup ** gridCellLookupArr,
+    struct gridCellLookup ** dev_gridCellLookupArr,
+    unsigned int * nNonEmptyCells,
+    unsigned int ** nNonEmptyCells,
+    unsigned int * nCells,
+    unsigned int ** dev_nCells);
+
 void distanceTableNDGridBatches(
         int searchMode,
         unsigned int * DBSIZE,
@@ -35,38 +54,16 @@ void distanceTableNDGridBatches(
         unsigned int * dev_nCells,
         unsigned int * nNonEmptyCells,
         unsigned int * dev_nNonEmptyCells,
-        unsigned int * gridCellNDMask,
-        unsigned int * dev_gridCellNDMask,
-        unsigned int * gridCellNDMaskOffsets,
-        unsigned int * dev_gridCellNDMaskOffsets,
-        unsigned int * nNDMaskElems,
+        // unsigned int * gridCellNDMask,
+        // unsigned int * dev_gridCellNDMask,
+        // unsigned int * gridCellNDMaskOffsets,
+        // unsigned int * dev_gridCellNDMaskOffsets,
+        // unsigned int * nNDMaskElems,
         unsigned int * originPointIndex,
         unsigned int * dev_originPointIndex,
         struct neighborTableLookup * neighborTable,
         std::vector<struct neighborDataPtrs> * pointersToNeighbors,
         uint64_t * totalNeighbors);
-
-// void distanceTableNDGridBatches(
-//         int searchMode,
-//         std::vector<std::vector<DTYPE> > * NDdataPoints,
-//         // std::vector< std::vector<unsigned int> > * neighborTable,
-//         DTYPE * database,
-//         DTYPE * epsilon,
-//         DTYPE fraction,
-//         struct grid * index,
-//         struct gridCellLookup * gridCellLookupArr,
-//         unsigned int * nNonEmptyCells,
-//         DTYPE* minArr,
-//         unsigned int * nCells,
-//         unsigned int * indexLookupArr,
-//         struct neighborTableLookup * neighborTable,
-//         std::vector<struct neighborDataPtrs> * pointersToNeighbors,
-//         uint64_t * totalNeighbors,
-//         unsigned int * gridCellNDMask,
-//         unsigned int * gridCellNDMaskOffsets,
-//         unsigned int * nNDMaskElems,
-//         DTYPE * dev_sortedCells,
-//         unsigned int * dev_originPointIndex);
 
 unsigned long long callGPUBatchEst(
         unsigned int * DBSIZE,
@@ -82,8 +79,8 @@ unsigned long long callGPUBatchEst(
         DTYPE * dev_minArr,
     	unsigned int * dev_nCells,
         unsigned int * dev_nNonEmptyCells,
-        unsigned int * dev_gridCellNDMask,
-    	unsigned int * dev_gridCellNDMaskOffsets,
+        // unsigned int * dev_gridCellNDMask,
+    	// unsigned int * dev_gridCellNDMaskOffsets,
         unsigned int * retNumBatches,
         unsigned int * retGPUBufferSize);
 
