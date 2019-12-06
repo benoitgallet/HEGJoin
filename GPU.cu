@@ -355,10 +355,10 @@ void gridIndexingGPU(
 
     ////////////////////////////////////////////////////////////////////////////
 
-    errCode = cudaMemcpy( (*dev_index), index, sizeof(struct grid) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
+    errCode = cudaMalloc( (void**)dev_index, sizeof(struct grid) * (*nNonEmptyCells));
 	if(errCode != cudaSuccess)
     {
-		cout << "[INDEX] ~ Error: grid index copy to device -- error with code " << errCode << '\n';
+		cout << "[INDEX] ~ Error: Alloc grid index -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
         cout.flush();
 	}
