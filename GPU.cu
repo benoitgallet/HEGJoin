@@ -377,7 +377,7 @@ void gridIndexingGPU(
         (double)sizeof(struct grid) * (numNonEmptyCells * 1.0) / (1024.0 * 1024.0 * 1024.0));
 	printf("[INDEX] ~ When copying from entire index to compressed index: number of non-empty cells: %lu\n", numNonEmptyCells);
 
-    errCode = cudaMemcpy((*dev_index), index, sizeof(struct grid) * (*nNonEmptyCells), cudaMemcpyHostToDevice);
+    errCode = cudaMemcpy((*dev_index), (*index), sizeof(struct grid) * (*nNonEmptyCells), cudaMemcpyHostToDevice);
 	if(errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: index copy to the GPU error with code " << errCode << '\n';
@@ -393,7 +393,7 @@ void gridIndexingGPU(
         cout.flush();
 	}
 
-    errCode = cudaMemcpy((*dev_gridCellLookupArr), gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells), cudaMemcpyHostToDevice);
+    errCode = cudaMemcpy((*dev_gridCellLookupArr), (*gridCellLookupArr), sizeof(struct gridCellLookup) * (*nNonEmptyCells), cudaMemcpyHostToDevice);
 	if(errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: grid lookup array copy to the GPU error with code " << errCode << '\n';
