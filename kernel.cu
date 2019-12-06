@@ -115,6 +115,8 @@ __global__ void sortByWorkLoadGlobal(
 		nDMinCellIDs[n] = max(0, nDCellIDs[n] - 1);;
 		nDMaxCellIDs[n] = min(nCells[n] - 1, nDCellIDs[n] + 1);
 
+		printf("nd cells ids[%d] = %d, min = %d, max = %d\n", n, nDCellIDs[n], nDMinCellIDs[n], nDMaxCellIDs[n]);
+
 		// bool foundMin = 0;
 		// bool foundMax = 0;
 		//
