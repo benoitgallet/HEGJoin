@@ -112,8 +112,8 @@ __global__ void sortByWorkLoadGlobal(
 	for(int n = 0; n < NUMINDEXEDDIM; n++)
 	{
 		nDCellIDs[n] = (point[n] - minArr[n]) / (*epsilon);
-		nDMinCellIDs[i] = max(0, nDCellIDs[n] - 1);;
-		nDMaxCellIDs[i] = min(nCells[n] - 1, nDCellIDs[n] + 1);
+		nDMinCellIDs[n] = max(0, nDCellIDs[n] - 1);;
+		nDMaxCellIDs[n] = min(nCells[n] - 1, nDCellIDs[n] + 1);
 
 		// bool foundMin = 0;
 		// bool foundMax = 0;
@@ -735,7 +735,7 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
 
-		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon
+		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
 		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
 		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 
