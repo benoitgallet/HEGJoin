@@ -268,6 +268,7 @@ void sortByWorkLoad(
                 (*dev_nNonEmptyCells), /*(*dev_gridCellNDMask), (*dev_gridCellNDMaskOffsets),*/
                 dev_sortedDatabaseTmp);
     #else
+        cout << "[SORT] ~ Not using a cell access pattern to sort by workload\n";
         sortByWorkLoadGlobal<<<nbBlock, BLOCKSIZE>>>((*dev_database), (*dev_epsilon), (*dev_index),
                 (*dev_indexLookupArr), (*dev_gridCellLookupArr), (*dev_minArr), (*dev_nCells),
                 (*dev_nNonEmptyCells), /*(*dev_gridCellNDMask), (*dev_gridCellNDMaskOffsets),*/
