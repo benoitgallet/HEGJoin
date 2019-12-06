@@ -115,7 +115,7 @@ int main(int argc, char * argv[])
     unsigned int nNonEmptyCells = 0;
 
     generateNDGridDimensions(&NDdataPoints, epsilon, minArr, maxArr, nCells, &totalCells);
-    // printf("[GPU] ~ Total cells (including empty): %lu\n", totalCells);
+    printf("[GPU] ~ Total cells (including empty): %lu\n", totalCells);
 
     struct grid * index;
     struct gridCellLookup * gridCellLookupArr;
@@ -136,7 +136,7 @@ int main(int argc, char * argv[])
     // populateNDGridIndexAndLookupArray(&NDdataPoints, epsilon, &gridCellLookupArr, &index,
     //         indexLookupArr, minArr,  nCells, totalCells, &nNonEmptyCells, &gridCellNDMask,
     //         gridCellNDMaskOffsets, nNDMaskElems);
-    gridIndexingGPU(&DBSIZE, database, &dev_database, &epsilon, &dev_epsilon, minArr, &dev_minArr, &index, &dev_index,
+    gridIndexingGPU(&DBSIZE, totalCells, database, &dev_database, &epsilon, &dev_epsilon, minArr, &dev_minArr, &index, &dev_index,
             indexLookupArr, &dev_indexLookupArr, &gridCellLookupArr, &dev_gridCellLookupArr, &nNonEmptyCells, &dev_nNonEmptyCells,
             nCells, &dev_nCells);
 

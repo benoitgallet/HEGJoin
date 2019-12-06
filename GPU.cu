@@ -73,6 +73,7 @@ uint64_t getLinearID_nDimensions2(unsigned int * indexes, unsigned int * dimLen,
 
 void gridIndexingGPU(
     unsigned int * DBSIZE,
+    uint64_t totalCells,
     DTYPE * database,
     DTYPE ** dev_database,
     DTYPE * epsilon,
@@ -283,8 +284,8 @@ void gridIndexingGPU(
     const int TOTALBLOCKS = ceil((1.0 * (*DBSIZE)) / (1.0 * BLOCKSIZE));
 	printf("[INDEX] ~ Total blocks: %d\n",TOTALBLOCKS);
 
-	kernelIndexComputeNonemptyCells<<<TOTALBLOCKS, BLOCKSIZE>>>(dev_database, dev_DBSIZE, dev_epsilon, dev_minArr,
-            dev_nCells, dev_pointCellArr, nullptr, false);
+	kernelIndexComputeNonemptyCells<<<TOTALBLOCKS, BLOCKSIZE>>>((*dev_database), dev_N, (*dev_epsilon), (*dev_minArr),
+            (*dev_nCells), dev_pointCellArr, nullptr, false);
     cudaDeviceSynchronize();
 
     thrust::device_ptr<uint64_t> dev_pointCellArr_ptr(dev_pointCellArr);
@@ -323,8 +324,8 @@ void gridIndexingGPU(
 		(*gridCellLookupArr)[i].gridLinearID = pointCellArrTmp[i];
 	}
 
-    kernelIndexComputeNonemptyCells<<<TOTALBLOCKS, BLOCKSIZE>>>(dev_database, dev_DBSIZE, dev_epsilon, dev_minArr,
-            dev_nCells, dev_pointCellArr, dev_databaseVal, true);
+    kernelIndexComputeNonemptyCells<<<TOTALBLOCKS, BLOCKSIZE>>>((*dev_database), dev_N, (*dev_epsilon), (*dev_minArr),
+            (*dev_nCells), dev_pointCellArr, dev_databaseVal, true);
 
     try
 	{
@@ -536,19 +537,19 @@ unsigned long long callGPUBatchEst(
         cout.flush();
         kernelNDGridIndexBatchEstimatorUnicompAdaptive<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(sampleBegin, sampleEnd, dev_N_batchEst, dev_sampleOffset,
             dev_database, dev_sortedDatabase, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells,
-            dev_cnt_batchEst, dev_nNonEmptyCells, dev_gridCellNDMask, dev_gridCellNDMaskOffsets);
+            dev_cnt_batchEst, dev_nNonEmptyCells/*, dev_gridCellNDMask, dev_gridCellNDMaskOffsets*/);
     #elif LID_UNICOMP
         cout << "[GPU] ~ Estimating batch using the Lid-Unicomp pattern\n";
         cout.flush();
         kernelNDGridIndexBatchEstimatorLidUnicompAdaptive<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(sampleBegin, sampleEnd, dev_N_batchEst, dev_sampleOffset,
             dev_database, dev_sortedDatabase, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells,
-            dev_cnt_batchEst, dev_nNonEmptyCells, dev_gridCellNDMask, dev_gridCellNDMaskOffsets);
+            dev_cnt_batchEst, dev_nNonEmptyCells/*, dev_gridCellNDMask, dev_gridCellNDMaskOffsets*/);
     #else
         cout << "[GPU] ~ Estimating batch without using pattern\n";
         cout.flush();
         kernelNDGridIndexBatchEstimatorAdaptive<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(sampleBegin, sampleEnd, dev_N_batchEst, dev_sampleOffset,
             dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr,
-            dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells, dev_gridCellNDMask, dev_gridCellNDMaskOffsets);
+            dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells/*, dev_gridCellNDMask, dev_gridCellNDMaskOffsets*/);
     #endif
 
 	cout << "[GPU] ~ ERROR FROM KERNEL LAUNCH OF BATCH ESTIMATOR: " << cudaGetLastError() << '\n';

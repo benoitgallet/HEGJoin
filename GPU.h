@@ -18,6 +18,7 @@
 
 void gridIndexingGPU(
     unsigned int * DBSIZE,
+    uint64_t totalCells,
     DTYPE * database,
     DTYPE ** dev_database,
     DTYPE * epsilon,
