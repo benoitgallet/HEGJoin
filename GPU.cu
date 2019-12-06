@@ -161,7 +161,7 @@ void gridIndexingGPU(
 	}
 
     uint64_t * dev_pointCellArr;
-    errCode = cudaMalloc((void**)dev_pointCellArr, sizeof(uint64_t) * (*DBSIZE));
+    errCode = cudaMalloc((void**)&dev_pointCellArr, sizeof(uint64_t) * (*DBSIZE));
 	if(errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: point cell array alloc -- error with code " << errCode << '\n';
