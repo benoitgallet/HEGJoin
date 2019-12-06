@@ -120,13 +120,13 @@ void gridIndexingGPU(
         cout.flush();
 	}
 
-    errCode = cudaMalloc( (void**)dev_index, sizeof(struct grid) * (*nNonEmptyCells));
-	if(errCode != cudaSuccess)
-    {
-		cout << "[INDEX] ~ Error: Alloc grid index -- error with code " << errCode << '\n';
-        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-        cout.flush();
-	}
+    // errCode = cudaMalloc( (void**)dev_index, sizeof(struct grid) * (*nNonEmptyCells));
+	// if(errCode != cudaSuccess)
+    // {
+	// 	cout << "[INDEX] ~ Error: Alloc grid index -- error with code " << errCode << '\n';
+    //     cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+    //     cout.flush();
+	// }
 
     errCode = cudaMalloc( (void**)dev_indexLookupArr, sizeof(unsigned int) * (*DBSIZE));
 	if(errCode != cudaSuccess)
@@ -136,13 +136,13 @@ void gridIndexingGPU(
         cout.flush();
 	}
 
-    errCode = cudaMalloc( (void**)dev_gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells));
-	if(errCode != cudaSuccess)
-    {
-		cout << "[INDEX] ~ Error: copy grid cell lookup array allocation -- error with code " << errCode << '\n';
-        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-        cout.flush();
-	}
+    // errCode = cudaMalloc( (void**)dev_gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells));
+	// if(errCode != cudaSuccess)
+    // {
+	// 	cout << "[INDEX] ~ Error: copy grid cell lookup array allocation -- error with code " << errCode << '\n';
+    //     cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+    //     cout.flush();
+	// }
 
     errCode = cudaMalloc((void**)dev_nNonEmptyCells, sizeof(unsigned int));
 	if(errCode != cudaSuccess)
@@ -219,30 +219,6 @@ void gridIndexingGPU(
 	if(errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Copy minArr to device -- error with code " << errCode << '\n';
-        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-        cout.flush();
-	}
-
-    errCode = cudaMemcpy( (*dev_index), index, sizeof(struct grid) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
-	if(errCode != cudaSuccess)
-    {
-		cout << "[INDEX] ~ Error: grid index copy to device -- error with code " << errCode << '\n';
-        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-        cout.flush();
-	}
-
-    errCode = cudaMemcpy( (*dev_indexLookupArr), indexLookupArr, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
-    {
-		cout << "[INDEX] ~ Error: copy lookup array to device -- error with code " << errCode << '\n';
-        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-        cout.flush();
-	}
-
-    errCode = cudaMemcpy( (*dev_gridCellLookupArr), gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
-	if(errCode != cudaSuccess)
-    {
-		cout << "[INDEX] ~ Error: copy grid cell lookup array to device -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
         cout.flush();
 	}
@@ -377,29 +353,49 @@ void gridIndexingGPU(
         (double)sizeof(struct grid) * (numNonEmptyCells * 1.0) / (1024.0 * 1024.0 * 1024.0));
 	printf("[INDEX] ~ When copying from entire index to compressed index: number of non-empty cells: %lu\n", numNonEmptyCells);
 
-    // errCode = cudaMemcpy((*dev_index), (*index), sizeof(struct grid) * numNonEmptyCells, cudaMemcpyHostToDevice);
-	// if(errCode != cudaSuccess)
-    // {
-    // 	cout << "[INDEX] ~ Error: index copy to the GPU error with code " << errCode << '\n';
-    //     cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-    //
-    // errCode = cudaMemcpy((*dev_indexLookupArr), indexLookupArr, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyHostToDevice);
-	// if(errCode != cudaSuccess)
-    // {
-    // 	cout << "[INDEX] ~ Error: index lookup array copy to the GPU error with code " << errCode << '\n';
-    //     cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-    //
-    // errCode = cudaMemcpy((*dev_gridCellLookupArr), (*gridCellLookupArr), sizeof(struct gridCellLookup) * numNonEmptyCells, cudaMemcpyHostToDevice);
-	// if(errCode != cudaSuccess)
-    // {
-    // 	cout << "[INDEX] ~ Error: grid lookup array copy to the GPU error with code " << errCode << '\n';
-    //     cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
+    ////////////////////////////////////////////////////////////////////////////
+
+    errCode = cudaMemcpy( (*dev_index), index, sizeof(struct grid) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: grid index copy to device -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMalloc( (void**)dev_gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells));
+	if(errCode != cudaSuccess)
+    {
+		cout << "[INDEX] ~ Error: copy grid cell lookup array allocation -- error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy((*dev_index), (*index), sizeof(struct grid) * numNonEmptyCells, cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: index copy to the GPU error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy((*dev_indexLookupArr), indexLookupArr, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: index lookup array copy to the GPU error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    errCode = cudaMemcpy((*dev_gridCellLookupArr), (*gridCellLookupArr), sizeof(struct gridCellLookup) * numNonEmptyCells, cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[INDEX] ~ Error: grid lookup array copy to the GPU error with code " << errCode << '\n';
+        cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    ////////////////////////////////////////////////////////////////////////////
 
     delete N;
     delete[] pointCellArrTmp;
