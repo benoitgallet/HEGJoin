@@ -31,7 +31,7 @@ void gridIndexingGPU(
     struct gridCellLookup ** gridCellLookupArr,
     struct gridCellLookup ** dev_gridCellLookupArr,
     unsigned int * nNonEmptyCells,
-    unsigned int ** nNonEmptyCells,
+    unsigned int ** dev_nNonEmptyCells,
     unsigned int * nCells,
     unsigned int ** dev_nCells);
 
