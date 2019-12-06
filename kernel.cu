@@ -106,12 +106,14 @@ __global__ void sortByWorkLoadGlobal(
 
 	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
 	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
 	for(int n = 0; n < NUMINDEXEDDIM; n++)
 	{
 		nDCellIDs[n] = (point[n] - minArr[n]) / (*epsilon);
-		unsigned int nDMinCellIDs = max(0, nDCellIDs[n] - 1);;
-		unsigned int nDMaxCellIDs = min(nCells[n] - 1, nDCellIDs[n] + 1);
+		nDMinCellIDs = max(0, nDCellIDs[n] - 1);;
+		nDMaxCellIDs = min(nCells[n] - 1, nDCellIDs[n] + 1);
 
 		// bool foundMin = 0;
 		// bool foundMax = 0;
@@ -727,13 +729,15 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
 	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
 	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
 
-		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		unsigned int nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		unsigned int nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
+		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon
+		nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 
 
 		///////////////////////////
@@ -1147,12 +1151,14 @@ __global__ void kernelNDGridIndexGlobal(
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
 	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
 	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		unsigned int nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		unsigned int nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
+		nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 
 		//compare the point's range of cell IDs in each dimension to the filter mask
 		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
