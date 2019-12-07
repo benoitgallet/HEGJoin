@@ -827,7 +827,7 @@ unsigned long long callGPUBatchEstTest(
         cout.flush();
         kernelNDGridIndexBatchEstimatorAdaptiveTest<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(sampleBegin, sampleEnd, dev_N_batchEst, dev_sampleOffset,
             dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr,
-            dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells, estimatedResult);
+            dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells, dev_estimatedResult);
     #endif
 
 	cout << "[GPU] ~ ERROR FROM KERNEL LAUNCH OF BATCH ESTIMATOR: " << cudaGetLastError() << '\n';
