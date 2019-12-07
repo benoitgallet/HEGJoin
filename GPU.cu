@@ -737,6 +737,18 @@ unsigned long long callGPUBatchEstTest(
         cout.flush();
 	}
 
+
+    unsigned int * estimatedResult = new unsigned int[*N_batchEst];
+    unsigned int * dev_estimatedResult;
+    errCode = cudaMalloc((void**)&dev_estimatedResult, sizeof(unsigned int) * (*N_batchEst));
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[GPU] ~ Error: estimated result alloc error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+    }
+    
+
 	/////////////
 	//count the result set size
 	////////////
@@ -793,16 +805,6 @@ unsigned long long callGPUBatchEstTest(
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
         cout.flush();
 	}
-
-    unsigned int * estimatedResult = new unsigned int[*N_batchEst];
-    unsigned int * dev_estimatedResult;
-    errCode = cudaMalloc((void**)&dev_estimatedResult, sizeof(unsigned int) * (*N_batchEst));
-	if(errCode != cudaSuccess)
-    {
-    	cout << "[GPU] ~ Error: estimated result alloc error with code " << errCode << '\n';
-        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
-        cout.flush();
-    }
 
 
 	// const int TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
