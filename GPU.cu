@@ -663,6 +663,267 @@ unsigned long long callGPUBatchEst(
 
 
 
+unsigned long long callGPUBatchEstTest(
+    unsigned int * DBSIZE,
+    unsigned int sampleBegin,
+    unsigned int sampleEnd,
+    DTYPE * dev_database,
+    DTYPE * dev_sortedDatabase,
+    unsigned int * dev_originPointIndex,
+    DTYPE * dev_epsilon,
+    struct grid * dev_grid,
+	unsigned int * dev_indexLookupArr,
+    struct gridCellLookup * dev_gridCellLookupArr,
+    DTYPE * dev_minArr,
+	unsigned int * dev_nCells,
+    unsigned int * dev_nNonEmptyCells,
+    unsigned int * retNumBatches,
+    unsigned int * retGPUBufferSize)
+{
+	//CUDA error code:
+	cudaError_t errCode;
+
+    cout << "[GPU] ~ ***********************************\n[GPU] ~ Estimating Batches:\n";
+	cout << "[GPU] ~ BATCH ESTIMATOR: Sometimes the GPU will error on a previous execution and you won't know. \n[GPU] ~ Last error start of function: " << cudaGetLastError() << '\n';
+    cout.flush();
+
+    unsigned int sampleSize = sampleEnd - sampleBegin;
+
+    cout << "[GPU] ~ Sampling the portion [" << sampleBegin << ", " << sampleEnd << "] of the dataset (" << sampleSize << " elements)\n";
+    cout.flush();
+
+    //////////////////////////////////////////////////////////
+	//ESTIMATE THE BUFFER SIZE AND NUMBER OF BATCHES ETC BY COUNTING THE NUMBER OF RESULTS
+	//TAKE A SAMPLE OF THE DATA POINTS, NOT ALL OF THEM
+	//Use sampleRate for this
+	/////////////////////////////////////////////////////////
+
+	//Parameters for the batch size estimation.
+	// double sampleRate = 0.01; //sample 1% of the points in the dataset sampleRate=0.01.
+						//Sample the entire dataset(no sampling) sampleRate=1
+    double sampleRate = 0.05; // sample 5% of the dataset
+	int offsetRate = 1.0 / sampleRate;
+    cout << "[GPU] ~ Offset: " << offsetRate << '\n';
+    cout.flush();
+
+	/////////////////
+	//N GPU threads
+	////////////////
+
+	unsigned int * dev_N_batchEst;
+	unsigned int * N_batchEst = (unsigned int*)malloc(sizeof(unsigned int));
+    // For 'basic' versions, sampleEnd = DBSIZE and sampleBegin = 0
+    // For static partitioning, sampleEnd = DBSIZE * fraction and sampleBegin = 0
+    // For dynamic partitioning, sampleEnd and sampleBegin correspond to the batch currently taken by the GPU
+    *N_batchEst = (sampleEnd - sampleBegin) * sampleRate;
+	// *N_batchEst = *DBSIZE * sampleRate;
+
+	//allocate on the device
+	errCode = cudaMalloc((void**)&dev_N_batchEst, sizeof(unsigned int));
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[GPU] ~ Error: dev_N_batchEst Got error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+	//copy N to device
+	//N IS THE NUMBER OF THREADS
+	errCode = cudaMemcpy(dev_N_batchEst, N_batchEst, sizeof(unsigned int), cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+	    cout << "[GPU] ~ Error: N batchEST Got error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+	/////////////
+	//count the result set size
+	////////////
+
+	unsigned int * dev_cnt_batchEst;
+
+	unsigned int * cnt_batchEst;
+	cnt_batchEst = (unsigned int*)malloc(sizeof(unsigned int));
+	*cnt_batchEst = 0;
+
+	//allocate on the device
+	errCode = cudaMalloc((void**)&dev_cnt_batchEst, sizeof(unsigned int));
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[GPU] ~ Error: dev_cnt_batchEst Got error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+	//copy cnt to device
+	errCode = cudaMemcpy(dev_cnt_batchEst, cnt_batchEst, sizeof(unsigned int), cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[GPU] ~ Error: dev_cnt_batchEst Got error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+	//////////////////
+	//SAMPLE OFFSET - TO SAMPLE THE DATA TO ESTIMATE THE TOTAL NUMBER OF KEY VALUE PAIRS
+	/////////////////
+
+	//offset into the database when batching the results
+	unsigned int * sampleOffset;
+	sampleOffset = (unsigned int*)malloc(sizeof(unsigned int));
+	*sampleOffset = offsetRate;
+
+	unsigned int * dev_sampleOffset;
+
+	//allocate on the device
+	errCode = cudaMalloc((void**)&dev_sampleOffset, sizeof(unsigned int));
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[GPU] ~ Error: sample offset Got error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+	//copy offset to device
+	errCode = cudaMemcpy(dev_sampleOffset, sampleOffset, sizeof(unsigned int), cudaMemcpyHostToDevice);
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[GPU] ~ Error: dev_sampleOffset Got error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+    unsigned int * estimatedResult = new unsigned int[*N_batchEst];
+    unsigned int * dev_estimatedResult;
+    errCode = cudaMalloc((void**)&dev_estimatedResult, sizeof(unsigned int) * (*N_batchEst));
+	if(errCode != cudaSuccess)
+    {
+    	cout << "[GPU] ~ Error: estimated result alloc error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+    }
+
+
+	// const int TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
+    const int TOTALBLOCKSBATCHEST = ceil((1.0 * sampleSize * sampleRate) / (1.0 * BLOCKSIZE));
+    cout << "[GPU] ~ Total blocks: " << TOTALBLOCKSBATCHEST << '\n';
+    cout.flush();
+
+    #if UNICOMP
+        cout << "[GPU] ~ Estimating batch using the Unicomp pattern\n";
+        cout.flush();
+        kernelNDGridIndexBatchEstimatorUnicompAdaptive<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(sampleBegin, sampleEnd, dev_N_batchEst, dev_sampleOffset,
+            dev_database, dev_sortedDatabase, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells,
+            dev_cnt_batchEst, dev_nNonEmptyCells/*, dev_gridCellNDMask, dev_gridCellNDMaskOffsets*/);
+    #elif LID_UNICOMP
+        cout << "[GPU] ~ Estimating batch using the Lid-Unicomp pattern\n";
+        cout.flush();
+        kernelNDGridIndexBatchEstimatorLidUnicompAdaptive<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(sampleBegin, sampleEnd, dev_N_batchEst, dev_sampleOffset,
+            dev_database, dev_sortedDatabase, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells,
+            dev_cnt_batchEst, dev_nNonEmptyCells/*, dev_gridCellNDMask, dev_gridCellNDMaskOffsets*/);
+    #else
+        cout << "[GPU] ~ Estimating batch without using pattern\n";
+        cout.flush();
+        kernelNDGridIndexBatchEstimatorAdaptiveTest<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(sampleBegin, sampleEnd, dev_N_batchEst, dev_sampleOffset,
+            dev_database, dev_sortedDatabase, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr,
+            dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells/*, dev_gridCellNDMask, dev_gridCellNDMaskOffsets*/);
+    #endif
+
+	cout << "[GPU] ~ ERROR FROM KERNEL LAUNCH OF BATCH ESTIMATOR: " << cudaGetLastError() << '\n';
+    cout.flush();
+	// find the size of the number of results
+
+	// errCode = cudaMemcpy(cnt_batchEst, dev_cnt_batchEst, sizeof(unsigned int), cudaMemcpyDeviceToHost);
+	// if(errCode != cudaSuccess)
+    // {
+	//     cout << "[GPU] ~ Error: getting cnt for batch estimate from GPU Got error with code " << errCode << '\n';
+    //     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+    //     cout.flush();
+	// }else{
+    //     cout << "[GPU] ~ Result set size for estimating the number of batches (sampled): " << *cnt_batchEst << '\n';
+    //     cout.flush();
+	// }
+
+    errCode = cudaMemcpy(estimatedResult, dev_estimatedResult, sizeof(unsigned int) * (*N_batchEst), cudaMemcpyDeviceToHost);
+	if(errCode != cudaSuccess)
+    {
+	    cout << "[GPU] ~ Error: getting result array for batch estimate from GPU Got error with code " << errCode << '\n';
+        cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+	}
+
+	// uint64_t estimatedNeighbors = (uint64_t)*cnt_batchEst * (uint64_t)offsetRate;
+    uint64_t estimatedNeighbors = 0;
+    for(int i = 0; i < (*N_batchEst); ++i)
+    {
+        estimatedNeighbors += offsetRate * estimatedResult[i];
+    }
+    // cout << "[GPU] ~ From GPU cnt: " << *cnt_batchEst <<", offset rate: " << offsetRate << '\n';
+    cout << "[GPU] ~ From GPU estimated neighbors = " << estimatedNeighbors << ", offset rate = " << offsetRate << '\n';
+    cout.flush();
+	//initial
+
+    // unsigned int GPUBufferSize;
+    // if(initialEst)
+    // {
+    	// GPUBufferSize = 40000000; //size in HPBDC paper (low-D)
+    // }else{
+    //     GPUBufferSize = 1000000;
+    // }
+	unsigned int GPUBufferSize = 50000000;
+    // unsigned int GPUBufferSize = 100000000;
+
+    // #if SORT_BY_WORKLOAD
+    //     #if LID_UNICOMP
+    //     	double alpha = 0.05; //overestimation factor
+    //     #else
+    //         double alpha = 0.5; // higher overestimation to compensate the fact that a cell access pattern adds 2 points for each neighbor within epsilon
+    //     #endif
+    // #else
+        // double alpha = 0.05; //overestimation factor
+    // #endif
+
+    double alpha = 0.05;
+
+	uint64_t estimatedTotalSizeWithAlpha = estimatedNeighbors * (1.0 + alpha * 1.0);
+    cout << "[GPU] ~ Estimated total result set size: " << estimatedNeighbors << '\n';
+    cout << "[GPU] ~ Estimated total restult set size (with Alpha " << alpha << "): " << estimatedTotalSizeWithAlpha << '\n';
+    cout.flush();
+
+	if (estimatedNeighbors < (GPUBufferSize * GPUSTREAMS))
+	{
+        cout << "[GPU] ~ Small buffer size, increasing alpha to: " << alpha * 3.0 << '\n';
+        cout.flush();
+		GPUBufferSize = estimatedNeighbors * (1.0 + (alpha * 2.0)) / (GPUSTREAMS);		//we do 2*alpha for small datasets because the
+																		//sampling will be worse for small datasets
+																		//but we fix the 3 streams still (thats why divide by 3).
+	}
+
+	unsigned int numBatches = ceil(((1.0 + alpha) * estimatedNeighbors * 1.0) / ((uint64_t)GPUBufferSize * 1.0));
+    cout << "[GPU] ~ Number of batches: " << numBatches << ", buffer size: " << GPUBufferSize << '\n';
+    cout.flush();
+
+	*retNumBatches = numBatches + 1;
+	// *retGPUBufferSize = 1.5 * GPUBufferSize;
+    *retGPUBufferSize = GPUBufferSize;
+
+    cout << "[GPU] ~ End Batch Estimator\n***********************************\n";
+    cout.flush();
+
+	cudaFree(dev_cnt_batchEst);
+	cudaFree(dev_N_batchEst);
+	cudaFree(dev_sampleOffset);
+
+    return estimatedTotalSizeWithAlpha;
+
+}
+
+
+
+
+
+
 
 //modified from: makeDistanceTableGPUGridIndexBatchesAlternateTest
 void distanceTableNDGridBatches(
@@ -820,7 +1081,7 @@ void distanceTableNDGridBatches(
 	unsigned int GPUBufferSize = 0;
 
 	double tstartbatchest = omp_get_wtime();
-    estimatedNeighbors = callGPUBatchEst(DBSIZE, 0, *DBSIZE, dev_database, nullptr, dev_originPointIndex, dev_epsilon,
+    estimatedNeighbors = callGPUBatchEstTest(DBSIZE, 0, *DBSIZE, dev_database, nullptr, dev_originPointIndex, dev_epsilon,
             dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, /*dev_gridCellNDMask,
             dev_gridCellNDMaskOffsets,*/ &numBatches, &GPUBufferSize);
 	double tendbatchest = omp_get_wtime();
