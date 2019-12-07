@@ -30,7 +30,6 @@ echo '## Epsilon 0.000277778'
 ./main $SDSS 0.000277778 2 0 | grep "RESULT"
 
 echo
-echo '----------'
 echo
 
 echo '# Hybrid'
@@ -60,8 +59,7 @@ echo '## Epsilon 0.000277778'
 ./main $SDSS 0.000277778 2 1 | grep "RESULT"
 
 echo
-echo '----------'
-echo
+echo 
 
 echo '# Super-EGO'
 echo '## Epsilon 0.000055556'
