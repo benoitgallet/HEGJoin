@@ -135,10 +135,6 @@ __global__ void sortByWorkLoadGlobal(
 				struct gridCellLookup * resultBinSearch = thrust::lower_bound(thrust::seq, gridCellLookupArr, gridCellLookupArr + (*nNonEmptyCells), gridCellLookup(tmp));
 				unsigned int GridIndex = resultBinSearch->idx;
 				nbNeighborPoints += index[GridIndex].indexmax - index[GridIndex].indexmin + 1;
-				if(tid == 0)
-				{
-					printf("nb neighbors = %d\n", nbNeighborPoints);
-				}
 			}
 		}
 
