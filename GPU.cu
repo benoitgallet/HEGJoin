@@ -738,16 +738,16 @@ unsigned long long callGPUBatchEstTest(
 	}
 
 
-    unsigned int * estimatedResult = new unsigned int[*N_batchEst];
-    unsigned int * dev_estimatedResult;
-    errCode = cudaMalloc((void**)&dev_estimatedResult, sizeof(unsigned int) * (*N_batchEst));
+    uint64_t * estimatedResult = new uint64_t[*N_batchEst];
+    uint64_t * dev_estimatedResult;
+    errCode = cudaMalloc((void**)&dev_estimatedResult, sizeof(uint64_t) * (*N_batchEst));
 	if(errCode != cudaSuccess)
     {
     	cout << "[GPU] ~ Error: estimated result alloc error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
         cout.flush();
     }
-    
+
 
 	/////////////
 	//count the result set size
@@ -847,7 +847,7 @@ unsigned long long callGPUBatchEstTest(
     //     cout.flush();
 	// }
 
-    errCode = cudaMemcpy(estimatedResult, dev_estimatedResult, sizeof(unsigned int) * (*N_batchEst), cudaMemcpyDeviceToHost);
+    errCode = cudaMemcpy(estimatedResult, dev_estimatedResult, sizeof(uint64_t) * (*N_batchEst), cudaMemcpyDeviceToHost);
 	if(errCode != cudaSuccess)
     {
 	    cout << "[GPU] ~ Error: getting result array for batch estimate from GPU Got error with code " << errCode << '\n';

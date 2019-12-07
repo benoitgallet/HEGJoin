@@ -1122,7 +1122,7 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptiveTest(
 		unsigned int * nCells,
 		unsigned int * cnt,
 		unsigned int * nNonEmptyCells,
-		unsigned int * estimatedResult)
+		uint64_t * estimatedResult)
 {
 
 	unsigned int tid = blockIdx.x * BLOCKSIZE + threadIdx.x;
