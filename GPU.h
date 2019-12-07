@@ -85,6 +85,25 @@ unsigned long long callGPUBatchEst(
         unsigned int * retNumBatches,
         unsigned int * retGPUBufferSize);
 
+unsigned long long callGPUBatchEstTest(
+        unsigned int * DBSIZE,
+        unsigned int sampleBegin,
+        unsigned int sampleEnd,
+        DTYPE * dev_database,
+        DTYPE * dev_sortedDatabase,
+        unsigned int * dev_originPointIndex,
+        DTYPE * dev_epsilon,
+        struct grid * dev_grid,
+    	unsigned int * dev_indexLookupArr,
+        struct gridCellLookup * dev_gridCellLookupArr,
+        DTYPE * dev_minArr,
+    	unsigned int * dev_nCells,
+        unsigned int * dev_nNonEmptyCells,
+        // unsigned int * dev_gridCellNDMask,
+    	// unsigned int * dev_gridCellNDMaskOffsets,
+        unsigned int * retNumBatches,
+        unsigned int * retGPUBufferSize);
+
 void constructNeighborTableKeyValueWithPtrs(
         int * pointIDKey,
         int * pointInDistValue,
