@@ -189,7 +189,8 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptiveTest(
 		DTYPE * minArr,
 		unsigned int * nCells,
 		unsigned int * cnt,
-		unsigned int * nNonEmptyCells);
+		unsigned int * nNonEmptyCells,
+		unsigned int * estimatedResult);
 		// unsigned int * gridCellNDMask,
 		// unsigned int * gridCellNDMaskOffsets);
 
