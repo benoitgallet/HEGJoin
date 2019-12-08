@@ -31,10 +31,10 @@ def getColumn(filename, column):
 
 #GPU_K_SuSy = getColumn("Time_vs_K_SuSy_GPU.txt",0)
 #GPU_Time_SuSy= getColumn("Time_vs_K_SuSy_GPU.txt",1)
-epsilon = getColumn("expo6d10m.txt", 0)
-gpu = getColumn("expo6d10m.txt", 1)
-ego = getColumn("expo6d10m.txt", 3)
-hybrid = getColumn("expo6d10m.txt", 2)
+epsilon = getColumn("expo6d10m_2.txt", 0)
+gpu = getColumn("expo6d10m_2.txt", 1)
+ego = getColumn("expo6d10m_2.txt", 3)
+hybrid = getColumn("expo6d10m_2.txt", 2)
 
 
 
@@ -72,5 +72,5 @@ ax1.set_ylabel('Time (s)', fontsize=18)
 ax1.legend(fontsize=14, loc='upper left', fancybox=False, framealpha=1, handlelength=2, ncol=1)
 
 plt.tight_layout()
-print("Saving figure: expo6d10m.pdf")
-fig.savefig("expo6d10m.pdf", bbox_inches='tight')
+print("Saving figure: expo6d10m_2.pdf")
+fig.savefig("expo6d10m_2.pdf", bbox_inches='tight')
