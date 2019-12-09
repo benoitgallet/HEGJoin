@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SDSS="~/datasets/2d/sdss_2d_15m_normalized.txt"
+SDSS="../datasets/2d/sdss_2d_15m_normalized.txt"
 
 echo '~ SDSS2D15M'
 echo '# GPU'
