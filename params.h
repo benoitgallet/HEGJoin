@@ -10,7 +10,7 @@
 #define CPU_THREADS 16
 
 // Number of query points taken by a CPU thread at once
-#define CPU_BATCH_SIZE 64
+#define CPU_BATCH_SIZE 1024
 
 // Note: Super-EGO does not work using double precision
 // TODO should merge the two variables together

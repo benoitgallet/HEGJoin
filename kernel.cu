@@ -104,8 +104,6 @@ __global__ void sortByWorkLoadGlobal(
 
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
 
-	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
 	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
 	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
@@ -114,23 +112,6 @@ __global__ void sortByWorkLoadGlobal(
 		nDCellIDs[n] = (point[n] - minArr[n]) / (*epsilon);
 		nDMinCellIDs[n] = max(0, nDCellIDs[n] - 1);;
 		nDMaxCellIDs[n] = min(nCells[n] - 1, nDCellIDs[n] + 1);
-
-		// printf("nd cells ids[%d] = %d, min = %d, max = %d\n", n, nDCellIDs[n], nDMinCellIDs[n], nDMaxCellIDs[n]);
-
-		// bool foundMin = 0;
-		// bool foundMax = 0;
-		//
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMin = 1;
-		// }
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMax = 1;
-		// }
-		//
-		// rangeFilteredCellIdsMin[n] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		// rangeFilteredCellIdsMax[n] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
 	}
 
 	unsigned int indexes[NUMINDEXEDDIM];
@@ -154,10 +135,6 @@ __global__ void sortByWorkLoadGlobal(
 				struct gridCellLookup * resultBinSearch = thrust::lower_bound(thrust::seq, gridCellLookupArr, gridCellLookupArr + (*nNonEmptyCells), gridCellLookup(tmp));
 				unsigned int GridIndex = resultBinSearch->idx;
 				nbNeighborPoints += index[GridIndex].indexmax - index[GridIndex].indexmin + 1;
-				if(tid == 0)
-				{
-					printf("nb neighbors = %d\n", nbNeighborPoints);
-				}
 			}
 		}
 
@@ -211,39 +188,6 @@ __global__ void sortByWorkLoadUnicomp(
 		nDCellIDs[n] = (point[n] - minArr[n]) / (*epsilon);
 		nDMinCellIDs[n] = max(0, nDCellIDs[n] - 1);;
 		nDMaxCellIDs[n] = min(nCells[n] - 1, nDCellIDs[n] + 1);
-
-		// bool foundMin = 0;
-		// bool foundMax = 0;
-		//
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMin = 1;
-		// }
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMax = 1;
-		// }
-		//
-		// if (1 == foundMin && 1 == foundMax){
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs;
-		// 	rangeFilteredCellIdsMax[n] = nDMaxCellIDs;
-		// 	//printf("\nmin and max");
-		// }
-		// else if (1 == foundMin && 0 == foundMax){
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs;
-		// 	rangeFilteredCellIdsMax[n] = nDMinCellIDs + 1;
-		// 	//printf("\nmin not max");
-		// }
-		// else if (0 == foundMin && 1 == foundMax){
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs + 1;
-		// 	rangeFilteredCellIdsMax[n] = nDMaxCellIDs;
-		// 	//printf("\nmax not min");
-		// }
-		// else{
-		// 	//printf("\nneither");
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs + 1;
-		// 	rangeFilteredCellIdsMax[n] = nDMinCellIDs + 1;
-		// }
 	}
 
 	unsigned int indexes[NUMINDEXEDDIM];
@@ -318,39 +262,6 @@ __global__ void sortByWorkLoadLidUnicomp(
 		nDCellIDs[n] = (point[n] - minArr[n]) / (*epsilon);
 		nDMinCellIDs[n] = max(0, nDCellIDs[n] - 1);;
 		nDMaxCellIDs[n] = min(nCells[n] - 1, nDCellIDs[n] + 1);
-
-		// bool foundMin = 0;
-		// bool foundMax = 0;
-		//
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMin = 1;
-		// }
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (n * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMax = 1;
-		// }
-		//
-		// if (1 == foundMin && 1 == foundMax){
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs;
-		// 	rangeFilteredCellIdsMax[n] = nDMaxCellIDs;
-		// 	//printf("\nmin and max");
-		// }
-		// else if (1 == foundMin && 0 == foundMax){
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs;
-		// 	rangeFilteredCellIdsMax[n] = nDMinCellIDs + 1;
-		// 	//printf("\nmin not max");
-		// }
-		// else if (0 == foundMin && 1 == foundMax){
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs + 1;
-		// 	rangeFilteredCellIdsMax[n] = nDMaxCellIDs;
-		// 	//printf("\nmax not min");
-		// }
-		// else{
-		// 	//printf("\nneither");
-		// 	rangeFilteredCellIdsMin[n] = nDMinCellIDs + 1;
-		// 	rangeFilteredCellIdsMax[n] = nDMinCellIDs + 1;
-		// }
 	}
 
 	unsigned int indexes[NUMINDEXEDDIM];
@@ -733,8 +644,6 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 	//calculate the coords of the Cell for the point
 	//and the min/max ranges in each dimension
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
-	// unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	// unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
 	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
 	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
@@ -744,41 +653,6 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptive(
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
 		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
 		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-
-
-		///////////////////////////
-		//Take the intersection of the ranges for each dimension between
-		//the point and the filtered set of cells in each dimension
-		//Ranges in a given dimension that have points in them that are non-empty in a dimension will be tested
-		///////////////////////////
-
-		//compare the point's range of cell IDs in each dimension to the filter mask
-		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		// bool foundMin = 0;
-		// bool foundMax = 0;
-
-		//we go throgh each dimension and compare the range of the query points min/max cell ids to the filtered ones
-		//find out which ones in the range exist based on the min/max
-		//then determine the appropriate ranges
-
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMin = 1;
-		// }
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMax = 1;
-		// }
-
-		// cases:
-		// found the min and max
-		// found the min and not max
-		//found the max and not the min
-		//you don't find the min or max -- then only check the mid
-		//you always find the mid because it's in the cell of the point you're looking for
-
-		// rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		// rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
 	}
 
 	///////////////////////////////////////
@@ -894,41 +768,6 @@ __global__ void kernelNDGridIndexBatchEstimatorUnicompAdaptive(
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
 		nDMinCellIDs[n] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
 		nDMaxCellIDs[n] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-
-
-		// ///////////////////////////
-		// //Take the intersection of the ranges for each dimension between
-		// //the point and the filtered set of cells in each dimension
-		// //Ranges in a given dimension that have points in them that are non-empty in a dimension will be tested
-		// ///////////////////////////
-		//
-		// //compare the point's range of cell IDs in each dimension to the filter mask
-		// //only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		// bool foundMin = 0;
-		// bool foundMax = 0;
-		//
-		// //we go throgh each dimension and compare the range of the query points min/max cell ids to the filtered ones
-		// //find out which ones in the range exist based on the min/max
-		// //then determine the appropriate ranges
-		//
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMin=1;
-		// }
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMax=1;
-		// }
-		//
-		// // cases:
-		// // found the min and max
-		// // found the min and not max
-		// // found the max and not the min
-		// // you don't find the min or max -- then only check the mid
-		// // you always find the mid because it's in the cell of the point you're looking for
-		//
-		// rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		// rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
 	}
 
 	///////////////////////////////////////
@@ -997,49 +836,14 @@ __global__ void kernelNDGridIndexBatchEstimatorLidUnicompAdaptive(
 	//and the min/max ranges in each dimension
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
 
-	unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
 	for (int i = 0; i < NUMINDEXEDDIM; ++i)
 	{
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		unsigned int nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		unsigned int nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-
-
-		///////////////////////////
-		//Take the intersection of the ranges for each dimension between
-		//the point and the filtered set of cells in each dimension
-		//Ranges in a given dimension that have points in them that are non-empty in a dimension will be tested
-		///////////////////////////
-
-		//compare the point's range of cell IDs in each dimension to the filter mask
-		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		bool foundMin = 0;
-		bool foundMax = 0;
-
-		//we go throgh each dimension and compare the range of the query points min/max cell ids to the filtered ones
-		//find out which ones in the range exist based on the min/max
-		//then determine the appropriate ranges
-
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-				gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMin=1;
-		}
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) ],
-				gridCellNDMask + gridCellNDMaskOffsets[ (i * 2) + 1 ] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMax=1;
-		}
-
-		// cases:
-		// found the min and max
-		// found the min and not max
-		//found the max and not the min
-		//you don't find the min or max -- then only check the mid
-		//you always find the mid because it's in the cell of the point you're looking for
-
-		rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
+		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 	}
 
 	///////////////////////////////////////
@@ -1051,8 +855,8 @@ __global__ void kernelNDGridIndexBatchEstimatorLidUnicompAdaptive(
 
 	uint64_t cellID = getLinearID_nDimensionsGPU(nDCellIDs, nCells, NUMINDEXEDDIM);
 
-	for (loopRng[0] = rangeFilteredCellIdsMin[0]; loopRng[0] <= rangeFilteredCellIdsMax[0]; loopRng[0]++)
-		for (loopRng[1] = rangeFilteredCellIdsMin[1]; loopRng[1] <= rangeFilteredCellIdsMax[1]; loopRng[1]++)
+	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
+		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
 		#include "kernelloops.h"
 		{ //beginning of loop body
 
@@ -1154,7 +958,6 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptiveTest(
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
 		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
 		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-
 	}
 
 	///////////////////////////////////////
@@ -1276,23 +1079,6 @@ __global__ void kernelNDGridIndexGlobal(
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
 		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
 		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-
-		//compare the point's range of cell IDs in each dimension to the filter mask
-		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		// bool foundMin = 0;
-		// bool foundMax = 0;
-		//
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMin = 1;
-		// }
-		// if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-		// 		gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-		// 	foundMax = 1;
-		// }
-		//
-		// rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		// rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
 	}
 
 	unsigned int indexes[NUMINDEXEDDIM];
@@ -1362,31 +1148,14 @@ __global__ void kernelNDGridIndexGlobalUnicomp(
 	//calculate the coords of the Cell for the point
 	//and the min/max ranges in each dimension
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		unsigned int nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		unsigned int nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-
-		//compare the point's range of cell IDs in each dimension to the filter mask
-		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		bool foundMin = 0;
-		bool foundMax = 0;
-
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-				gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMin = 1;
-		}
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-				gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMax = 1;
-		}
-
-		rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
+		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells
 	}
 
 	///////////////////////////////////////
@@ -1454,31 +1223,14 @@ __global__ void kernelNDGridIndexGlobalLinearIDUnicomp(
 	//calculate the coords of the Cell for the point
 	//and the min/max ranges in each dimension
 	unsigned int nDCellIDs[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMin[NUMINDEXEDDIM];
-	unsigned int rangeFilteredCellIdsMax[NUMINDEXEDDIM];
+	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
 
 	for (int i = 0; i < NUMINDEXEDDIM; i++)
 	{
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		unsigned int nDMinCellIDs = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		unsigned int nDMaxCellIDs = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-
-		//compare the point's range of cell IDs in each dimension to the filter mask
-		//only 2 possible values (you always find the middle point in the range), because that's the cell of the point itself
-		bool foundMin = 0;
-		bool foundMax = 0;
-
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-				gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMinCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMin = 1;
-		}
-		if(thrust::binary_search(thrust::seq, gridCellNDMask + gridCellNDMaskOffsets[(i * 2)],
-				gridCellNDMask + gridCellNDMaskOffsets[(i * 2) + 1] + 1, nDMaxCellIDs)){ //extra +1 here is because we include the upper bound
-			foundMax = 1;
-		}
-
-		rangeFilteredCellIdsMin[i] = (1 == foundMin) ? nDMinCellIDs : (nDMinCellIDs + 1);
-		rangeFilteredCellIdsMax[i] = (1 == foundMax) ? nDMaxCellIDs : (nDMinCellIDs + 1);
+		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 	}
 
 	///////////////////////////////////////
@@ -1500,8 +1252,8 @@ __global__ void kernelNDGridIndexGlobalLinearIDUnicomp(
 	// rangeFilteredCellIdsMin[NUMINDEXEDDIM - 1] = max(rangeFilteredCellIdsMin[NUMINDEXEDDIM - 1],
 	// 													nDCellIDs[NUMINDEXEDDIM - 1]);
 
-	for (loopRng[0] = rangeFilteredCellIdsMin[0]; loopRng[0] <= rangeFilteredCellIdsMax[0]; loopRng[0]++)
-		for (loopRng[1] = rangeFilteredCellIdsMin[1]; loopRng[1] <= rangeFilteredCellIdsMax[1]; loopRng[1]++)
+	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
+		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
 		#include "kernelloops.h"
 		{ //beginning of loop body
 
