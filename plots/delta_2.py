@@ -59,14 +59,14 @@ ax1.plot(dimension, tenM, ls='-', c='dodgerblue', marker='v', markersize=10, lin
 #turn off scientific notation
 # plt.ticklabel_format(useOffset=False)
 
-ax1.set_ylim(0.0, 1.0)
+ax1.set_ylim(0.0, 0.02)
 
 ax1.set_xticks(dimension)
 
 ax1.set_xlabel(r'Dimensionality', fontsize=18)
-ax1.set_ylabel('Time (s)', fontsize=18)
+ax1.set_ylabel('Load Imbalance Ratio', fontsize=17)
 
-ax1.legend(fontsize=14, loc='upper left', fancybox=False, framealpha=1, handlelength=2, ncol=1)
+ax1.legend(fontsize=14, loc='upper center', fancybox=False, framealpha=1, handlelength=2, ncol=1)
 
 plt.tight_layout()
 print("Saving figure: delta_2.pdf")

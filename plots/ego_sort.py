@@ -18,8 +18,8 @@ mpl.rc('text', **{'usetex':True})
 
 qsortLabel=r'\textsc{qsort, 2M}'
 qsort_10mLabel=r'\textsc{qsort, 10M}'
-stableLabel=r'\textsc{stable\_sort, 2M}'
-stable_10mLabel=r'\textsc{stable\_sort, 10M}'
+stableLabel=r'\textsc{stable, 2M}'
+stable_10mLabel=r'\textsc{stable, 10M}'
 
 
 def getColumn(filename, column):
@@ -50,7 +50,7 @@ stable_10m = np.asfarray(stable_10m, dtype=float)
 
 #Susy
 
-fig = plt.figure(figsize=(5,4))
+fig = plt.figure(figsize=(5,3))
 ax1 = fig.add_subplot(111)
 
 # We change the fontsize of minor ticks label
@@ -61,7 +61,7 @@ ax1.set_yscale("log")
 #ax1.plot(GPU_K_SuSy, GPU_Time_SuSy, ls='-',   c='red', marker='o', markersize=10, linewidth=4, label=gpu)
 ax1.plot(dimension, qsort, ls='-', c='black', marker='^', markersize=10, linewidth=4, label=qsortLabel)
 ax1.plot(dimension, qsort_10m, ls='-', c='red', marker='v', markersize=10, linewidth=4, label=qsort_10mLabel)
-ax1.plot(dimension, stable, ls='-', c='orange', marker='s', markersize=10, linewidth=4, label=stableLabel)
+ax1.plot(dimension, stable, ls='-', c='darkorange', marker='s', markersize=10, linewidth=4, label=stableLabel)
 ax1.plot(dimension, stable_10m, ls='-', c='dodgerblue', marker='o', markersize=10, linewidth=4, label=stable_10mLabel)
 
 #turn off scientific notation
@@ -74,7 +74,7 @@ ax1.set_xticks(dimension)
 ax1.set_xlabel(r'Dimensionality', fontsize=18)
 ax1.set_ylabel('Time (s)', fontsize=18)
 
-ax1.legend(fontsize=12, loc='center right', fancybox=False, framealpha=1, handlelength=2, ncol=1)
+ax1.legend(fontsize=11, loc='center right', fancybox=False, framealpha=1, handlelength=2, ncol=2)
 
 plt.tight_layout()
 print("Saving figure: ego_sort.pdf")

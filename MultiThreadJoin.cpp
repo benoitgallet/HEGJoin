@@ -14,7 +14,12 @@
 #include "params.h"
 #include "WorkQueue.h"
 
-uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A_sz, pPoint B, int B_sz, unsigned int * egoMapping, unsigned int * originPointIndex)
+uint64_t Util::multiThreadJoinWorkQueue(
+	unsigned int searchMode,
+	pPoint A, int A_sz,
+	pPoint B, int B_sz,
+	unsigned int * egoMapping,
+	unsigned int * originPointIndex)
 {
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
@@ -24,13 +29,15 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 		nbQueries[i] = 0;
 	}
 
+	std::vector<int> * resultVector[CPU_THREADS];
+
 	double tStart = omp_get_wtime();
 	if(searchMode == SM_HYBRID)
 	{
 		#pragma omp parallel num_threads(CPU_THREADS)
 		{
 			unsigned int tid = omp_get_thread_num();
-			std::vector<int> resultVector;
+			// std::vector<int> resultVector;
 			std::pair<unsigned int, unsigned int> cpuBatch;
 			// Point * batch = new Point[CPU_BATCH_SIZE];
 
@@ -54,16 +61,16 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector[tid]);
 				}
 
 				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
 
-			results[tid] += resultVector.size();
+			results[tid] += resultVector[tid].size() / 2;
 
-			resultVector.clear();
-			resultVector.shrink_to_fit();
+			resultVector[tid].clear();
+			resultVector[tid].shrink_to_fit();
 		}
 	}
 	else // only use the CPU, not the GPU
@@ -71,7 +78,7 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 		#pragma omp parallel num_threads(CPU_THREADS)
 		{
 			unsigned int tid = omp_get_thread_num();
-			std::vector<int> resultVector;
+			// std::vector<int> resultVector;
 			std::pair<unsigned int, unsigned int> cpuBatch;
 
 			do
@@ -81,16 +88,16 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector[tid]);
 				}
 
 				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
 
-			results[tid] += resultVector.size();
+			results[tid] += resultVector[tid].size() / 2;
 
-			resultVector.clear();
-			resultVector.shrink_to_fit();
+			resultVector[tid].clear();
+			resultVector[tid].shrink_to_fit();
 		}
 	}
 	double tEnd = omp_get_wtime();
@@ -101,6 +108,14 @@ uint64_t Util::multiThreadJoinWorkQueue(unsigned int searchMode, pPoint A, int A
 	{
 		result += results[i];
 		nbQueriesTotal += nbQueries[i];
+	}
+
+	for(int i = 0; i < CPU_THREADS; i++)
+	{
+		for(int j = 0; j < resultVector[i].size(); j += 2)
+		{
+			printf("[EGO] ~ Query %d, neighbor %d\n", resultVector[i][j], resultVector[i][j + 1]);
+		}
 	}
 
 	printf("[EGO | RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);

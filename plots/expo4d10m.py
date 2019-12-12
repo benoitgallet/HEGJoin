@@ -17,8 +17,8 @@ mpl.rc('text', **{'usetex':True})
 
 
 gpuLabel=r'\textsc{LBJoin}'
-egoLabel=r'\textsc{Super-EGO}'
-heteroLabel=r'\textsc{HEGO}'
+egoLabel=r'\textsc{SEGO-New}'
+heteroLabel=r'\textsc{HEGJoin}'
 
 
 
@@ -48,15 +48,15 @@ hybrid = np.asfarray(hybrid, dtype=float)
 
 #Susy
 
-fig = plt.figure(figsize=(5,3))
+fig = plt.figure(figsize=(4,3))
 ax1 = fig.add_subplot(111)
 
 # We change the fontsize of minor ticks label
 ax1.tick_params(which='major', labelsize=20)
 
 #ax1.plot(GPU_K_SuSy, GPU_Time_SuSy, ls='-',   c='red', marker='o', markersize=10, linewidth=4, label=gpu)
-ax1.plot(epsilon, gpu, ls='-', c='red', marker='o', markersize=10, linewidth=4, label=gpuLabel)
-ax1.plot(epsilon, ego, ls='-', c='orange', marker='^', markersize=10, linewidth=4, label=egoLabel)
+ax1.plot(epsilon, gpu, ls='-', c='darkred', marker='o', markersize=10, linewidth=4, label=gpuLabel)
+ax1.plot(epsilon, ego, ls='-', c='darkorange', marker='^', markersize=10, linewidth=4, label=egoLabel)
 ax1.plot(epsilon, hybrid, ls='-', c='dodgerblue', marker='v', markersize=10, linewidth=4, label=heteroLabel)
 
 #turn off scientific notation
@@ -66,7 +66,7 @@ ax1.set_ylim(0,300)
 
 ax1.set_xticks(epsilon)
 
-ax1.set_xlabel(r'$\epsilon$', fontsize=18)
+ax1.set_xlabel(r'$\epsilon\;(\times10^{-3})$', fontsize=20)
 ax1.set_ylabel('Time (s)', fontsize=18)
 
 ax1.legend(fontsize=14, loc='upper left', fancybox=False, framealpha=1, handlelength=2, ncol=1)
