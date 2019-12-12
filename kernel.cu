@@ -766,8 +766,8 @@ __global__ void kernelNDGridIndexBatchEstimatorUnicompAdaptive(
 	for (int i = 0; i < NUMINDEXEDDIM; ++i)
 	{
 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		nDMinCellIDs[n] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		nDMaxCellIDs[n] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
+		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
 	}
 
 	///////////////////////////////////////
