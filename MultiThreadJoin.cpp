@@ -61,7 +61,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector[tid]);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
 				}
 
 				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
@@ -88,7 +88,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector[tid]);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
 				}
 
 				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
