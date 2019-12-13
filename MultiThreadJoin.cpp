@@ -112,7 +112,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 	for(int i = 0; i < CPU_THREADS; i++)
 	{
-		for(int j = 0; j < resultVector[i]->size(); j += 2)
+		for(int j = 0; j < resultVector[i].size(); j += 2)
 		{
 			printf("[EGO] ~ Query %d, neighbor %d\n", resultVector[i][j], resultVector[i][j + 1]);
 		}
