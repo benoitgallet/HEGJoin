@@ -69,8 +69,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 			results[tid] += resultVector[tid].size() / 2;
 
-			resultVector[tid].clear();
-			resultVector[tid].shrink_to_fit();
+			// resultVector[tid].clear();
+			// resultVector[tid].shrink_to_fit();
 		}
 	}
 	else // only use the CPU, not the GPU
@@ -96,8 +96,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 			results[tid] += resultVector[tid].size() / 2;
 
-			resultVector[tid].clear();
-			resultVector[tid].shrink_to_fit();
+			// resultVector[tid].clear();
+			// resultVector[tid].shrink_to_fit();
 		}
 	}
 	double tEnd = omp_get_wtime();
