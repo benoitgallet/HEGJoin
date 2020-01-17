@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <vector>
-// #include <math.h>
+#include <math.h>
 #include <set>
-// #include <algorithm>
+#include <algorithm>
 
 #include "omp.h"
 
@@ -19,7 +19,8 @@
 #include "Util.hpp"
 
 // #include <boost/sort/sort.hpp>
-#include <parallel/algorithm>
+#include "~/boost_1_72_0/boost/sort/parallel_stable_sort/parallel_stable_sort.hpp"
+// #include <parallel/algorithm>
 
 using std::cout;
 using std::endl;
@@ -232,8 +233,8 @@ int main(int argc, char * argv[])
                 // double tMidEgoSort = omp_get_wtime();
 
                 // std::stable_sort(A, A + A_sz, egoSortFunction);
-                // boost::sort::parallel_stable_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
-                __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
+                boost::sort::parallel_stable_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
+                // __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
 
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
