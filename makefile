@@ -14,7 +14,7 @@ CFLAGS2 = -std=c++11 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wn
 all: $(EXECUTABLE)
 
 main.o: main.cu params.h
-	$(CC) $(FLAGS) $(CFLAGS) -march=native $(SEARCHMODE) $(PARAMS) main.cu
+	$(CC) $(FLAGS) $(CFLAGS) $(SEARCHMODE) $(PARAMS) main.cu
 
 SortByWorkload.o: SortByWorkload.cu params.h
 	$(CC) $(FLAGS) $(CFLAGS) $(SEARCHMODE) $(PARAMS) SortByWorkload.cu
