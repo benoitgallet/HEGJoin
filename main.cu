@@ -18,6 +18,8 @@
 #include "Point.hpp"
 #include "Util.hpp"
 
+#include <boost/sort/sort.hpp>
+
 using std::cout;
 using std::endl;
 
@@ -227,24 +229,12 @@ int main(int argc, char * argv[])
                 //     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
                 // }
                 // double tMidEgoSort = omp_get_wtime();
-                std::stable_sort(A, A + A_sz, egoSortFunction);
-                // int i, j;
-                // Point key;
-                // for(int i = 1; i < A_sz; ++i)
-                // {
-                //     key = A[i];
-                //     j = i - 1;
-                //     while(0 <= j && !egoSortFunction(key, A[j]))
-                //     {
-                //         A[j + 1] = A[j];
-                //         j = j - 1;
-                //     }
-                //     A[j + 1] = key;
-                // }
+
+                // std::stable_sort(A, A + A_sz, egoSortFunction);
+                boost::sort::parallel_stable_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
+                
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
-                // midSort = tMidEgoSort - tStartEGOSort;
-                // printf("[EGO] ~ Done EGO-sorting in %f (step 1: %f, step 2: %f)\n", egoSort, midSort, egoSort - midSort);
                 printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
 
                 unsigned int * egoMapping = new unsigned int[DBSIZE];
