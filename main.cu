@@ -233,7 +233,7 @@ int main(int argc, char * argv[])
                 // double tMidEgoSort = omp_get_wtime();
 
                 // std::stable_sort(A, A + A_sz, egoSortFunction);
-                sample_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
+                sort::sample_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
                 // __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
 
                 double tEndEGOSort = omp_get_wtime();
