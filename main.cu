@@ -18,7 +18,8 @@
 #include "Point.hpp"
 #include "Util.hpp"
 
-#include <boost/sort/sort.hpp>
+// #include <boost/sort/sort.hpp>
+#include <parallel/algorithm>
 
 using std::cout;
 using std::endl;
@@ -231,8 +232,9 @@ int main(int argc, char * argv[])
                 // double tMidEgoSort = omp_get_wtime();
 
                 // std::stable_sort(A, A + A_sz, egoSortFunction);
-                boost::sort::parallel_stable_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
-                
+                // boost::sort::parallel_stable_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
+                __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
+
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
                 printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
