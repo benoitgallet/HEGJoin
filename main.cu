@@ -19,7 +19,7 @@
 #include "Util.hpp"
 
 // #include <boost/sort/sort.hpp>
-#include <boost/sort/sort.hpp>
+#include <boost/sort/sample_sort/sample_sort.hpp>
 // #include <parallel/algorithm>
 
 using std::cout;
@@ -233,7 +233,7 @@ int main(int argc, char * argv[])
                 // double tMidEgoSort = omp_get_wtime();
 
                 // std::stable_sort(A, A + A_sz, egoSortFunction);
-                sort::sample_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
+                sample_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
                 // __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
 
                 double tEndEGOSort = omp_get_wtime();
