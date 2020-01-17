@@ -19,7 +19,7 @@
 #include "Util.hpp"
 
 // #include <boost/sort/sort.hpp>
-#include "~/boost_1_72_0/boost/sort/parallel_stable_sort/parallel_stable_sort.hpp"
+#include "~/boost_1_72_0/boost/sort/sort.hpp"
 // #include <parallel/algorithm>
 
 using std::cout;
