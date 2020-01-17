@@ -275,34 +275,34 @@ int main(int argc, char * argv[])
         printf("[RESULT] ~ The GPU ended before the CPU, with a difference of: %f\n", egoTime - gpuTime);
     }
 
-    if(searchMode == SM_GPU)
-    {
-        for (int i = 0; i < NDdataPoints.size(); i++){
-        	// for (int i=0; i<5000; i++){
-        	 	// sort to compare against CPU implementation
-        	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
-        	 	printf("\npoint id: %d, neighbors: ", i);
-        	 	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
-        	 	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
-                {
-        	 		printf("%d,", neighborTable[i].dataPtr[j]);
-        	 	}
-        }
-    }else{
-        if(searchMode != SM_CPU)
-        {
-            for (int i=0; i<5000; i++){
-        	 	// sort to compare against CPU implementation
-        	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
-        	 	printf("\npoint id: %d, neighbors: ", i);
-        	 	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
-        	 	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
-                {
-        	 		printf("%d,", neighborTable[i].dataPtr[j]);
-        	 	}
-            }
-        }
-    }
+    // if(searchMode == SM_GPU)
+    // {
+    //     for (int i = 0; i < NDdataPoints.size(); i++){
+    //     	// for (int i=0; i<5000; i++){
+    //     	 	// sort to compare against CPU implementation
+    //     	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
+    //     	 	printf("\npoint id: %d, neighbors: ", i);
+    //     	 	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
+    //     	 	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
+    //             {
+    //     	 		printf("%d,", neighborTable[i].dataPtr[j]);
+    //     	 	}
+    //     }
+    // }else{
+    //     if(searchMode != SM_CPU)
+    //     {
+    //         for (int i=0; i<5000; i++){
+    //     	 	// sort to compare against CPU implementation
+    //     	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
+    //     	 	printf("\npoint id: %d, neighbors: ", i);
+    //     	 	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
+    //     	 	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
+    //             {
+    //     	 		printf("%d,", neighborTable[i].dataPtr[j]);
+    //     	 	}
+    //         }
+    //     }
+    // }
 
 
     NDdataPoints.clear();
