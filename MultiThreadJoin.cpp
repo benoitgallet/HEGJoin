@@ -110,13 +110,13 @@ uint64_t Util::multiThreadJoinWorkQueue(
 		nbQueriesTotal += nbQueries[i];
 	}
 
-	for(int i = 0; i < CPU_THREADS; i++)
-	{
-		for(int j = 0; j < resultVector[i].size(); j += 2)
-		{
-			printf("[EGO] ~ Query %d, neighbor %d\n", resultVector[i][j], resultVector[i][j + 1]);
-		}
-	}
+	// for(int i = 0; i < CPU_THREADS; i++)
+	// {
+	// 	for(int j = 0; j < resultVector[i].size(); j += 2)
+	// 	{
+	// 		printf("[EGO] ~ Query %d, neighbor %d\n", resultVector[i][j], resultVector[i][j + 1]);
+	// 	}
+	// }
 
 	printf("[EGO | RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);
 	printf("[EGO | RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
