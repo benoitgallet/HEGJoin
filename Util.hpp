@@ -11,6 +11,7 @@
 #include <cstdint>
 
 #include "params.h"
+#include "structs.h"
 
 #define U_QUIT  -1
 #define U_OK     1
