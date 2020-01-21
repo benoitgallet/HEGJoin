@@ -147,7 +147,7 @@ int main(int argc, char * argv[])
     //Neighbortable storage -- the result
     neighborTableLookup * neighborTable = new neighborTableLookup [NDdataPoints.size()];
     // neighborTableLookup * neighborTable = new neighborTableLookup[DBSIZE * fraction];
-    std::vector<struct neighborDataPtrs> pointersToNeighbors();
+    std::vector<struct neighborDataPtrs> pointersToNeighbors;
 
     // unsigned int * dev_gridCellNDMask;
     // unsigned int * dev_gridCellNDMaskOffsets;
