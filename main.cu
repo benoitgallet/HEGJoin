@@ -147,7 +147,7 @@ int main(int argc, char * argv[])
     //Neighbortable storage -- the result
     neighborTableLookup * neighborTable = new neighborTableLookup [NDdataPoints.size()];
     // neighborTableLookup * neighborTable = new neighborTableLookup[DBSIZE * fraction];
-    std::vector<struct neighborDataPtrs> pointersToNeighbors(DBSIZE);
+    std::vector<struct neighborDataPtrs> pointersToNeighbors();
 
     // unsigned int * dev_gridCellNDMask;
     // unsigned int * dev_gridCellNDMaskOffsets;
@@ -218,24 +218,10 @@ int main(int argc, char * argv[])
                 printf("[EGO] ~ Done reordering in %f\n", egoReorder);
 
                 printf("[EGO] ~ EGO-sorting of A\n");
-                // First sort smaller partitions in parallel
-                // Then sort everything, which is fast as the array is 'quasi-sorted'
-                // using either another stable sort or an insertion sort
-                // unsigned int nbThreads = min(8, CPU_THREADS);
-                // unsigned int size = A_sz / CPU_THREADS;
                 double tStartEGOSort = omp_get_wtime();
-                //qsort(A, A_sz, sizeof(Point), pcmp);
-                // #pragma omp parallel num_threads(nbThreads)
-                // {
-                //     unsigned int tid = omp_get_thread_num();
-                //     std::stable_sort(A + tid * size, A + min(tid * size, A_sz), egoSortFunction);
-                // }
-                // double tMidEgoSort = omp_get_wtime();
-
                 // std::stable_sort(A, A + A_sz, egoSortFunction);
                 boost::sort::sample_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
                 // __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
-
                 double tEndEGOSort = omp_get_wtime();
                 egoSort = tEndEGOSort - tStartEGOSort;
                 printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
@@ -248,7 +234,7 @@ int main(int argc, char * argv[])
                 }
 
                 printf("[EGO] ~ Beginning the computation\n");
-                totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex);
+                totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex, neighborTable);
                 printf("[EGO] ~ Done with the computation\n");
 
                 double tEndEgo = omp_get_wtime();

@@ -329,6 +329,13 @@ void sortByWorkLoad(
         prec += nbNeighbor;
     }
 
+    // Setting some stuff for the CPU so it can begin immediately
+    // and allocate buffers to store temp results
+    // However, this value is way overestimated as it is set to the max,
+    // while the CPU computes from the end of the queue.
+    setMaxNeighbors(maxNeighbor);
+    setWorkQueueReady();
+
     errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), (*DBSIZE) * sizeof(unsigned int), cudaMemcpyHostToDevice);
     if(errCode != cudaSuccess)
     {

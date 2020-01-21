@@ -1279,6 +1279,8 @@ void distanceTableNDGridBatches(
 
     if (SM_HYBRID == searchMode)
     {
+        unsigned int globalBatchCounter = GPUSTREAMS;
+
         double tStartCompute = omp_get_wtime();
         #pragma omp parallel reduction(+: totalResultsLoop) num_threads(GPUSTREAMS)
         {
@@ -1455,6 +1457,12 @@ void distanceTableNDGridBatches(
 
                 gpuBatch = getBatchFromQueue(*DBSIZE, batchSize);
                 // gpuBatch = getBatchFromQueue(9 * batchSize, batchSize);
+
+                #pragma omp critical
+                {
+                    localBatchCounter = globalBatchCounter;
+                    globalBatchCounter++;
+                }
 
             }while(0 != gpuBatch.second);
 

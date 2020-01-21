@@ -18,7 +18,12 @@ inline T max(T a, T b)
 unsigned int queueIndex = 1;
 unsigned int queueIndexCPU = 1;
 
+unsigned int maxNeighbors = 0;
+
 bool gpuOffset = false;
+
+// Useless if the CPU does not EGO-Sort while the GPU sorts by workload.
+bool isQueueReady = false;
 
 std::pair<unsigned int, unsigned int> getBatchFromQueue(
     unsigned int DBSIZE,
@@ -88,4 +93,24 @@ void setQueueIndexCPU(unsigned int index)
 void displayIndexes()
 {
     printf("[QUEUE] ~ GPU index: %d, CPU index: %d\n", queueIndex, queueIndexCPU);
+}
+
+void setWorkQueueReady()
+{
+    isQueueReady = true;
+}
+
+bool getWorkQueueReady()
+{
+    return isQueueReady;
+}
+
+void setMaxNeighbors(unsigned int n)
+{
+    maxNeighbors = n;
+}
+
+unsigned int getMaxNeighbors()
+{
+    return maxNeighbors;
 }

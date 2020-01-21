@@ -17,4 +17,12 @@ void setQueueIndexCPU(unsigned int index);
 
 void displayIndexes();
 
+void setWorkQueueReady();
+
+bool getWorkQueueReady();
+
+void setMaxNeighbors(unsigned int maxNeighbors);
+
+unsigned int getMaxNeighbors();
+
 #endif

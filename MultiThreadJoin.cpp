@@ -19,7 +19,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 	pPoint A, int A_sz,
 	pPoint B, int B_sz,
 	unsigned int * egoMapping,
-	unsigned int * originPointIndex)
+	unsigned int * originPointIndex,
+	neighborTableLookup * neighborTable)
 {
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
@@ -29,7 +30,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 		nbQueries[i] = 0;
 	}
 
-	std::vector<int> resultVector[CPU_THREADS];
+	// std::vector<int> resultVector[CPU_THREADS];
 
 	double tStart = omp_get_wtime();
 	if(searchMode == SM_HYBRID)
@@ -40,6 +41,9 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			// std::vector<int> resultVector;
 			std::pair<unsigned int, unsigned int> cpuBatch;
 			// Point * batch = new Point[CPU_BATCH_SIZE];
+
+			unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
+			unsigned int * nbNeighbors;
 
 			do
 			{
@@ -60,17 +64,29 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				// Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
+					(*nbNeighbors) = 0;
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
+					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
+
+					neighborTable[i].pointID = i;
+					neighborTable[i].indexmin = 0;
+					neighborTable[i].indexmax = (*nbNeighbors) - 1;
+					neighborTable[i].dataPtr = new int[(*nbNeighbors)];
+					std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[i].dataPtr);
+
+					results[tid] += (*nbNeighbors);
 				}
 
 				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
 
-			results[tid] += resultVector[tid].size() / 2;
+			// results[tid] += resultVector[tid].size() / 2;
 
 			// resultVector[tid].clear();
 			// resultVector[tid].shrink_to_fit();
+
+			delete[] tmpBuffer;
 		}
 	}
 	else // only use the CPU, not the GPU
@@ -81,23 +97,38 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			// std::vector<int> resultVector;
 			std::pair<unsigned int, unsigned int> cpuBatch;
 
+			unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
+			unsigned int * nbNeighbors;
+
 			do
 			{
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
+					(*nbNeighbors) = 0;
 					unsigned int index = egoMapping[ originPointIndex[i] ];
+
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
+
+					neighborTable[i].pointID = i;
+					neighborTable[i].indexmin = 0;
+					neighborTable[i].indexmax = (*nbNeighbors) - 1;
+					neighborTable[i].dataPtr = new int[(*nbNeighbors)];
+					std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[i].dataPtr);
+
+					results[tid] += (*nbNeighbors);
 				}
 
 				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
 
-			results[tid] += resultVector[tid].size() / 2;
+			// results[tid] += resultVector[tid].size() / 2;
 
 			// resultVector[tid].clear();
 			// resultVector[tid].shrink_to_fit();
+
+			delete[] tmpBuffer;
 		}
 	}
 	double tEnd = omp_get_wtime();
@@ -122,6 +153,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 	printf("[EGO | RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
 
 	delete[] results;
+	delete[] nbQueries;
 
 	return result;
 }
