@@ -109,7 +109,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					(*nbNeighbors) = 0;
 					unsigned int index = egoMapping[ originPointIndex[i] ];
 
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
+					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
 					neighborTable[i].pointID = i;
 					neighborTable[i].indexmin = 0;
