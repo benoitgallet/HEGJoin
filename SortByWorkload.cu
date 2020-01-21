@@ -2,6 +2,7 @@
 #include "structs.h"
 #include "params.h"
 #include "kernel.h"
+#include "WorkQueue.h"
 
 #include <iostream>
 #include <algorithm>
