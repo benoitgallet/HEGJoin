@@ -43,7 +43,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			// Point * batch = new Point[CPU_BATCH_SIZE];
 
 			unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
-			unsigned int * nbNeighbors;
+			unsigned int * nbNeighbors = new unsigned int;
 
 			do
 			{
@@ -98,7 +98,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			std::pair<unsigned int, unsigned int> cpuBatch;
 
 			unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
-			unsigned int * nbNeighbors;
+			unsigned int * nbNeighbors = new unsigned int;
 
 			do
 			{
