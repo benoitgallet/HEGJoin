@@ -69,11 +69,11 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
-					neighborTable[i].pointID = i;
-					neighborTable[i].indexmin = 0;
-					neighborTable[i].indexmax = (*nbNeighbors) - 1;
-					neighborTable[i].dataPtr = new int[(*nbNeighbors)];
-					std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[i].dataPtr);
+					neighborTable[index].pointID = i;
+					neighborTable[index].indexmin = 0;
+					neighborTable[index].indexmax = (*nbNeighbors) - 1;
+					neighborTable[index].dataPtr = new int[(*nbNeighbors)];
+					std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[index].dataPtr);
 
 					results[tid] += (*nbNeighbors);
 				}
@@ -112,11 +112,11 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
-					neighborTable[i].pointID = i;
-					neighborTable[i].indexmin = 0;
-					neighborTable[i].indexmax = (*nbNeighbors) - 1;
-					neighborTable[i].dataPtr = new int[(*nbNeighbors)];
-					std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[i].dataPtr);
+					neighborTable[index].pointID = index;
+					neighborTable[index].indexmin = 0;
+					neighborTable[index].indexmax = (*nbNeighbors) - 1;
+					neighborTable[index].dataPtr = new int[(*nbNeighbors)];
+					std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[index].dataPtr);
 
 					results[tid] += (*nbNeighbors);
 				}
