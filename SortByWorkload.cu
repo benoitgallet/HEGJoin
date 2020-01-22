@@ -373,7 +373,7 @@ void sortByWorkLoad(
     {
         cout << nbNeighborPoints[i] << '\n';
     }
-    cout << "begin";
+    cout << "end";
     cout << "\n\n\n";
 
     delete[] nbNeighborPoints;
