@@ -91,7 +91,7 @@ int main(int argc, char * argv[])
 
     Point * A;
     Point * B;
-    if(searchMode != SM_GPU)
+    if(SM_GPU != searchMode)
     {
         printf("Converting the dataset for Super-EGO\n");
         A = new Point[DBSIZE + 1];
@@ -313,7 +313,10 @@ int main(int argc, char * argv[])
     delete[] neighborTable;
     delete[] database;
 
-    delete[] A;
+    if(SM_GPU != searchMode)
+    {
+        delete[] A;
+    }
 
     cudaFree(dev_epsilon);
     cudaFree(dev_database);
