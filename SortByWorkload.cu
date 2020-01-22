@@ -368,10 +368,12 @@ void sortByWorkLoad(
     cout.flush();
 
     cout << "\n\n\n";
+    cout << "begin";
     for(unsigned int i = 0; i < (*DBSIZE); ++i)
     {
         cout << nbNeighborPoints[i] << '\n';
     }
+    cout << "begin";
     cout << "\n\n\n";
 
     delete[] nbNeighborPoints;
