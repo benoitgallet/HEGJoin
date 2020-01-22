@@ -327,7 +327,7 @@ void sortByWorkLoad(
         for(int j = 0; j < nbNeighbor; ++j)
         {
             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
-            nbNeighborPoints[prec + j] = nbNeighbor;
+            nbNeighborPoints[prec + j] = sortedDatabaseTmp[i].nbPoints;
             (*originPointIndex)[prec + j] = tmpId;
         }
         prec += nbNeighbor;
