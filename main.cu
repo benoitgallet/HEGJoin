@@ -292,7 +292,7 @@ int main(int argc, char * argv[])
     cout << "begin";
     for(unsigned int i = 0; i < DBSIZE; ++i)
     {
-        unsigned int tmp = neighborTable[ originPointIndex[i] ].indexmax;
+        unsigned int tmp = neighborTable[ originPointIndex[i] ].indexmax - neighborTable[ originPointIndex[i] ].indexmin + 1;
         cout << tmp << '\n';
     }
     cout << "end";
