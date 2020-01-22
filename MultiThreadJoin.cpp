@@ -70,7 +70,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
 					unsigned int tmpIndex = originPointIndex[i];
-					neighborTable[tmpIndex].pointID = i;
+					neighborTable[tmpIndex].pointID = tmpIndex;
 					neighborTable[tmpIndex].indexmin = 0;
 					neighborTable[tmpIndex].indexmax = (*nbNeighbors) - 1;
 					neighborTable[tmpIndex].dataPtr = new int[(*nbNeighbors)];
@@ -114,7 +114,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
 					unsigned int tmpIndex = originPointIndex[i];
-					neighborTable[tmpIndex].pointID = index;
+					neighborTable[tmpIndex].pointID = tmpIndex;
 					neighborTable[tmpIndex].indexmin = 0;
 					neighborTable[tmpIndex].indexmax = (*nbNeighbors) - 1;
 					neighborTable[tmpIndex].dataPtr = new int[(*nbNeighbors)];

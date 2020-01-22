@@ -313,6 +313,8 @@ void sortByWorkLoad(
     cout << "min = " << minNeighbor << '\n';
     uint64_t accNeighbor = 0;
 
+    unsigned int * nbNeighborPoints = new unsigned int[(*DBSIZE)];
+
     int prec = 0;
     for(int i = 0; i < (*nNonEmptyCells); ++i)
     {
@@ -325,6 +327,7 @@ void sortByWorkLoad(
         for(int j = 0; j < nbNeighbor; ++j)
         {
             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
+            nbNeighborPoints[tmpId] = nbNeighbor;
             (*originPointIndex)[prec + j] = tmpId;
         }
         prec += nbNeighbor;
@@ -363,5 +366,14 @@ void sortByWorkLoad(
 
     cout << "[SORT] ~ Time to sort the cells by workload and copy to the GPU: " << tEndSortingCells - tStartSortingCells << '\n';
     cout.flush();
+
+    cout << "\n\n\n";
+    for(unsigned int i = 0; i < (*DBSIZE); ++i)
+    {
+        cout << nbNeighborPoints[i] << '\n';
+    }
+    cout << "\n\n\n";
+
+    delete[] nbNeighborPoints;
 
 }

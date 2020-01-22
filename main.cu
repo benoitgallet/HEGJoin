@@ -89,18 +89,23 @@ int main(int argc, char * argv[])
 
     // sortInNDBins(&NDdataPoints);
 
-    printf("Converting the dataset for Super-EGO\n");
-    Point * A = new Point[DBSIZE + 1];
-    for(int i = 0; i < DBSIZE; ++i)
+    Point * A;
+    Point * B;
+    if(searchMode != SM_GPU)
     {
-        pPoint p = & A[i];
-        p->id = i;
-        for(int j = 0; j < GPUNUMDIM; ++j)
+        printf("Converting the dataset for Super-EGO\n");
+        A = new Point[DBSIZE + 1];
+        for(int i = 0; i < DBSIZE; ++i)
         {
-            p->x[j] = NDdataPoints[i][j];
+            pPoint p = & A[i];
+            p->id = i;
+            for(int j = 0; j < GPUNUMDIM; ++j)
+            {
+                p->x[j] = NDdataPoints[i][j];
+            }
         }
+        B = A;
     }
-    Point * B = A;
 
     DTYPE * database = new DTYPE [DBSIZE * GPUNUMDIM];
     for(unsigned int i = 0; i < DBSIZE; ++i)
@@ -146,7 +151,6 @@ int main(int argc, char * argv[])
 
     //Neighbortable storage -- the result
     neighborTableLookup * neighborTable = new neighborTableLookup [NDdataPoints.size()];
-    // neighborTableLookup * neighborTable = new neighborTableLookup[DBSIZE * fraction];
     std::vector<struct neighborDataPtrs> pointersToNeighbors;
 
     // unsigned int * dev_gridCellNDMask;
@@ -173,7 +177,6 @@ int main(int argc, char * argv[])
     double egoTime = 0.0;
     double egoReorder = 0.0;
     double egoSort = 0.0;
-    // double midSort = 0.0;
 
     double tStart = omp_get_wtime();
     #pragma omp parallel num_threads(2)
@@ -197,7 +200,6 @@ int main(int argc, char * argv[])
         {
             if(searchMode != SM_GPU)
             {
-                // Don't reserve anything for the GPU, as it's not used
                 if(searchMode == SM_CPU)
                 {
                     setQueueIndex(0);
@@ -273,17 +275,25 @@ int main(int argc, char * argv[])
     // 	 		printf("%d,", neighborTable[i].dataPtr[j]);
     // 	 	}
     // }
-    for (int i = 0; i < 5000; i++)
+    // for (int i = 0; i < 5000; i++)
+    // {
+	//  	// sort to compare against CPU implementation
+	//  	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
+	//  	printf("\npoint id: %d, neighbors: ", i);
+	//  	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
+	//  	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
+    //     {
+	//  		printf("%d,", neighborTable[i].dataPtr[j]);
+	//  	}
+    // }
+
+    cout << "\n\n\n";
+    for(unsigned int i = 0; i < DBSIZE; ++i)
     {
-	 	// sort to compare against CPU implementation
-	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
-	 	printf("\npoint id: %d, neighbors: ", i);
-	 	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
-	 	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
-        {
-	 		printf("%d,", neighborTable[i].dataPtr[j]);
-	 	}
+        unsigned int tmp = neighborTable[ originPointIndex[i] ].indexmax;
+        cout << tmp << '\n';
     }
+    cout << "\n\n\n";
 
 
     NDdataPoints.clear();
