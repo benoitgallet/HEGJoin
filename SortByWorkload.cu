@@ -34,15 +34,12 @@ void sortByWorkLoad(
         unsigned int ** dev_nCells,
         unsigned int * nNonEmptyCells,
         unsigned int ** dev_nNonEmptyCells,
-        // unsigned int * gridCellNDMask,
-        // unsigned int ** dev_gridCellNDMask,
-        // unsigned int * gridCellNDMaskOffsets,
-        // unsigned int ** dev_gridCellNDMaskOffsets,
-        // unsigned int * nNDMaskElems,
         unsigned int ** originPointIndex,
         unsigned int ** dev_originPointIndex,
         DTYPE ** dev_sortedDatabase)
 {
+
+    double tStartSortingCells = omp_get_wtime();
 
     cudaError_t errCode;
 
@@ -54,88 +51,7 @@ void sortByWorkLoad(
     cudaEventCreate(&endKernel);
 
     // Memory allocations needed by the GPU
-
-    double tStartAllocGPU = omp_get_wtime();
-
-    // errCode = cudaMalloc( (void**)dev_epsilon, sizeof(DTYPE));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc epsilon -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc( (void**)dev_database, sizeof(DTYPE) * (GPUNUMDIM) * (*DBSIZE));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc database -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc( (void**)dev_index, sizeof(struct grid) * (*nNonEmptyCells));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc grid index -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc( (void**)dev_indexLookupArr, sizeof(unsigned int) * (*DBSIZE));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: lookup array allocation -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc( (void**)dev_gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: copy grid cell lookup array allocation -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc((void**)dev_minArr, sizeof(DTYPE) * (NUMINDEXEDDIM));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc minArr -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc((void**)dev_nCells, sizeof(unsigned int) * (NUMINDEXEDDIM));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc nCells -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc((void**)dev_nNonEmptyCells, sizeof(unsigned int));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc nNonEmptyCells -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMalloc((void**)dev_gridCellNDMask, sizeof(unsigned int) * (*nNDMaskElems));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc gridCellNDMask -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-    //
-    // errCode = cudaMalloc((void**)dev_gridCellNDMaskOffsets, sizeof(unsigned int) * (2 * NUMINDEXEDDIM));
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Alloc gridCellNDMaskOffsets -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
+    // double tStartAllocGPU = omp_get_wtime();
 
     errCode = cudaMalloc((void**)&dev_sortedDatabaseTmp, sizeof(struct schedulingCell) * (*nNonEmptyCells));
     if(errCode != cudaSuccess)
@@ -153,106 +69,13 @@ void sortByWorkLoad(
         cout.flush();
     }
 
-    double tEndAllocGPU = omp_get_wtime();
-    cout << "[SORT] ~ Time to allocate on the GPU: " << tEndAllocGPU - tStartAllocGPU << '\n';
-    cout.flush();
-
-
-    // Memory copies needed by the GPU
-
-
-    double tStartCopyGPU = omp_get_wtime();
-
-    // errCode = cudaMemcpy( (*dev_epsilon), epsilon, sizeof(DTYPE), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: epsilon copy to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMemcpy( (*dev_database), database, sizeof(DTYPE) * (GPUNUMDIM) * (*DBSIZE), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: database copy to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMemcpy( (*dev_index), index, sizeof(struct grid) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: grid index copy to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-    //
-    // errCode = cudaMemcpy( (*dev_indexLookupArr), indexLookupArr, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyHostToDevice);
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: copy lookup array to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-    //
-    // errCode = cudaMemcpy( (*dev_gridCellLookupArr), gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: copy grid cell lookup array to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMemcpy( (*dev_minArr), minArr, sizeof(DTYPE) * (NUMINDEXEDDIM), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Copy minArr to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMemcpy( (*dev_nCells), nCells, sizeof(unsigned int) * (NUMINDEXEDDIM), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Copy nCells to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMemcpy( (*dev_nNonEmptyCells), nNonEmptyCells, sizeof(unsigned int), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: nNonEmptyCells copy to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    // errCode = cudaMemcpy( (*dev_gridCellNDMask), gridCellNDMask, sizeof(unsigned int)*(*nNDMaskElems), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Copy gridCellNDMask to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-    //
-    // errCode = cudaMemcpy( (*dev_gridCellNDMaskOffsets), gridCellNDMaskOffsets, sizeof(unsigned int) * (2 * NUMINDEXEDDIM), cudaMemcpyHostToDevice );
-	// if(errCode != cudaSuccess)
-    // {
-	// 	cout << "[SORT] ~ Error: Copy gridCellNDMaskOffsets to device -- error with code " << errCode << '\n';
-    //     cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-    //     cout.flush();
-	// }
-
-    double tEndCopyGPU = omp_get_wtime();
-    cout << "[SORT] ~ Time to copy to the GPU: " << tEndCopyGPU - tStartCopyGPU << '\n';
-    cout.flush();
-
+    // double tEndAllocGPU = omp_get_wtime();
+    // cout << "[SORT] ~ Time to allocate on the GPU: " << tEndAllocGPU - tStartAllocGPU << '\n';
+    // cout.flush();
 
 
 
     // Beginning of the sorting section
-    double tStartSortingCells = omp_get_wtime();
-
     int nbBlock = ((*nNonEmptyCells) / BLOCKSIZE) + 1;
     cout << "[SORT] ~ Using " << nbBlock << " blocks of " << BLOCKSIZE << " threads to sort on the GPU\n";
     cout.flush();
@@ -261,19 +84,16 @@ void sortByWorkLoad(
     #if UNICOMP
         sortByWorkLoadUnicomp<<<nbBlock, BLOCKSIZE>>>((*dev_database), (*dev_epsilon), (*dev_index),
                 (*dev_indexLookupArr), (*dev_gridCellLookupArr), (*dev_minArr), (*dev_nCells),
-                (*dev_nNonEmptyCells), /*(*dev_gridCellNDMask), (*dev_gridCellNDMaskOffsets),*/
-                dev_sortedDatabaseTmp);
+                (*dev_nNonEmptyCells), dev_sortedDatabaseTmp);
     #elif LID_UNICOMP
         sortByWorkLoadLidUnicomp<<<nbBlock, BLOCKSIZE>>>((*dev_database), (*dev_epsilon), (*dev_index),
                 (*dev_indexLookupArr), (*dev_gridCellLookupArr), (*dev_minArr), (*dev_nCells),
-                (*dev_nNonEmptyCells), /*(*dev_gridCellNDMask), (*dev_gridCellNDMaskOffsets),*/
-                dev_sortedDatabaseTmp);
+                (*dev_nNonEmptyCells), dev_sortedDatabaseTmp);
     #else
         cout << "[SORT] ~ Not using a cell access pattern to sort by workload\n";
         sortByWorkLoadGlobal<<<nbBlock, BLOCKSIZE>>>((*dev_database), (*dev_epsilon), (*dev_index),
                 (*dev_indexLookupArr), (*dev_gridCellLookupArr), (*dev_minArr), (*dev_nCells),
-                (*dev_nNonEmptyCells), /*(*dev_gridCellNDMask), (*dev_gridCellNDMaskOffsets),*/
-                dev_sortedDatabaseTmp);
+                (*dev_nNonEmptyCells), dev_sortedDatabaseTmp);
     #endif
     cudaEventRecord(endKernel);
 
@@ -305,15 +125,13 @@ void sortByWorkLoad(
 
     (*originPointIndex) = new unsigned int [(*DBSIZE)];
 
-    // unsigned int maxNeighbor = 0;
-    // unsigned int minNeighbor = (*DBSIZE);
     unsigned int maxNeighbor = sortedDatabaseTmp[0].nbPoints;
     unsigned int minNeighbor = sortedDatabaseTmp[(*nNonEmptyCells) - 1].nbPoints;
     cout << "max = " << maxNeighbor << '\n';
     cout << "min = " << minNeighbor << '\n';
     uint64_t accNeighbor = 0;
 
-    unsigned int * nbNeighborPoints = new unsigned int[(*DBSIZE)];
+    // unsigned int * nbNeighborPoints = new unsigned int[(*DBSIZE)];
 
     int prec = 0;
     for(int i = 0; i < (*nNonEmptyCells); ++i)
@@ -327,7 +145,7 @@ void sortByWorkLoad(
         for(int j = 0; j < nbNeighbor; ++j)
         {
             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
-            nbNeighborPoints[prec + j] = sortedDatabaseTmp[i].nbPoints;
+            // nbNeighborPoints[prec + j] = sortedDatabaseTmp[i].nbPoints;
             (*originPointIndex)[prec + j] = tmpId;
         }
         prec += nbNeighbor;
@@ -348,8 +166,6 @@ void sortByWorkLoad(
         cout.flush();
     }
 
-    cudaFree(dev_sortedDatabaseTmp);
-
     unsigned int decileMark = (*nNonEmptyCells) / 10;
     cout << "[SORT] ~ Total number of candidate points to refine: " << accNeighbor << '\n';
     cout << "[SORT] ~ Number of candidates: min = " << minNeighbor << ", median = " << sortedDatabaseTmp[(*nNonEmptyCells) / 2].nbPoints << ", max = " << maxNeighbor << ", avg = " << accNeighbor / (*DBSIZE) << '\n';
@@ -360,22 +176,14 @@ void sortByWorkLoad(
     }
     cout.flush();
 
+    cudaFree(dev_sortedDatabaseTmp);
+
     delete[] sortedDatabaseTmp;
+    delete[] nbNeighborPoints;
 
     double tEndSortingCells = omp_get_wtime();
 
     cout << "[SORT] ~ Time to sort the cells by workload and copy to the GPU: " << tEndSortingCells - tStartSortingCells << '\n';
     cout.flush();
-
-    cout << "\n\n\n";
-    cout << "begin";
-    for(unsigned int i = 0; i < (*DBSIZE); ++i)
-    {
-        cout << nbNeighborPoints[i] << '\n';
-    }
-    cout << "end";
-    cout << "\n\n\n";
-
-    delete[] nbNeighborPoints;
 
 }

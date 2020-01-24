@@ -52,6 +52,41 @@ std::pair<unsigned int, unsigned int> getBatchFromQueue(
     return std::make_pair(begin, end);
 }
 
+unsigned int gpuBatch = GPUSTREAMS;
+std::pair<unsigned int, unsigned int> getBatchFromQueue_v2(
+    std::vector< std::pair<unsigned int, unsigned int> > batches)
+{
+    unsigned int begin, end;
+    if(gpuOffset)
+    {
+        #pragma omp critical
+        {
+            if(batches.length == gpuBatch)
+            {
+                begin = 0;
+                end = 0;
+                queueIndex = batches.end().second;
+            }else{
+                if(queueIndex < queueIndexCPU && queueIndex != queueIndexCPU)
+                {
+                    begin = batches[gpuBatch].first;
+                    end = min(batches[gpuBatch].second, queueIndexCPU);
+                    queueIndex = end;
+                    gpuBatch++;
+                }else{
+                    begin = 0;
+                    end = 0;
+                    queueIndex = batches.end().second;
+                }
+            }
+        }
+    }else{
+        begin = 1;
+        end = 0;
+    }
+    return std::make_pair(begin, end);
+}
+
 std::pair<unsigned int, unsigned int> getBatchFromQueueCPU(
     unsigned int DBSIZE,
     unsigned int batchSize)

@@ -128,9 +128,6 @@ int main(int argc, char * argv[])
 
     struct grid * index;
     struct gridCellLookup * gridCellLookupArr;
-    // unsigned int * gridCellNDMask;
-    // unsigned int * nNDMaskElems = new unsigned int;
-    // unsigned int * gridCellNDMaskOffsets = new unsigned int [NUMINDEXEDDIM * 2];
     unsigned int * indexLookupArr = new unsigned int[NDdataPoints.size()];
 
     DTYPE * dev_epsilon;
@@ -142,9 +139,6 @@ int main(int argc, char * argv[])
     unsigned int * dev_nCells;
     unsigned int * dev_nNonEmptyCells;
 
-    // populateNDGridIndexAndLookupArray(&NDdataPoints, epsilon, &gridCellLookupArr, &index,
-    //         indexLookupArr, minArr,  nCells, totalCells, &nNonEmptyCells, &gridCellNDMask,
-    //         gridCellNDMaskOffsets, nNDMaskElems);
     gridIndexingGPU(&DBSIZE, totalCells, database, &dev_database, &epsilon, &dev_epsilon, minArr, &dev_minArr, &index, &dev_index,
             indexLookupArr, &dev_indexLookupArr, &gridCellLookupArr, &dev_gridCellLookupArr, &nNonEmptyCells, &dev_nNonEmptyCells,
             nCells, &dev_nCells);
@@ -153,16 +147,13 @@ int main(int argc, char * argv[])
     neighborTableLookup * neighborTable = new neighborTableLookup [NDdataPoints.size()];
     std::vector<struct neighborDataPtrs> pointersToNeighbors;
 
-    // unsigned int * dev_gridCellNDMask;
-    // unsigned int * dev_gridCellNDMaskOffsets;
-
     unsigned int * originPointIndex;
     unsigned int * dev_originPointIndex;
 
     double tStartSort = omp_get_wtime();
     sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
             gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
-            /*gridCellNDMask, &dev_gridCellNDMask, gridCellNDMaskOffsets, &dev_gridCellNDMaskOffsets, nNDMaskElems,*/ &originPointIndex, &dev_originPointIndex,
+            &originPointIndex, &dev_originPointIndex,
             nullptr);
     double tEndSort = omp_get_wtime();
     double sortTime = tEndSort - tStartSort;
@@ -190,8 +181,8 @@ int main(int argc, char * argv[])
                 double tBeginGPU = omp_get_wtime();
                 distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
                         indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
-                        &nNonEmptyCells, dev_nNonEmptyCells, /*gridCellNDMask, dev_gridCellNDMask, gridCellNDMaskOffsets, dev_gridCellNDMaskOffsets,
-                        nNDMaskElems,*/ originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
+                        &nNonEmptyCells, dev_nNonEmptyCells, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors,
+                        &totalNeighbors);
                 double tEndGPU = omp_get_wtime();
                 gpuTime = tEndGPU - tBeginGPU;
             }
@@ -263,41 +254,7 @@ int main(int argc, char * argv[])
         printf("[RESULT] ~ The GPU ended before the CPU, with a difference of: %f\n", egoTime - gpuTime);
     }
 
-    // for (int i = 0; i < NDdataPoints.size(); i++)
-    // {
-    // 	// for (int i=0; i<5000; i++){
-    // 	 	// sort to compare against CPU implementation
-    // 	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
-    // 	 	printf("\npoint id: %d, neighbors: ", i);
-    // 	 	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
-    // 	 	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
-    //         {
-    // 	 		printf("%d,", neighborTable[i].dataPtr[j]);
-    // 	 	}
-    // }
-    // for (int i = 0; i < 5000; i++)
-    // {
-	//  	// sort to compare against CPU implementation
-	//  	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
-	//  	printf("\npoint id: %d, neighbors: ", i);
-	//  	printf("nb neighbor %d\n", neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
-	//  	for (int j = neighborTable[i].indexmin; j <= neighborTable[i].indexmax; j++)
-    //     {
-	//  		printf("%d,", neighborTable[i].dataPtr[j]);
-	//  	}
-    // }
-
-
-    cout << "\n\n\n";
-    cout << "begin";
-    for(unsigned int i = 0; i < DBSIZE; ++i)
-    {
-        unsigned int tmp = neighborTable[ originPointIndex[i] ].indexmax - neighborTable[ originPointIndex[i] ].indexmin + 1;
-        cout << tmp << '\n';
-    }
-    cout << "end";
-    cout << "\n\n\n";
-
+    // printNeighborTable(neighborTable, DBSIZE);
 
     NDdataPoints.clear();
     NDdataPoints.shrink_to_fit();
@@ -307,8 +264,6 @@ int main(int argc, char * argv[])
     delete[] minArr;
     delete[] maxArr;
     delete[] nCells;
-    // delete nNDMaskElems;
-    // delete[] gridCellNDMaskOffsets;
     delete[] indexLookupArr;
     delete[] neighborTable;
     delete[] database;
@@ -326,8 +281,6 @@ int main(int argc, char * argv[])
     cudaFree(dev_minArr);
     cudaFree(dev_nCells);
     cudaFree(dev_nNonEmptyCells);
-    // cudaFree(dev_gridCellNDMask);
-    // cudaFree(dev_gridCellNDMaskOffsets);
 
     delete[] originPointIndex;
     cudaFree(dev_originPointIndex);
@@ -407,6 +360,25 @@ void generateNDGridDimensions(
 
     *totalCells = tmpTotalCells;
 
+}
+
+
+void printNeighborTable(
+    struct neighborTableLookup * neighborTable,
+    unsigned int size)
+{
+    printf("\n");
+    for (int i = 0; i < size; ++i)
+    {
+	 	// sort to compare against CPU implementation
+	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
+	 	printf("point id: %d, neighbors: %d\n", i, neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
+	 	for (int j = neighborTable[i].indexmin; j < neighborTable[i].indexmax; j++)
+        {
+	 		printf("%d, ", neighborTable[i].dataPtr[j]);
+	 	}
+        printf("%d\n", neighborTable[i].dataPtr[ neighborTable[i].indexmax ]);
+    }
 }
 
 

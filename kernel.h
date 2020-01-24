@@ -233,6 +233,22 @@ __global__ void kernelNDGridIndexBatchEstimatorLidUnicompAdaptive(
 		// unsigned int * gridCellNDMaskOffsets);
 
 
+__global__ void kernelNDGridIndexBatchEstimator_v2(
+		unsigned int * N,
+		unsigned int * sampleOffset,
+		DTYPE * database,
+		unsigned int * originPointIndex,
+		DTYPE * epsilon,
+		struct grid * index,
+		unsigned int * indexLookupArr,
+		struct gridCellLookup * gridCellLookupArr,
+		DTYPE * minArr,
+		unsigned int * nCells,
+		unsigned int * cnt,
+		unsigned int * nNonEmptyCells,
+		unsigned int * estimatedResult);
+
+
 __global__ void kernelNDGridIndexGlobal(
 		unsigned int * batchBegin,
 		unsigned int * N,

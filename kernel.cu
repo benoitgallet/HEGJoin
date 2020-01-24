@@ -1020,6 +1020,113 @@ __global__ void kernelNDGridIndexBatchEstimatorAdaptiveTest(
 }
 
 
+__global__ void kernelNDGridIndexBatchEstimator_v2(
+		unsigned int * N,
+		unsigned int * sampleOffset,
+		DTYPE * database,
+		unsigned int * originPointIndex,
+		DTYPE * epsilon,
+		struct grid * index,
+		unsigned int * indexLookupArr,
+		struct gridCellLookup * gridCellLookupArr,
+		DTYPE * minArr,
+		unsigned int * nCells,
+		unsigned int * cnt,
+		unsigned int * nNonEmptyCells,
+		unsigned int * estimatedResult)
+{
+
+	unsigned int tid = blockIdx.x * BLOCKSIZE + threadIdx.x;
+
+	if((*N) <= tid)
+	{
+		return;
+	}
+
+	unsigned int pointID = tid  * (*sampleOffset);
+
+	//make a local copy of the point
+	DTYPE point[GPUNUMDIM];
+	for (int i = 0; i < GPUNUMDIM; ++i){
+		point[i] = database[ originPointIndex[pointID] * GPUNUMDIM + i ];
+	}
+
+	//calculate the coords of the Cell for the point
+	//and the min/max ranges in each dimension
+	unsigned int nDCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
+
+	for (int i = 0; i < NUMINDEXEDDIM; ++i)
+	{
+		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
+		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
+	}
+
+	///////////////////////////////////////
+	//End taking intersection
+	//////////////////////////////////////
+
+	unsigned int indexes[NUMINDEXEDDIM];
+	unsigned int loopRng[NUMINDEXEDDIM];
+
+	unsigned int localNeighborCounter = 0;
+
+	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
+		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
+		#include "kernelloops.h"
+		{ //beginning of loop body
+
+			for (int x = 0; x < NUMINDEXEDDIM; ++x)
+			{
+				indexes[x] = loopRng[x];
+			}
+
+			uint64_t calcLinearID = getLinearID_nDimensionsGPU(indexes, nCells, NUMINDEXEDDIM);
+			//compare the linear ID with the gridCellLookupArr to determine if the cell is non-empty: this can happen because one point says
+			//a cell in a particular dimension is non-empty, but that's because it was related to a different point (not adjacent to the query point)
+
+			struct gridCellLookup tmp;
+			tmp.gridLinearID = calcLinearID;
+
+			if (thrust::binary_search(thrust::seq, gridCellLookupArr, gridCellLookupArr + (*nNonEmptyCells), gridCellLookup(tmp)))
+			{
+				//in the GPU implementation we go directly to computing neighbors so that we don't need to
+				//store a buffer of the cells to check
+				//cellsToCheck->push_back(calcLinearID);
+
+				//HERE WE COMPUTE THE NEIGHBORS FOR THE CELL
+				//XXXXXXXXXXXXXXXXXXXXXXXXX
+
+				struct gridCellLookup * resultBinSearch = thrust::lower_bound(thrust::seq, gridCellLookupArr, gridCellLookupArr+(*nNonEmptyCells), gridCellLookup(tmp));
+				unsigned int GridIndex = resultBinSearch->idx;
+
+				for (int k = index[GridIndex].indexmin; k <= index[GridIndex].indexmax; ++k)
+				{
+					DTYPE runningTotalDist = 0;
+					unsigned int dataIdx = indexLookupArr[k];
+
+					for (int l = 0; l < GPUNUMDIM; ++l)
+					{
+						runningTotalDist += (database[dataIdx * GPUNUMDIM + l]  - point[l])
+								* (database[dataIdx * GPUNUMDIM + l] - point[l]);
+					}
+
+					if (sqrt(runningTotalDist) <= (*epsilon))
+					{
+						unsigned int idx = atomicAdd(cnt, int(1));
+						localNeighborCounter++;
+					}
+				}
+			}
+		} //end loop body
+
+	estimatedResult[tid] = localNeighborCounter;
+
+}
+
+
 
 /******************************************************************************/
 

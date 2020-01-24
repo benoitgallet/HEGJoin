@@ -40,6 +40,10 @@ uint64_t getLinearID_nDimensions(
         unsigned int * dimLen,
         unsigned int nDimensions);
 
+void printNeighborTable(
+    struct neighborTableLookup * neighborTable,
+    unsigned int size);
+
 
 
 #endif

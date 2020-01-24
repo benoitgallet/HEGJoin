@@ -6,16 +6,6 @@
 
 #include <vector>
 
-// #include <thrust/host_vector.h>
-// #include <thrust/device_vector.h>
-// #include <thrust/sort.h>
-// #include <thrust/device_ptr.h>
-// #include <thrust/system/cuda/execution_policy.h> // for streams for thrust (added with Thrust v1.8)
-//
-// #include <thrust/copy.h>
-// #include <thrust/fill.h>
-// #include <thrust/sequence.h>
-
 void gridIndexingGPU(
     unsigned int * DBSIZE,
     uint64_t totalCells,
@@ -55,11 +45,6 @@ void distanceTableNDGridBatches(
         unsigned int * dev_nCells,
         unsigned int * nNonEmptyCells,
         unsigned int * dev_nNonEmptyCells,
-        // unsigned int * gridCellNDMask,
-        // unsigned int * dev_gridCellNDMask,
-        // unsigned int * gridCellNDMaskOffsets,
-        // unsigned int * dev_gridCellNDMaskOffsets,
-        // unsigned int * nNDMaskElems,
         unsigned int * originPointIndex,
         unsigned int * dev_originPointIndex,
         struct neighborTableLookup * neighborTable,
@@ -80,10 +65,23 @@ unsigned long long callGPUBatchEst(
         DTYPE * dev_minArr,
     	unsigned int * dev_nCells,
         unsigned int * dev_nNonEmptyCells,
-        // unsigned int * dev_gridCellNDMask,
-    	// unsigned int * dev_gridCellNDMaskOffsets,
         unsigned int * retNumBatches,
         unsigned int * retGPUBufferSize);
+
+uint64_t GPUBatchEst_v2(
+    unsigned int * DBSIZE,
+    DTYPE * dev_database,
+    unsigned int * dev_originPointIndex,
+    DTYPE * dev_epsilon,
+    struct grid * dev_grid,
+    unsigned int * dev_indexLookupArr,
+    struct gridCellLookup * gridCellLookupArr,
+    DTYPE * dev_minArr,
+    unsigned int * dev_nCells,
+    unsigned int * dev_nNonEmptyCells,
+    unsigned int * retNumBatches,
+    unsigned int * retGPUBufferSize,
+    std::vector< std::pair<unsigned int, unsigned int> > * batches);
 
 unsigned long long callGPUBatchEstTest(
         unsigned int * DBSIZE,
@@ -99,8 +97,6 @@ unsigned long long callGPUBatchEstTest(
         DTYPE * dev_minArr,
     	unsigned int * dev_nCells,
         unsigned int * dev_nNonEmptyCells,
-        // unsigned int * dev_gridCellNDMask,
-    	// unsigned int * dev_gridCellNDMaskOffsets,
         unsigned int * retNumBatches,
         unsigned int * retGPUBufferSize);
 

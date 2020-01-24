@@ -11,6 +11,9 @@ std::pair<unsigned int, unsigned int> getBatchFromQueueCPU(
         unsigned int DBSIZE,
         unsigned int batchSize);
 
+std::pair<unsigned int, unsigned int> getBatchFromQueue_v2(
+        std::vector< std::pair<unsigned int, unsigned int> > batches);
+
 void setQueueIndex(unsigned int index);
 
 void setQueueIndexCPU(unsigned int index);
