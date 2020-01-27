@@ -39,7 +39,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 		#pragma omp parallel num_threads(CPU_THREADS)
 		{
 			unsigned int tid = omp_get_thread_num();
-			std::vector<int> resultVector;
+			std::list<int> resultVector;
 			std::pair<unsigned int, unsigned int> cpuBatch;
 			// Point * batch = new Point[CPU_BATCH_SIZE];
 
@@ -97,7 +97,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 		#pragma omp parallel num_threads(CPU_THREADS)
 		{
 			unsigned int tid = omp_get_thread_num();
-			std::vector<int> resultVector;
+			std::list<int> resultVector;
 			std::pair<unsigned int, unsigned int> cpuBatch;
 
 			// unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
