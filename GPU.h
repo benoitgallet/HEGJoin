@@ -68,20 +68,20 @@ unsigned long long callGPUBatchEst(
         unsigned int * retNumBatches,
         unsigned int * retGPUBufferSize);
 
-uint64_t GPUBatchEst_v2(
-    unsigned int * DBSIZE,
-    DTYPE * dev_database,
-    unsigned int * dev_originPointIndex,
-    DTYPE * dev_epsilon,
-    struct grid * dev_grid,
-    unsigned int * dev_indexLookupArr,
-    struct gridCellLookup * gridCellLookupArr,
-    DTYPE * dev_minArr,
-    unsigned int * dev_nCells,
-    unsigned int * dev_nNonEmptyCells,
-    unsigned int * retNumBatches,
-    unsigned int * retGPUBufferSize,
-    std::vector< std::pair<unsigned int, unsigned int> > * batches);
+unsigned long long GPUBatchEst_v2(
+        unsigned int * DBSIZE,
+        DTYPE * dev_database,
+        unsigned int * dev_originPointIndex,
+        DTYPE * dev_epsilon,
+        struct grid * dev_grid,
+        unsigned int * dev_indexLookupArr,
+        struct gridCellLookup * gridCellLookupArr,
+        DTYPE * dev_minArr,
+        unsigned int * dev_nCells,
+        unsigned int * dev_nNonEmptyCells,
+        unsigned int * retNumBatches,
+        unsigned int * retGPUBufferSize,
+        std::vector< std::pair<unsigned int, unsigned int> > * batches);
 
 unsigned long long callGPUBatchEstTest(
         unsigned int * DBSIZE,

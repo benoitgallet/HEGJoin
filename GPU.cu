@@ -399,14 +399,14 @@ void gridIndexingGPU(
 
 
 
-uint64_t GPUBatchEst_v2(
+unsigned long long GPUBatchEst_v2(
     unsigned int * DBSIZE,
     DTYPE * dev_database,
     unsigned int * dev_originPointIndex,
     DTYPE * dev_epsilon,
     struct grid * dev_grid,
     unsigned int * dev_indexLookupArr,
-    struct gridCellLookup * gridCellLookupArr,
+    struct gridCellLookup * dev_gridCellLookupArr,
     DTYPE * dev_minArr,
     unsigned int * dev_nCells,
     unsigned int * dev_nNonEmptyCells,
@@ -512,7 +512,7 @@ uint64_t GPUBatchEst_v2(
 	}
 
 
-    const int TOTALBLOCKSBATCHEST = ceil((1.0 * sampleSize * sampleRate) / (1.0 * BLOCKSIZE));
+    const int TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
     cout << "[GPU] ~ Total blocks: " << TOTALBLOCKSBATCHEST << '\n';
     cout.flush();
 
@@ -552,7 +552,7 @@ uint64_t GPUBatchEst_v2(
     // cout << "[GPU] ~ From GPU cnt: " << *cnt_batchEst <<", offset rate: " << offsetRate << '\n';
     // cout.flush();
 
-    unsigned int nbUnestimatedSequences = (*DBSIZE) / sampleOffset;
+    unsigned int nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
     unsigned int * estimatedFull = new unsigned int[(*DBSIZE)];
     for(unsigned int i = 0; i < nbUnestimatedSequences; ++i)
     {
@@ -560,8 +560,8 @@ uint64_t GPUBatchEst_v2(
         unsigned int nbEstAfter = estimatedResult[i + 1];
         unsigned int maxEst = (nbEstBefore < nbEstAfter) ? nbEstAfter : nbEstBefore;
 
-        unsigned int estBefore = i * sampleOffset;
-        unsigned int estAfter = (i + 1) * sampleOffset;
+        unsigned int estBefore = i * (*sampleOffset);
+        unsigned int estAfter = (i + 1) * (*sampleOffset);
         estimatedFull[estBefore] = nbEstBefore;
 
         for(unsigned int j = estBefore + 1; j < estAfter; ++j)
@@ -572,8 +572,8 @@ uint64_t GPUBatchEst_v2(
 
     unsigned int batchBegin = 0;
     unsigned int batchEnd = 0;
-    uint64_t runningEst = 0;
-    uint64_t fullEst = 0;
+    unsigned long long runningEst = 0;
+    unsigned long long fullEst = 0;
     // Keeping 5% of margin to avoid an overflow of the buffer
     unsigned int reserveBuffer = GPUBufferSize * 0.05;
     for(unsigned int i = 0; i < (*DBSIZE); ++i)
@@ -583,17 +583,17 @@ uint64_t GPUBatchEst_v2(
         if((GPUBufferSize - reserveBuffer) <= runningEst)
         {
             batchEnd = i;
-            (*batches).push_back(std::make_pair(batchBegin, batchEnd));
+            batches->push_back(std::make_pair(batchBegin, batchEnd));
             batchBegin = i;
             runningEst = 0;
         }
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
-    cout << "[GPU] ~ Number of batches: " << (*batches).length << '\n';
+    cout << "[GPU] ~ Number of batches: " << batches->length << '\n';
     cout.flush();
 
-    (*retNumBatches) = (*batches).length;
+    (*retNumBatches) = batches->length;
     (*retGPUBufferSize) = GPUBufferSize;
 
     cout << "[GPU] ~ Done estimating batches\n";
@@ -1693,7 +1693,7 @@ void distanceTableNDGridBatches(
     		//N NOW BECOMES THE NUMBER OF POINTS TO PROCESS PER BATCH
     		//AS ONE GPU THREAD PROCESSES A SINGLE POINT
 
-            errCode = cudaMemcpy( &dev_batchBegin[tid], batchesVector[i].first, sizeof(unsigned int), cudaMemcpyHostToDevice );
+            errCode = cudaMemcpy( &dev_batchBegin[tid], &batchesVector[i].first, sizeof(unsigned int), cudaMemcpyHostToDevice );
             if(errCode != cudaSuccess)
             {
                 cout << "[GPU] ~ Error: queue index copy to device -- error with code " << errCode << '\n';
