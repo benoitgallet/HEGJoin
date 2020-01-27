@@ -582,15 +582,17 @@ unsigned long long GPUBatchEst_v2(
         fullEst += estimatedFull[i];
         if((GPUBufferSize - reserveBuffer) <= runningEst)
         {
-            if((*DBSIZE) - 1 == i)
-            {
-                batchEnd = (*DBSIZE);
-            }else{
-                batchEnd = i;
-            }
+            batchEnd = i;
             batches->push_back(std::make_pair(batchBegin, batchEnd));
             batchBegin = i;
             runningEst = 0;
+        }else{
+            // The last batch may not fulfill the above condition of filling a result buffer
+            if((*DBSIZE) - 1 == i)
+            {
+                batchEnd = (*DBSIZE);
+                batches->push_back(std::make_pair(batchBegin, batchEnd));
+            }
         }
     }
 
