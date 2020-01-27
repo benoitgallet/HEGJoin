@@ -331,7 +331,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 		// nbQueriesTotal += nbQueries[i];
 	}
 
-	(*nbPointsComputedReturn) = (*nbPointsComputed);
+	(*nbPointsComputedReturn) = nbPointsComputed;
 
 	printf("[EGO pre-Q | RESULT] ~ Query points computed by Super-EGO while sorting by workload was running: %d\n", nbQueriesTotal);
 	printf("[EGO pre-Q | RESULT] ~ Compute time for Super-EGO while sorting by workload was running: %f\n", tEnd - tStart);
