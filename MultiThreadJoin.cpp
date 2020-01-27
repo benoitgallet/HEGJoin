@@ -14,6 +14,7 @@
 
 #include "params.h"
 #include "WorkQueue.h"
+#include "structs.h"
 
 uint64_t Util::multiThreadJoinWorkQueue(
 	unsigned int searchMode,
@@ -273,9 +274,11 @@ uint64_t Util::multiThreadJoinPreQueue(
 	unsigned int nbPointsComputed = 0;
 	#pragma omp parallel num_threads(CPU_THREADS)
 	{
+		unsigned int tid = omp_get_thread_num();
+
 		bool localSortByWLDone = false;
 		unsigned int localNbPointsComputed = 0;
-		std::list<unsigned int> neighborList;
+		std::list<unsigned int> neighborsList;
 
 		unsigned int tmpIndex, index;
 		unsigned int * nbNeighbors = new unsigned int;
@@ -336,7 +339,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 	delete[] results;
 	delete[] nbQueries;
 
-	return result;
+	return resultTotal;
 
 
 }
