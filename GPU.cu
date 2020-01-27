@@ -590,10 +590,10 @@ unsigned long long GPUBatchEst_v2(
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
-    cout << "[GPU] ~ Number of batches: " << batches->length << '\n';
+    cout << "[GPU] ~ Number of batches: " << batches->length() << '\n';
     cout.flush();
 
-    (*retNumBatches) = batches->length;
+    (*retNumBatches) = batches->length();
     (*retGPUBufferSize) = GPUBufferSize;
 
     cout << "[GPU] ~ Done estimating batches\n";
