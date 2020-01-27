@@ -129,7 +129,7 @@ void setQueueIndexCPU(unsigned int index)
 
 void displayIndexes()
 {
-    printf("[QUEUE] ~ GPU index: %d, CPU index: %d\n", queueIndex, queueIndexCPU);
+    printf("[QUEUE] ~ GPU index: %d, CPU index: %d, GPU batch: %d\n", queueIndex, queueIndexCPU, gpuBatch);
 }
 
 void setWorkQueueReady()
