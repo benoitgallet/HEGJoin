@@ -43,7 +43,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			std::pair<unsigned int, unsigned int> cpuBatch;
 			// Point * batch = new Point[CPU_BATCH_SIZE];
 
-			unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
+			// unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
 			unsigned int * nbNeighbors = new unsigned int;
 
 			do
@@ -67,7 +67,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				{
 					(*nbNeighbors) = 0;
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					
+
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
@@ -100,7 +100,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			std::vector<int> resultVector;
 			std::pair<unsigned int, unsigned int> cpuBatch;
 
-			unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
+			// unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
 			unsigned int * nbNeighbors = new unsigned int;
 
 			do
