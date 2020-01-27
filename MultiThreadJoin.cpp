@@ -85,7 +85,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int tmpIndex = originPointIndex[i];
-					neighborTable[tmpIndex].dataPtr = &resultVector;
+					neighborTable[tmpIndex].dataPtr = &resultVector[0];
 				}
 				results[tid] += resultVector->size();
 				resultVector->shrink_to_fit();
@@ -145,7 +145,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int tmpIndex = originPointIndex[i];
-					neighborTable[tmpIndex].dataPtr = &resultVector;
+					neighborTable[tmpIndex].dataPtr = &resultVector[0];
 				}
 				results[tid] += resultVector->size();
 				resultVector->shrink_to_fit();
