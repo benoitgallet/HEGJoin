@@ -572,7 +572,7 @@ unsigned long long GPUBatchEst_v2(
 
     for(int i = 1999950; i < 2000000; ++i)
     {
-        cout << "[EST] ~ " << estimatedFull << '\n';
+        cout << "[EST] ~ " << estimatedFull[i] << '\n';
     }
 
     unsigned int batchBegin = 0;
