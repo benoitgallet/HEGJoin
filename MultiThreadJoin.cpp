@@ -128,7 +128,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
 
-			results[tid] += resultVector.size() / 2;
+			// results[tid] += resultVector.size() / 2;
+			results[tid] += resultVector.size()
 
 			resultVector.clear();
 			resultVector.shrink_to_fit();

@@ -414,7 +414,7 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, s
 			}
 
 			result->push_back(p->id);
-			result->push_back(q->id);
+			// result->push_back(q->id);
             // result[(*nbNeighbors)] = p->id;
             // (*nbNeighbors) += 1;
 
@@ -485,7 +485,7 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
                 }
 
                 result->push_back(p->id);
-                result->push_back(q->id);
+                // result->push_back(q->id);
                 // result[(*nbNeighbors)] = p->id;
                 // (*nbNeighbors) += 1;
 
@@ -547,7 +547,7 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
             }
 
 			result->push_back(p->id);
-			result->push_back(q->id);
+			// result->push_back(q->id);
             // result[(*nbNeighbors)] = p->id;
             // (*nbNeighbors) += 1;
 
