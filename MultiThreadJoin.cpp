@@ -59,26 +59,27 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					batch[batchIndex] = A[index];
-					batchIndex++;
+					// batch[batchIndex] = A[index];
+					// batchIndex++;
 				}
-				Util::egoJoinV2(A, 0, A_sz - 1, batch, 0, CPU_BATCH_SIZE - 1, 0, &resultVector);
-				// for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
-				// {
-				// 	(*nbNeighbors) = 0;
-				// 	unsigned int index = egoMapping[ originPointIndex[i] ];
-				// 	// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &(resultVector[tid]));
-				// 	Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
-				//
-				// 	unsigned int tmpIndex = originPointIndex[i];
-				// 	neighborTable[tmpIndex].pointID = tmpIndex;
-				// 	neighborTable[tmpIndex].indexmin = 0;
-				// 	neighborTable[tmpIndex].indexmax = (*nbNeighbors) - 1;
-				// 	neighborTable[tmpIndex].dataPtr = new int[(*nbNeighbors)];
-				// 	std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[tmpIndex].dataPtr);
-				//
-				// 	results[tid] += (*nbNeighbors);
-				// }
+
+				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				{
+					(*nbNeighbors) = 0;
+					unsigned int index = egoMapping[ originPointIndex[i] ];
+					
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &resultVector);
+					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
+
+					// unsigned int tmpIndex = originPointIndex[i];
+					// neighborTable[tmpIndex].pointID = tmpIndex;
+					// neighborTable[tmpIndex].indexmin = 0;
+					// neighborTable[tmpIndex].indexmax = (*nbNeighbors) - 1;
+					// neighborTable[tmpIndex].dataPtr = new int[(*nbNeighbors)];
+					// std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[tmpIndex].dataPtr);
+					//
+					// results[tid] += (*nbNeighbors);
+				}
 
 				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
