@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "WorkQueue.h"
+#include "params.h"
 
 template <typename T>
 inline T min(T a, T b)
@@ -62,11 +63,11 @@ std::pair<unsigned int, unsigned int> getBatchFromQueue_v2(
     {
         #pragma omp critical
         {
-            if(batches.length == gpuBatch)
+            if(batches.size() == gpuBatch)
             {
                 begin = 0;
                 end = 0;
-                queueIndex = batches.end().second;
+                queueIndex = (batches.end()).second;
             }else{
                 if(queueIndex < queueIndexCPU && queueIndex != queueIndexCPU)
                 {
@@ -77,7 +78,7 @@ std::pair<unsigned int, unsigned int> getBatchFromQueue_v2(
                 }else{
                     begin = 0;
                     end = 0;
-                    queueIndex = batches.end().second;
+                    queueIndex = (batches.end()).second;
                 }
             }
         }
