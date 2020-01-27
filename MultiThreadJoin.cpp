@@ -89,7 +89,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			resultVector.clear();
 			resultVector.shrink_to_fit();
 
-			delete[] tmpBuffer;
+			// delete[] tmpBuffer;
 		}
 	}
 	else // only use the CPU, not the GPU
@@ -133,7 +133,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			resultVector.clear();
 			resultVector.shrink_to_fit();
 
-			delete[] tmpBuffer;
+			// delete[] tmpBuffer;
 		}
 	}
 	double tEnd = omp_get_wtime();
