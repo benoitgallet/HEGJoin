@@ -552,7 +552,7 @@ unsigned long long GPUBatchEst_v2(
     // cout << "[GPU] ~ From GPU cnt: " << *cnt_batchEst <<", offset rate: " << offsetRate << '\n';
     // cout.flush();
 
-    unsigned int nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
+    unsigned int nbUnestimatedSequences = ceil((*DBSIZE) / (*sampleOffset));
     unsigned int * estimatedFull = new unsigned int[(*DBSIZE)];
     for(unsigned int i = 0; i < nbUnestimatedSequences; ++i)
     {
