@@ -545,7 +545,7 @@ unsigned long long GPUBatchEst_v2(
         cout.flush();
 	}
 
-    unsigned int GPUBufferSize = 50000000;
+    unsigned int GPUBufferSize = 25000000;
     // unsigned int GPUBufferSize = 100000000;
 
     // uint64_t estimatedNeighbors = (uint64_t)*cnt_batchEst * (uint64_t)offsetRate;
