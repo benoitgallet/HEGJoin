@@ -570,11 +570,6 @@ unsigned long long GPUBatchEst_v2(
         }
     }
 
-    for(int i = 1999950; i < 2000000; ++i)
-    {
-        cout << "[EST] ~ " << estimatedFull[i] << '\n';
-    }
-
     unsigned int batchBegin = 0;
     unsigned int batchEnd = 0;
     unsigned long long runningEst = 0;
@@ -585,7 +580,7 @@ unsigned long long GPUBatchEst_v2(
     {
         runningEst += estimatedFull[i];
         fullEst += estimatedFull[i];
-        if((GPUBufferSize - reserveBuffer) <= runningEst)
+        if(((GPUBufferSize - reserveBuffer) <= runningEst) || (*DBSIZE) - 1 == i)
         {
             batchEnd = i;
             batches->push_back(std::make_pair(batchBegin, batchEnd));
