@@ -179,7 +179,7 @@ void sortByWorkLoad(
     cudaFree(dev_sortedDatabaseTmp);
 
     delete[] sortedDatabaseTmp;
-    delete[] nbNeighborPoints;
+    // delete[] nbNeighborPoints;
 
     double tEndSortingCells = omp_get_wtime();
 
