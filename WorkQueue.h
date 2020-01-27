@@ -2,6 +2,7 @@
 #define WORK_QUEUE_H
 
 #include <utility>
+#include <vector>
 
 std::pair<unsigned int, unsigned int> getBatchFromQueue(
         unsigned int DBSIZE,

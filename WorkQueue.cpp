@@ -1,5 +1,6 @@
 #include <utility>
 #include <stdio.h>
+#include <vector>
 
 #include "WorkQueue.h"
 
