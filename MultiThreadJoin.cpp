@@ -57,11 +57,10 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 
 				unsigned int indexmaxPrec = 0;
-				std::vector<int> * resultVector;
+				std::vector<int> * resultVector = new std::vector<int>(max(getMaxNeighbors() / (i + 1), CPU_BATCH_SIZE));
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
-					resultVector = new std::vector<int>(getMaxNeighbors() / 2);
 					unsigned int index = egoMapping[ originPointIndex[i] ];
 
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector);
@@ -117,11 +116,10 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 
 				unsigned int indexmaxPrec = 0;
-				std::vector<int> * resultVector;
+				std::vector<int> * resultVector = new std::vector<int>(max(getMaxNeighbors() / (i + 1), CPU_BATCH_SIZE));
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
-					resultVector = new std::vector<int>(getMaxNeighbors() / 2);
 					unsigned int index = egoMapping[ originPointIndex[i] ];
 
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector);
