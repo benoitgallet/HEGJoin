@@ -129,7 +129,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			}while(0 != cpuBatch.second);
 
 			// results[tid] += resultVector.size() / 2;
-			results[tid] += resultVector.size()
+			results[tid] += resultVector.size();
 
 			resultVector.clear();
 			resultVector.shrink_to_fit();
