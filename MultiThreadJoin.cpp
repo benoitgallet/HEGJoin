@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
-#include <set>
 #include <list>
 #include <cstdint>
 #include "omp.h"
@@ -172,7 +171,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 	struct gridCellLookup * gridCellLookupArr,
 	unsigned int * nNonEmptyCells,
 	bool * isSortByWLDone,
-	std::set<unsigned int> * cellIds,
+	unsigned int * nbPointsComputedReturn,
 	neighborTableLookup * neighborTable)
 {
 
@@ -328,6 +327,8 @@ uint64_t Util::multiThreadJoinPreQueue(
 		resultTotal += results[i];
 		// nbQueriesTotal += nbQueries[i];
 	}
+
+	(*nbPointsComputedReturn) = (*nbPointsComputed);
 
 	printf("[EGO pre-Q | RESULT] ~ Query points computed by Super-EGO while sorting by workload was running: %d\n", nbQueriesTotal);
 	printf("[EGO pre-Q | RESULT] ~ Compute time for Super-EGO while sorting by workload was running: %f\n", tEnd - tStart);

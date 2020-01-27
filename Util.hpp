@@ -65,7 +65,7 @@ public:
     	struct gridCellLookup * gridCellLookupArr,
     	unsigned int * nNonEmptyCells,
     	bool * isSortByWLDone,
-    	std::set<unsigned int> * cellIds,
+    	unsigned int * nbPointsComputed,
     	neighborTableLookup * neighborTable);
 
 	// static void egoJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, pThreadParam param);
