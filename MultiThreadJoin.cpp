@@ -57,7 +57,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 
 				unsigned int indexmaxPrec = 0;
-				std::vector<int> * resultVector = new std::vector<int>(max(getMaxNeighbors() / (i + 1), CPU_BATCH_SIZE));
+				std::vector<int> * resultVector = new std::vector<int>(__max(getMaxNeighbors() / (cpuBatch.first + 1), CPU_BATCH_SIZE));
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
@@ -116,7 +116,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
 
 				unsigned int indexmaxPrec = 0;
-				std::vector<int> * resultVector = new std::vector<int>(max(getMaxNeighbors() / (i + 1), CPU_BATCH_SIZE));
+				std::vector<int> * resultVector = new std::vector<int>(__max(getMaxNeighbors() / (cpuBatch.first + 1), CPU_BATCH_SIZE));
 				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
