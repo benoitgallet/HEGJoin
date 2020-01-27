@@ -306,8 +306,8 @@ int pcmp(const void *v1, const void *v2)
 
 
 
-// void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::list<int> * result)
-void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * result, unsigned int * nbNeighbors)
+void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result)
+// void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * result, unsigned int * nbNeighbors)
 {
 	pPoint fst_A = &A[frA];
 	pPoint lst_A = &A[toA];
@@ -341,8 +341,8 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 
 	if (A_sz < MINLEN && B_sz < MINLEN)
 	{
-        // simpleJoin4(A, frA, toA, B, frB, toB, i, result);
-		simpleJoin4(A, frA, toA, B, frB, toB, i, result, nbNeighbors);
+        simpleJoin4(A, frA, toA, B, frB, toB, i, result);
+		// simpleJoin4(A, frA, toA, B, frB, toB, i, result, nbNeighbors);
 
 		return;
 	}
@@ -350,14 +350,14 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz >= MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 2 (self-thread)\n");
-        // egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		// egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
-		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
-		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
-		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // f f
-		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
-		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // s f
-		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
+        egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		// egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // f f
+		// egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
+		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // s f
+		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
 		return;
 	}
 
@@ -365,10 +365,10 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz >= MINLEN && B_sz < MINLEN)
 	{
         // printf("\nCase 3 (self-thread)\n");
-        // egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
-		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
-		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result, nbNeighbors); // f full
-		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result, nbNeighbors); // s full
+        egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
+		// egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result, nbNeighbors); // f full
+		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result, nbNeighbors); // s full
 		return;
 	}
 
@@ -376,18 +376,18 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz < MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 4 (self-thread)\n");
-        // egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		// egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
-		egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // f f
-		egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
+        egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
+		egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+		// egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // f f
+		// egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
 		return;
 	}
 }
 
 
 
-// void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::list<int> * result)
-void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * result, unsigned int * nbNeighbors)
+void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result)
+// void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * result, unsigned int * nbNeighbors)
 {
 	// for (int i = frA; i <= toA; i++)
 	for(int i = frB; i <= toB; ++i)
@@ -413,10 +413,10 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, u
 					goto stop1;
 			}
 
-			// result->push_back(p->id);
+			result->push_back(p->id);
 			// result->push_back(q->id);
-            result[(*nbNeighbors)] = p->id;
-            (*nbNeighbors) += 1;
+            // result[(*nbNeighbors)] = p->id;
+            // (*nbNeighbors) += 1;
 
 			stop1: ;
 		}
@@ -427,8 +427,8 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, u
 
 
 
-// void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::list<int> * result)
-void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * result, unsigned int * nbNeighbors)
+void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result)
+// void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * result, unsigned int * nbNeighbors)
 {
 	int r1_beg = r1[m][0];
     int r1_end = r1[m][1];
@@ -442,8 +442,8 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
     {
         if (r2_end == -1) // 1 interval
         {
-            // simpleJoin3(A, frA, toA, B, frB, toB, result);
-            simpleJoin3(A, frA, toA, B, frB, toB, result, nbNeighbors);
+            simpleJoin3(A, frA, toA, B, frB, toB, result);
+            // simpleJoin3(A, frA, toA, B, frB, toB, result, nbNeighbors);
             return;
         }
 
@@ -484,10 +484,10 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
                         goto stop_2_int;
                 }
 
-                // result->push_back(p->id);
+                result->push_back(p->id);
                 // result->push_back(q->id);
-                result[(*nbNeighbors)] = p->id;
-                (*nbNeighbors) += 1;
+                // result[(*nbNeighbors)] = p->id;
+                // (*nbNeighbors) += 1;
 
             stop_2_int: ;
 
@@ -546,10 +546,10 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
                     goto stop2;
             }
 
-			// result->push_back(p->id);
+			result->push_back(p->id);
 			// result->push_back(q->id);
-            result[(*nbNeighbors)] = p->id;
-            (*nbNeighbors) += 1;
+            // result[(*nbNeighbors)] = p->id;
+            // (*nbNeighbors) += 1;
 
         stop2: ;
 
