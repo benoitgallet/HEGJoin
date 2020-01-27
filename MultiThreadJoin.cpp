@@ -87,7 +87,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			results[tid] += resultVector.size() / 2;
 
 			resultVector.clear();
-			resultVector.shrink_to_fit();
+			// resultVector.shrink_to_fit();
 
 			// delete[] tmpBuffer;
 		}
@@ -132,7 +132,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			results[tid] += resultVector.size();
 
 			resultVector.clear();
-			resultVector.shrink_to_fit();
+			// resultVector.shrink_to_fit();
 
 			// delete[] tmpBuffer;
 		}
