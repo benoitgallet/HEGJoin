@@ -67,7 +67,7 @@ std::pair<unsigned int, unsigned int> getBatchFromQueue_v2(
             {
                 begin = 0;
                 end = 0;
-                queueIndex = (batches.end()).second;
+                queueIndex = (*(batches.end())).second;
             }else{
                 if(queueIndex < queueIndexCPU && queueIndex != queueIndexCPU)
                 {
@@ -78,7 +78,7 @@ std::pair<unsigned int, unsigned int> getBatchFromQueue_v2(
                 }else{
                     begin = 0;
                     end = 0;
-                    queueIndex = (batches.end()).second;
+                    queueIndex = (*(batches.end())).second;
                 }
             }
         }
