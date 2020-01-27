@@ -583,17 +583,17 @@ unsigned long long GPUBatchEst_v2(
         if((GPUBufferSize - reserveBuffer) <= runningEst)
         {
             batchEnd = i;
-            (&batches).push_back(std::make_pair(batchBegin, batchEnd));
+            batches.push_back(std::make_pair(batchBegin, batchEnd));
             batchBegin = i;
             runningEst = 0;
         }
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
-    cout << "[GPU] ~ Number of batches: " << (&batches).length << '\n';
+    cout << "[GPU] ~ Number of batches: " << batches.length << '\n';
     cout.flush();
 
-    (*retNumBatches) = (&batches).length;
+    (*retNumBatches) = batches.length;
     (*retGPUBufferSize) = GPUBufferSize;
 
     cout << "[GPU] ~ Done estimating batches\n";
