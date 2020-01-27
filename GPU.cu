@@ -1293,6 +1293,12 @@ void distanceTableNDGridBatches(
             << ", num. batches = " << numBatches << ", GPU buffer size = " << GPUBufferSize << '\n';
     cout.flush();
 
+    cout << "[GPU] ~ Batches: \n";
+    for(int i = 0; i < batchesVector.size(); ++i)
+    {
+        cout << "   [GPU] ~ " << batchesVector[i].first << ", " << batchesVector[i].second <<  '\n';
+    }
+
     // sets the batch size for the queue and the queue index, considering the offset reserved for the GPU
     // setQueueIndex(GPUSTREAMS * (*DBSIZE / numBatches));
     setQueueIndex(batchesVector[GPUSTREAMS].first);
