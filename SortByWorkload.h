@@ -26,6 +26,7 @@ void sortByWorkLoad(
         unsigned int ** originPointIndex,
         unsigned int ** dev_originPointIndex,
         bool * isSortByWLDone,
-        int * nbPointsPreComputed);
+        unsigned int * nbPointsPreComputed,
+        CPU_State * cpuState);
 
 #endif

@@ -156,9 +156,10 @@ int main(int argc, char * argv[])
 
     bool doneSortingByWL = false;
     unsigned int nbQueriesPreComputed = 0;
-    CPU_State * cpuState = CPU_State::preparing;
+    CPU_State cpuState = CPU_State::preparing;
 
     double sortTime, preEgoFullTime, preEgoComputeTime, parallelSection;
+    double gpuTime, egoTime, egoReorder, egoSort;
 
     double tStartPar = omp_get_wtime();
     if(SM_HYBRID == searchMode)
@@ -209,7 +210,7 @@ int main(int argc, char * argv[])
 
                 double tStartPreCompute = omp_get_wtime();
                 totalNeighborsPreCPU = Util::multiThreadJoinPreQueue(A, A_sz, B, B_sz, egoMapping, index, indexLookupArr, gridCellLookupArr,
-                    &nNonEmptyCells, &doneSortingByWL, 7nbQueriesPreComputed, &cpuState, neighborTable);
+                        &nNonEmptyCells, &doneSortingByWL, 7nbQueriesPreComputed, &cpuState, neighborTable);
                 double tEndPreCompute = omp_get_wtime();
                 preEgoComputeTime = tEndPreCompute - tStartPreCompute;
                 preEgoFullTime = tEndPreCompute - tStartFull;
@@ -229,11 +230,6 @@ int main(int argc, char * argv[])
 
     omp_set_nested(1);
 	omp_set_dynamic(0);
-
-    double gpuTime = 0.0;
-    double egoTime = 0.0;
-    double egoReorder = 0.0;
-    double egoSort = 0.0;
 
     unsigned int newDBDISZE = DBSIZE - nbQueriesPreComputed;
 

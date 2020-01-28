@@ -66,6 +66,7 @@ public:
     	unsigned int * nNonEmptyCells,
     	bool * isSortByWLDone,
     	unsigned int * nbPointsComputed,
+        CPU_State * cpuState,
     	neighborTableLookup * neighborTable);
 
 	// static void egoJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, pThreadParam param);
