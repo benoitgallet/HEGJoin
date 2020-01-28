@@ -247,7 +247,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 			std::vector<int> * neighborList = new std::vector<int>();
 
-			Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborsList);
+			Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborList);
 
 			neighborTable[tmpIndex].pointID = tmpIndex;
 			neighborTable[tmpIndex].indexmin = 0;
