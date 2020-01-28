@@ -219,6 +219,15 @@ int main(int argc, char * argv[])
             }
         }
     }
+    else
+    {
+        double tStartSort = omp_get_wtime();
+        sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
+                gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
+                &originPointIndex, &dev_originPointIndex, &doneSortingByWL, &nbQueriesPreComputed, &cpuState);
+        double tEndSort = omp_get_wtime();
+        sortTime = tEndSort - tStartSort;
+    }
     double tEndPar = omp_get_wtime();
     parallelSection = tEndPar - tStartPar;
 
