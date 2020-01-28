@@ -584,7 +584,7 @@ REAL Util::rnd()
 
 
 
-void Util::egoJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::list<unsigned int> * result, unsigned int * nbNeighbors)
+void Util::egoJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<unsigned int> * result, unsigned int * nbNeighbors)
 {
 	pPoint fst_A = &A[frA];
 	pPoint lst_A = &A[toA];
@@ -655,7 +655,7 @@ void Util::egoJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int to
 
 
 // void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result)
-void Util::simpleJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::list<unsigned int> * result, unsigned int * nbNeighbors)
+void Util::simpleJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<unsigned int> * result, unsigned int * nbNeighbors)
 {
 	// for (int i = frA; i <= toA; i++)
 	for(int i = frB; i <= toB; ++i)
@@ -697,7 +697,7 @@ void Util::simpleJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int
 
 
 // void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result)
-void Util::simpleJoinPreQueue2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::list<unsigned int> * result, unsigned int * nbNeighbors)
+void Util::simpleJoinPreQueue2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<unsigned int> * result, unsigned int * nbNeighbors)
 {
 	int r1_beg = r1[m][0];
     int r1_end = r1[m][1];

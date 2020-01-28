@@ -23,13 +23,9 @@ void sortByWorkLoad(
         unsigned int ** dev_nCells,
         unsigned int * nNonEmptyCells,
         unsigned int ** dev_nNonEmptyCells,
-        // unsigned int * gridCellNDMask,
-        // unsigned int ** dev_gridCellNDMask,
-        // unsigned int * gridCellNDMaskOffsets,
-        // unsigned int ** dev_gridCellNDMaskOffsets,
-        // unsigned int * nNDMaskElems,
         unsigned int ** originPointIndex,
         unsigned int ** dev_originPointIndex,
-        DTYPE ** dev_sortedDatabase);
+        bool * isSortByWLDone,
+        int * nbPointsPreComputed);
 
 #endif

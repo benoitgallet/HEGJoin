@@ -150,57 +150,37 @@ int main(int argc, char * argv[])
     unsigned int * originPointIndex;
     unsigned int * dev_originPointIndex;
 
-    double tStartSort = omp_get_wtime();
-    sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
-            gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
-            &originPointIndex, &dev_originPointIndex, nullptr);
-    double tEndSort = omp_get_wtime();
-    double sortTime = tEndSort - tStartSort;
-
     uint64_t totalNeighbors = 0;
+    uint64_t totalNeighborsPreCPU = 0;
     uint64_t totalNeighborsCPU = 0;
 
-    omp_set_nested(1);
-	omp_set_dynamic(0);
+    bool doneSortingByWL = false;
+    unsigned int nbQueriesPreComputed = 0;
+    CPU_State * cpuState = CPU_State::preparing;
 
-    double gpuTime = 0.0;
-    double egoTime = 0.0;
-    double egoReorder = 0.0;
-    double egoSort = 0.0;
+    double sortTime, preEgoFullTime, preEgoComputeTime, parallelSection;
 
-    double tStart = omp_get_wtime();
-    #pragma omp parallel num_threads(2)
+    double tStartPar = omp_get_wtime();
+    if(SM_HYBRID == searchMode)
     {
-        int tid = omp_get_thread_num();
-
-        if(0 == tid) // GPU part
+        #pragma omp parallel num_threads(2)
         {
-            if(searchMode != SM_CPU)
+            unsigned int tid = omp_get_thread_num();
+            if(0 == tid)
             {
-                double tBeginGPU = omp_get_wtime();
-                distanceTableNDGridBatches(searchMode, &DBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
-                        indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
-                        &nNonEmptyCells, dev_nNonEmptyCells, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors,
-                        &totalNeighbors);
-                double tEndGPU = omp_get_wtime();
-                gpuTime = tEndGPU - tBeginGPU;
+                double tStartSort = omp_get_wtime();
+                sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
+                        gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
+                        &originPointIndex, &dev_originPointIndex, &doneSortingByWL, &nbQueriesPreComputed, &cpuState);
+                double tEndSort = omp_get_wtime();
+                sortTime = tEndSort - tStartSort;
             }
-        }
-        else // Super-EGO part
-        {
-            if(searchMode != SM_GPU)
+            else
             {
-                if(searchMode == SM_CPU)
-                {
-                    setQueueIndex(0);
-                }
+                double tStartFull = omp_get_wtime();
 
                 unsigned int A_sz = DBSIZE;
                 unsigned int B_sz = DBSIZE;
-
-                double tBeginEgo = omp_get_wtime();
-
-                // setQueueIndex(0); // Un-comment when using only Super-EGO
 
                 printf("[EGO] ~ Reordering the dimensions\n");
                 double tStartReorder = omp_get_wtime();
@@ -225,6 +205,95 @@ int main(int argc, char * argv[])
                     egoMapping[p->id] = i;
                 }
 
+                (*cpuState) = CPU_State::donePreparing;
+
+                double tStartPreCompute = omp_get_wtime();
+                totalNeighborsPreCPU = Util::multiThreadJoinPreQueue(A, A_sz, B, B_sz, egoMapping, index, indexLookupArr, gridCellLookupArr,
+                    &nNonEmptyCells, &doneSortingByWL, 7nbQueriesPreComputed, &cpuState, neighborTable);
+                double tEndPreCompute = omp_get_wtime();
+                preEgoComputeTime = tEndPreCompute - tStartPreCompute;
+                preEgoFullTime = tEndPreCompute - tStartFull;
+
+            }
+        }
+    }
+    double tEndPar = omp_get_wtime();
+    parallelSection = tEndPar - tStartPar;
+
+    // double tStartSort = omp_get_wtime();
+    // sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
+    //         gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
+    //         &originPointIndex, &dev_originPointIndex, nullptr);
+    // double tEndSort = omp_get_wtime();
+    // double sortTime = tEndSort - tStartSort;
+
+    omp_set_nested(1);
+	omp_set_dynamic(0);
+
+    double gpuTime = 0.0;
+    double egoTime = 0.0;
+    double egoReorder = 0.0;
+    double egoSort = 0.0;
+
+    unsigned int newDBDISZE = DBSIZE - nbQueriesPreComputed;
+
+    double tStart = omp_get_wtime();
+    #pragma omp parallel num_threads(2)
+    {
+        int tid = omp_get_thread_num();
+
+        if(0 == tid) // GPU part
+        {
+            if(searchMode != SM_CPU)
+            {
+                double tBeginGPU = omp_get_wtime();
+                distanceTableNDGridBatches(searchMode, &newDBDISZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
+                        indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
+                        &nNonEmptyCells, dev_nNonEmptyCells, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors,
+                        &totalNeighbors);
+                double tEndGPU = omp_get_wtime();
+                gpuTime = tEndGPU - tBeginGPU;
+            }
+        }
+        else // Super-EGO part
+        {
+            if(searchMode != SM_GPU)
+            {
+                if(searchMode == SM_CPU)
+                {
+                    setQueueIndex(0);
+                }
+
+                unsigned int A_sz = newDBSIZE;
+                unsigned int B_sz = newDBSIZE;
+
+                double tBeginEgo = omp_get_wtime();
+
+                // setQueueIndex(0); // Un-comment when using only Super-EGO
+
+                // printf("[EGO] ~ Reordering the dimensions\n");
+                // double tStartReorder = omp_get_wtime();
+                // Util::reorderDim(A, A_sz, B, B_sz);
+                // double tEndReorder = omp_get_wtime();
+                // egoReorder = tEndReorder - tStartReorder;
+                // printf("[EGO] ~ Done reordering in %f\n", egoReorder);
+
+                // printf("[EGO] ~ EGO-sorting of A\n");
+                // double tStartEGOSort = omp_get_wtime();
+                // // std::stable_sort(A, A + A_sz, egoSortFunction);
+                // boost::sort::sample_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
+                // // __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
+                // double tEndEGOSort = omp_get_wtime();
+                // egoSort = tEndEGOSort - tStartEGOSort;
+                // printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
+
+                // unsigned int * egoMapping = new unsigned int[DBSIZE];
+                // for(int i = 0; i < DBSIZE; ++i)
+                // {
+                //     pPoint p = &A[i];
+                //     egoMapping[p->id] = i;
+                // }
+
                 printf("[EGO] ~ Beginning the computation\n");
                 totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex, neighborTable);
                 printf("[EGO] ~ Done with the computation\n");
@@ -238,8 +307,9 @@ int main(int argc, char * argv[])
 
     displayIndexes();
 
-    printf("[RESULT] ~ Total result set size: %lu\n", totalNeighbors + totalNeighborsCPU);
+    printf("[RESULT] ~ Total result set size: %lu\n", totalNeighbors + totalNeighborsPreCPU + totalNeighborsCPU);
     printf("   [RESULT] ~ Total result set size on the GPU: %lu\n", totalNeighbors);
+    printf("   [RESULT] ~ Total result set size pre-computed on the CPU: %lu\n", totalNeighborsPreCPU);
     printf("   [RESULT] ~ Total result set size on the CPU: %lu\n", totalNeighborsCPU);
 
     printf("[RESULT] ~ Total execution time: %f (including %f to sort by workload)\n", (tEnd - tStart) + sortTime, sortTime);

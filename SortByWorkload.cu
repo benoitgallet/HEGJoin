@@ -36,7 +36,9 @@ void sortByWorkLoad(
         unsigned int ** dev_nNonEmptyCells,
         unsigned int ** originPointIndex,
         unsigned int ** dev_originPointIndex,
-        DTYPE ** dev_sortedDatabase)
+        bool * isSortByWLDone,
+        unsigned int * nbPointsPreComputed,
+        CPU_State * cpuState)
 {
 
     double tStartSortingCells = omp_get_wtime();
@@ -111,6 +113,11 @@ void sortByWorkLoad(
         cout.flush();
     }
 
+    #pragma omp critical
+    {
+        (*isSortByWLDone) = true;
+    }
+
     cudaEventSynchronize(endKernel);
     float timeKernel = 0;
     cudaEventElapsedTime(&timeKernel, startKernel, endKernel);
@@ -123,15 +130,24 @@ void sortByWorkLoad(
     double tEndSort = omp_get_wtime();
     printf("[SORT] ~ Time to call std::sort = %f\n", tEndSort - tBeginSort);
 
-    (*originPointIndex) = new unsigned int [(*DBSIZE)];
-
     unsigned int maxNeighbor = sortedDatabaseTmp[0].nbPoints;
     unsigned int minNeighbor = sortedDatabaseTmp[(*nNonEmptyCells) - 1].nbPoints;
-    cout << "max = " << maxNeighbor << '\n';
-    cout << "min = " << minNeighbor << '\n';
+    // cout << "max = " << maxNeighbor << '\n';
+    // cout << "min = " << minNeighbor << '\n';
     uint64_t accNeighbor = 0;
 
     // unsigned int * nbNeighborPoints = new unsigned int[(*DBSIZE)];
+
+    unsigned int nbQueriesPreComputed;
+    if((*cpuState) < CPU_State::computing)
+    {
+        nbQueriesPreComputed = 0;
+    }else{
+        while((*cpuState) != CPU_State::doneComputing){}
+        nbQueriesPreComputed = (*nbPointsPreComputed);
+    }
+
+    (*originPointIndex) = new unsigned int [(*DBSIZE) - nbQueriesPreComputed];
 
     int prec = 0;
     for(int i = 0; i < (*nNonEmptyCells); ++i)
@@ -139,14 +155,17 @@ void sortByWorkLoad(
         int cellId = sortedDatabaseTmp[i].cellId;
         int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
 
-        // some stats about the number of neighbor
         accNeighbor += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
 
         for(int j = 0; j < nbNeighbor; ++j)
         {
             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
-            // nbNeighborPoints[prec + j] = sortedDatabaseTmp[i].nbPoints;
-            (*originPointIndex)[prec + j] = tmpId;
+            if(nbQueriesPreComputed < tmpId)
+            {
+                (*originPointIndex)[prec + j] = tmpId;
+            }else{
+                nbNeighbor--;
+            }
         }
         prec += nbNeighbor;
     }

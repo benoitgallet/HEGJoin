@@ -200,6 +200,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 	unsigned int * nNonEmptyCells,
 	bool * isSortByWLDone,
 	unsigned int * nbPointsComputedReturn,
+	CPU_State * cpuState,
 	neighborTableLookup * neighborTable)
 {
 
@@ -213,6 +214,14 @@ uint64_t Util::multiThreadJoinPreQueue(
 		nbQueries[i] = 0;
 	}
 
+	#pragma omp critical
+	{
+		if(!isSortByWLDone)
+		{
+			(*cpuState) = CPU_State::computing;
+		}
+	}
+
 	unsigned int nbPointsComputed = 0;
 	#pragma omp parallel num_threads(CPU_THREADS)
 	{
@@ -220,10 +229,9 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 		bool localSortByWLDone = false;
 		unsigned int localNbPointsComputed = 0;
-		std::list<unsigned int> neighborsList;
+		// std::vector<unsigned int> neighborsList;
 
 		unsigned int tmpIndex, index;
-		unsigned int * nbNeighbors = new unsigned int;
 
 		while(!localSortByWLDone)
 		{
@@ -234,32 +242,25 @@ uint64_t Util::multiThreadJoinPreQueue(
 				nbPointsComputed++;
 			}
 
-			(*nbNeighbors) = 0;
 			tmpIndex = indexLookupArr[localNbPointsComputed];
 			index = egoMapping[tmpIndex];
 
-			Util::egoJoinPreQueue(A, 0, A_sz - 1, B, index, index, 0, &neighborsList, nbNeighbors);
+			std::vector<int> * neighborList = new std::vector<int>();
+
+			Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborsList);
 
 			neighborTable[tmpIndex].pointID = tmpIndex;
 			neighborTable[tmpIndex].indexmin = 0;
-			neighborTable[tmpIndex].indexmax = (*nbNeighbors) - 1;
-			neighborTable[tmpIndex].dataPtr = new int[(*nbNeighbors)];
+			neighborTable[tmpIndex].indexmax = neighborList->size();
+			neighborTable[tmpIndex].dataPtr = neighborList->data();
 
-			unsigned int size = neighborsList.size();
-			for(unsigned int j = 0; j < size; ++j)
-			{
-				neighborTable[tmpIndex].dataPtr[j] = neighborsList.front();
-				neighborsList.pop_front();
-			}
-
-			results[tid] += (*nbNeighbors);
+			results[tid] += neighborList->size();
 
 			#pragma omp critical
 			{
 				localSortByWLDone = (*isSortByWLDone);
 			}
 		}
-		delete nbNeighbors;
 	}
 
 	double tEnd = omp_get_wtime();
@@ -273,7 +274,11 @@ uint64_t Util::multiThreadJoinPreQueue(
 		// nbQueriesTotal += nbQueries[i];
 	}
 
-	(*nbPointsComputedReturn) = nbPointsComputed;
+	#pragma omp critical
+	{
+		(*nbPointsComputedReturn) = nbPointsComputed;
+		(*cpuState) = CPU_State::doneComputing;
+	}
 
 	printf("[EGO pre-Q | RESULT] ~ Query points computed by Super-EGO while sorting by workload was running: %d\n", nbQueriesTotal);
 	printf("[EGO pre-Q | RESULT] ~ Compute time for Super-EGO while sorting by workload was running: %f\n", tEnd - tStart);
