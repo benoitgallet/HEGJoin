@@ -253,7 +253,7 @@ int main(int argc, char * argv[])
         printf("[RESULT] ~ The GPU ended before the CPU, with a difference of: %f\n", egoTime - gpuTime);
     }
 
-    printNeighborTable(neighborTable, 25);
+    // printNeighborTable(neighborTable, 25);
 
     NDdataPoints.clear();
     NDdataPoints.shrink_to_fit();
