@@ -158,6 +158,8 @@ int main(int argc, char * argv[])
     unsigned int nbQueriesPreComputed = 0;
     CPU_State cpuState = CPU_State::preparing;
 
+    unsigned int * egoMapping = new unsigned int[DBSIZE];
+
     double sortTime, preEgoFullTime, preEgoComputeTime, parallelSection;
     double gpuTime, egoTime, egoReorder, egoSort;
 
@@ -199,18 +201,17 @@ int main(int argc, char * argv[])
                 egoSort = tEndEGOSort - tStartEGOSort;
                 printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
 
-                unsigned int * egoMapping = new unsigned int[DBSIZE];
                 for(int i = 0; i < DBSIZE; ++i)
                 {
                     pPoint p = &A[i];
                     egoMapping[p->id] = i;
                 }
 
-                (*cpuState) = CPU_State::donePreparing;
+                cpuState = CPU_State::donePreparing;
 
                 double tStartPreCompute = omp_get_wtime();
                 totalNeighborsPreCPU = Util::multiThreadJoinPreQueue(A, A_sz, B, B_sz, egoMapping, index, indexLookupArr, gridCellLookupArr,
-                        &nNonEmptyCells, &doneSortingByWL, 7nbQueriesPreComputed, &cpuState, neighborTable);
+                        &nNonEmptyCells, &doneSortingByWL, &nbQueriesPreComputed, &cpuState, neighborTable);
                 double tEndPreCompute = omp_get_wtime();
                 preEgoComputeTime = tEndPreCompute - tStartPreCompute;
                 preEgoFullTime = tEndPreCompute - tStartFull;
@@ -231,7 +232,7 @@ int main(int argc, char * argv[])
     omp_set_nested(1);
 	omp_set_dynamic(0);
 
-    unsigned int newDBDISZE = DBSIZE - nbQueriesPreComputed;
+    unsigned int newDBSIZE = DBSIZE - nbQueriesPreComputed;
 
     double tStart = omp_get_wtime();
     #pragma omp parallel num_threads(2)
@@ -243,7 +244,7 @@ int main(int argc, char * argv[])
             if(searchMode != SM_CPU)
             {
                 double tBeginGPU = omp_get_wtime();
-                distanceTableNDGridBatches(searchMode, &newDBDISZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
+                distanceTableNDGridBatches(searchMode, &newDBSIZE, &epsilon, dev_epsilon, database, dev_database, index, dev_index,
                         indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr, minArr, dev_minArr, nCells, dev_nCells,
                         &nNonEmptyCells, dev_nNonEmptyCells, originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors,
                         &totalNeighbors);
