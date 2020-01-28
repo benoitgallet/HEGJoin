@@ -7,7 +7,7 @@
 #include <cstdint>
 
 
-enum Class CPU_State {preparing, donePreparing, computing, doneComputing};
+enum class CPU_State {preparing, donePreparing, computing, doneComputing};
 
 
 struct key_val_sort
