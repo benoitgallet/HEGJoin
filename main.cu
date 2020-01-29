@@ -40,6 +40,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 
 int main(int argc, char * argv[])
 {
+    std::locale::global(std::locale(""));
 
     printf("\n\n========== Hybrid-EGO ==========\n\n");
 
