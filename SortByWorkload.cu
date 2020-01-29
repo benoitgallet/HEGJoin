@@ -52,9 +52,6 @@ void sortByWorkLoad(
     cudaEventCreate(&startKernel);
     cudaEventCreate(&endKernel);
 
-    // Memory allocations needed by the GPU
-    // double tStartAllocGPU = omp_get_wtime();
-
     errCode = cudaMalloc((void**)&dev_sortedDatabaseTmp, sizeof(struct schedulingCell) * (*nNonEmptyCells));
     if(errCode != cudaSuccess)
     {
@@ -62,20 +59,6 @@ void sortByWorkLoad(
         cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
         cout.flush();
     }
-
-    errCode = cudaMalloc((void**)dev_originPointIndex, (*DBSIZE) * sizeof(unsigned int));
-    if(errCode != cudaSuccess)
-    {
-        cout << "[SORT] ~ Error: Alloc point index -- error with code " << errCode << '\n';
-        cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
-        cout.flush();
-    }
-
-    // double tEndAllocGPU = omp_get_wtime();
-    // cout << "[SORT] ~ Time to allocate on the GPU: " << tEndAllocGPU - tStartAllocGPU << '\n';
-    // cout.flush();
-
-
 
     // Beginning of the sorting section
     int nbBlock = ((*nNonEmptyCells) / BLOCKSIZE) + 1;
@@ -177,7 +160,15 @@ void sortByWorkLoad(
     setMaxNeighbors(maxNeighbor);
     setWorkQueueReady();
 
-    errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), (*DBSIZE) * sizeof(unsigned int), cudaMemcpyHostToDevice);
+    errCode = cudaMalloc((void**)dev_originPointIndex, ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int));
+    if(errCode != cudaSuccess)
+    {
+        cout << "[SORT] ~ Error: Alloc point index -- error with code " << errCode << '\n';
+        cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
+        cout.flush();
+    }
+
+    errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int), cudaMemcpyHostToDevice);
     if(errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: point index copy -- error with code " << errCode << '\n';

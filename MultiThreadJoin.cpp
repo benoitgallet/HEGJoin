@@ -59,7 +59,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				unsigned int indexmaxPrec = 0;
 				// std::vector<int> * resultVector = new std::vector<int>(__max(getMaxNeighbors() / (cpuBatch.first + 1), CPU_BATCH_SIZE));
 				std::vector<int> * resultVector = new std::vector<int>();
-				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
 					unsigned int index = egoMapping[ originPointIndex[i] ];
@@ -82,7 +82,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					indexmaxPrec = resultVector->size();
 				}
 
-				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int tmpIndex = originPointIndex[i];
 					neighborTable[tmpIndex].dataPtr = resultVector->data();
@@ -119,7 +119,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				unsigned int indexmaxPrec = 0;
 				// std::vector<int> * resultVector = new std::vector<int>(__max(getMaxNeighbors() / (cpuBatch.first + 1), CPU_BATCH_SIZE));
 				std::vector<int> * resultVector = new std::vector<int>();
-				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
 					unsigned int index = egoMapping[ originPointIndex[i] ];
@@ -142,7 +142,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					indexmaxPrec = resultVector->size();
 				}
 
-				for(unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
+				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int tmpIndex = originPointIndex[i];
 					neighborTable[tmpIndex].dataPtr = resultVector->data();
@@ -172,14 +172,6 @@ uint64_t Util::multiThreadJoinWorkQueue(
 		nbQueriesTotal += nbQueries[i];
 	}
 
-	// for(int i = 0; i < CPU_THREADS; i++)
-	// {
-	// 	for(int j = 0; j < resultVector[i].size(); j += 2)
-	// 	{
-	// 		printf("[EGO] ~ Query %d, neighbor %d\n", resultVector[i][j], resultVector[i][j + 1]);
-	// 	}
-	// }
-
 	printf("[EGO | RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);
 	printf("[EGO | RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
 
@@ -208,7 +200,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
-	for(unsigned int i = 0; i < CPU_THREADS; ++i)
+	for(int i = 0; i < CPU_THREADS; ++i)
 	{
 		results[i] = 0;
 		nbQueries[i] = 0;
@@ -219,6 +211,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 		if(!isSortByWLDone)
 		{
 			(*cpuState) = CPU_State::computing;
+			printf("[EGO pre-Q] ~ Starting computation\n");
 		}
 	}
 
@@ -268,7 +261,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 	uint64_t resultTotal = 0;
 	// unsigned int nbQueriesTotal = 0;
 	unsigned int nbQueriesTotal = nbPointsComputed;
-	for(unsigned int i = 0; i < CPU_THREADS; ++i)
+	for(int i = 0; i < CPU_THREADS; ++i)
 	{
 		resultTotal += results[i];
 		// nbQueriesTotal += nbQueries[i];
