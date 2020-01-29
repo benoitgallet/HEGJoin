@@ -45,8 +45,8 @@ int main(int argc, char * argv[])
 
     if(NB_ARGS != argc)
     {
-        printf("Expected %d args, found %d\n", NB_ARGS, argc);
-        printf("Args: filename epsilon dim searchmode\n");
+        printf("[MAIN] ~ Expected %d args, found %d\n", NB_ARGS, argc);
+        printf("[MAIN] ~ Args: filename epsilon dim searchmode\n");
         return 1;
     }
 
@@ -60,20 +60,20 @@ int main(int argc, char * argv[])
 
     if(GPUNUMDIM != dim)
     {
-        printf("Error: dim should be equals to GPUNUMDIM (params.h)\n");
+        printf("[MAIN] ~ Error: dim should be equals to GPUNUMDIM (params.h)\n");
         return 1;
     }
 
     if(epsilon <= 0.0 || 1.0 < epsilon)
     {
-        printf("Error: epsilon should be between ]0, 1]\n");
+        printf("[MAIN] ~ Error: epsilon should be between ]0, 1]\n");
         return 1;
     }
 
-    printf("Dataset: %s\n", filename);
-    printf("Epsilon: %f\n", epsilon);
-    printf("Dimensionality: %d\n", dim);
-    printf("Search mode: %d\n", searchMode);
+    printf("[MAIN] ~ Dataset: %s\n", filename);
+    printf("[MAIN] ~ Epsilon: %f\n", epsilon);
+    printf("[MAIN] ~ Dimensionality: %d\n", dim);
+    printf("[MAIN] ~ Search mode: %d\n", searchMode);
 
     Util::eps = epsilon;
     Util::eps2 = epsilon * epsilon;
@@ -82,7 +82,7 @@ int main(int argc, char * argv[])
     double tBeginReadDataset = omp_get_wtime();
     importNDDataset(&NDdataPoints, filename);
     double tEndReadDataset = omp_get_wtime();
-    printf("Time to read the dataset: %f\n", tEndReadDataset - tBeginReadDataset);
+    printf("[MAIN] ~ Time to read the dataset: %f\n", tEndReadDataset - tBeginReadDataset);
 
     unsigned int DBSIZE = NDdataPoints.size();
     // setQueueIndexCPU(DBSIZE);
@@ -93,7 +93,7 @@ int main(int argc, char * argv[])
     Point * B;
     if(SM_GPU != searchMode)
     {
-        printf("Converting the dataset for Super-EGO\n");
+        printf("[MAIN] ~ Converting the dataset for Super-EGO\n");
         A = new Point[DBSIZE + 1];
         for(int i = 0; i < DBSIZE; ++i)
         {
@@ -124,7 +124,7 @@ int main(int argc, char * argv[])
     unsigned int nNonEmptyCells = 0;
 
     generateNDGridDimensions(&NDdataPoints, epsilon, minArr, maxArr, nCells, &totalCells);
-    printf("[GPU] ~ Total cells (including empty): %lu\n", totalCells);
+    printf("[MAIN] ~ Total cells (including empty): %lu\n", totalCells);
 
     struct grid * index;
     struct gridCellLookup * gridCellLookupArr;
@@ -244,6 +244,7 @@ int main(int argc, char * argv[])
 	omp_set_dynamic(0);
 
     unsigned int newDBSIZE = DBSIZE - nbQueriesPreComputed;
+    cout << "[MAIN] ~ New DBSIZE (considering pre-computation): " << newDBSIZE << '\n';
 
     setQueueIndexCPU(newDBSIZE);
 
