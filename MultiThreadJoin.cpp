@@ -208,7 +208,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 	#pragma omp critical
 	{
-		if(!isSortByWLDone)
+		if(!(*isSortByWLDone))
 		{
 			(*cpuState) = CPU_State::computing;
 			printf("[EGO pre-Q] ~ Starting computation\n");
