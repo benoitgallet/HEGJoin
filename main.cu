@@ -278,6 +278,32 @@ int main(int argc, char * argv[])
                 unsigned int A_sz = newDBSIZE;
                 unsigned int B_sz = newDBSIZE;
 
+                // If searchmode == SM_HYBRID, then all of this is built at the same time than SortByWL
+                if(searchMode == SM_CPU)
+                {
+                    printf("[EGO] ~ Reordering the dimensions\n");
+                    double tStartReorder = omp_get_wtime();
+                    Util::reorderDim(A, A_sz, B, B_sz);
+                    double tEndReorder = omp_get_wtime();
+                    egoReorder = tEndReorder - tStartReorder;
+                    printf("[EGO] ~ Done reordering in %f\n", egoReorder);
+
+                    printf("[EGO] ~ EGO-sorting of A\n");
+                    double tStartEGOSort = omp_get_wtime();
+                    // std::stable_sort(A, A + A_sz, egoSortFunction);
+                    boost::sort::sample_sort(A, A + A_sz, egoSortFunction, CPU_THREADS);
+                    // __gnu_parallel::stable_sort(A, A + A_sz, egoSortFunction);
+                    double tEndEGOSort = omp_get_wtime();
+                    egoSort = tEndEGOSort - tStartEGOSort;
+                    printf("[EGO] ~ Done EGO-sorting in %f\n", egoSort);
+                }
+
+                for(int i = 0; i < DBSIZE; ++i)
+                {
+                    pPoint p = &A[i];
+                    egoMapping[p->id] = i;
+                }
+
                 double tBeginEgo = omp_get_wtime();
 
                 printf("[EGO] ~ Beginning the computation\n");
