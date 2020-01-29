@@ -1214,168 +1214,168 @@ __global__ void kernelNDGridIndexGlobal(
 
 // Global memory kernel - Unicomp version ("Unicomp")
 // TODO modify to use the new index
-__global__ void kernelNDGridIndexGlobalUnicomp(
-		unsigned int * batchBegin,
-		unsigned int * N,
-		unsigned int * offset,
-		unsigned int * batchNum,
-		DTYPE * database,
-		DTYPE * sortedCells,
-		unsigned int * originPointIndex,
-		DTYPE * epsilon,
-		struct grid * index,
-		unsigned int * indexLookupArr,
-		struct gridCellLookup * gridCellLookupArr,
-		DTYPE * minArr,
-		unsigned int * nCells,
-		unsigned int * cnt,
-		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
-		int * pointIDKey,
-		int * pointInDistVal)
-{
-
-	unsigned int tid = (blockIdx.x * BLOCKSIZE + threadIdx.x);
-
-	if (*N <= tid)
-	{
-		return;
-	}
-
-	unsigned int pointId = atomicAdd(batchBegin, int(1));
-
-	//make a local copy of the point
-	DTYPE point[GPUNUMDIM];
-	for (int i = 0; i < GPUNUMDIM; i++)
-	{
-		point[i] = sortedCells[pointId * GPUNUMDIM + i];
-	}
-
-	//calculate the coords of the Cell for the point
-	//and the min/max ranges in each dimension
-	unsigned int nDCellIDs[NUMINDEXEDDIM];
-	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
-	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
-
-	for (int i = 0; i < NUMINDEXEDDIM; i++)
-	{
-		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells
-	}
-
-	///////////////////////////////////////
-	//End taking intersection
-	//////////////////////////////////////
-
-    unsigned int indexes[NUMINDEXEDDIM];
-    unsigned int loopRng[NUMINDEXEDDIM];
-
-	for(int i = 0; i < NUMINDEXEDDIM; i++)
-	{
-		indexes[i] = nDCellIDs[i];
-	}
-
-	evaluateCell(nCells, indexes, gridCellLookupArr, nNonEmptyCells, database, epsilon,
-			index, indexLookupArr, point, cnt, pointIDKey, pointInDistVal, originPointIndex[pointId], false, nDCellIDs);
-	#include "unicompWorkQueue.h"
-
-}
-
-
-
-
-
-// Global memory kernel - Linear ID comparison (Need to find a name : L-Unicomp ? Lin-Unicomp ? LId-Unicomp ?)
-// TODO modify to use the new index
-__global__ void kernelNDGridIndexGlobalLinearIDUnicomp(
-		unsigned int * batchBegin,
-		unsigned int * N,
-		unsigned int * offset,
-		unsigned int * batchNum,
-		DTYPE * database,
-		DTYPE * sortedCells,
-		unsigned int * originPointIndex,
-		DTYPE * epsilon,
-		struct grid * index,
-		unsigned int * indexLookupArr,
-		struct gridCellLookup * gridCellLookupArr,
-		DTYPE * minArr,
-		unsigned int * nCells,
-		unsigned int * cnt,
-		unsigned int * nNonEmptyCells,
-		unsigned int * gridCellNDMask,
-		unsigned int * gridCellNDMaskOffsets,
-		int * pointIDKey,
-		int * pointInDistVal)
-{
-
-	unsigned int tid = (blockIdx.x * BLOCKSIZE + threadIdx.x);
-
-	if (*N <= tid)
-	{
-		return;
-	}
-
-	unsigned int pointId = atomicAdd(batchBegin, int(1));
-
-	//make a local copy of the point
-	DTYPE point[GPUNUMDIM];
-	for (int i = 0; i < GPUNUMDIM; i++)
-	{
-		point[i] = sortedCells[pointId * GPUNUMDIM + i];
-	}
-
-	//calculate the coords of the Cell for the point
-	//and the min/max ranges in each dimension
-	unsigned int nDCellIDs[NUMINDEXEDDIM];
-	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
-	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
-
-	for (int i = 0; i < NUMINDEXEDDIM; i++)
-	{
-		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
-		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
-		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
-	}
-
-	///////////////////////////////////////
-	//End taking intersection
-	//////////////////////////////////////
-
-	unsigned int indexes[NUMINDEXEDDIM];
-	unsigned int loopRng[NUMINDEXEDDIM];
-
-	uint64_t cellID = getLinearID_nDimensionsGPU(nDCellIDs, nCells, NUMINDEXEDDIM);
-	for(int i = 0; i < NUMINDEXEDDIM; i++) {
-		indexes[i] = nDCellIDs[i];
-	}
-
-	evaluateCellUnicompOrigin(nCells, indexes, gridCellLookupArr, nNonEmptyCells, database, epsilon, index, indexLookupArr,
-			point, cnt, pointIDKey, pointInDistVal, originPointIndex[pointId], nDCellIDs, 1, 0);
-
-	// cuts a third of the iterations, that are not necessary, in 2D
-	// rangeFilteredCellIdsMin[NUMINDEXEDDIM - 1] = max(rangeFilteredCellIdsMin[NUMINDEXEDDIM - 1],
-	// 													nDCellIDs[NUMINDEXEDDIM - 1]);
-
-	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
-		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
-		#include "kernelloops.h"
-		{ //beginning of loop body
-
-			for (int x = 0; x < NUMINDEXEDDIM; x++)
-			{
-				indexes[x] = loopRng[x];
-			}
-
-			uint64_t neighborID = getLinearID_nDimensionsGPU(indexes, nCells, NUMINDEXEDDIM);
-			if(cellID < neighborID)
-			{
-				evaluateCellUnicompAdjacent(nCells, indexes, gridCellLookupArr, nNonEmptyCells, database, epsilon, index, indexLookupArr,
-						point, cnt, pointIDKey, pointInDistVal, originPointIndex[pointId], nDCellIDs, 1, 0);
-			}
-
-		} //end loop body
-
-}
+// __global__ void kernelNDGridIndexGlobalUnicomp(
+// 		unsigned int * batchBegin,
+// 		unsigned int * N,
+// 		unsigned int * offset,
+// 		unsigned int * batchNum,
+// 		DTYPE * database,
+// 		DTYPE * sortedCells,
+// 		unsigned int * originPointIndex,
+// 		DTYPE * epsilon,
+// 		struct grid * index,
+// 		unsigned int * indexLookupArr,
+// 		struct gridCellLookup * gridCellLookupArr,
+// 		DTYPE * minArr,
+// 		unsigned int * nCells,
+// 		unsigned int * cnt,
+// 		unsigned int * nNonEmptyCells,
+// 		unsigned int * gridCellNDMask,
+// 		unsigned int * gridCellNDMaskOffsets,
+// 		int * pointIDKey,
+// 		int * pointInDistVal)
+// {
+//
+// 	unsigned int tid = (blockIdx.x * BLOCKSIZE + threadIdx.x);
+//
+// 	if (*N <= tid)
+// 	{
+// 		return;
+// 	}
+//
+// 	unsigned int pointId = atomicAdd(batchBegin, int(1));
+//
+// 	//make a local copy of the point
+// 	DTYPE point[GPUNUMDIM];
+// 	for (int i = 0; i < GPUNUMDIM; i++)
+// 	{
+// 		point[i] = sortedCells[pointId * GPUNUMDIM + i];
+// 	}
+//
+// 	//calculate the coords of the Cell for the point
+// 	//and the min/max ranges in each dimension
+// 	unsigned int nDCellIDs[NUMINDEXEDDIM];
+// 	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+// 	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
+//
+// 	for (int i = 0; i < NUMINDEXEDDIM; i++)
+// 	{
+// 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
+// 		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+// 		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells
+// 	}
+//
+// 	///////////////////////////////////////
+// 	//End taking intersection
+// 	//////////////////////////////////////
+//
+//     unsigned int indexes[NUMINDEXEDDIM];
+//     unsigned int loopRng[NUMINDEXEDDIM];
+//
+// 	for(int i = 0; i < NUMINDEXEDDIM; i++)
+// 	{
+// 		indexes[i] = nDCellIDs[i];
+// 	}
+//
+// 	evaluateCell(nCells, indexes, gridCellLookupArr, nNonEmptyCells, database, epsilon,
+// 			index, indexLookupArr, point, cnt, pointIDKey, pointInDistVal, originPointIndex[pointId], false, nDCellIDs);
+// 	#include "unicompWorkQueue.h"
+//
+// }
+//
+//
+//
+//
+//
+// // Global memory kernel - Linear ID comparison (Need to find a name : L-Unicomp ? Lin-Unicomp ? LId-Unicomp ?)
+// // TODO modify to use the new index
+// __global__ void kernelNDGridIndexGlobalLinearIDUnicomp(
+// 		unsigned int * batchBegin,
+// 		unsigned int * N,
+// 		unsigned int * offset,
+// 		unsigned int * batchNum,
+// 		DTYPE * database,
+// 		DTYPE * sortedCells,
+// 		unsigned int * originPointIndex,
+// 		DTYPE * epsilon,
+// 		struct grid * index,
+// 		unsigned int * indexLookupArr,
+// 		struct gridCellLookup * gridCellLookupArr,
+// 		DTYPE * minArr,
+// 		unsigned int * nCells,
+// 		unsigned int * cnt,
+// 		unsigned int * nNonEmptyCells,
+// 		unsigned int * gridCellNDMask,
+// 		unsigned int * gridCellNDMaskOffsets,
+// 		int * pointIDKey,
+// 		int * pointInDistVal)
+// {
+//
+// 	unsigned int tid = (blockIdx.x * BLOCKSIZE + threadIdx.x);
+//
+// 	if (*N <= tid)
+// 	{
+// 		return;
+// 	}
+//
+// 	unsigned int pointId = atomicAdd(batchBegin, int(1));
+//
+// 	//make a local copy of the point
+// 	DTYPE point[GPUNUMDIM];
+// 	for (int i = 0; i < GPUNUMDIM; i++)
+// 	{
+// 		point[i] = sortedCells[pointId * GPUNUMDIM + i];
+// 	}
+//
+// 	//calculate the coords of the Cell for the point
+// 	//and the min/max ranges in each dimension
+// 	unsigned int nDCellIDs[NUMINDEXEDDIM];
+// 	unsigned int nDMinCellIDs[NUMINDEXEDDIM];
+// 	unsigned int nDMaxCellIDs[NUMINDEXEDDIM];
+//
+// 	for (int i = 0; i < NUMINDEXEDDIM; i++)
+// 	{
+// 		nDCellIDs[i] = (point[i] - minArr[i]) / (*epsilon);
+// 		nDMinCellIDs[i] = max(0, nDCellIDs[i] - 1); //boundary conditions (don't go beyond cell 0)
+// 		nDMaxCellIDs[i] = min(nCells[i] - 1, nDCellIDs[i] + 1); //boundary conditions (don't go beyond the maximum number of cells)
+// 	}
+//
+// 	///////////////////////////////////////
+// 	//End taking intersection
+// 	//////////////////////////////////////
+//
+// 	unsigned int indexes[NUMINDEXEDDIM];
+// 	unsigned int loopRng[NUMINDEXEDDIM];
+//
+// 	uint64_t cellID = getLinearID_nDimensionsGPU(nDCellIDs, nCells, NUMINDEXEDDIM);
+// 	for(int i = 0; i < NUMINDEXEDDIM; i++) {
+// 		indexes[i] = nDCellIDs[i];
+// 	}
+//
+// 	evaluateCellUnicompOrigin(nCells, indexes, gridCellLookupArr, nNonEmptyCells, database, epsilon, index, indexLookupArr,
+// 			point, cnt, pointIDKey, pointInDistVal, originPointIndex[pointId], nDCellIDs, 1, 0);
+//
+// 	// cuts a third of the iterations, that are not necessary, in 2D
+// 	// rangeFilteredCellIdsMin[NUMINDEXEDDIM - 1] = max(rangeFilteredCellIdsMin[NUMINDEXEDDIM - 1],
+// 	// 													nDCellIDs[NUMINDEXEDDIM - 1]);
+//
+// 	for (loopRng[0] = nDMinCellIDs[0]; loopRng[0] <= nDMaxCellIDs[0]; loopRng[0]++)
+// 		for (loopRng[1] = nDMinCellIDs[1]; loopRng[1] <= nDMaxCellIDs[1]; loopRng[1]++)
+// 		#include "kernelloops.h"
+// 		{ //beginning of loop body
+//
+// 			for (int x = 0; x < NUMINDEXEDDIM; x++)
+// 			{
+// 				indexes[x] = loopRng[x];
+// 			}
+//
+// 			uint64_t neighborID = getLinearID_nDimensionsGPU(indexes, nCells, NUMINDEXEDDIM);
+// 			if(cellID < neighborID)
+// 			{
+// 				evaluateCellUnicompAdjacent(nCells, indexes, gridCellLookupArr, nNonEmptyCells, database, epsilon, index, indexLookupArr,
+// 						point, cnt, pointIDKey, pointInDistVal, originPointIndex[pointId], nDCellIDs, 1, 0);
+// 			}
+//
+// 		} //end loop body
+//
+// }
