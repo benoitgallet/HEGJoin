@@ -554,6 +554,7 @@ unsigned long long GPUBatchEst_v2(
 
     unsigned int nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
     unsigned int * estimatedFull = new unsigned int[(*DBSIZE)];
+    unsigned long long fullEst = 0;
     for(int i = 0; i < nbUnestimatedSequences; ++i)
     {
         unsigned int nbEstBefore = estimatedResult[i];
@@ -563,17 +564,25 @@ unsigned long long GPUBatchEst_v2(
         unsigned int estBefore = i * (*sampleOffset);
         unsigned int estAfter = (i + 1) * (*sampleOffset);
         estimatedFull[estBefore] = nbEstBefore;
+        fullEst += nbEstBefore;
 
         for(int j = estBefore + 1; j < estAfter; ++j)
         {
             estimatedFull[j] = maxEst;
+            fullEst += maxEst;
         }
+    }
+
+    // Not enough work to fill at least 6 batches (2 * GPUSTREAMS)
+    // So we force to have at least 6 batches so all streams can be used, and the CPU as well
+    if(fullEst < (GPUBufferSize * GPUSTREAMS * 2))
+    {
+        GPUBufferSize = fullEst / (GPUSTREAMS * 2);
     }
 
     unsigned int batchBegin = 0;
     unsigned int batchEnd = 0;
     unsigned long long runningEst = 0;
-    unsigned long long fullEst = 0;
     // Keeping 5% of margin to avoid an overflow of the buffer
     unsigned int reserveBuffer = GPUBufferSize * 0.05;
     for(int i = 0; i < (*DBSIZE); ++i)
@@ -1043,7 +1052,13 @@ void distanceTableNDGridBatches(
 
     // sets the batch size for the queue and the queue index, considering the offset reserved for the GPU
     // setQueueIndex(GPUSTREAMS * (*DBSIZE / numBatches));
-    setQueueIndex(batchesVector[GPUSTREAMS].first);
+    if(batchesVector.size() < GPUSTREAMS)
+    {
+        setQueueIndex((*DBSIZE)); // the GPU reserves all the computation
+    }else{
+        setQueueIndex(batchesVector[GPUSTREAMS].first);
+    }
+
 // setQueueIndex(0);
 
 	/////////////////////////////////////////////////////////
