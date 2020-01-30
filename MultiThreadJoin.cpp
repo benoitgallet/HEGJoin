@@ -55,10 +55,9 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			{
 				// printf("[EGO | T_%d] ~ Begin: %d, end: %d\n", tid, cpuBatch.first, cpuBatch.second);
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
-
 				unsigned int indexmaxPrec = 0;
-				// std::vector<int> * resultVector = new std::vector<int>(__max(getMaxNeighbors() / (cpuBatch.first + 1), CPU_BATCH_SIZE));
 				std::vector<int> * resultVector = new std::vector<int>();
+
 				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
