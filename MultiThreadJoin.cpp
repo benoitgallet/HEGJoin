@@ -75,8 +75,10 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					// std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[tmpIndex].dataPtr);
 					// results[tid] += (*nbNeighbors);
 
-					unsigned int tmpIndex = originPointIndex[i];
-					neighborTable[tmpIndex].pointID = tmpIndex;
+					pPoint tmpPoint = &B[index];
+
+					// unsigned int tmpIndex = originPointIndex[i];
+					neighborTable[tmpPoint->id].pointID = tmpPoint->id;
 					neighborTable[tmpIndex].indexmin = indexmaxPrec;
 					neighborTable[tmpIndex].indexmax = resultVector->size();
 					indexmaxPrec = resultVector->size();
@@ -84,11 +86,13 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
-					unsigned int tmpIndex = originPointIndex[i];
-					neighborTable[tmpIndex].dataPtr = resultVector->data();
+					unsigned int index = egoMapping[ originPointIndex[i] ];
+					pPoint tmpPoint = &B[index];
+					neighborTable[tmpPoint->id].dataPtr = resultVector->data();
 				}
-				results[tid] += resultVector->size();
+
 				resultVector->shrink_to_fit();
+				results[tid] += resultVector->size();
 
 				cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
@@ -248,6 +252,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 			neighborTable[localNbPointsComputed].indexmax = neighborList->size();
 			neighborTable[localNbPointsComputed].dataPtr = neighborList->data();
 
+			neighborList->shrink_to_fit();
 			results[tid] += neighborList->size();
 
 			#pragma omp critical
