@@ -210,8 +210,8 @@ int main(int argc, char * argv[])
                 cpuState = CPU_State::donePreparing;
 
                 double tStartPreCompute = omp_get_wtime();
-                // totalNeighborsPreCPU = Util::multiThreadJoinPreQueue(A, A_sz, B, B_sz, egoMapping, index, indexLookupArr, gridCellLookupArr,
-                //         &nNonEmptyCells, &doneSortingByWL, &nbQueriesPreComputed, &cpuState, neighborTable);
+                totalNeighborsPreCPU = Util::multiThreadJoinPreQueue(A, A_sz, B, B_sz, egoMapping, index, indexLookupArr, gridCellLookupArr,
+                        &nNonEmptyCells, &doneSortingByWL, &nbQueriesPreComputed, &cpuState, neighborTable);
                 double tEndPreCompute = omp_get_wtime();
                 preEgoComputeTime = tEndPreCompute - tStartPreCompute;
                 preEgoFullTime = tEndPreCompute - tStartFull;
