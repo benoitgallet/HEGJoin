@@ -137,6 +137,7 @@ void sortByWorkLoad(
     {
         int cellId = sortedDatabaseTmp[i].cellId;
         int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
+        int nbPointsSkipped = 0;
 
         accNeighbor += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
 
@@ -147,11 +148,11 @@ void sortByWorkLoad(
             {
                 (*originPointIndex)[prec + j] = tmpId;
             }
-            // else{
-            //     nbNeighbor--;
-            // }
+            else{
+                nbPointsSkipped++;
+            }
         }
-        prec += nbNeighbor;
+        prec += (nbNeighbor - nbPointsSkipped);
     }
 
     // Setting some stuff for the CPU so it can begin immediately
