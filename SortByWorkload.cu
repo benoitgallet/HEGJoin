@@ -129,6 +129,7 @@ void sortByWorkLoad(
         {
             nbQueriesPreComputed = 0;
             cpuComputing = false;
+        }
     }
 
     while(cpuComputing)
