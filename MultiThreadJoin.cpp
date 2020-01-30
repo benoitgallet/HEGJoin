@@ -238,7 +238,8 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 			// tmpIndex = indexLookupArr[localNbPointsComputed];
 			index = egoMapping[localNbPointsComputed];
-			// printf("nbPoints = %d, index = %d\n", localNbPointsComputed, index);
+			pPoint tmpPoint = &B[index];
+			printf("nbPointsComputed = %d, index = %d, point id = %d\n", localNbPointsComputed, index, tmpPoint->id);
 
 			std::vector<int> * neighborList = new std::vector<int>();
 
