@@ -21,8 +21,8 @@
 #define MINLEN 32
 
 // Cell-access patterns (avoid double distance calculations)
-#define UNICOMP 0
-#define LID_UNICOMP 0
+// #define UNICOMP 0
+// #define LID_UNICOMP 0
 
 // Limits the output produced by the GPU when computing
 // 0 to limit, 1 to output everything

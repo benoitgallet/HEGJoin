@@ -258,6 +258,12 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 	double tEnd = omp_get_wtime();
 
+	#pragma omp critical
+	{
+		(*nbPointsComputedReturn) = nbPointsComputed;
+		(*cpuState) = CPU_State::doneComputing;
+	}
+
 	uint64_t resultTotal = 0;
 	// unsigned int nbQueriesTotal = 0;
 	unsigned int nbQueriesTotal = nbPointsComputed;
@@ -265,12 +271,6 @@ uint64_t Util::multiThreadJoinPreQueue(
 	{
 		resultTotal += results[i];
 		// nbQueriesTotal += nbQueries[i];
-	}
-
-	#pragma omp critical
-	{
-		(*nbPointsComputedReturn) = nbPointsComputed;
-		(*cpuState) = CPU_State::doneComputing;
 	}
 
 	printf("[EGO pre-Q | RESULT] ~ Query points computed by Super-EGO while sorting by workload was running: %d\n", nbQueriesTotal);
