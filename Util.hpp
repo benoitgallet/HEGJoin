@@ -72,17 +72,14 @@ public:
 	// static void egoJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, pThreadParam param);
 	static void egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result);
     // static void egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * result, unsigned int * nbNeighbors);
-    static void egoJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<unsigned int> * result, unsigned int * nbNeighbors);
 
 	// static void simpleJoin (pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result);
 	static void simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result);
     // static void simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * result, unsigned int * nbNeighbors);
-    static void simpleJoinPreQueue(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<unsigned int> * result, unsigned int * nbNeighbors);
 
     // static void simpleJoin2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result, int i);
 	static void simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result);
     // static void simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * result, unsigned int * nbNeighbors);
-    static void simpleJoinPreQueue2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<unsigned int> * result, unsigned int * nbNeighbors);
 
     static void reorderDim(pPoint A, int A_sz, pPoint B, int B_sz);
 

@@ -83,7 +83,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
-					unsigned int index = egoMapping[ originPointIndex[i] ];
+					unsigned int index = originPointIndex[i];
 					// pPoint tmpPoint = &B[index];
 					neighborTable[index].dataPtr = resultVector->data();
 				}
@@ -148,8 +148,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					unsigned int tmpIndex = originPointIndex[i];
 					neighborTable[tmpIndex].dataPtr = resultVector->data();
 				}
-				results[tid] += resultVector->size();
 				resultVector->shrink_to_fit();
+				results[tid] += resultVector->size();
 
 				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
 			}while(0 != cpuBatch.second);
@@ -238,8 +238,8 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 			// tmpIndex = indexLookupArr[localNbPointsComputed];
 			index = egoMapping[localNbPointsComputed];
-			pPoint tmpPoint = &B[index];
-			printf("nbPointsComputed = %d, index = %d, point id = %d\n", localNbPointsComputed, index, tmpPoint->id);
+			// pPoint tmpPoint = &B[index];
+			// printf("nbPointsComputed = %d, index = %d, point id = %d\n", localNbPointsComputed, index, tmpPoint->id);
 
 			std::vector<int> * neighborList = new std::vector<int>();
 
