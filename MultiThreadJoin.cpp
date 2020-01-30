@@ -79,8 +79,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 					// unsigned int tmpIndex = originPointIndex[i];
 					neighborTable[tmpPoint->id].pointID = tmpPoint->id;
-					neighborTable[tmpIndex].indexmin = indexmaxPrec;
-					neighborTable[tmpIndex].indexmax = resultVector->size();
+					neighborTable[tmpPoint->id].indexmin = indexmaxPrec;
+					neighborTable[tmpPoint->id].indexmax = resultVector->size();
 					indexmaxPrec = resultVector->size();
 				}
 
