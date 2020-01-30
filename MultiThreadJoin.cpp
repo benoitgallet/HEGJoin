@@ -252,12 +252,12 @@ uint64_t Util::multiThreadJoinPreQueue(
 				neighborTable[i].pointID = i;
 				neighborTable[i].indexmin = 0;
 				neighborTable[i].indexmax = neighborList->size();
-				indexmaxPrec = resultVector->size();
+				indexmaxPrec = neighborList->size();
 			}
 
 			for(int i = localNbPointsComputed; i < localNbPointsComputed + CPU_BATCH_SIZE; ++i)
 			{
-				neighborTable[i].dataPtr = resultVector->data();
+				neighborTable[i].dataPtr = neighborList->data();
 			}
 
 			// neighborTable[localNbPointsComputed].dataPtr = neighborList->data();
