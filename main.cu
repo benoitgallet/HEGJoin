@@ -468,7 +468,7 @@ void printNeighborTable(
     {
 	 	// sort to compare against CPU implementation
 	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);
-	 	printf("point id: %d, neighbors: %d\n", i, neighborTable[i].indexmax - neighborTable[i].indexmin + 1);
+	 	printf("point id: %d, neighbors: %d\n", i, neighborTable[i].indexmax - neighborTable[i].indexmin);
 	 	for (int j = neighborTable[i].indexmin; j < neighborTable[i].indexmax - 1; j++)
         {
 	 		printf("%d, ", neighborTable[i].dataPtr[j]);

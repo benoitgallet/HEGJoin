@@ -1552,7 +1552,7 @@ void constructNeighborTableKeyValueWithPtrs(
 		int keyElem = uniqueKeyData[i].key;
 		neighborTable[keyElem].pointID = keyElem;
 		neighborTable[keyElem].indexmin = uniqueKeyData[i].position;
-		neighborTable[keyElem].indexmax = uniqueKeyData[i + 1].position - 1;
+		neighborTable[keyElem].indexmax = uniqueKeyData[i + 1].position;
 
 		//update the pointer to the data array for the values
 		neighborTable[keyElem].dataPtr = pointersToNeighbors;
