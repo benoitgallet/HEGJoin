@@ -242,10 +242,10 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 			Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborList);
 
-			neighborTable[tmpIndex].pointID = tmpIndex;
-			neighborTable[tmpIndex].indexmin = 0;
-			neighborTable[tmpIndex].indexmax = neighborList->size();
-			neighborTable[tmpIndex].dataPtr = neighborList->data();
+			neighborTable[localNbPointsComputed].pointID = localNbPointsComputed;
+			neighborTable[localNbPointsComputed].indexmin = 0;
+			neighborTable[localNbPointsComputed].indexmax = neighborList->size();
+			neighborTable[localNbPointsComputed].dataPtr = neighborList->data();
 
 			results[tid] += neighborList->size();
 

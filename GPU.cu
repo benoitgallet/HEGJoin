@@ -579,7 +579,7 @@ unsigned long long GPUBatchEst_v2(
     if(fullEst < (GPUBufferSize * GPUSTREAMS * 2))
     {
         GPUBufferSize = fullEst / (GPUSTREAMS * 2);
-        cout << "[GPU] ~ Too few batches, reducing GPUBufferSize to " << GPUBufferSize;
+        cout << "[GPU] ~ Too few batches, reducing GPUBufferSize to " << GPUBufferSize << '\n';
     }
 
     unsigned int batchBegin = 0;
