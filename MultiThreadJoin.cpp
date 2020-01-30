@@ -74,20 +74,18 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					// std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[tmpIndex].dataPtr);
 					// results[tid] += (*nbNeighbors);
 
-					pPoint tmpPoint = &B[index];
-
-					// unsigned int tmpIndex = originPointIndex[i];
-					neighborTable[tmpPoint->id].pointID = tmpPoint->id;
-					neighborTable[tmpPoint->id].indexmin = indexmaxPrec;
-					neighborTable[tmpPoint->id].indexmax = resultVector->size();
+					unsigned int tmpIndex = originPointIndex[i];
+					neighborTable[tmpIndex].pointID = tmpIndex;
+					neighborTable[tmpIndex].indexmin = indexmaxPrec;
+					neighborTable[tmpIndex].indexmax = resultVector->size();
 					indexmaxPrec = resultVector->size();
 				}
 
 				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					unsigned int index = egoMapping[ originPointIndex[i] ];
-					pPoint tmpPoint = &B[index];
-					neighborTable[tmpPoint->id].dataPtr = resultVector->data();
+					// pPoint tmpPoint = &B[index];
+					neighborTable[index].dataPtr = resultVector->data();
 				}
 
 				resultVector->shrink_to_fit();

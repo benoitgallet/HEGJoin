@@ -146,9 +146,10 @@ void sortByWorkLoad(
             if(nbQueriesPreComputed < tmpId)
             {
                 (*originPointIndex)[prec + j] = tmpId;
-            }else{
-                nbNeighbor--;
             }
+            // else{
+            //     nbNeighbor--;
+            // }
         }
         prec += nbNeighbor;
     }
