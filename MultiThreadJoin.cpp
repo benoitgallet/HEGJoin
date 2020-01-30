@@ -245,19 +245,21 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 			for(int i = localNbPointsComputed; i < localNbPointsComputed + CPU_BATCH_SIZE; ++i)
 			{
-				index = egoMapping[i];
+				unsigned int tmpIndex = indexLookupArr[i];
+				index = egoMapping[tmpIndex];
 
 				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborList);
 
-				neighborTable[i].pointID = i;
-				neighborTable[i].indexmin = indexmaxPrec;
-				neighborTable[i].indexmax = neighborList->size();
+				neighborTable[tmpIndex].pointID = tmpIndex;
+				neighborTable[tmpIndex].indexmin = indexmaxPrec;
+				neighborTable[tmpIndex].indexmax = neighborList->size();
 				indexmaxPrec = neighborList->size();
 			}
 
 			for(int i = localNbPointsComputed; i < localNbPointsComputed + CPU_BATCH_SIZE; ++i)
 			{
-				neighborTable[i].dataPtr = neighborList->data();
+				unsigned int tmpIndex = indexLookupArr[i];
+				neighborTable[tmpIndex].dataPtr = neighborList->data();
 			}
 
 			// neighborTable[localNbPointsComputed].dataPtr = neighborList->data();
