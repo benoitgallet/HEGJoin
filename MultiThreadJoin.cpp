@@ -233,22 +233,34 @@ uint64_t Util::multiThreadJoinPreQueue(
 			#pragma omp critical
 			{
 				localNbPointsComputed = nbPointsComputed;
-				nbPointsComputed++;
+				nbPointsComputed += CPU_BATCH_SIZE;
 			}
 
 			// tmpIndex = indexLookupArr[localNbPointsComputed];
-			index = egoMapping[localNbPointsComputed];
 			// pPoint tmpPoint = &B[index];
 			// printf("nbPointsComputed = %d, index = %d, point id = %d\n", localNbPointsComputed, index, tmpPoint->id);
 
 			std::vector<int> * neighborList = new std::vector<int>();
+			unsigned int indexmaxPrec = 0;
 
-			Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborList);
+			for(int i = localNbPointsComputed; i < localNbPointsComputed + CPU_BATCH_SIZE; ++i)
+			{
+				index = egoMapping[localNbPointsComputed];
 
-			neighborTable[localNbPointsComputed].pointID = localNbPointsComputed;
-			neighborTable[localNbPointsComputed].indexmin = 0;
-			neighborTable[localNbPointsComputed].indexmax = neighborList->size();
-			neighborTable[localNbPointsComputed].dataPtr = neighborList->data();
+				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborList);
+
+				neighborTable[i].pointID = i;
+				neighborTable[i].indexmin = 0;
+				neighborTable[i].indexmax = neighborList->size();
+				indexmaxPrec = resultVector->size();
+			}
+
+			for(int i = localNbPointsComputed; i < localNbPointsComputed + CPU_BATCH_SIZE; ++i)
+			{
+				neighborTable[i].dataPtr = resultVector->data();
+			}
+
+			// neighborTable[localNbPointsComputed].dataPtr = neighborList->data();
 
 			neighborList->shrink_to_fit();
 			results[tid] += neighborList->size();
