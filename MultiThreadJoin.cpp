@@ -245,7 +245,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 
 			for(int i = localNbPointsComputed; i < localNbPointsComputed + CPU_BATCH_SIZE; ++i)
 			{
-				index = egoMapping[localNbPointsComputed];
+				index = egoMapping[i];
 
 				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborList);
 
