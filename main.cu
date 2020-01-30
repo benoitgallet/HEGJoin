@@ -349,7 +349,7 @@ int main(int argc, char * argv[])
         printf("[RESULT] ~ The CPU ended before the GPU, with a difference of: %f\n", tEndGPU - tEndEgo);
     }
 
-    printNeighborTable(neighborTable, 10);
+    printNeighborTable(neighborTable, 6907698, 6907699);
 
     NDdataPoints.clear();
     NDdataPoints.shrink_to_fit();
@@ -460,10 +460,11 @@ void generateNDGridDimensions(
 
 void printNeighborTable(
     struct neighborTableLookup * neighborTable,
-    unsigned int size)
+    unsigned int begin,
+    unsigned int end)
 {
     printf("\n");
-    for (int i = 0; i < size; ++i)
+    for (int i = begin; i < end; ++i)
     {
 	 	// sort to compare against CPU implementation
 	 	std::sort(neighborTable[i].dataPtr + neighborTable[i].indexmin, neighborTable[i].dataPtr + neighborTable[i].indexmax + 1);

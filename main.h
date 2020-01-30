@@ -42,7 +42,8 @@ uint64_t getLinearID_nDimensions(
 
 void printNeighborTable(
     struct neighborTableLookup * neighborTable,
-    unsigned int size);
+    unsigned int begin,
+    unsigned int end);
 
 
 
