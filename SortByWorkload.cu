@@ -122,11 +122,26 @@ void sortByWorkLoad(
     // unsigned int * nbNeighborPoints = new unsigned int[(*DBSIZE)];
 
     unsigned int nbQueriesPreComputed;
-    if((*cpuState) < CPU_State::computing)
+    bool cpuComputing = true;
+    #pragma omp critical
     {
-        nbQueriesPreComputed = 0;
-    }else{
-        while((*cpuState) != CPU_State::doneComputing){}
+        if((*cpuState) < CPU_State::computing)
+        {
+            nbQueriesPreComputed = 0;
+            cpuComputing = false;
+    }
+
+    while(cpuComputing)
+    {
+        #pragma omp critical
+        {
+            cpuComputing = (CPU_State::computing == (*cpuState));
+        }
+    }
+
+        // while((*cpuState) != CPU_State::doneComputing){}
+    #pragma omp critical
+    {
         nbQueriesPreComputed = (*nbPointsPreComputed);
     }
 
