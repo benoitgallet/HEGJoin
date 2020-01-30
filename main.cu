@@ -349,7 +349,7 @@ int main(int argc, char * argv[])
         printf("[RESULT] ~ The CPU ended before the GPU, with a difference of: %f\n", tEndGPU - tEndEgo);
     }
 
-    // printNeighborTable(neighborTable, 6907698, 6907699);
+    printNeighborTable(neighborTable, 0, 20);
 
     NDdataPoints.clear();
     NDdataPoints.shrink_to_fit();
