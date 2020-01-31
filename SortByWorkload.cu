@@ -96,10 +96,10 @@ void sortByWorkLoad(
         cout.flush();
     }
 
-    #pragma omp critical
-    {
-        (*isSortByWLDone) = true;
-    }
+    // #pragma omp critical
+    // {
+    //     (*isSortByWLDone) = true;
+    // }
 
     cudaEventSynchronize(endKernel);
     float timeKernel = 0;
@@ -154,7 +154,7 @@ void sortByWorkLoad(
     {
         int cellId = sortedDatabaseTmp[i].cellId;
         int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
-        int nbPointsSkipped = 0;
+        // int nbPointsSkipped = 0;
 
         accNeighbor += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
 
@@ -181,7 +181,8 @@ void sortByWorkLoad(
     setMaxNeighbors(maxNeighbor);
     setWorkQueueReady();
 
-    errCode = cudaMalloc((void**)dev_originPointIndex, ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int));
+    // errCode = cudaMalloc((void**)dev_originPointIndex, ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int));
+    errCode = cudaMalloc((void**)dev_originPointIndex, (*DBSIZE) * sizeof(unsigned int));
     if(errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: Alloc point index -- error with code " << errCode << '\n';
@@ -189,7 +190,8 @@ void sortByWorkLoad(
         cout.flush();
     }
 
-    errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int), cudaMemcpyHostToDevice);
+    // errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int), cudaMemcpyHostToDevice);
+    errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), (*DBSIZE) * sizeof(unsigned int), cudaMemcpyHostToDevice);
     if(errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: point index copy -- error with code " << errCode << '\n';
