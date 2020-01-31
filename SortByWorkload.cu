@@ -35,10 +35,10 @@ void sortByWorkLoad(
         unsigned int * nNonEmptyCells,
         unsigned int ** dev_nNonEmptyCells,
         unsigned int ** originPointIndex,
-        unsigned int ** dev_originPointIndex,
-        bool * isSortByWLDone,
-        unsigned int * nbPointsPreComputed,
-        CPU_State * cpuState)
+        unsigned int ** dev_originPointIndex)
+        // bool * isSortByWLDone,
+        // unsigned int * nbPointsPreComputed,
+        // CPU_State * cpuState)
 {
 
     double tStartSortingCells = omp_get_wtime();
@@ -121,32 +121,33 @@ void sortByWorkLoad(
 
     // unsigned int * nbNeighborPoints = new unsigned int[(*DBSIZE)];
 
-    unsigned int nbQueriesPreComputed;
-    bool cpuComputing = true;
-    #pragma omp critical
-    {
-        if((*cpuState) < CPU_State::computing)
-        {
-            nbQueriesPreComputed = 0;
-            cpuComputing = false;
-        }
-    }
+    // unsigned int nbQueriesPreComputed;
+    // bool cpuComputing = true;
+    // #pragma omp critical
+    // {
+    //     if((*cpuState) < CPU_State::computing)
+    //     {
+    //         nbQueriesPreComputed = 0;
+    //         cpuComputing = false;
+    //     }
+    // }
+    //
+    // while(cpuComputing)
+    // {
+    //     #pragma omp critical
+    //     {
+    //         cpuComputing = (CPU_State::computing == (*cpuState));
+    //     }
+    // }
+    //
+    //     // while((*cpuState) != CPU_State::doneComputing){}
+    // #pragma omp critical
+    // {
+    //     nbQueriesPreComputed = (*nbPointsPreComputed);
+    // }
 
-    while(cpuComputing)
-    {
-        #pragma omp critical
-        {
-            cpuComputing = (CPU_State::computing == (*cpuState));
-        }
-    }
-
-        // while((*cpuState) != CPU_State::doneComputing){}
-    #pragma omp critical
-    {
-        nbQueriesPreComputed = (*nbPointsPreComputed);
-    }
-
-    (*originPointIndex) = new unsigned int [(*DBSIZE) - nbQueriesPreComputed];
+    // (*originPointIndex) = new unsigned int [(*DBSIZE) - nbQueriesPreComputed];
+    (*originPointIndex) = new unsigned int [(*DBSIZE)];
 
     int prec = 0;
     for(int i = 0; i < (*nNonEmptyCells); ++i)
@@ -160,15 +161,17 @@ void sortByWorkLoad(
         for(int j = 0; j < nbNeighbor; ++j)
         {
             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
-            if(nbQueriesPreComputed < tmpId)
-            {
-                (*originPointIndex)[prec + j] = tmpId;
-            }
-            else{
-                nbPointsSkipped++;
-            }
+            (*originPointIndex)[prec + j] = tmpId;
+            // if(nbQueriesPreComputed < tmpId)
+            // {
+            //     (*originPointIndex)[prec + j] = tmpId;
+            // }
+            // else{
+            //     nbPointsSkipped++;
+            // }
         }
-        prec += (nbNeighbor - nbPointsSkipped);
+        prec += nbNeighbor;
+        // prec += (nbNeighbor - nbPointsSkipped);
     }
 
     // Setting some stuff for the CPU so it can begin immediately

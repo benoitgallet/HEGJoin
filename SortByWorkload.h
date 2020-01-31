@@ -24,9 +24,9 @@ void sortByWorkLoad(
         unsigned int * nNonEmptyCells,
         unsigned int ** dev_nNonEmptyCells,
         unsigned int ** originPointIndex,
-        unsigned int ** dev_originPointIndex,
-        bool * isSortByWLDone,
-        unsigned int * nbPointsPreComputed,
-        CPU_State * cpuState);
+        unsigned int ** dev_originPointIndex);
+        // bool * isSortByWLDone,
+        // unsigned int * nbPointsPreComputed,
+        // CPU_State * cpuState);
 
 #endif
