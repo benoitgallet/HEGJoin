@@ -236,13 +236,13 @@ int main(int argc, char * argv[])
             gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
             &originPointIndex, &dev_originPointIndex);
     double tEndSort = omp_get_wtime();
-    double sortTime = tEndSort - tStartSort;
+    sortTime = tEndSort - tStartSort;
 
     omp_set_nested(1);
 	omp_set_dynamic(0);
 
     // unsigned int newDBSIZE = DBSIZE - nbQueriesPreComputed;
-    cout << "[MAIN] ~ New DBSIZE (considering pre-computation): " << newDBSIZE << '\n';
+    // cout << "[MAIN] ~ New DBSIZE (considering pre-computation): " << newDBSIZE << '\n';
 
     setQueueIndexCPU(newDBSIZE);
 
@@ -321,7 +321,7 @@ int main(int argc, char * argv[])
         #pragma omp barrier
     } // parallel section
     double tEnd = omp_get_wtime();
-    double totalTime = tEnd - tStart;
+    double computeTime = tEnd - tStart;
 
     displayIndexes();
 
@@ -333,7 +333,7 @@ int main(int argc, char * argv[])
     // printf("[RESULT] ~ Total execution time: %f (including %f to sort by workload)\n", (tEnd - tStart) + sortTime, sortTime);
     // printf("   [RESULT] ~ Total execution time for the GPU: %f\n", gpuTime);
     // printf("   [RESULT] ~ Total execution time for the CPU: %f (Reorder: %f, sort: %f)\n", egoTime, egoReorder, egoSort);
-    printf("[RESULT] ~ Total execution time: %f\n", tEnd - tBeforeSort);
+    printf("[RESULT] ~ Total execution time: %f\n", computeTime + sortTime);
     printf("   [RESULT] ~ Total execution time to SortByWL: %f\n", sortTime);
     // printf("   [RESULT] ~ Total pre-compute time: %f (+ reordering: %f and sorting: %f = %f)\n", preEgoComputeTime, egoReorder, egoSort, preEgoFullTime);
     printf("   [RESULT] ~ Total execution time for the GPU: %f\n", gpuTime);
