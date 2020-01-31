@@ -84,7 +84,7 @@ int main(int argc, char * argv[])
     printf("[MAIN] ~ Time to read the dataset: %f\n", tEndReadDataset - tBeginReadDataset);
 
     unsigned int DBSIZE = NDdataPoints.size();
-    // setQueueIndexCPU(DBSIZE);
+    setQueueIndexCPU(DBSIZE);
 
     // sortInNDBins(&NDdataPoints);
 
@@ -244,7 +244,7 @@ int main(int argc, char * argv[])
     // unsigned int newDBSIZE = DBSIZE - nbQueriesPreComputed;
     // cout << "[MAIN] ~ New DBSIZE (considering pre-computation): " << newDBSIZE << '\n';
 
-    setQueueIndexCPU(newDBSIZE);
+    // setQueueIndexCPU(newDBSIZE);
 
     double tStart = omp_get_wtime();
     double tEndGPU, tEndEgo;
