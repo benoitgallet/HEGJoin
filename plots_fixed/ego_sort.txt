@@ -1,0 +1,6 @@
+#cols: dimensionality, qsort, qsort_10m, stable_sort, stable_sort_10m, speedup_2m, speedup_10m
+2, 0.87, 4.01,
+3, 1.03, 5.13,
+4, 1.20, 6.42,
+6, 1.43, 7.71,
+8, 1.54, 8.71, 
