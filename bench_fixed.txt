@@ -37,6 +37,7 @@
    [RESULT] ~ Total execution time for the GPU: 2.198213
    [RESULT] ~ Total execution time for the CPU: 1.199633 (+ reorder/sort: 1.816426)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.368028
+
 ## Epsilon 0.001666667
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1404928
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.229014
@@ -74,6 +75,7 @@
    [RESULT] ~ Total execution time for the GPU: 3.363807
    [RESULT] ~ Total execution time for the CPU: 2.318471 (+ reorder/sort: 2.721956)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.445019
+
 ## Epsilon 0.002500000
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1467499
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.841691
@@ -111,6 +113,7 @@
    [RESULT] ~ Total execution time for the GPU: 4.976032
    [RESULT] ~ Total execution time for the CPU: 4.108572 (+ reorder/sort: 4.623722)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.339937
+
 ## Epsilon 0.003333333
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1480053
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.701712
@@ -148,6 +151,7 @@
    [RESULT] ~ Total execution time for the GPU: 7.104371
    [RESULT] ~ Total execution time for the CPU: 6.582074 (+ reorder/sort: 6.787340)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.306514
+
 ## Epsilon 0.004166667
 [GPU | RESULT] ~ Query points computed by the GPU: 356153
 [GPU | RESULT] ~ Compute time for the GPU: 9.097752
@@ -186,6 +190,7 @@
    [RESULT] ~ Total execution time for the CPU: 10.053015 (+ reorder/sort: 10.139009)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.322098
 
+
 # Super-EGO
 ## Epsilon 0.000833333
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
@@ -218,6 +223,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 1.154229 (+ reorder/sort: 1.240544)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19995632.193869
+
 ## Epsilon 0.001666667
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.791177
@@ -249,6 +255,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 3.241320 (+ reorder/sort: 3.329479)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19995650.443202
+
 ## Epsilon 0.002500000
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.727961
@@ -280,6 +287,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 5.870814 (+ reorder/sort: 5.956748)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19995677.578166
+
 ## Epsilon 0.003333333
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 10.010594
@@ -311,6 +319,7 @@
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 9.994406 (+ reorder/sort: 10.075958)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19995716.810080
+
 ## Epsilon 0.004166667
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 14.010480
@@ -386,6 +395,7 @@
    [RESULT] ~ Total execution time for the GPU: 2.376623
    [RESULT] ~ Total execution time for the CPU: 1.158321 (+ reorder/sort: 1.786123)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.544714
+
 ## Epsilon 0.000555556
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3093504
 [EGO | RESULT] ~ Compute time for Super-EGO: 2.286118
@@ -423,6 +433,7 @@
    [RESULT] ~ Total execution time for the GPU: 3.514181
    [RESULT] ~ Total execution time for the CPU: 2.363712 (+ reorder/sort: 2.993071)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.473868
+
 ## Epsilon 0.000833333
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3664496
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.127655
@@ -451,6 +462,7 @@
 terminate called without an active exception
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3747840
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.146420
+
 ## Epsilon 0.001111111
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3944071
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.277303
@@ -488,6 +500,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 7.755766
    [RESULT] ~ Total execution time for the CPU: 6.670523 (+ reorder/sort: 7.329422)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.390010
+
 ## Epsilon 0.001388889
 [EGO | RESULT] ~ Query points computed by Super-EGO: 4039680
 [EGO | RESULT] ~ Compute time for Super-EGO: 9.180382
@@ -526,6 +539,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the CPU: 9.215821 (+ reorder/sort: 9.771620)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.380921
 
+
 # Super-EGO
 ## Epsilon 0.000277778
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
@@ -558,6 +572,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 2.022511 (+ reorder/sort: 2.220647)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19996001.100861
+
 ## Epsilon 0.000555556
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.196377
@@ -589,6 +604,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 3.940421 (+ reorder/sort: 4.122644)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19996036.699434
+
 ## Epsilon 0.000833333
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.760731
@@ -620,6 +636,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 6.792200 (+ reorder/sort: 6.971112)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19996080.523728
+
 ## Epsilon 0.001111111
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 10.911389
@@ -651,6 +668,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 10.749776 (+ reorder/sort: 10.945841)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19996136.811203
+
 ## Epsilon 0.001388889
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 16.407644
@@ -726,6 +744,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 3.190737
    [RESULT] ~ Total execution time for the CPU: 1.472685 (+ reorder/sort: 2.378290)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.485883
+
 ## Epsilon 0.0008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5615616
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.163174
@@ -763,6 +782,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 5.944080
    [RESULT] ~ Total execution time for the CPU: 4.266310 (+ reorder/sort: 5.260100)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.427315
+
 ## Epsilon 0.0012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 6478848
 [EGO | RESULT] ~ Compute time for Super-EGO: 8.445224
@@ -800,6 +820,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 10.374413
    [RESULT] ~ Total execution time for the CPU: 8.652283 (+ reorder/sort: 9.741807)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.335497
+
 ## Epsilon 0.0016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 7280640
 [EGO | RESULT] ~ Compute time for Super-EGO: 13.461121
@@ -837,6 +858,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 14.868351
    [RESULT] ~ Total execution time for the CPU: 13.190473 (+ reorder/sort: 14.224315)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.395006
+
 ## Epsilon 0.0020
 [EGO | RESULT] ~ Query points computed by Super-EGO: 7530496
 [EGO | RESULT] ~ Compute time for Super-EGO: 20.646092
@@ -875,6 +897,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the CPU: 20.146058 (+ reorder/sort: 21.216068)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.542938
 
+
 # Super-EGO
 ## Epsilon 0.0004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 15228633
@@ -907,6 +930,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 5.275812 (+ reorder/sort: 5.984219)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19996789.675681
+
 ## Epsilon 0.0008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 15228633
 [EGO | RESULT] ~ Compute time for Super-EGO: 11.734590
@@ -938,6 +962,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 12.077922 (+ reorder/sort: 12.728261)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19996892.851609
+
 ## Epsilon 0.0012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 15228633
 [EGO | RESULT] ~ Compute time for Super-EGO: 20.658559
@@ -969,6 +994,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 20.186937 (+ reorder/sort: 20.844493)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19997024.617769
+
 ## Epsilon 0.0016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 15228633
 [EGO | RESULT] ~ Compute time for Super-EGO: 34.844422
@@ -1000,6 +1026,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 34.159775 (+ reorder/sort: 34.773506)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19997197.258402
+
 ## Epsilon 0.0020
 [EGO | RESULT] ~ Query points computed by Super-EGO: 15228633
 [EGO | RESULT] ~ Compute time for Super-EGO: 47.118236
@@ -1075,6 +1102,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 2.413190
    [RESULT] ~ Total execution time for the CPU: 1.316114 (+ reorder/sort: 1.884228)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.503933
+
 ## Epsilon 0.0008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1373184
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.474020
@@ -1112,6 +1140,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 4.380275
    [RESULT] ~ Total execution time for the CPU: 3.509937 (+ reorder/sort: 4.022394)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.333635
+
 ## Epsilon 0.0012
 [GPU | RESULT] ~ Query points computed by the GPU: 585856
 [GPU | RESULT] ~ Compute time for the GPU: 6.619785
@@ -1149,6 +1178,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 8.061086
    [RESULT] ~ Total execution time for the CPU: 7.228381 (+ reorder/sort: 7.778232)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.258796
+
 ## Epsilon 0.0016
 [GPU | RESULT] ~ Query points computed by the GPU: 473422
 [GPU | RESULT] ~ Compute time for the GPU: 12.625733
@@ -1186,6 +1216,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 14.642083
    [RESULT] ~ Total execution time for the CPU: 14.285652 (+ reorder/sort: 14.405155)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.208719
+
 ## Epsilon 0.0020
 [GPU | RESULT] ~ Query points computed by the GPU: 404907
 [GPU | RESULT] ~ Compute time for the GPU: 21.109618
@@ -1224,6 +1255,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the CPU: 23.009021 (+ reorder/sort: 23.136205)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.006640
 
+
 # Super-EGO
 ## Epsilon 0.0004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
@@ -1256,6 +1288,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 2.179424 (+ reorder/sort: 2.314846)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19997635.068616
+
 ## Epsilon 0.0008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.439129
@@ -1287,6 +1320,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 6.457549 (+ reorder/sort: 6.578233)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19997664.673749
+
 ## Epsilon 0.0012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 14.581727
@@ -1318,6 +1352,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 14.569239 (+ reorder/sort: 14.701689)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19997718.920504
+
 ## Epsilon 0.0016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 24.983598
@@ -1349,6 +1384,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 24.836822 (+ reorder/sort: 24.956978)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19997803.946881
+
 ## Epsilon 0.0020
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 36.874450
@@ -1387,6 +1423,7 @@ terminate called without an active exception
 
 ~ EXPO2D10M
 ./bench_fixed.sh: line 241: cho: command not found
+
 ## Epsilon 0.00008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3874816
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.393645
@@ -1424,6 +1461,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 2.849621
    [RESULT] ~ Total execution time for the CPU: 1.322878 (+ reorder/sort: 2.197951)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.430878
+
 ## Epsilon 0.00016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5706795
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.726528
@@ -1461,6 +1499,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 5.508521
    [RESULT] ~ Total execution time for the CPU: 4.090550 (+ reorder/sort: 4.907650)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.395773
+
 ## Epsilon 0.00024
 [EGO | RESULT] ~ Query points computed by Super-EGO: 6382243
 [EGO | RESULT] ~ Compute time for Super-EGO: 7.677738
@@ -1498,6 +1537,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 8.938569
    [RESULT] ~ Total execution time for the CPU: 7.523594 (+ reorder/sort: 8.290612)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.436406
+
 ## Epsilon 0.00032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 6860611
 [EGO | RESULT] ~ Compute time for Super-EGO: 12.736289
@@ -1535,6 +1575,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 14.030281
    [RESULT] ~ Total execution time for the CPU: 12.621077 (+ reorder/sort: 13.472453)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.325135
+
 ## Epsilon 0.00040
 [EGO | RESULT] ~ Query points computed by Super-EGO: 7052679
 [EGO | RESULT] ~ Compute time for Super-EGO: 19.465205
@@ -1573,6 +1614,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the CPU: 19.630951 (+ reorder/sort: 20.483192)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.353116
 
+
 # Super-EGO
 ## Epsilon 0.00008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
@@ -1605,6 +1647,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 3.978564 (+ reorder/sort: 4.434953)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19998364.936573
+
 ## Epsilon 0.00016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 8.787248
@@ -1636,6 +1679,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 8.859123 (+ reorder/sort: 9.334093)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19998438.006821
+
 ## Epsilon 0.00024
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 18.492184
@@ -1667,6 +1711,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 18.129355 (+ reorder/sort: 18.582546)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19998539.858017
+
 ## Epsilon 0.00032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 28.114254
@@ -1698,6 +1743,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 28.067660 (+ reorder/sort: 28.495025)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19998670.940822
+
 ## Epsilon 0.00040
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 43.850526
@@ -1773,6 +1819,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 2.130324
    [RESULT] ~ Total execution time for the CPU: 1.109060 (+ reorder/sort: 1.684273)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.430540
+
 ## Epsilon 0.002599582
 terminate called without an active exception
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1266688
@@ -1801,6 +1848,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 4.296563
    [RESULT] ~ Total execution time for the CPU: 3.300422 (+ reorder/sort: 3.915809)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.365946
+
 ## Epsilon 0.003899373
 [GPU | RESULT] ~ Query points computed by the GPU: 467884
 [GPU | RESULT] ~ Compute time for the GPU: 7.773975
@@ -1838,6 +1886,7 @@ terminate called without an active exception
    [RESULT] ~ Total execution time for the GPU: 9.431263
    [RESULT] ~ Total execution time for the CPU: 9.120457 (+ reorder/sort: 9.226774)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.191870
+
 ## Epsilon 0.005199163
 [GPU | RESULT] ~ Query points computed by the GPU: 372652
 [GPU | RESULT] ~ Compute time for the GPU: 16.784094
@@ -1865,6 +1914,7 @@ terminate called without an active exception
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.249485
 terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
+
 ## Epsilon 0.006498954
 [GPU | RESULT] ~ Query points computed by the GPU: 304115
 [GPU | RESULT] ~ Compute time for the GPU: 35.352309
@@ -1903,6 +1953,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the CPU: 35.167796 (+ reorder/sort: 35.277239)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.105929
 
+
 # Super-EGO
 ## Epsilon 0.001299791
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
@@ -1935,6 +1986,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 2.085730 (+ reorder/sort: 2.222562)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19999190.771783
+
 ## Epsilon 0.002599582
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 6.349760
@@ -1966,6 +2018,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 6.327334 (+ reorder/sort: 6.448865)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19999223.931092
+
 ## Epsilon 0.003899373
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 14.933440
@@ -1997,6 +2050,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 15.138047 (+ reorder/sort: 15.242722)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19999283.529629
+
 ## Epsilon 0.005199163
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 27.772272
@@ -2028,6 +2082,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 27.092876 (+ reorder/sort: 27.202884)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19999380.326194
+
 ## Epsilon 0.006498954
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1864620
 [EGO | RESULT] ~ Compute time for Super-EGO: 43.113858
@@ -2103,6 +2158,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 1.540495
    [RESULT] ~ Total execution time for the CPU: 0.655197 (+ reorder/sort: 1.136690)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.357935
+
 ## Epsilon 0.000851319
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2138112
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.771521
@@ -2140,6 +2196,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 2.779812
    [RESULT] ~ Total execution time for the CPU: 1.593599 (+ reorder/sort: 2.189205)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.549139
+
 ## Epsilon 0.001276979
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2910208
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.639438
@@ -2177,6 +2234,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 4.796829
    [RESULT] ~ Total execution time for the CPU: 3.680316 (+ reorder/sort: 4.331610)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.425772
+
 ## Epsilon 0.001702639
 [GPU | RESULT] ~ Query points computed by the GPU: 1895225
 [GPU | RESULT] ~ Compute time for the GPU: 6.646938
@@ -2214,6 +2272,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 8.297210
    [RESULT] ~ Total execution time for the CPU: 7.279599 (+ reorder/sort: 7.872738)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.384073
+
 ## Epsilon 0.002128298
 terminate called without an active exception
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3596519
@@ -2232,6 +2291,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 14.503310
    [RESULT] ~ Total execution time for the CPU: 13.317042 (+ reorder/sort: 14.060212)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.402977
+
 
 # Super-EGO
 ## Epsilon 0.000425660
@@ -2265,6 +2325,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 2.569669 (+ reorder/sort: 2.791313)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19999881.365087
+
 ## Epsilon 0.000851319
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.174028
@@ -2296,6 +2357,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 5.321472 (+ reorder/sort: 5.536481)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 19999934.135831
+
 ## Epsilon 0.001276979
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 10.277816
@@ -2327,6 +2389,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 10.268932 (+ reorder/sort: 10.481377)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20000003.645589
+
 ## Epsilon 0.001702639
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 18.609829
@@ -2358,6 +2421,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 19.055723 (+ reorder/sort: 19.265232)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20000097.212573
+
 ## Epsilon 0.002128298
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5159737
 [EGO | RESULT] ~ Compute time for Super-EGO: 31.669954
@@ -2433,6 +2497,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 1.248601
    [RESULT] ~ Total execution time for the CPU: 0.477245 (+ reorder/sort: 0.858633)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.362923
+
 ## Epsilon 0.002
 [EGO | RESULT] ~ Query points computed by Super-EGO: 994304
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.864796
@@ -2470,6 +2535,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 2.928242
    [RESULT] ~ Total execution time for the CPU: 1.987684 (+ reorder/sort: 2.584961)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.315880
+
 ## Epsilon 0.003
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1204224
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.613475
@@ -2507,6 +2573,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 5.738990
    [RESULT] ~ Total execution time for the CPU: 4.755808 (+ reorder/sort: 5.325828)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.389045
+
 ## Epsilon 0.004
 terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
@@ -2524,6 +2591,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.251247
 terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
+
 ## Epsilon 0.005
 [GPU | RESULT] ~ Query points computed by the GPU: 415872
 [GPU | RESULT] ~ Compute time for the GPU: 26.623502
@@ -2562,6 +2630,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the CPU: 28.185908 (+ reorder/sort: 28.338359)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.089762
 
+
 # Super-EGO
 ## Epsilon 0.001
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
@@ -2594,6 +2663,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 2.049715 (+ reorder/sort: 2.207621)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20000519.023242
+
 ## Epsilon 0.002
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.895372
@@ -2625,6 +2695,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 5.908050 (+ reorder/sort: 6.063991)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20000551.914847
+
 ## Epsilon 0.003
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 15.225227
@@ -2656,6 +2727,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 15.382332 (+ reorder/sort: 15.542815)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20000613.588280
+
 ## Epsilon 0.004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 31.431565
@@ -2687,6 +2759,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 31.522449 (+ reorder/sort: 31.689232)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20000724.112150
+
 ## Epsilon 0.005
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 54.899453
@@ -2732,6 +2805,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
 [GPU | RESULT] ~ Compute time for the GPU: 0.343494
 [GPU | RESULT] ~ Query points computed by the GPU: 10000000
 [GPU | RESULT] ~ Compute time for the GPU: 0.351495
+
 ## Epsilon 0.0006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1509376
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.347555
@@ -2769,6 +2843,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 2.987625
    [RESULT] ~ Total execution time for the CPU: 1.265660 (+ reorder/sort: 2.163435)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.583989
+
 ## Epsilon 0.0009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3487744
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.447133
@@ -2806,6 +2881,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 4.937452
    [RESULT] ~ Total execution time for the CPU: 3.275390 (+ reorder/sort: 4.291960)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.475015
+
 ## Epsilon 0.0012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5192704
 [EGO | RESULT] ~ Compute time for Super-EGO: 7.842357
@@ -2843,6 +2919,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 9.087368
    [RESULT] ~ Total execution time for the CPU: 7.451928 (+ reorder/sort: 8.413600)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.485638
+
 ## Epsilon 0.0015
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5732352
 [EGO | RESULT] ~ Compute time for Super-EGO: 13.990418
@@ -2881,6 +2958,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the CPU: 14.044294 (+ reorder/sort: 14.973519)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.357489
 
+
 # Super-EGO
 ## Epsilon 0.00009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
@@ -2913,6 +2991,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 4.005931 (+ reorder/sort: 4.551570)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20001475.419141
+
 ## Epsilon 0.0006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 10.473038
@@ -2944,6 +3023,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 10.519035 (+ reorder/sort: 11.054408)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20001582.105318
+
 ## Epsilon 0.0009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 19.160557
@@ -2975,6 +3055,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 18.999543 (+ reorder/sort: 19.526166)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20001715.834797
+
 ## Epsilon 0.0012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 34.890712
@@ -3006,6 +3087,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 34.901095 (+ reorder/sort: 35.455348)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20001895.477457
+
 ## Epsilon 0.0015
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 59.646325
@@ -3081,6 +3163,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 1.880256
    [RESULT] ~ Total execution time for the CPU: 0.294000 (+ reorder/sort: 0.925527)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.918948
+
 ## Epsilon 0.004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 551936
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.553930
@@ -3118,6 +3201,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 2.685765
    [RESULT] ~ Total execution time for the CPU: 1.574182 (+ reorder/sort: 2.135805)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.520738
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1227776
 [EGO | RESULT] ~ Compute time for Super-EGO: 8.448550
@@ -3155,6 +3239,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 8.647759
    [RESULT] ~ Total execution time for the CPU: 8.115416 (+ reorder/sort: 8.304709)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.312139
+
 ## Epsilon 0.008
 terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
@@ -3182,6 +3267,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 28.994091
    [RESULT] ~ Total execution time for the CPU: 28.844481 (+ reorder/sort: 29.020511)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.054891
+
 ## Epsilon 0.010
 terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
@@ -3209,6 +3295,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 75.043612
    [RESULT] ~ Total execution time for the CPU: 75.654510 (+ reorder/sort: 75.837062)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 0.813160
+
 
 # Super-EGO
 ## Epsilon 0.002
@@ -3242,6 +3329,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 3.238358 (+ reorder/sort: 3.435756)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20002678.167004
+
 ## Epsilon 0.004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 9.990069
@@ -3273,6 +3361,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 10.046211 (+ reorder/sort: 10.234315)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20002729.547947
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 30.842276
@@ -3304,6 +3393,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 30.976632 (+ reorder/sort: 31.154571)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20002843.384952
+
 ## Epsilon 0.008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 74.838186
@@ -3335,6 +3425,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 74.822032 (+ reorder/sort: 74.987162)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20003089.437006
+
 ## Epsilon 0.010
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 148.766486
@@ -3410,6 +3501,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.924878
    [RESULT] ~ Total execution time for the CPU: 0.106290 (+ reorder/sort: 0.737995)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.040240
+
 ## Epsilon 0.0016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 792576
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.322863
@@ -3447,6 +3539,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 3.560911
    [RESULT] ~ Total execution time for the CPU: 1.309964 (+ reorder/sort: 2.190419)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 1.185575
+
 ## Epsilon 0.0024
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2051072
 [EGO | RESULT] ~ Compute time for Super-EGO: 4.063500
@@ -3484,6 +3577,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 5.951257
    [RESULT] ~ Total execution time for the CPU: 4.144631 (+ reorder/sort: 5.158227)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.622091
+
 ## Epsilon 0.0032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 4655104
 [EGO | RESULT] ~ Compute time for Super-EGO: 14.542432
@@ -3521,6 +3615,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 15.089158
    [RESULT] ~ Total execution time for the CPU: 13.435769 (+ reorder/sort: 14.475527)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.445534
+
 ## Epsilon 0.0040
 [GPU | RESULT] ~ Query points computed by the GPU: 3743360
 [GPU | RESULT] ~ Compute time for the GPU: 43.721799
@@ -3550,6 +3645,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
 [EGO | RESULT] ~ Query points computed by Super-EGO: 6215680
 [EGO | RESULT] ~ Compute time for Super-EGO: 44.235651
+
 
 # Super-EGO
 ## Epsilon 0.00032
@@ -3583,6 +3679,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 5.732158 (+ reorder/sort: 6.323510)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20004385.791023
+
 ## Epsilon 0.0016
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 22.559379
@@ -3614,6 +3711,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 22.644103 (+ reorder/sort: 23.307316)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20004556.041780
+
 ## Epsilon 0.0024
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 45.894699
@@ -3645,6 +3743,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 46.001297 (+ reorder/sort: 46.631292)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20004793.406022
+
 ## Epsilon 0.0032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 98.889148
@@ -3676,6 +3775,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 98.556234 (+ reorder/sort: 99.197352)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20005188.793278
+
 ## Epsilon 0.0040
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 202.850368
@@ -3751,6 +3851,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 3.166760
    [RESULT] ~ Total execution time for the CPU: 0.342455 (+ reorder/sort: 0.809956)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 2.322826
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 292864
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.121574
@@ -3788,6 +3889,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 2.168437
    [RESULT] ~ Total execution time for the CPU: 0.804751 (+ reorder/sort: 1.028402)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 1.112115
+
 ## Epsilon 0.009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 521216
 [EGO | RESULT] ~ Compute time for Super-EGO: 3.676373
@@ -3825,6 +3927,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 4.156873
    [RESULT] ~ Total execution time for the CPU: 3.538744 (+ reorder/sort: 3.745053)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.384885
+
 ## Epsilon 0.012
 [GPU | RESULT] ~ Query points computed by the GPU: 988288
 [GPU | RESULT] ~ Compute time for the GPU: 11.634107
@@ -3846,6 +3949,7 @@ terminate called recursively
   what():  radix_sort: failed on 2nd step: an illegal memory access was encountered
 [EGO | RESULT] ~ Query points computed by Super-EGO: 984064
 [EGO | RESULT] ~ Compute time for Super-EGO: 12.886547
+
 ## Epsilon 0.015
 terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
@@ -3853,6 +3957,7 @@ terminate called recursively
 terminate called after throwing an instance of 'thrust::system::system_error'
 terminate called after throwing an instance of 'thrust::system::system_error'
   what():  radix_sort: failed on 1st step: an illegal memory access was encountered
+
 
 # Super-EGO
 ## Epsilon 0.003
@@ -3886,6 +3991,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 6.321809 (+ reorder/sort: 6.569693)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20006427.596752
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 13.935700
@@ -3917,6 +4023,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 14.072126 (+ reorder/sort: 14.316433)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20006501.713284
+
 ## Epsilon 0.009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 32.841740
@@ -3948,6 +4055,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 32.858027 (+ reorder/sort: 33.079028)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20006632.014877
+
 ## Epsilon 0.012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 90.696432
@@ -3979,6 +4087,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 90.957400 (+ reorder/sort: 91.164192)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20006935.814247
+
 ## Epsilon 0.015
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 214.924275
@@ -4054,6 +4163,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 7.922198
    [RESULT] ~ Total execution time for the CPU: 5.091252 (+ reorder/sort: 5.860703)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 1.901935
+
 ## Epsilon 0.0032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2177270
 [EGO | RESULT] ~ Compute time for Super-EGO: 8.795662
@@ -4091,6 +4201,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 13.911321
    [RESULT] ~ Total execution time for the CPU: 8.732757 (+ reorder/sort: 9.563726)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 4.196585
+
 ## Epsilon 0.0048
 [EGO | RESULT] ~ Query points computed by Super-EGO: 980992
 [EGO | RESULT] ~ Compute time for Super-EGO: 5.598149
@@ -4118,6 +4229,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 8.740936
 [GPU | RESULT] ~ Query points computed by the GPU: 9019008
 [GPU | RESULT] ~ Compute time for the GPU: 11.525881
+
 ## Epsilon 0.0064
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1719296
 [EGO | RESULT] ~ Compute time for Super-EGO: 12.952384
@@ -4155,6 +4267,7 @@ terminate called after throwing an instance of 'thrust::system::system_error'
    [RESULT] ~ Total execution time for the GPU: 16.892148
    [RESULT] ~ Total execution time for the CPU: 15.268861 (+ reorder/sort: 16.103389)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 0.637848
+
 ## Epsilon 0.0080
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3880960
 [EGO | RESULT] ~ Compute time for Super-EGO: 41.114820
@@ -4184,6 +4297,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 42.308916
    [RESULT] ~ Total execution time for the CPU: 40.234065 (+ reorder/sort: 41.072938)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 1.046122
+
 
 # Super-EGO
 ## Epsilon 0.0016
@@ -4217,6 +4331,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 30.421581 (+ reorder/sort: 31.170798)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20009021.062530
+
 ## Epsilon 0.0032
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 68.881863
@@ -4248,6 +4363,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 68.367156 (+ reorder/sort: 69.217685)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20009384.119423
+
 ## Epsilon 0.0048
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 106.649116
@@ -4279,6 +4395,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 106.373668 (+ reorder/sort: 107.231798)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20009859.218327
+
 ## Epsilon 0.0064
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 205.085968
@@ -4310,6 +4427,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 205.451785 (+ reorder/sort: 206.317957)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20010626.862079
+
 ## Epsilon 0.0080
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 497.041014
@@ -4386,6 +4504,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 0.604308 (+ reorder/sort: 0.829372)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 8.730242
 
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 7
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.052001
@@ -4423,6 +4542,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 17.473612
    [RESULT] ~ Total execution time for the CPU: 1.080141 (+ reorder/sort: 1.315996)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 16.127921
+
 
 ## Epsilon 0.009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 7
@@ -4462,6 +4582,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 1.141031 (+ reorder/sort: 1.389046)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 15.853949
 
+
 ## Epsilon 0.012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 8
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.346224
@@ -4499,6 +4620,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 15.744458
    [RESULT] ~ Total execution time for the CPU: 1.313748 (+ reorder/sort: 1.595879)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 14.110782
+
 
 ## Epsilon 0.015
 [EGO | RESULT] ~ Query points computed by Super-EGO: 514048
@@ -4538,6 +4660,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 9.991329 (+ reorder/sort: 10.258735)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 6.522562
 
+
 # Super-EGO
 ## Epsilon 0.003
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
@@ -4571,6 +4694,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 5.925808 (+ reorder/sort: 6.160223)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20012835.795881
 
+
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 17.496319
@@ -4602,6 +4726,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 17.574258 (+ reorder/sort: 17.826591)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20012937.913315
+
 
 ## Epsilon 0.009
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
@@ -4635,6 +4760,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 33.614515 (+ reorder/sort: 33.861317)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20013088.049121
 
+
 ## Epsilon 0.012
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 63.622500
@@ -4666,6 +4792,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 63.964030 (+ reorder/sort: 64.216238)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20013324.527716
+
 
 ## Epsilon 0.015
 [EGO | RESULT] ~ Query points computed by Super-EGO: 2000000
@@ -4743,6 +4870,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 19.584334 (+ reorder/sort: 20.396148)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 3.942231
 
+
 ## Epsilon 0.004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 5663869
 [EGO | RESULT] ~ Compute time for Super-EGO: 53.055559
@@ -4780,6 +4908,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 65.800129
    [RESULT] ~ Total execution time for the CPU: 52.348528 (+ reorder/sort: 53.295878)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 12.301338
+
 
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1759232
@@ -4819,6 +4948,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 26.347727 (+ reorder/sort: 27.319940)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 85.957239
 
+
 ## Epsilon 0.008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3407872
 [EGO | RESULT] ~ Compute time for Super-EGO: 68.650226
@@ -4856,6 +4986,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 106.572639
    [RESULT] ~ Total execution time for the CPU: 23.472362 (+ reorder/sort: 24.494230)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 81.869709
+
 
 ## Epsilon 0.010
 [EGO | RESULT] ~ Query points computed by Super-EGO: 1492992
@@ -4895,6 +5026,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 52.326013 (+ reorder/sort: 53.345514)
 [RESULT] ~ The CPU ended before the GPU, with a difference of: 33.836536
 
+
 # Super-EGO
 ## Epsilon 0.002
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
@@ -4928,6 +5060,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 36.382278 (+ reorder/sort: 37.297833)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20016433.364126
 
+
 ## Epsilon 0.004
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 109.140914
@@ -4959,6 +5092,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 109.884641 (+ reorder/sort: 110.837322)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20017004.649835
+
 
 ## Epsilon 0.006
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
@@ -4992,6 +5126,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the CPU: 210.330648 (+ reorder/sort: 211.308110)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20017884.612859
 
+
 ## Epsilon 0.008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
 [EGO | RESULT] ~ Compute time for Super-EGO: 364.686607
@@ -5023,6 +5158,7 @@ terminate called recursively
    [RESULT] ~ Total execution time for the GPU: 0.000000
    [RESULT] ~ Total execution time for the CPU: 366.419452 (+ reorder/sort: 367.434718)
 [RESULT] ~ The GPU ended before the CPU, with a difference of: 20019223.921300
+
 
 ## Epsilon 0.010
 [EGO | RESULT] ~ Query points computed by Super-EGO: 10000000
