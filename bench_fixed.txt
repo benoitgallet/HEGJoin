@@ -1422,8 +1422,7 @@ terminate called without an active exception
 
 
 ~ EXPO2D10M
-./bench_fixed.sh: line 241: cho: command not found
-
+# Hybrid
 ## Epsilon 0.00008
 [EGO | RESULT] ~ Query points computed by Super-EGO: 3874816
 [EGO | RESULT] ~ Compute time for Super-EGO: 1.393645
