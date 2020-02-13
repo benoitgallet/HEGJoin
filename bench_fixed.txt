@@ -1,3 +1,10 @@
+# Run SDSS2D15M for GPU-only
+# Run Expo3D10M for Hybrid, eps = 0.0003
+# Run Expo6D2M for Hybrid, eps = 0.015
+# Run Expo8D10M for Hybrid and Super-EGO, all eps (take the correct ones)
+# Run EGO-Sort benches
+
+
 ~ SW2DA
 # Hybrid
 ## Epsilon 0.000833333

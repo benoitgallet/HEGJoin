@@ -306,7 +306,7 @@ int main(int argc, char * argv[])
                     egoMapping[p->id] = i;
                 }
                 double tEndMapping = omp_get_wtime();
-                printf("[GPU] ~ Done creating the mapping in %f\n", tEndMapping - tStartMapping);
+                printf("[EGO] ~ Done creating the mapping in %f\n", tEndMapping - tStartMapping);
 
                 double tBeginEgo = omp_get_wtime();
 
@@ -353,7 +353,7 @@ int main(int argc, char * argv[])
         printf("[RESULT] ~ The CPU ended before the GPU, with a difference of: %f\n", tEndGPU - tEndEgo);
     }
 
-    printNeighborTable(neighborTable, 0, 20);
+    // printNeighborTable(neighborTable, 0, 20);
 
     NDdataPoints.clear();
     NDdataPoints.shrink_to_fit();
