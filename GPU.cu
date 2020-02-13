@@ -420,7 +420,7 @@ unsigned long long GPUBatchEst_v2(
     cout << "[GPU] ~ Estimating batches\n";
 
     // Parameters for the batch size estimation.
-    double sampleRate = 0.20;
+    double sampleRate = 0.10;
     int offsetRate = 1.0 / sampleRate;
     cout << "[GPU] ~ Sample rate: " << sampleRate << ", offset: " << offsetRate << '\n';
 
