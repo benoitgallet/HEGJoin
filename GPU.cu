@@ -567,11 +567,22 @@ unsigned long long GPUBatchEst_v2(
         estimatedFull[estBefore] = nbEstBefore;
         fullEst += nbEstBefore;
 
-        for(int j = estBefore + 1; j < estAfter; ++j)
+        // for(int j = estBefore + 1; j < estAfter; ++j)
+        // {
+        //     estimatedFull[j] = maxEst;
+        //     fullEst += maxEst;
+        // }
+        for(int j = estBefore + 1; j <= estAfter / 2; j++)
         {
-            estimatedFull[j] = maxEst;
-            fullEst += maxEst;
+            estimatedFull[j] = nbEstBefore;
+            fullEst += nbEstBefore;
         }
+        for(int j = (estAfter / 2) + 1; j < estAfter; j++)
+        {
+            estimatedFull[j] = nbEstAfter;
+            fullEst += nbEstAfter;
+        }
+
     }
 
     // Not enough work to fill at least 6 batches (2 * GPUSTREAMS)
