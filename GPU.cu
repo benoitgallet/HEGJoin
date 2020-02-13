@@ -97,7 +97,7 @@ void gridIndexingGPU(
     double tStartAllocGPU = omp_get_wtime();
 
     errCode = cudaMalloc( (void**)dev_database, sizeof(DTYPE) * (GPUNUMDIM) * (*DBSIZE));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Alloc database -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -105,7 +105,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMalloc( (void**)dev_epsilon, sizeof(DTYPE));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Alloc epsilon -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -113,7 +113,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMalloc((void**)dev_minArr, sizeof(DTYPE) * (NUMINDEXEDDIM));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Alloc minArr -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -121,7 +121,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMalloc( (void**)dev_indexLookupArr, sizeof(unsigned int) * (*DBSIZE));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: lookup array allocation -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -129,7 +129,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMalloc((void**)dev_nNonEmptyCells, sizeof(unsigned int));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Alloc nNonEmptyCells -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -137,7 +137,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMalloc((void**)dev_nCells, sizeof(unsigned int) * (NUMINDEXEDDIM));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Alloc nCells -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -146,7 +146,7 @@ void gridIndexingGPU(
 
     uint64_t * dev_pointCellArr;
     errCode = cudaMalloc((void**)&dev_pointCellArr, sizeof(uint64_t) * (*DBSIZE));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: point cell array alloc -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -155,7 +155,7 @@ void gridIndexingGPU(
 
     unsigned int * dev_databaseVal;
 	errCode = cudaMalloc((void**)&dev_databaseVal, sizeof(unsigned int) * (*DBSIZE));
-	if(errCode != cudaSuccess) {
+	if (errCode != cudaSuccess) {
     	cout << "[INDEX] ~ Error: Alloc databaseVal -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
         cout.flush();
@@ -164,7 +164,7 @@ void gridIndexingGPU(
     unsigned int * N = new unsigned int;
 	unsigned int * dev_N;
 	errCode = cudaMalloc((void**)&dev_N, sizeof(unsigned int) * GPUSTREAMS);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Alloc dev_N -- error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -184,7 +184,7 @@ void gridIndexingGPU(
     double tStartCopyGPU = omp_get_wtime();
 
     errCode = cudaMemcpy( (*dev_database), database, sizeof(DTYPE) * (GPUNUMDIM) * (*DBSIZE), cudaMemcpyHostToDevice );
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: database copy to device -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -192,7 +192,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy( (*dev_epsilon), epsilon, sizeof(DTYPE), cudaMemcpyHostToDevice );
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: epsilon copy to device -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -200,7 +200,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy( (*dev_minArr), minArr, sizeof(DTYPE) * (NUMINDEXEDDIM), cudaMemcpyHostToDevice );
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Copy minArr to device -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -208,7 +208,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy( (*dev_nCells), nCells, sizeof(unsigned int) * (NUMINDEXEDDIM), cudaMemcpyHostToDevice );
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Copy nCells to device -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -216,7 +216,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy(dev_N, DBSIZE, sizeof(unsigned int), cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: database size Got error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -264,7 +264,7 @@ void gridIndexingGPU(
     (*gridCellLookupArr) = new struct gridCellLookup[numNonEmptyCells];
     uint64_t * pointCellArrTmp = new uint64_t[numNonEmptyCells];
     errCode = cudaMemcpy(pointCellArrTmp, dev_pointCellArr, sizeof(uint64_t) * numNonEmptyCells, cudaMemcpyDeviceToHost);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: pointCellArrTmp memcpy Got error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -292,7 +292,7 @@ void gridIndexingGPU(
 
     uint64_t * cellKey = new uint64_t[(*DBSIZE)];
     errCode = cudaMemcpy(cellKey, dev_pointCellArr, sizeof(uint64_t) * (*DBSIZE), cudaMemcpyDeviceToHost);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: pointCellArr memcpy Got error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -300,7 +300,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy(indexLookupArr, dev_databaseVal, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyDeviceToHost);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: databaseIDValue memcpy Got error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -333,7 +333,7 @@ void gridIndexingGPU(
     ////////////////////////////////////////////////////////////////////////////
 
     errCode = cudaMalloc( (void**)dev_index, sizeof(struct grid) * (*nNonEmptyCells));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: Alloc grid index -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -341,7 +341,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMalloc( (void**)dev_gridCellLookupArr, sizeof(struct gridCellLookup) * (*nNonEmptyCells));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: copy grid cell lookup array allocation -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -351,7 +351,7 @@ void gridIndexingGPU(
     ////////////////////////////////////////////////////////////////////////////
 
     errCode = cudaMemcpy( (*dev_nNonEmptyCells), nNonEmptyCells, sizeof(unsigned int), cudaMemcpyHostToDevice );
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[INDEX] ~ Error: nNonEmptyCells copy to device -- error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -359,7 +359,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy((*dev_index), (*index), sizeof(struct grid) * numNonEmptyCells, cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: index copy to the GPU error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -367,7 +367,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy((*dev_indexLookupArr), indexLookupArr, sizeof(unsigned int) * (*DBSIZE), cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: index lookup array copy to the GPU error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -375,7 +375,7 @@ void gridIndexingGPU(
 	}
 
     errCode = cudaMemcpy((*dev_gridCellLookupArr), (*gridCellLookupArr), sizeof(struct gridCellLookup) * numNonEmptyCells, cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[INDEX] ~ Error: grid lookup array copy to the GPU error with code " << errCode << '\n';
         cout << "[INDEX] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -433,7 +433,7 @@ unsigned long long GPUBatchEst_v2(
     (*N_batchEst) = (*DBSIZE) * sampleRate;
 
     errCode = cudaMalloc((void**)&dev_N_batchEst, sizeof(unsigned int));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[GPU] ~ Error: dev_N_batchEst Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -441,7 +441,7 @@ unsigned long long GPUBatchEst_v2(
 	}
 
     errCode = cudaMemcpy(dev_N_batchEst, N_batchEst, sizeof(unsigned int), cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 	    cout << "[GPU] ~ Error: N batchEST Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -457,7 +457,7 @@ unsigned long long GPUBatchEst_v2(
     (*cnt_batchEst) = 0;
 
     errCode = cudaMalloc((void**)&dev_cnt_batchEst, sizeof(unsigned int));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[GPU] ~ Error: dev_cnt_batchEst Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -465,7 +465,7 @@ unsigned long long GPUBatchEst_v2(
 	}
 
     errCode = cudaMemcpy(dev_cnt_batchEst, cnt_batchEst, sizeof(unsigned int), cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[GPU] ~ Error: dev_cnt_batchEst Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -481,7 +481,7 @@ unsigned long long GPUBatchEst_v2(
     (*sampleOffset) = offsetRate;
 
     errCode = cudaMalloc((void**)&dev_sampleOffset, sizeof(unsigned int));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[GPU] ~ Error: sample offset Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -489,7 +489,7 @@ unsigned long long GPUBatchEst_v2(
 	}
 
     errCode = cudaMemcpy(dev_sampleOffset, sampleOffset, sizeof(unsigned int), cudaMemcpyHostToDevice);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[GPU] ~ Error: dev_sampleOffset Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -504,7 +504,7 @@ unsigned long long GPUBatchEst_v2(
     unsigned int * estimatedResult = new unsigned int[(*N_batchEst)];
 
     errCode = cudaMalloc((void**)&dev_estimatedResult, (*N_batchEst) * sizeof(unsigned int));
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
     	cout << "[GPU] ~ Error: estimated result Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -528,18 +528,18 @@ unsigned long long GPUBatchEst_v2(
     cout.flush();
 
     errCode = cudaMemcpy(cnt_batchEst, dev_cnt_batchEst, sizeof(unsigned int), cudaMemcpyDeviceToHost);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 	    cout << "[GPU] ~ Error: getting cnt for batch estimate from GPU Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
         cout.flush();
-	}else{
+	} else {
         cout << "[GPU] ~ Result set size for estimating the number of batches (sampled): " << *cnt_batchEst << '\n';
         cout.flush();
 	}
 
     errCode = cudaMemcpy(estimatedResult, dev_estimatedResult, (*N_batchEst) * sizeof(unsigned int), cudaMemcpyDeviceToHost);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 	    cout << "[GPU] ~ Error: getting estimated results for batch estimate from GPU Got error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -556,7 +556,7 @@ unsigned long long GPUBatchEst_v2(
     unsigned int nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
     unsigned int * estimatedFull = new unsigned int[(*DBSIZE)];
     unsigned long long fullEst = 0;
-    for(int i = 0; i < nbUnestimatedSequences; ++i)
+    for (int i = 0; i < nbUnestimatedSequences - 1; ++i)
     {
         unsigned int nbEstBefore = estimatedResult[i];
         unsigned int nbEstAfter = estimatedResult[i + 1];
@@ -567,27 +567,27 @@ unsigned long long GPUBatchEst_v2(
         estimatedFull[estBefore] = nbEstBefore;
         fullEst += nbEstBefore;
 
-        // for(int j = estBefore + 1; j < estAfter; ++j)
+        for (int j = estBefore + 1; j < estAfter; ++j)
+        {
+            estimatedFull[j] = maxEst;
+            fullEst += maxEst;
+        }
+        // for (int j = estBefore + 1; j <= estAfter / 2; j++)
         // {
-        //     estimatedFull[j] = maxEst;
-        //     fullEst += maxEst;
+        //     estimatedFull[j] = nbEstBefore;
+        //     fullEst += nbEstBefore;
         // }
-        for(int j = estBefore + 1; j <= estAfter / 2; j++)
-        {
-            estimatedFull[j] = nbEstBefore;
-            fullEst += nbEstBefore;
-        }
-        for(int j = (estAfter / 2) + 1; j < estAfter; j++)
-        {
-            estimatedFull[j] = nbEstAfter;
-            fullEst += nbEstAfter;
-        }
+        // for (int j = (estAfter / 2) + 1; j < estAfter; j++)
+        // {
+        //     estimatedFull[j] = nbEstAfter;
+        //     fullEst += nbEstAfter;
+        // }
 
     }
 
     // Not enough work to fill at least 6 batches (2 * GPUSTREAMS)
     // So we force to have at least 6 batches so all streams can be used, and the CPU as well
-    if(fullEst < (GPUBufferSize * GPUSTREAMS * 2))
+    if (fullEst < (GPUBufferSize * GPUSTREAMS * 2))
     {
         GPUBufferSize = fullEst / (GPUSTREAMS * 2);
         cout << "[GPU] ~ Too few batches, reducing GPUBufferSize to " << GPUBufferSize << '\n';
@@ -598,19 +598,19 @@ unsigned long long GPUBatchEst_v2(
     unsigned long long runningEst = 0;
     // Keeping 5% of margin to avoid an overflow of the buffer
     unsigned int reserveBuffer = GPUBufferSize * 0.05;
-    for(int i = 0; i < (*DBSIZE); ++i)
+    for (int i = 0; i < (*DBSIZE); ++i)
     {
         runningEst += estimatedFull[i];
         // fullEst += estimatedFull[i];
-        if((GPUBufferSize - reserveBuffer) <= runningEst)
+        if ((GPUBufferSize - reserveBuffer) <= runningEst)
         {
             batchEnd = i;
             batches->push_back(std::make_pair(batchBegin, batchEnd));
             batchBegin = i;
             runningEst = 0;
-        }else{
+        } else {
             // The last batch may not fulfill the above condition of filling a result buffer
-            if((*DBSIZE) - 1 == i)
+            if ((*DBSIZE) - 1 == i)
             {
                 batchEnd = (*DBSIZE);
                 batches->push_back(std::make_pair(batchBegin, batchEnd));
@@ -710,7 +710,7 @@ void distanceTableNDGridBatches(
 
 	//allocate on the device
 	errCode = cudaMalloc((void**)&dev_cnt, sizeof(unsigned int) * GPUSTREAMS);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[GPU] ~ Error: Alloc cnt -- error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -736,7 +736,7 @@ void distanceTableNDGridBatches(
 
 	//allocate on the device
 	errCode = cudaMalloc((void**)&dev_N, sizeof(unsigned int) * GPUSTREAMS);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[GPU] ~ Error: Alloc dev_N -- error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -760,7 +760,7 @@ void distanceTableNDGridBatches(
 
 	//allocate on the device
 	errCode = cudaMalloc((void**)&dev_offset, sizeof(unsigned int) * GPUSTREAMS);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[GPU] ~ Error: Alloc offset -- error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -777,7 +777,7 @@ void distanceTableNDGridBatches(
 
 	//allocate on the device
 	errCode = cudaMalloc((void**)&dev_batchNumber, sizeof(unsigned int) * GPUSTREAMS);
-	if(errCode != cudaSuccess)
+	if (errCode != cudaSuccess)
     {
 		cout << "[GPU] ~ Error: Alloc batch number -- error with code " << errCode << '\n';
         cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -814,7 +814,7 @@ void distanceTableNDGridBatches(
     cout.flush();
 
     // cout << "[GPU] ~ Batches: \n";
-    // for(int i = 0; i < batchesVector.size(); ++i)
+    // for (int i = 0; i < batchesVector.size(); ++i)
     // {
     //     cout << "   [GPU] ~ " << batchesVector[i].first << ", " << batchesVector[i].second <<  '\n';
     // }
@@ -822,10 +822,10 @@ void distanceTableNDGridBatches(
     // sets the batch size for the queue and the queue index, considering the offset reserved for the GPU
     // shouldn't happen anymore as we always have at least 2*GPUSTREAMS batches now
     // setQueueIndex(GPUSTREAMS * (*DBSIZE / numBatches));
-    // if(batchesVector.size() < GPUSTREAMS)
+    // if (batchesVector.size() < GPUSTREAMS)
     // {
     //     setQueueIndex((*DBSIZE)); // the GPU reserves all the computation
-    // }else{
+    // } else {
     setQueueIndex(batchesVector[GPUSTREAMS].first);
     // }
 
@@ -875,7 +875,7 @@ void distanceTableNDGridBatches(
 	for (int i = 0; i < GPUSTREAMS; i++)
 	{
 		errCode = cudaMalloc((void **)&dev_pointIDKey[i], 2 * sizeof(int) * GPUBufferSize);
-		if(errCode != cudaSuccess)
+		if (errCode != cudaSuccess)
         {
 			cout << "[GPU] ~ CUDA: Got error with code " << errCode << '\n'; //2 means not enough memory
             cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -883,7 +883,7 @@ void distanceTableNDGridBatches(
 		}
 
 		errCode = cudaMalloc((void **)&dev_pointInDistValue[i], 2 * sizeof(int) * GPUBufferSize);
-		if(errCode != cudaSuccess)
+		if (errCode != cudaSuccess)
         {
 			cout << "[GPU] ~ CUDA: Got error with code " << errCode << '\n'; //2 means not enough memory
             cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -979,13 +979,13 @@ void distanceTableNDGridBatches(
 	uint64_t totalResultsLoop = 0;
 
     unsigned int * batchBegin = new unsigned int[GPUSTREAMS];
-    for(int i = 0; i < GPUSTREAMS; i++)
+    for (int i = 0; i < GPUSTREAMS; i++)
     {
         batchBegin[i] = 0;
     }
     unsigned int * dev_batchBegin;
     errCode = cudaMalloc( (void**)&dev_batchBegin, GPUSTREAMS * sizeof(unsigned int));
-    if(errCode != cudaSuccess)
+    if (errCode != cudaSuccess)
     {
         cout << "[GPU] ~ Error: Alloc queue index -- error with code " << errCode << '\n';
         cout.flush();
@@ -998,7 +998,7 @@ void distanceTableNDGridBatches(
     unsigned int * nbQueryPoint = new unsigned int [GPUSTREAMS];
     double computeTime = 0;
 
-    for(int i = 0; i < GPUSTREAMS; ++i)
+    for (int i = 0; i < GPUSTREAMS; ++i)
     {
         cudaEventCreate(&startKernel[i]);
         cudaEventCreate(&stopKernel[i]);
@@ -1028,7 +1028,7 @@ void distanceTableNDGridBatches(
                 #endif
 
                 errCode = cudaMemcpy( &dev_batchBegin[tid], &gpuBatch.first, sizeof(unsigned int), cudaMemcpyHostToDevice );
-            	if(errCode != cudaSuccess)
+            	if (errCode != cudaSuccess)
                 {
             		cout << "[GPU] ~ Error: queue index copy to device -- error with code " << errCode << '\n';
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1038,7 +1038,7 @@ void distanceTableNDGridBatches(
                 // N[tid] = batchSize;
                 N[tid] = gpuBatch.second - gpuBatch.first;
                 errCode = cudaMemcpyAsync( &dev_N[tid], &N[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-        		if(errCode != cudaSuccess)
+        		if (errCode != cudaSuccess)
                 {
         			cout << "[GPU] ~ Error: N Got error with code " << errCode << '\n';
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1048,7 +1048,7 @@ void distanceTableNDGridBatches(
                 // the batched result set size (reset to 0):
         		cnt[tid] = 0;
         		errCode = cudaMemcpyAsync( &dev_cnt[tid], &cnt[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-        		if(errCode != cudaSuccess)
+        		if (errCode != cudaSuccess)
                 {
         			cout << "[GPU] ~ Error: dev_cnt memcpy Got error with code " << errCode << '\n';
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1058,7 +1058,7 @@ void distanceTableNDGridBatches(
                 // the offset for batching, which keeps track of where to start processing at each batch
         		batchOffset[tid] = numBatches; //for the strided
         		errCode = cudaMemcpyAsync( &dev_offset[tid], &batchOffset[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-        		if(errCode != cudaSuccess)
+        		if (errCode != cudaSuccess)
                 {
         			cout << "[GPU] ~ Error: dev_offset memcpy Got error with code " << errCode << '\n';
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1068,7 +1068,7 @@ void distanceTableNDGridBatches(
                 // the batch number for batching with strided
         		batchNumber[tid] = localBatchCounter;
         		errCode = cudaMemcpyAsync( &dev_batchNumber[tid], &batchNumber[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-        		if(errCode != cudaSuccess)
+        		if (errCode != cudaSuccess)
                 {
         			cout << "[GPU] ~ Error: dev_batchNumber memcpy Got error with code " << errCode << '\n';
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1105,7 +1105,7 @@ void distanceTableNDGridBatches(
 
                 // find the size of the number of results
         		errCode = cudaMemcpyAsync( &cnt[tid], &dev_cnt[tid], sizeof(unsigned int), cudaMemcpyDeviceToHost, stream[tid] );
-        		if(errCode != cudaSuccess)
+        		if (errCode != cudaSuccess)
                 {
         			cout << "[GPU] ~ Error: getting cnt from GPU Got error with code " << errCode << '\n';
                     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1188,7 +1188,7 @@ void distanceTableNDGridBatches(
     else
     { // searchModes that have a fixed number of queries (e.g., original GPU kernel or static partitioning)
         // errCode = cudaMemcpy( &dev_batchBegin[0], batchBegin, sizeof(unsigned int), cudaMemcpyHostToDevice );
-        // if(errCode != cudaSuccess)
+        // if (errCode != cudaSuccess)
         // {
         //     cout << "[GPU] ~ Error: queue index copy to device -- error with code " << errCode << '\n';
         //     cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1201,7 +1201,7 @@ void distanceTableNDGridBatches(
     	//i=0...numBatches
         #pragma omp parallel for schedule(dynamic, 1) reduction(+: totalResultsLoop) num_threads(GPUSTREAMS)
     	for (int i = 0; i < numBatches; ++i)
-        // for(int i = 0; i < 9; ++i)
+        // for (int i = 0; i < 9; ++i)
     	{
     		int tid = omp_get_thread_num();
 
@@ -1214,7 +1214,7 @@ void distanceTableNDGridBatches(
     		//AS ONE GPU THREAD PROCESSES A SINGLE POINT
 
             errCode = cudaMemcpy( &dev_batchBegin[tid], &batchesVector[i].first, sizeof(unsigned int), cudaMemcpyHostToDevice );
-            if(errCode != cudaSuccess)
+            if (errCode != cudaSuccess)
             {
                 cout << "[GPU] ~ Error: queue index copy to device -- error with code " << errCode << '\n';
                 cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1234,7 +1234,7 @@ void distanceTableNDGridBatches(
     		//copy N to device
     		//N IS THE NUMBER OF THREADS
     		errCode = cudaMemcpyAsync( &dev_N[tid], &N[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-    		if(errCode != cudaSuccess)
+    		if (errCode != cudaSuccess)
             {
     			cout << "[GPU] ~ Error: N Got error with code " << errCode << '\n';
                 cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1244,7 +1244,7 @@ void distanceTableNDGridBatches(
     		//the batched result set size (reset to 0):
     		cnt[tid] = 0;
     		errCode = cudaMemcpyAsync( &dev_cnt[tid], &cnt[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-    		if(errCode != cudaSuccess)
+    		if (errCode != cudaSuccess)
             {
     			cout << "[GPU] ~ Error: dev_cnt memcpy Got error with code " << errCode << '\n';
                 cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1254,7 +1254,7 @@ void distanceTableNDGridBatches(
     		//the offset for batching, which keeps track of where to start processing at each batch
     		batchOffset[tid] = numBatches; //for the strided
     		errCode = cudaMemcpyAsync( &dev_offset[tid], &batchOffset[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-    		if(errCode != cudaSuccess)
+    		if (errCode != cudaSuccess)
             {
     			cout << "[GPU] ~ Error: dev_offset memcpy Got error with code " << errCode << '\n';
                 cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1264,7 +1264,7 @@ void distanceTableNDGridBatches(
     		//the batch number for batching with strided
     		batchNumber[tid] = i;
     		errCode = cudaMemcpyAsync( &dev_batchNumber[tid], &batchNumber[tid], sizeof(unsigned int), cudaMemcpyHostToDevice, stream[tid] );
-    		if(errCode != cudaSuccess)
+    		if (errCode != cudaSuccess)
             {
     			cout << "[GPU] ~ Error: dev_batchNumber memcpy Got error with code " << errCode << '\n';
                 cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1302,7 +1302,7 @@ void distanceTableNDGridBatches(
 
     		// find the size of the number of results
     		errCode = cudaMemcpyAsync( &cnt[tid], &dev_cnt[tid], sizeof(unsigned int), cudaMemcpyDeviceToHost, stream[tid] );
-    		if(errCode != cudaSuccess)
+    		if (errCode != cudaSuccess)
             {
     			cout << "[GPU] ~ Error: getting cnt from GPU Got error with code " << errCode << '\n';
                 cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
@@ -1410,7 +1410,7 @@ void distanceTableNDGridBatches(
     }
 
     unsigned int nbQueryPointTotal = 0;
-    for(int i = 0; i < GPUSTREAMS; ++i)
+    for (int i = 0; i < GPUSTREAMS; ++i)
     {
         nbQueryPointTotal += nbQueryPoint[i];
     }
@@ -1446,7 +1446,7 @@ void distanceTableNDGridBatches(
 	for (int i = 0; i < GPUSTREAMS; i++)
     {
 		errCode = cudaStreamDestroy(stream[i]);
-		if(errCode != cudaSuccess) {
+		if (errCode != cudaSuccess) {
 			cout << "[GPU] ~ Error: destroying stream" << errCode << '\n';
             cout.flush();
 		}
@@ -1511,7 +1511,7 @@ void warmUpGPU(){
 	thrust::sequence(H.begin(), H.end()); // copy all of H back to the beginning of D
 	thrust::copy(H.begin(), H.end(), D.begin());
 	// print D
-	for(int i = 0; i < D.size(); i++)
+	for (int i = 0; i < D.size(); i++)
     {
 		cout << " D[" << i << "] = " << D[i];
     }

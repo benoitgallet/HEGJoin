@@ -337,7 +337,7 @@ int main(int argc, char * argv[])
     printf("   [RESULT] ~ Total execution time to SortByWL: %f\n", sortTime);
     // printf("   [RESULT] ~ Total pre-compute time: %f (+ reordering: %f and sorting: %f = %f)\n", preEgoComputeTime, egoReorder, egoSort, preEgoFullTime);
     printf("   [RESULT] ~ Total execution time for the GPU: %f\n", gpuTime);
-    printf("   [RESULT] ~ Total execution time for the CPU: %f (+ reorder/sort: %f)\n", egoTime, egoTime + egoReorder + egoSort);
+    printf("   [RESULT] ~ Total execution time for the CPU: %f (reorder: %f, sort: %f, total = %f)\n", egoTime, egoReorder, egeoSort, egoTime + egoReorder + egoSort);
 
 
     // if(egoTime < gpuTime)
