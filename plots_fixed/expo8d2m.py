@@ -73,4 +73,4 @@ ax1.legend(fontsize=14, loc='upper left', fancybox=False, framealpha=1, handlele
 
 plt.tight_layout()
 print("Saving figure: expo8d2m.pdf")
-fig.savefig("expo8d2m.pdf", bbox_inches='tight')
+fig.savefig("figures/expo8d2m.pdf", bbox_inches='tight')

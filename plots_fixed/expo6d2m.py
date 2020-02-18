@@ -62,7 +62,7 @@ ax1.plot(epsilon, hybrid, ls='-', c='dodgerblue', marker='v', markersize=10, lin
 #turn off scientific notation
 plt.ticklabel_format(useOffset=False)
 
-ax1.set_ylim(0,250)
+ax1.set_ylim(0,300)
 
 ax1.set_xticks(epsilon)
 
@@ -73,4 +73,4 @@ ax1.legend(fontsize=14, loc='upper left', fancybox=False, framealpha=1, handlele
 
 plt.tight_layout()
 print("Saving figure: expo6d2m.pdf")
-fig.savefig("expo6d2m.pdf", bbox_inches='tight')
+fig.savefig("figures/expo6d2m.pdf", bbox_inches='tight')
