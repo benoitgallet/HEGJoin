@@ -20,6 +20,8 @@ EXPO6D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_6_pts_10
 EXPO8D2M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_8_pts_2000000.txt"
 EXPO8D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_8_pts_10000000.txt"
 
+source /home/benoit/intel/vtune_profiler_2020.0.0.605129/vtune-vars.sh
+
 sed -i '4s/.*/#define GPUNUMDIM 2/' params.h
 sed -i '5s/.*/#define NUMINDEXEDDIM 2/' params.h
 make clean 1>/dev/null 2>/dev/null

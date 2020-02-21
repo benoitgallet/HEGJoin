@@ -58,3 +58,27 @@ void sortInNDBins(std::vector<std::vector <DTYPE> > *dataPoints)
 {
     std::sort(dataPoints->begin(), dataPoints->end(), sortNDComp);
 }
+
+void importNDDatasetBinary(std::vector< std::vector<DTYPE> > * dataPoints, char * fileName)
+{
+    std::ifstream file(fileName, std::ios::in | std::ios::binary);
+    file.seekg(0, std::ios::end);
+    size_t size = file.tellg();
+    file.seekg(0, std::ios::begin);
+    char * readBuffer = new char[size];
+    file.read(readBuffer, size * sizeof(DTYPE));
+    file.close();
+
+    int nbPoints = (size / sizeof(DTYPE)) / GPUNUMDIM;
+    printf("Data import: Total data points: %d\n", nbPoints);
+
+    for(int i = 0; i < nbPoints; ++i)
+    {
+        std::vector<DTYPE> tmpPoint;
+        for(int j = 0; j < GPUNUMDIM; ++j)
+        {
+            tmpPoint.push_back(i * GPUNUMDIM + j);
+        }
+        dataPoints->push_back(tmpPoint);
+    }
+}

@@ -79,7 +79,8 @@ int main(int argc, char * argv[])
 
     std::vector< std::vector<DTYPE> > NDdataPoints;
     double tBeginReadDataset = omp_get_wtime();
-    importNDDataset(&NDdataPoints, filename);
+    // importNDDataset(&NDdataPoints, filename);
+    importNDDatasetBinary(&NDdataPoints, filename);
     double tEndReadDataset = omp_get_wtime();
     printf("[MAIN] ~ Time to read the dataset: %f\n", tEndReadDataset - tBeginReadDataset);
 
