@@ -64,7 +64,7 @@ void importNDDatasetBinary(std::vector< std::vector<DTYPE> > * dataPoints, char 
     std::ifstream file(fileName, std::ios::in | std::ios::binary);
     file.seekg(0, std::ios::end);
     size_t size = file.tellg();
-    file.seekg(0, std::ios::begin);
+    file.seekg(0, std::ios::beg);
     char * readBuffer = new char[size];
     file.read(readBuffer, size * sizeof(DTYPE));
     file.close();
