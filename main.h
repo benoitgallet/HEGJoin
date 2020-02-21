@@ -10,6 +10,10 @@ void importNDDataset(
         std::vector<std::vector <DTYPE> > * dataPoints,
         char * fname);
 
+void importNDDatasetBinary(
+        std::vector<std::vector <DTYPE> > * dataPoints,
+        char * fname);
+
 void sortInNDBins(
         std::vector<std::vector <DTYPE> > * dataPoints);
 
