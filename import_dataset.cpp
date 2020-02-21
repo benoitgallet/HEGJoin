@@ -3,6 +3,7 @@
 #include <istream>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 #include "params.h"
 
