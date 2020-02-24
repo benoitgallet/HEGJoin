@@ -245,7 +245,7 @@ int main(int argc, char * argv[])
     double tEndSort = omp_get_wtime();
     sortTime = tEndSort - tStartSort;
 
-    printf("\n\n[MAIN] ~ Time to do everything before sorting by workload: %f\n\n\n", tStartSort - tStartStart);
+    printf("\n\n[MAIN] ~ Time to do everything before computing: %f\n\n\n", tendSort - tStartStart);
 
     omp_set_nested(1);
 	omp_set_dynamic(0);
