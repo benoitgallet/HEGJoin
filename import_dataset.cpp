@@ -90,7 +90,7 @@ void importNDDatasetBinary(std::vector< std::vector<DTYPE> > * dataPoints, char 
     //     std::cout<< '\n';
     // }
 
-    for(int i = 0; i < nbPoints; ++i)
+    for(int i = 0; i < nbPointsTmp; ++i)
     {
         std::vector<DTYPE> tmpPoint;
         for(int j = 0; j < GPUNUMDIM; ++j)
