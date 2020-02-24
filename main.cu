@@ -79,12 +79,16 @@ int main(int argc, char * argv[])
 
     std::vector< std::vector<DTYPE> > NDdataPoints;
     double tBeginReadDataset = omp_get_wtime();
+    // DTYPE * database;
+    // unsigned int nbPoints = 0;
     // importNDDataset(&NDdataPoints, filename);
     importNDDatasetBinary(&NDdataPoints, filename);
+    // importNDDatasetBinary(&database, filename, &nbPoints);
     double tEndReadDataset = omp_get_wtime();
     printf("[MAIN] ~ Time to read the dataset: %f\n", tEndReadDataset - tBeginReadDataset);
 
     unsigned int DBSIZE = NDdataPoints.size();
+    // unsigned int DBSIZE = nbPoints;
     setQueueIndexCPU(DBSIZE);
 
     // sortInNDBins(&NDdataPoints);
@@ -102,6 +106,7 @@ int main(int argc, char * argv[])
             for(int j = 0; j < GPUNUMDIM; ++j)
             {
                 p->x[j] = NDdataPoints[i][j];
+                // p->x[j] = database[i * GPUNUMDIM + j];
             }
         }
         B = A;
