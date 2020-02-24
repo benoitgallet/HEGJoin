@@ -40,6 +40,7 @@ bool egoSortFunction(Point const& p1, Point const& p2)
 
 int main(int argc, char * argv[])
 {
+    double tStartStart = omp_get_wtime();
     printf("\n\n========== Hybrid-EGO ==========\n\n\n");
 
     if(NB_ARGS != argc)
@@ -243,6 +244,8 @@ int main(int argc, char * argv[])
             &originPointIndex, &dev_originPointIndex);
     double tEndSort = omp_get_wtime();
     sortTime = tEndSort - tStartSort;
+
+    printf("\n\n[MAIN] ~ Time to do everything before sorting by workload: %f\n\n\n", tStartSort - tStartStart);
 
     omp_set_nested(1);
 	omp_set_dynamic(0);
