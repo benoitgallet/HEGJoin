@@ -13,7 +13,7 @@ void importNDDataset(
 void importNDDatasetBinary(
         std::vector<std::vector <DTYPE> > * dataPoints,
         // DTYPE * dataPoints,
-        char * fname
+        char * fname)
         // unsigned int * nbPoints);
 
 void sortInNDBins(
