@@ -1,24 +1,17 @@
 #!/bin/bash
 
-SW2DA="../datasets/2d/sw2da_0_1.txt"
-SW2DB="../datasets/2d/sw2db_0_1.txt"
-SDSS="../datasets/2d/sdss_2d_15m_normalized.txt"
-EXPO2D2M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_2_pts_2000000.txt"
-EXPO2D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_2_pts_10000000.txt"
+SW2DA="../datasets/2d/sw2da_0_1.bin"
+SDSS="../datasets/2d/sdss2d15m_0_1.bin"
+EXPO2D2M="../datasets/2d/expo2d2m.bin"
+EXPO2D10M="../datasets/2d/expo2d10m.bin"
 
-SW3DA="../datasets/3d/sw3da_0_1.txt"
-SW3DB="../datasets/3d/sw3db_0_1.txt"
-EXPO3D2M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_3_pts_2000000.txt"
-EXPO3D10M="../datasets/3d/dataset_fixed_len_pts_expo_NDIM_3_pts_10000000.txt"
+SW3DA="../datasets/3d/sw3da_0_1.bin"
 
-EXPO4D2M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_4_pts_2000000.txt"
-EXPO4D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_4_pts_10000000.txt"
+EXPO4D2M="../datasets/4d/expo4d2m.bin"
+EXPO4D10M="../datasets/4d/expo4d10m.bin"
 
-EXPO6D2M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_6_pts_2000000.txt"
-EXPO6D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_6_pts_10000000.txt"
-
-EXPO8D2M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_8_pts_2000000.txt"
-EXPO8D10M="/data/fixed_length_expo_dist/dataset_fixed_len_pts_expo_NDIM_8_pts_10000000.txt"
+EXPO8D2M="../datasets/8d/expo8d2m.bin"
+EXPO8D10M="../datasets/8d/expo8d10m.bin"
 
 source /home/benoit/intel/vtune_profiler_2020.0.0.605129/vtune-vars.sh
 
