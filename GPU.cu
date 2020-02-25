@@ -1197,6 +1197,12 @@ void distanceTableNDGridBatches(
 
         double computeTimeStart = omp_get_wtime();
 
+        double * computeTimeArray = new double[GPUSTREAMS];
+        for(int i = 0; i < GPUSTREAMS; ++i)
+        {
+            computeTimeArray[i] = 0;
+        }
+
         //FOR LOOP OVER THE NUMBER OF BATCHES STARTS HERE
     	//i=0...numBatches
         #pragma omp parallel for schedule(dynamic, 1) reduction(+: totalResultsLoop) num_threads(GPUSTREAMS)
@@ -1204,6 +1210,8 @@ void distanceTableNDGridBatches(
         // for (int i = 0; i < 9; ++i)
     	{
     		int tid = omp_get_thread_num();
+
+            double tStartLoop = omp_get_wtime();
 
             #if !SILENT_GPU
                 cout << "[GPU] ~ tid " << tid << ", starting iteration " << i << '\n';
@@ -1400,12 +1408,21 @@ void distanceTableNDGridBatches(
                 cout.flush();
             #endif
 
+            double tEndLoop = omp_get_wtime();
+            computeTimeArray[tid] += tEndLoop - tStartLoop;
+
     	} //END LOOP OVER THE GPU BATCHES
 
         double computeEndTime = omp_get_wtime();
         computeTime = computeEndTime - computeTimeStart;
         // cout << "[GPU | RESULT] ~ Compute time for the GPU = " << computeEndTime - computeTimeStart << '\n';
         // cout.flush();
+
+        cout << "[BENCH] ~ Compute time for the GPU: " << computeTime << '\n';
+        for(int i = 0; i < GPUSTREAMS; ++i)
+        {
+            cout << "   [BENCH | Stream " << i << "] ~ Compute time = " << computeTimeArray[i] << ", kernel time = " << kernelTimes[i] << '\n';
+        }
 
     }
 
