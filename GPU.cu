@@ -1288,12 +1288,12 @@ void distanceTableNDGridBatches(
 
     		//execute kernel
     		//0 is shared memory pool
-            cudaEventRecord(startKernel[tid]);
+            cudaEventRecord(startKernel[tid], stream[tid]);
             kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
                 &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
                 dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells,
                 dev_pointIDKey[tid], dev_pointInDistValue[tid]);
-            cudaEventRecord(stopKernel[tid]);
+            cudaEventRecord(stopKernel[tid], stream[tid]);
 
 
             errCode = cudaGetLastError();
