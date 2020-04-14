@@ -86,7 +86,7 @@ ax1.set_xticks(dimension)
 ax1.set_xlabel(r'Dimensionality', fontsize=18)
 ax1.set_ylabel('Load Imbalance Ratio', fontsize=17)
 
-ax1.legend(fontsize=14, loc='upper left', fancybox=False, framealpha=1, handlelength=2, ncol=2)
+ax1.legend(fontsize=15, loc='upper left', fancybox=False, framealpha=1, handlelength=2, ncol=2)
 
 plt.tight_layout()
 print("Saving figure: time_ratios_2m.pdf")

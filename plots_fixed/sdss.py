@@ -48,7 +48,7 @@ hybrid = np.asfarray(hybrid, dtype=float)
 
 #Susy
 
-fig = plt.figure(figsize=(4,3))
+fig = plt.figure(figsize=(4,3.3))
 ax1 = fig.add_subplot(111)
 
 # We change the fontsize of minor ticks label
@@ -69,7 +69,7 @@ ax1.set_xticks(epsilon)
 ax1.set_xlabel(r'$\epsilon (\times 10^-3)$', fontsize=20)
 ax1.set_ylabel('Time (s)', fontsize=18)
 
-ax1.legend(fontsize=14, loc='upper left', fancybox=False, framealpha=1, handlelength=2, ncol=1)
+ax1.legend(fontsize=15, loc='upper left', fancybox=False, framealpha=1, handlelength=2, ncol=1)
 
 plt.tight_layout()
 print("Saving figure: sdss2d15m.pdf")
