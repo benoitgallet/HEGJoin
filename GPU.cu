@@ -631,7 +631,7 @@ unsigned long long GPUBatchEst_v2(
 
     }
 
-    cout << "[GPU | RESULT] Total estimated workload: " << fullEst << '\n';
+    cout << "[GPU | RESULT] ~ Total estimated workload: " << fullEst << '\n';
 
     if (searchMode == SM_HYBRID_STATIC)
     {
@@ -682,12 +682,12 @@ unsigned long long GPUBatchEst_v2(
                     }
                 }
             }
-            printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %l estimated candidates\n", partitionedDBSIZE, runningEst);
-            printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - partitionedDBSIZE, fullEst - runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %llu estimated candidates\n", partitionedDBSIZE, runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %llu estimated candidates\n", (*DBSIZE) - partitionedDBSIZE, fullEst - runningEst);
             setQueueIndex(partitionedDBSIZE);
         #else // Static partitioning based on the number candidate points to refine
             unsigned long long partitionedCandidates = fullEst * staticPartition;
-            unsigned long long runningEst = 0;
+            runningEst = 0;
             unsigned long long runningEstBatch = 0;
             unsigned int queryPoint = 0;
             while (runningEst < partitionedCandidates)
@@ -705,17 +705,17 @@ unsigned long long GPUBatchEst_v2(
                     // the allocated work so we finish the last batch
                     if (partitionedCandidates <= runningEstBatch)
                     {
-                        cout << "ON A FINI LES BATCHS GGWP\n";
                         batchEnd = queryPoint;
                         batches->push_back(std::make_pair(batchBegin, batchEnd));
                     }
                 }
                 queryPoint++;
             }
-            printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %l estimated candidates\n", queryPoint, runningEst);
-            printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %llu estimated candidates\n", queryPoint, runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %llu estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
             setQueueIndex(queryPoint);
         #endif
+        fullEst = runningEst;
     } else {
         for (int i = 0; i < (*DBSIZE); ++i)
         {
