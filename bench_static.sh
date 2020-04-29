@@ -112,16 +112,16 @@ echo '-----'
 echo
 echo
 
-echo '~ EXPO6D10M'
-echo '# Hybrid (Dynamic)'
-echo '## Epsilon 0.0080'
-./main $EXPO6D10M 0.0080 6 1 | grep "RESULT"
-
-echo
-echo
-echo '-----'
-echo
-echo
+# echo '~ EXPO6D10M'
+# echo '# Hybrid (Dynamic)'
+# echo '## Epsilon 0.0080'
+# ./main $EXPO6D10M 0.0080 6 1 | grep "RESULT"
+#
+# echo
+# echo
+# echo '-----'
+# echo
+# echo
 
 # sed -i '4s/.*/#define GPUNUMDIM 8/' params.h
 # sed -i '5s/.*/#define NUMINDEXEDDIM 8/' params.h
@@ -358,32 +358,32 @@ echo '-----'
 echo
 echo
 
-echo '~ EXPO6D10M'
-echo '# Hybrid (Queries)'
-echo '## Epsilon 0.0080'
-./main $EXPO6D10M 0.0080 6 2 0.1 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.2 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.3 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.4 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.5 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.6 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.7 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.8 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.9 | grep "RESULT"
-
-echo
-echo
-echo '-----'
-echo
-echo
+# echo '~ EXPO6D10M'
+# echo '# Hybrid (Queries)'
+# echo '## Epsilon 0.0080'
+# ./main $EXPO6D10M 0.0080 6 2 0.1 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.2 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.3 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.4 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.5 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.6 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.7 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.8 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.9 | grep "RESULT"
+#
+# echo
+# echo
+# echo '-----'
+# echo
+# echo
 
 # sed -i '4s/.*/#define GPUNUMDIM 8/' params.h
 # sed -i '5s/.*/#define NUMINDEXEDDIM 8/' params.h
@@ -621,32 +621,32 @@ echo '-----'
 echo
 echo
 
-echo '~ EXPO6D10M'
-echo '# Hybrid (Candidates)'
-echo '## Epsilon 0.0080'
-./main $EXPO6D10M 0.0080 6 2 0.1 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.2 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.3 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.4 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.5 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.6 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.7 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.8 | grep "RESULT"
-echo
-./main $EXPO6D10M 0.0080 6 2 0.9 | grep "RESULT"
-
-echo
-echo
-echo '-----'
-echo
-echo
+# echo '~ EXPO6D10M'
+# echo '# Hybrid (Candidates)'
+# echo '## Epsilon 0.0080'
+# ./main $EXPO6D10M 0.0080 6 2 0.1 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.2 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.3 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.4 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.5 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.6 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.7 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.8 | grep "RESULT"
+# echo
+# ./main $EXPO6D10M 0.0080 6 2 0.9 | grep "RESULT"
+#
+# echo
+# echo
+# echo '-----'
+# echo
+# echo
 
 # sed -i '4s/.*/#define GPUNUMDIM 8/' params.h
 # sed -i '5s/.*/#define NUMINDEXEDDIM 8/' params.h
