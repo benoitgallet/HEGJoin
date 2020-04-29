@@ -65,7 +65,7 @@ int main(int argc, char * argv[])
             staticPartition = atof(argv[STATIC_PART_ARG]);
             if (staticPartition <= 0.0 || 1.0 <= staticPartition)
             {
-                fprintf(stderr, "[MAIN] ~ Error: the partitioning should be between ]0.0, 1.0[")
+                fprintf(stderr, "[MAIN] ~ Error: the partitioning should be between ]0.0, 1.0[");
                 return 1;
             }
         } else {
