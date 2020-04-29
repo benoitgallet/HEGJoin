@@ -688,20 +688,22 @@ unsigned long long GPUBatchEst_v2(
         #else // Static partitioning based on the number candidate points to refine
             unsigned long long partitionedCandidates = fullEst * staticPartition;
             unsigned long long runningEst = 0;
+            unsigned long long runningEstBatch = 0;
             unsigned int queryPoint = 0;
             while (runningEst < partitionedCandidates)
             {
                 runningEst += estimatedFull[queryPoint];
-                if ((GPUBufferSize - reserveBuffer) <= runningEst)
+                runningEstBatch += estimatedFull[queryPoint];
+                if ((GPUBufferSize - reserveBuffer) <= runningEstBatch)
                 {
                     batchEnd = queryPoint;
                     batches->push_back(std::make_pair(batchBegin, batchEnd));
                     batchBegin = queryPoint;
-                    runningEst = 0;
+                    runningEstBatch = 0;
                 } else {
                     // The point does not fill the current batch, but the GPU batches already reached
                     // the allocated work so we finish the last batch
-                    if (partitionedCandidates <= runningEst)
+                    if (partitionedCandidates <= runningEstBatch)
                     {
                         cout << "ON A FINI LES BATCHS GGWP\n";
                         batchEnd = queryPoint;
