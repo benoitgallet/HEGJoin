@@ -703,6 +703,7 @@ unsigned long long GPUBatchEst_v2(
                     // the allocated work so we finish the last batch
                     if (partitionedCandidates <= runningEst)
                     {
+                        cout << "ON A FINI LES BATCHS GGWP\n";
                         batchEnd = queryPoint;
                         batches->push_back(std::make_pair(batchBegin, batchEnd));
                     }
