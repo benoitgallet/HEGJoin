@@ -68,7 +68,6 @@ int main(int argc, char * argv[])
                 fprintf(stderr, "[MAIN] ~ Error: the partitioning should be between ]0.0, 1.0[")
                 return 1;
             }
-            break;
         } else {
             fprintf(stderr, "[MAIN] ~ Error: you need to indicate the partitioning as the last parameter");
             return 1;

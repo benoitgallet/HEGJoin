@@ -682,8 +682,8 @@ unsigned long long GPUBatchEst_v2(
                     }
                 }
             }
-            printf("[GPU | RESULT] ~ %d query points allocated to the GPU, with %l estimated candidates\n", partitionedDBSIZE, runningEst);
-            printf("[GPU | RESULT] ~ %d query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - partitionedDBSIZE, fullEst - runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %l estimated candidates\n", partitionedDBSIZE, runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - partitionedDBSIZE, fullEst - runningEst);
             setQueueIndex(partitionedDBSIZE);
         #else // Static partitioning based on the number candidate points to refine
             unsigned long long partitionedCandidates = fullEst * staticPartition;
@@ -709,8 +709,8 @@ unsigned long long GPUBatchEst_v2(
                 }
                 queryPoint++;
             }
-            printf("[GPU | RESULT] ~ %d query points allocated to the GPU, with %l estimated candidates\n", queryPoint, runningEst);
-            printf("[GPU | RESULT] ~ %d query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %l estimated candidates\n", queryPoint, runningEst);
+            printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
             setQueueIndex(queryPoint);
         #endif
     } else {

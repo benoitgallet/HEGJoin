@@ -28,6 +28,7 @@ void gridIndexingGPU(
 
 void distanceTableNDGridBatches(
         int searchMode,
+        float staticPartition,
         unsigned int * DBSIZE,
         DTYPE * epsilon,
         DTYPE * dev_epsilon,
@@ -69,7 +70,9 @@ unsigned long long callGPUBatchEst(
         unsigned int * retGPUBufferSize);
 
 unsigned long long GPUBatchEst_v2(
+        int searchMode,
         unsigned int * DBSIZE,
+        float staticPartition,
         DTYPE * dev_database,
         unsigned int * dev_originPointIndex,
         DTYPE * dev_epsilon,
