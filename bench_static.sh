@@ -158,13 +158,21 @@ echo '~ EXPO2D2M'
 echo '# Hybrid (Queries)'
 echo '## Epsilon 0.0020'
 ./main $EXPO2D2M 0.0020 2 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.9 | grep "RESULT"
 
 echo
@@ -177,13 +185,21 @@ echo '~ EXPO2D10M'
 echo '# Hybrid (Queries)'
 echo '## Epsilon 0.00040'
 ./main $EXPO2D10M 0.00040 2 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.9 | grep "RESULT"
 
 echo
@@ -201,13 +217,21 @@ echo '~ EXPO3D2M'
 echo '# Hybrid (Queries)'
 echo '## Epsilon 0.005'
 ./main $EXPO3D2M 0.005 3 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.9 | grep "RESULT"
 
 echo
@@ -220,13 +244,21 @@ echo '~ EXPO3D10M'
 echo '# Hybrid (Queries)'
 echo '## Epsilon 0.0015'
 ./main $EXPO3D10M 0.0015 3 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.9 | grep "RESULT"
 
 echo
@@ -242,15 +274,23 @@ make 1>/dev/null 2>/dev/null
 
 echo '~ EXPO4D2M'
 echo '# Hybrid (Queries)'
-cho '## Epsilon 0.010'
+echo '## Epsilon 0.010'
 ./main $EXPO4D2M 0.010 4 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.9 | grep "RESULT"
 
 echo
@@ -263,13 +303,21 @@ echo '~ EXPO4D10M'
 echo '# Hybrid (Queries)'
 echo '## Epsilon 0.0040'
 ./main $EXPO4D10M 0.0040 4 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.9 | grep "RESULT"
 
 echo
@@ -287,13 +335,21 @@ echo '~ EXPO6D2M'
 echo '# Hybrid (Queries)'
 echo '## Epsilon 0.015'
 ./main $EXPO6D2M 0.015 6 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.9 | grep "RESULT"
 
 echo
@@ -306,13 +362,21 @@ echo '~ EXPO6D10M'
 echo '# Hybrid (Queries)'
 echo '## Epsilon 0.0080'
 ./main $EXPO6D10M 0.0080 6 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.9 | grep "RESULT"
 
 echo
@@ -357,13 +421,21 @@ echo '~ EXPO2D2M'
 echo '# Hybrid (Candidates)'
 echo '## Epsilon 0.0020'
 ./main $EXPO2D2M 0.0020 2 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO2D2M 0.0020 2 2 0.9 | grep "RESULT"
 
 echo
@@ -376,13 +448,21 @@ echo '~ EXPO2D10M'
 echo '# Hybrid (Candidates)'
 echo '## Epsilon 0.00040'
 ./main $EXPO2D10M 0.00040 2 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO2D10M 0.00040 2 2 0.9 | grep "RESULT"
 
 echo
@@ -400,13 +480,21 @@ echo '~ EXPO3D2M'
 echo '# Hybrid (Candidates)'
 echo '## Epsilon 0.005'
 ./main $EXPO3D2M 0.005 3 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO3D2M 0.005 3 2 0.9 | grep "RESULT"
 
 echo
@@ -419,13 +507,21 @@ echo '~ EXPO3D10M'
 echo '# Hybrid (Candidates)'
 echo '## Epsilon 0.0015'
 ./main $EXPO3D10M 0.0015 3 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO3D10M 0.0015 3 2 0.9 | grep "RESULT"
 
 echo
@@ -443,13 +539,21 @@ echo '~ EXPO4D2M'
 echo '# Hybrid (Candidates)'
 cho '## Epsilon 0.010'
 ./main $EXPO4D2M 0.010 4 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO4D2M 0.010 4 2 0.9 | grep "RESULT"
 
 echo
@@ -462,13 +566,21 @@ echo '~ EXPO4D10M'
 echo '# Hybrid (Candidates)'
 echo '## Epsilon 0.0040'
 ./main $EXPO4D10M 0.0040 4 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO4D10M 0.0040 4 2 0.9 | grep "RESULT"
 
 echo
@@ -486,13 +598,21 @@ echo '~ EXPO6D2M'
 echo '# Hybrid (Candidates)'
 echo '## Epsilon 0.015'
 ./main $EXPO6D2M 0.015 6 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO6D2M 0.015 6 2 0.9 | grep "RESULT"
 
 echo
@@ -505,13 +625,21 @@ echo '~ EXPO6D10M'
 echo '# Hybrid (Candidates)'
 echo '## Epsilon 0.0080'
 ./main $EXPO6D10M 0.0080 6 2 0.1 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.2 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.3 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.4 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.5 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.6 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.7 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.8 | grep "RESULT"
+echo
 ./main $EXPO6D10M 0.0080 6 2 0.9 | grep "RESULT"
 
 echo
