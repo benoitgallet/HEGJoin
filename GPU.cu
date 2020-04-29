@@ -536,7 +536,7 @@ unsigned long long GPUBatchEst_v2(
     } else {
         nbBlockTmp = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
     }
-    cout << "[GPU] ~ Total blocks: " << TOTALBLOCKSBATCHEST << '\n';
+    cout << "[GPU] ~ Total blocks: " << nbBlockTmp << '\n';
     cout.flush();
 
     cout << "[GPU] ~ Estimating batch without using pattern\n";
@@ -733,7 +733,7 @@ unsigned long long GPUBatchEst_v2(
                 }
             }
         }
-        setQueueIndex(batches[GPUSTREAMS].first);
+        setQueueIndex(batches[GPUSTREAMS]->first);
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
