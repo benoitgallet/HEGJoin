@@ -921,8 +921,13 @@ void distanceTableNDGridBatches(
     std::vector< std::pair<unsigned int, unsigned int> > batchesVector;
 
 	double tstartbatchest = omp_get_wtime();
-    estimatedNeighbors = GPUBatchEst_v2(DBSIZE, dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr,
-            dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+    #if SORT_BY_WORKLOAD
+        estimatedNeighbors = GPUBatchEst_v2searchMode, DBSIZE, staticPartition, dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr,
+                dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+    #else
+        estimatedNeighbors = GPUBatchEst_v2(searchMode, DBSIZE, staticPartition, dev_database, nullptr, dev_epsilon, dev_grid, dev_indexLookupArr,
+                dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+    #endif
 	double tendbatchest = omp_get_wtime();
 
     cout << "[GPU] ~ Time to estimate batches: " << tendbatchest - tstartbatchest << '\n';
