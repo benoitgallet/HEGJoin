@@ -525,22 +525,24 @@ unsigned long long GPUBatchEst_v2(
         cout.flush();
 	}
 
-    const int TOTALBLOCKSBATCHEST;
+    int nbBlockTmp;
     if (searchMode == SM_HYBRID_STATIC)
     {
         #if STATIC_SPLIT_QUERIES
-            TOTALBLOCKSBATCHEST = ceil((1.0 * partitionedDBSIZE * sampleRate) / (1.0 * BLOCKSIZE));
+            nbBlockTmp = ceil((1.0 * partitionedDBSIZE * sampleRate) / (1.0 * BLOCKSIZE));
         #else
-            TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
+            nbBlockTmp = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
         #endif
     } else {
-        TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
+        nbBlockTmp = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
     }
     cout << "[GPU] ~ Total blocks: " << TOTALBLOCKSBATCHEST << '\n';
     cout.flush();
 
     cout << "[GPU] ~ Estimating batch without using pattern\n";
     cout.flush();
+
+    const int TOTALBLOCKSBATCHEST = nbBlockTmp;
 
 
     #if SORT_BY_WORKLOAD
@@ -598,7 +600,7 @@ unsigned long long GPUBatchEst_v2(
             estimatedFull = new unsigned int[(*DBSIZE)];
         #endif
     } else {
-        unsigned int nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
+        nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
         estimatedFull = new unsigned int[(*DBSIZE)];
     }
 
@@ -731,7 +733,7 @@ unsigned long long GPUBatchEst_v2(
                 }
             }
         }
-        setQueueIndex(batchesVector[GPUSTREAMS].first);
+        setQueueIndex(batches[GPUSTREAMS].first);
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
