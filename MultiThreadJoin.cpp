@@ -117,6 +117,14 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			// unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
 			// unsigned int * nbNeighbors = new unsigned int;
 
+			if (searchMode == SM_HYBRID_STATIC)
+			{
+				do
+				{
+					cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
+				}while(cpuBatch.second < cpuBatch.first);
+			}
+
 			do
 			{
 				nbQueries[tid] += cpuBatch.second - cpuBatch.first;
