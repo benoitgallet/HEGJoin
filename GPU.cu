@@ -733,7 +733,7 @@ unsigned long long GPUBatchEst_v2(
                 }
             }
         }
-        setQueueIndex((batches[GPUSTREAMS]).first);
+        // setQueueIndex((batches[GPUSTREAMS]).first);
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
@@ -945,7 +945,10 @@ void distanceTableNDGridBatches(
     // {
     //     setQueueIndex((*DBSIZE)); // the GPU reserves all the computation
     // } else {
-    // setQueueIndex(batchesVector[GPUSTREAMS].first);
+    if (searchMode != SM_HYBRID_STATIC)
+    {
+        setQueueIndex(batchesVector[GPUSTREAMS].first);
+    }
     // }
 
 // setQueueIndex(0);
