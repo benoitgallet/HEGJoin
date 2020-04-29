@@ -43,7 +43,7 @@ int main(int argc, char * argv[])
     double tStartStart = omp_get_wtime();
     printf("\n\n========== Hybrid-EGO ==========\n\n\n");
 
-    if(NB_ARGS_MAX != argc || (NB_ARGS_MAX - 1) != argc)
+    if(NB_ARGS_MAX != argc && (NB_ARGS_MAX - 1) != argc)
     {
         fprintf(stderr, "[MAIN] ~ Expected %d or %d args, found %d\n", NB_ARGS_MAX, NB_ARGS_MAX - 1, argc);
         fprintf(stderr, "[MAIN] ~ Args: filename epsilon dim searchmode [CPU-GPU partitioning]\n");
