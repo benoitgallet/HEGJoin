@@ -733,7 +733,7 @@ unsigned long long GPUBatchEst_v2(
                 }
             }
         }
-        setQueueIndex(batches[GPUSTREAMS]->first);
+        setQueueIndex((batches[GPUSTREAMS]).first);
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
