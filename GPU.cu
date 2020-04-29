@@ -400,7 +400,9 @@ void gridIndexingGPU(
 
 
 unsigned long long GPUBatchEst_v2(
+    int searchMode,
     unsigned int * DBSIZE,
+    float staticPartition,
     DTYPE * dev_database,
     unsigned int * dev_originPointIndex,
     DTYPE * dev_epsilon,
@@ -430,7 +432,19 @@ unsigned long long GPUBatchEst_v2(
 
     unsigned int * dev_N_batchEst;
     unsigned int * N_batchEst = new unsigned int;
-    (*N_batchEst) = (*DBSIZE) * sampleRate;
+
+    unsigned int partitionedDBSIZE = (*DBSIZE) * staticPartition;
+
+    if (SM_HYBRID_STATIC == searchMode && STATIC_SPLIT_QUERIES)
+    {
+        // Split the worked based on the number of queries, so also reduce the number of queries to estimate
+        (*N_batchEst) = partitionedDBSIZE * sampleRate;
+    } else {
+        // Searchmode is either GPU alone, dynamic hybrid, or the workload is statically split
+        //  based on the number of candidate points to refine, and so we estimate all the query points
+        //  in all mentionned cases
+        (*N_batchEst) = (*DBSIZE) * sampleRate;
+    }
 
     errCode = cudaMalloc((void**)&dev_N_batchEst, sizeof(unsigned int));
 	if (errCode != cudaSuccess)
@@ -511,7 +525,17 @@ unsigned long long GPUBatchEst_v2(
         cout.flush();
 	}
 
-    const int TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
+    const int TOTALBLOCKSBATCHEST;
+    if (searchMode == SM_HYBRID_STATIC)
+    {
+        #if STATIC_SPLIT_QUERIES
+            TOTALBLOCKSBATCHEST = ceil((1.0 * partitionedDBSIZE * sampleRate) / (1.0 * BLOCKSIZE));
+        #else
+            TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
+        #endif
+    } else {
+        TOTALBLOCKSBATCHEST = ceil((1.0 * (*DBSIZE) * sampleRate) / (1.0 * BLOCKSIZE));
+    }
     cout << "[GPU] ~ Total blocks: " << TOTALBLOCKSBATCHEST << '\n';
     cout.flush();
 
@@ -519,9 +543,15 @@ unsigned long long GPUBatchEst_v2(
     cout.flush();
 
 
-    kernelNDGridIndexBatchEstimator_v2<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(dev_N_batchEst, dev_sampleOffset,
-        dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr,
-        dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells, dev_estimatedResult);
+    #if SORT_BY_WORKLOAD
+        kernelNDGridIndexBatchEstimator_v2<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(dev_N_batchEst, dev_sampleOffset,
+            dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr,
+            dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells, dev_estimatedResult);
+    #else
+        kernelNDGridIndexBatchEstimator_v2<<<TOTALBLOCKSBATCHEST, BLOCKSIZE>>>(dev_N_batchEst, dev_sampleOffset,
+            dev_database, nullptr, dev_epsilon, dev_grid, dev_indexLookupArr, dev_gridCellLookupArr, dev_minArr,
+            dev_nCells, dev_cnt_batchEst, dev_nNonEmptyCells, dev_estimatedResult);
+    #endif
 
 
     cout << "[GPU] ~ ERROR FROM KERNEL LAUNCH OF BATCH ESTIMATOR: " << cudaGetLastError() << '\n';
@@ -553,9 +583,25 @@ unsigned long long GPUBatchEst_v2(
     // cout << "[GPU] ~ From GPU cnt: " << *cnt_batchEst <<", offset rate: " << offsetRate << '\n';
     // cout.flush();
 
-    unsigned int nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
-    unsigned int * estimatedFull = new unsigned int[(*DBSIZE)];
     unsigned long long fullEst = 0;
+    unsigned int * estimatedFull;
+
+    unsigned int nbUnestimatedSequences;
+
+    if (SM_HYBRID_STATIC == searchMode)
+    {
+        #if STATIC_SPLIT_QUERIES
+            nbUnestimatedSequences = partitionedDBSIZE / (*sampleOffset);
+            estimatedFull = new unsigned int[partitionedDBSIZE];
+        #else
+            nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
+            estimatedFull = new unsigned int[(*DBSIZE)];
+        #endif
+    } else {
+        unsigned int nbUnestimatedSequences = (*DBSIZE) / (*sampleOffset);
+        estimatedFull = new unsigned int[(*DBSIZE)];
+    }
+
     for (int i = 0; i < nbUnestimatedSequences - 1; ++i)
     {
         unsigned int nbEstBefore = estimatedResult[i];
@@ -569,53 +615,123 @@ unsigned long long GPUBatchEst_v2(
 
         for (int j = estBefore + 1; j < estAfter; ++j)
         {
-            estimatedFull[j] = maxEst;
-            fullEst += maxEst;
+            #if SORT_BY_WORKLOAD
+                estimatedFull[j] = maxEst;
+                fullEst += maxEst;
+            #else
+                // If we do not sort by workload, then we can not assume that the work is in non-increasing order,
+                // and thus that the used estimator is "correct", so we overestimate the estimation to compensate,
+                // similarly as in the original algorithm
+                estimatedFull[j] = maxEst + maxEst * sampleRate;
+                fullEst += maxEst + maxEst * sampleRate;
+            #endif
         }
-        // for (int j = estBefore + 1; j <= estAfter / 2; j++)
-        // {
-        //     estimatedFull[j] = nbEstBefore;
-        //     fullEst += nbEstBefore;
-        // }
-        // for (int j = (estAfter / 2) + 1; j < estAfter; j++)
-        // {
-        //     estimatedFull[j] = nbEstAfter;
-        //     fullEst += nbEstAfter;
-        // }
 
     }
 
-    // Not enough work to fill at least 6 batches (2 * GPUSTREAMS)
-    // So we force to have at least 6 batches so all streams can be used, and the CPU as well
-    if (fullEst < (GPUBufferSize * GPUSTREAMS * 2))
+    cout << "[GPU | RESULT] Total estimated workload: " << fullEst << '\n';
+
+    if (searchMode == SM_HYBRID_STATIC)
     {
-        GPUBufferSize = fullEst / (GPUSTREAMS * 2);
-        cout << "[GPU] ~ Too few batches, reducing GPUBufferSize to " << GPUBufferSize << '\n';
+        // Not enough work to fill at least GPUSTREAMS batches, so reducing GPUBufferSize so the
+        // GPU can fully use its GPUSTREAMS streams
+        // Used if the work is statically partitioned, as the CPU will always have some work reserved
+        if (fullEst < (GPUBufferSize * GPUSTREAMS))
+        {
+            GPUBufferSize = fullEst / (GPUSTREAMS);
+            cout << "[GPU] ~ Too few batches, reducing GPUBufferSize to " << GPUBufferSize << '\n';
+        }
+    } else {
+        // Not enough work to fill at least 6 batches (2 * GPUSTREAMS)
+        // So we force to have at least 6 batches so all streams can be used, and the CPU as well
+        // Used if the work is dynamically partitioned (work queue), so the CPU can have some work
+        if (fullEst < (GPUBufferSize * GPUSTREAMS * 2))
+        {
+            GPUBufferSize = fullEst / (GPUSTREAMS * 2);
+            cout << "[GPU] ~ Too few batches, reducing GPUBufferSize to " << GPUBufferSize << '\n';
+        }
     }
 
     unsigned int batchBegin = 0;
     unsigned int batchEnd = 0;
     unsigned long long runningEst = 0;
-    // Keeping 5% of margin to avoid an overflow of the buffer
+    // Keeping 5% of margin to avoid a potential overflow of the buffer
     unsigned int reserveBuffer = GPUBufferSize * 0.05;
-    for (int i = 0; i < (*DBSIZE); ++i)
+
+    if (searchMode == SM_HYBRID_STATIC)
     {
-        runningEst += estimatedFull[i];
-        // fullEst += estimatedFull[i];
-        if ((GPUBufferSize - reserveBuffer) <= runningEst)
-        {
-            batchEnd = i;
-            batches->push_back(std::make_pair(batchBegin, batchEnd));
-            batchBegin = i;
-            runningEst = 0;
-        } else {
-            // The last batch may not fulfill the above condition of filling a result buffer
-            if ((*DBSIZE) - 1 == i)
+        #if STATIC_SPLIT_QUERIES
+            for (int i = 0; i < partitionedDBSIZE; ++i)
             {
-                batchEnd = (*DBSIZE);
+                runningEst += estimatedFull[i];
+                // fullEst += estimatedFull[i];
+                if ((GPUBufferSize - reserveBuffer) <= runningEst)
+                {
+                    batchEnd = i;
+                    batches->push_back(std::make_pair(batchBegin, batchEnd));
+                    batchBegin = i;
+                    runningEst = 0;
+                } else {
+                    // The last batch may not fulfill the above condition of filling a result buffer
+                    if (partitionedDBSIZE - 1 == i)
+                    {
+                        batchEnd = partitionedDBSIZE;
+                        batches->push_back(std::make_pair(batchBegin, batchEnd));
+                    }
+                }
+            }
+            printf("[GPU | RESULT] ~ %d query points allocated to the GPU, with %l estimated candidates\n", partitionedDBSIZE, runningEst);
+            printf("[GPU | RESULT] ~ %d query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - partitionedDBSIZE, fullEst - runningEst);
+            setQueueIndex(partitionedDBSIZE);
+        #else // Static partitioning based on the number candidate points to refine
+            unsigned long long partitionedCandidates = fullEst * staticPartition;
+            unsigned long long runningEst = 0;
+            unsigned int queryPoint = 0;
+            while (runningEst < partitionedCandidates)
+            {
+                runningEst += estimatedFull[queryPoint];
+                if ((GPUBufferSize - reserveBuffer) <= runningEst)
+                {
+                    batchEnd = queryPoint;
+                    batches->push_back(std::make_pair(batchBegin, batchEnd));
+                    batchBegin = queryPoint;
+                    runningEst = 0;
+                } else {
+                    // The point does not fill the current batch, but the GPU batches already reached
+                    // the allocated work so we finish the last batch
+                    if (partitionedCandidates <= runningEst)
+                    {
+                        batchEnd = queryPoint;
+                        batches->push_back(std::make_pair(batchBegin, batchEnd));
+                    }
+                }
+                queryPoint++;
+            }
+            printf("[GPU | RESULT] ~ %d query points allocated to the GPU, with %l estimated candidates\n", queryPoint, runningEst);
+            printf("[GPU | RESULT] ~ %d query points allocated to the CPU, with %l estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
+            setQueueIndex(queryPoint);
+        #endif
+    } else {
+        for (int i = 0; i < (*DBSIZE); ++i)
+        {
+            runningEst += estimatedFull[i];
+            // fullEst += estimatedFull[i];
+            if ((GPUBufferSize - reserveBuffer) <= runningEst)
+            {
+                batchEnd = i;
                 batches->push_back(std::make_pair(batchBegin, batchEnd));
+                batchBegin = i;
+                runningEst = 0;
+            } else {
+                // The last batch may not fulfill the above condition of filling a result buffer
+                if ((*DBSIZE) - 1 == i)
+                {
+                    batchEnd = (*DBSIZE);
+                    batches->push_back(std::make_pair(batchBegin, batchEnd));
+                }
             }
         }
+        setQueueIndex(batchesVector[GPUSTREAMS].first);
     }
 
     cout << "[GPU] ~ Estimated total result set size: " << fullEst << '\n';
@@ -650,6 +766,7 @@ unsigned long long GPUBatchEst_v2(
 //modified from: makeDistanceTableGPUGridIndexBatchesAlternateTest
 void distanceTableNDGridBatches(
         int searchMode,
+        float staticPartition,
         unsigned int * DBSIZE,
         DTYPE * epsilon,
         DTYPE * dev_epsilon,
@@ -826,7 +943,7 @@ void distanceTableNDGridBatches(
     // {
     //     setQueueIndex((*DBSIZE)); // the GPU reserves all the computation
     // } else {
-    setQueueIndex(batchesVector[GPUSTREAMS].first);
+    // setQueueIndex(batchesVector[GPUSTREAMS].first);
     // }
 
 // setQueueIndex(0);
@@ -1084,10 +1201,17 @@ void distanceTableNDGridBatches(
 
                 // double beginKernel = omp_get_wtime();
                 cudaEventRecord(startKernel[tid], stream[tid]);
-                kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
-                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells,
-                    dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                #if SORT_BY_WORKLOAD
+                    kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
+                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
+                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells,
+                        dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                #else
+                    kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
+                        &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, nullptr, dev_epsilon, dev_grid,
+                        dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells,
+                        dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+                #endif
                 cudaEventRecord(stopKernel[tid], stream[tid]);
 
 
@@ -1179,7 +1303,7 @@ void distanceTableNDGridBatches(
                     globalBatchCounter++;
                 }
 
-            }while(0 != gpuBatch.second);
+            } while(0 != gpuBatch.second);
 
         } // parallel section
         double tEndCompute = omp_get_wtime();
@@ -1289,10 +1413,17 @@ void distanceTableNDGridBatches(
     		//execute kernel
     		//0 is shared memory pool
             cudaEventRecord(startKernel[tid], stream[tid]);
-            kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
-                &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
-                dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells,
-                dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+            #if SORT_BY_WORKLOAD
+                kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
+                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, dev_originPointIndex, dev_epsilon, dev_grid,
+                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells,
+                    dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+            #else
+                kernelNDGridIndexGlobal<<< TOTALBLOCKS, BLOCKSIZE, 0, stream[tid] >>>(&dev_batchBegin[tid], &dev_N[tid],
+                    &dev_offset[tid], &dev_batchNumber[tid], dev_database, nullptr, nullptr, dev_epsilon, dev_grid,
+                    dev_indexLookupArr,dev_gridCellLookupArr, dev_minArr, dev_nCells, &dev_cnt[tid], dev_nNonEmptyCells,
+                    dev_pointIDKey[tid], dev_pointInDistValue[tid]);
+            #endif
             cudaEventRecord(stopKernel[tid], stream[tid]);
 
 
@@ -1409,7 +1540,7 @@ void distanceTableNDGridBatches(
             #endif
 
             double tEndLoop = omp_get_wtime();
-            computeTimeArray[tid] += tEndLoop - tStartLoop;
+            // computeTimeArray[tid] += tEndLoop - tStartLoop;
 
     	} //END LOOP OVER THE GPU BATCHES
 
@@ -1419,10 +1550,10 @@ void distanceTableNDGridBatches(
         // cout.flush();
 
         cout << "[BENCH] ~ Compute time for the GPU: " << computeTime << '\n';
-        for(int i = 0; i < GPUSTREAMS; ++i)
-        {
-            cout << "   [BENCH | Stream " << i << "] ~ Compute time = " << computeTimeArray[i] << ", kernel time = " << kernelTimes[i] << '\n';
-        }
+        // for(int i = 0; i < GPUSTREAMS; ++i)
+        // {
+        //     cout << "   [BENCH | Stream " << i << "] ~ Compute time = " << computeTimeArray[i] << ", kernel time = " << kernelTimes[i] << '\n';
+        // }
 
     }
 

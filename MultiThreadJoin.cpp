@@ -61,7 +61,11 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
-					unsigned int index = egoMapping[ originPointIndex[i] ];
+					#if SORT_BY_WORKLOAD
+						unsigned int index = egoMapping[ originPointIndex[i] ];
+					#else
+						unsigned int index = egoMapping[i];
+					#endif
 
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector);
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
@@ -123,7 +127,11 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				for(int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
 					// (*nbNeighbors) = 0;
-					unsigned int index = egoMapping[ originPointIndex[i] ];
+					#if SORT_BY_WORKLOAD
+						unsigned int index = egoMapping[ originPointIndex[i] ];
+					#else
+						unsigned int index = egoMapping[i];
+					#endif
 
 					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector);
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);

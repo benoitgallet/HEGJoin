@@ -1,8 +1,8 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define GPUNUMDIM 8
-#define NUMINDEXEDDIM 8
+#define GPUNUMDIM 2
+#define NUMINDEXEDDIM 2
 
 #define BLOCKSIZE 256
 
@@ -20,13 +20,18 @@
 // Used by Super-EGO
 #define MINLEN 32
 
-// Cell-access patterns (avoid double distance calculations)
-// #define UNICOMP 0
-// #define LID_UNICOMP 0
-
 // Limits the output produced by the GPU when computing
 // 0 to limit, 1 to output everything
 #define SILENT_GPU 1
+
+// Sorts the point by workload
+#define SORT_BY_WORKLOAD 1
+
+// Statically split the work based on the queries (e.g., 60% of the queries to the GPU, 40% to the CPU)
+// Or statically split the work based on the candidate points (e.g., 60% of the candidates to refine
+//  go to the GPU and corresponding to 25% of the queries for example, and 40% of the candidates to refine
+//  go to the CPU, corresponding to the other 75% of the queries for example)
+#define STATIC_SPLIT_QUERIES 1
 
 
 /*******************************************************************************/
@@ -34,15 +39,16 @@
 /*******************************************************************************/
 
 
-#define NB_ARGS 5
+#define NB_ARGS_MAX 6
 #define FILENAME_ARG 1
-// #define DATASETSIZE_ARG 2
 #define EPSILON_ARG 2
 #define DIM_ARG 3
 #define SEARCHMODE_ARG 4
+#define STATIC_PART_ARG 5
 
 #define SM_GPU 0
 #define SM_HYBRID 1
-#define SM_CPU 2
+#define SM_HYBRID_STATIC 2
+#define SM_CPU 3
 
 #endif

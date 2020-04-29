@@ -631,8 +631,13 @@ __global__ void kernelNDGridIndexBatchEstimator_v2(
 
 	//make a local copy of the point
 	DTYPE point[GPUNUMDIM];
-	for (int i = 0; i < GPUNUMDIM; ++i){
-		point[i] = database[ originPointIndex[pointID] * GPUNUMDIM + i ];
+	for (int i = 0; i < GPUNUMDIM; ++i)
+	{
+		#if SORT_BY_WORKLOAD
+			point[i] = database[ originPointIndex[pointID] * GPUNUMDIM + i ];
+		#else
+			point[i] = database[ pointID * GPUNUMDIM + i ];
+		#endif
 	}
 
 	//calculate the coords of the Cell for the point
@@ -754,7 +759,11 @@ __global__ void kernelNDGridIndexGlobal(
 	DTYPE point[GPUNUMDIM];
 	for (int i = 0; i < GPUNUMDIM; i++)
 	{
-		point[i] = database[ originPointIndex[pointId] * GPUNUMDIM + i ];
+		#if SORT_BY_WORKLOAD
+			point[i] = database[ originPointIndex[pointId] * GPUNUMDIM + i ];
+		#else
+			point[i] = database[ pointId * GPUNUMDIM + i ];
+		#endif
 	}
 
 	//calculate the coords of the Cell for the point
