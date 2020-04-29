@@ -700,17 +700,21 @@ unsigned long long GPUBatchEst_v2(
                     batches->push_back(std::make_pair(batchBegin, batchEnd));
                     batchBegin = queryPoint;
                     runningEstBatch = 0;
-                } else {
+                }
+                // else {
                     // The point does not fill the current batch, but the GPU batches already reached
                     // the allocated work so we finish the last batch
-                    if (partitionedCandidates <= runningEstBatch)
-                    {
-                        batchEnd = queryPoint;
-                        batches->push_back(std::make_pair(batchBegin, batchEnd));
-                    }
-                }
+                    // if (partitionedCandidates <= runningEstBatch)
+                    // {
+                    //     batchEnd = queryPoint;
+                    //     batches->push_back(std::make_pair(batchBegin, batchEnd));
+                    // }
+                // }
                 queryPoint++;
             }
+            batchEnd = queryPoint;
+            batches->push_back(std::make_pair(batchBegin, batchEnd));
+
             printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %llu estimated candidates\n", queryPoint, runningEst);
             printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %llu estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
             setQueueIndex(queryPoint);
