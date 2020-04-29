@@ -159,7 +159,12 @@ uint64_t Util::multiThreadJoinWorkQueue(
 				resultVector->shrink_to_fit();
 				results[tid] += resultVector->size();
 
-				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
+				if ( searchMode == SM_HYBRID_STATIC)
+				{
+					cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
+				} else {
+					cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
+				}
 			}while(0 != cpuBatch.second);
 
 			// results[tid] += resultVector.size() / 2;
