@@ -151,7 +151,12 @@ void sortByWorkLoad(
     }
 
     // Set the query point that statically partition the candidate points between the CPU and the GPU
-    setStaticQueryPoint(partitionPoint);
+    if (SM_HYBRID_STATIC == searchMode)
+    {
+        #if !STATIC_SPLIT_QUERIES
+            setStaticQueryPoint(partitionPoint);
+        #endif
+    }
 
     // Setting some stuff for the CPU so it can begin immediately
     // and allocate buffers to store temp results
@@ -188,8 +193,13 @@ void sortByWorkLoad(
     }
     cout.flush();
 
-    printf("[SORT | RESULT] ~ %u query points assigned to the GPU, with %llu candidates to refines\n", partitionPoint, runningPartition);
-    printf("[SORT | RESULT] ~ %u query points assigned to the CPU, with %llu candidates to refines\n", (*DBSIZE) - partitionPoint, accNeighbor - runningPartition);
+    if (SM_HYBRID_STATIC == searchMode)
+    {
+        #if !STATIC_SPLIT_QUERIES
+            printf("[SORT | RESULT] ~ %u query points assigned to the GPU, with %llu candidates to refines\n", partitionPoint, runningPartition);
+            printf("[SORT | RESULT] ~ %u query points assigned to the CPU, with %llu candidates to refines\n", (*DBSIZE) - partitionPoint, accNeighbor - runningPartition);
+        #endif
+    }
 
     cudaFree(dev_sortedDatabaseTmp);
 
