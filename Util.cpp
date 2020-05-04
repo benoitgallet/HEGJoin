@@ -395,13 +395,13 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, u
 		// pPoint p = &A[i];
 		pPoint q = &B[i];
 
+        (*nbCandidate) += (toA - frA);
+
 		// for (int j = frB; j <= toB; j++)
 		for(int j = frA; j <= toA; ++j)
 		{
 			// pPoint q = &B[j];
 			pPoint p = &A[j];
-
-            (*nbCandidate) += 1;
 
 			REAL sum = 0;
 
@@ -456,6 +456,8 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
             // pPoint p = &A[i];
 			pPoint q = &B[i];
 
+            (*nbCandidate) += (toA - frA);
+
             // for (int j = frB; j <= toB; j++)
 			for(int j = frA; j <= toA; ++j)
             {
@@ -463,8 +465,6 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
 				pPoint p = &A[j];
 
                 REAL sum = 0;
-
-                (*nbCandidate) += 1;
 
                 //-- scan over range 1 --
                 for (int k = r1_beg; k <= GPUNUMDIM - 1; k++)
@@ -509,13 +509,13 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
 		// pPoint p = &A[i];
 		pPoint q = &B[i];
 
+        (*nbCandidate) += (toA - frA);
+
 		// for (int j = frB; j <= toB; j++)
 		for(int j = frA; j <= toA; ++j)
 		{
 			// pPoint q = &B[j];
 			pPoint p = &A[j];
-
-            (*nbCandidate) += 1;
 
 			REAL sum = 0;
 
