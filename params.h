@@ -21,7 +21,7 @@
 #define MINLEN 32
 
 // Limits the output produced by the GPU when computing
-// 0 to limit, 1 to output everything
+// 0 to output everything, 1 to limit the output
 #define SILENT_GPU 1
 
 // Sorts the point by workload
