@@ -187,7 +187,7 @@ void sortByWorkLoad(
     cout.flush();
 
     printf("[SORT | RESULT] ~ %u query points assigned to the GPU, with %llu candidates to refines\n", partitionPoint, runningPartition);
-    printf("[SORT | RESULT] ~ %u query points assigned to the CPU, with %llu candidates to refines\n", (*DBSIZE) - partitionPoint, accNeighbor - unningPartition);
+    printf("[SORT | RESULT] ~ %u query points assigned to the CPU, with %llu candidates to refines\n", (*DBSIZE) - partitionPoint, accNeighbor - runningPartition);
 
     cudaFree(dev_sortedDatabaseTmp);
 
