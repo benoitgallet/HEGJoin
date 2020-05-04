@@ -686,38 +686,48 @@ unsigned long long GPUBatchEst_v2(
             printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %llu estimated candidates\n", (*DBSIZE) - partitionedDBSIZE, fullEst - runningEst);
             setQueueIndex(partitionedDBSIZE);
         #else // Static partitioning based on the number candidate points to refine
-            unsigned long long partitionedCandidates = fullEst * staticPartition;
-            runningEst = 0;
-            unsigned long long runningEstBatch = 0;
-            unsigned int queryPoint = 0;
-            while (runningEst < partitionedCandidates)
+            // unsigned long long partitionedCandidates = fullEst * staticPartition;
+            // runningEst = 0;
+            // unsigned long long runningEstBatch = 0;
+            // unsigned int queryPoint = 0;
+            // while (runningEst < partitionedCandidates)
+            // {
+            //     runningEst += estimatedFull[queryPoint];
+            //     runningEstBatch += estimatedFull[queryPoint];
+            //     if ((GPUBufferSize - reserveBuffer) <= runningEstBatch)
+            //     {
+            //         batchEnd = queryPoint;
+            //         batches->push_back(std::make_pair(batchBegin, batchEnd));
+            //         batchBegin = queryPoint;
+            //         runningEstBatch = 0;
+            //     }
+            //     queryPoint++;
+            // }
+            // batchEnd = queryPoint;
+            // batches->push_back(std::make_pair(batchBegin, batchEnd));
+            for (int i = 0; i < (*DBSIZE); ++i)
             {
-                runningEst += estimatedFull[queryPoint];
-                runningEstBatch += estimatedFull[queryPoint];
-                if ((GPUBufferSize - reserveBuffer) <= runningEstBatch)
+                runningEst += estimatedFull[i];
+                // fullEst += estimatedFull[i];
+                if ((GPUBufferSize - reserveBuffer) <= runningEst)
                 {
-                    batchEnd = queryPoint;
+                    batchEnd = i;
                     batches->push_back(std::make_pair(batchBegin, batchEnd));
-                    batchBegin = queryPoint;
-                    runningEstBatch = 0;
+                    batchBegin = i;
+                    runningEst = 0;
+                } else {
+                    // The last batch may not fulfill the above condition of filling a result buffer
+                    if ((*DBSIZE) - 1 == i)
+                    {
+                        batchEnd = (*DBSIZE);
+                        batches->push_back(std::make_pair(batchBegin, batchEnd));
+                    }
                 }
-                // else {
-                    // The point does not fill the current batch, but the GPU batches already reached
-                    // the allocated work so we finish the last batch
-                    // if (partitionedCandidates <= runningEstBatch)
-                    // {
-                    //     batchEnd = queryPoint;
-                    //     batches->push_back(std::make_pair(batchBegin, batchEnd));
-                    // }
-                // }
-                queryPoint++;
             }
-            batchEnd = queryPoint;
-            batches->push_back(std::make_pair(batchBegin, batchEnd));
 
-            printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %llu estimated candidates\n", queryPoint, runningEst);
-            printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %llu estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
-            setQueueIndex(queryPoint);
+            // printf("[GPU | RESULT] ~ %u query points allocated to the GPU, with %llu estimated candidates\n", queryPoint, runningEst);
+            // printf("[GPU | RESULT] ~ %u query points allocated to the CPU, with %llu estimated candidates\n", (*DBSIZE) - queryPoint, fullEst - runningEst);
+            setQueueIndex((*DBSIZE));
         #endif
         fullEst = runningEst;
     } else {
@@ -928,13 +938,35 @@ void distanceTableNDGridBatches(
     std::vector< std::pair<unsigned int, unsigned int> > batchesVector;
 
 	double tstartbatchest = omp_get_wtime();
-    #if SORT_BY_WORKLOAD
-        estimatedNeighbors = GPUBatchEst_v2(searchMode, DBSIZE, staticPartition, dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr,
-                dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
-    #else
-        estimatedNeighbors = GPUBatchEst_v2(searchMode, DBSIZE, staticPartition, dev_database, nullptr, dev_epsilon, dev_grid, dev_indexLookupArr,
-                dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
-    #endif
+    if (SM_HYBRID_STATIC == searchMode)
+    {
+        #if STATIC_SPLIT_QUERIES
+            #if SORT_BY_WORKLOAD
+                estimatedNeighbors = GPUBatchEst_v2(searchMode, DBSIZE, staticPartition, dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr,
+                        dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+            #else
+                estimatedNeighbors = GPUBatchEst_v2(searchMode, DBSIZE, staticPartition, dev_database, nullptr, dev_epsilon, dev_grid, dev_indexLookupArr,
+                        dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+            #endif
+        #else
+            unsigned int nbQueryPointsStatic = getStaticQueryPoint();
+            #if SORT_BY_WORKLOAD
+                estimatedNeighbors = GPUBatchEst_v2(searchMode, &nbQueryPointsStatic, staticPartition, dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr,
+                        dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+            #else
+                estimatedNeighbors = GPUBatchEst_v2(searchMode, &nbQueryPointsStatic, staticPartition, dev_database, nullptr, dev_epsilon, dev_grid, dev_indexLookupArr,
+                        dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+            #endif
+        #endif
+    } else {
+        #if SORT_BY_WORKLOAD
+            estimatedNeighbors = GPUBatchEst_v2(searchMode, DBSIZE, staticPartition, dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr,
+                    dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+        #else
+            estimatedNeighbors = GPUBatchEst_v2(searchMode, DBSIZE, staticPartition, dev_database, nullptr, dev_epsilon, dev_grid, dev_indexLookupArr,
+                    dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
+        #endif
+    }
 	double tendbatchest = omp_get_wtime();
 
     cout << "[GPU] ~ Time to estimate batches: " << tendbatchest - tstartbatchest << '\n';

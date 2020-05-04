@@ -19,6 +19,7 @@ inline T max(T a, T b)
 
 unsigned int queueIndex = 1;
 unsigned int queueIndexCPU = 1;
+unsigned int staticQueryPoint = 0;
 
 unsigned int maxNeighbors = 0;
 
@@ -125,6 +126,16 @@ void setQueueIndex(unsigned int index)
 void setQueueIndexCPU(unsigned int index)
 {
     queueIndexCPU = index;
+}
+
+void setStaticQueryPoint(unsigned int index)
+{
+    staticQueryPoint = index;
+}
+
+unsigned int getStaticQueryPoint()
+{
+    return staticQueryPoint;
 }
 
 void displayIndexes()

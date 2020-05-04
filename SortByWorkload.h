@@ -7,6 +7,7 @@
 void sortByWorkLoad(
         unsigned int searchMode,
         unsigned int * DBSIZE,
+        float staticPartition,
         DTYPE * epsilon,
         DTYPE ** dev_epsilon,
         DTYPE * database,

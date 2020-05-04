@@ -18,6 +18,7 @@ using std::endl;
 void sortByWorkLoad(
         unsigned int searchMode,
         unsigned int * DBSIZE,
+        float staticPartition,
         DTYPE * epsilon,
         DTYPE ** dev_epsilon,
         DTYPE * database,
@@ -50,7 +51,7 @@ void sortByWorkLoad(
     cudaEventCreate(&endKernel);
 
     errCode = cudaMalloc((void**)&dev_sortedDatabaseTmp, sizeof(struct schedulingCell) * (*nNonEmptyCells));
-    if(errCode != cudaSuccess)
+    if (errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: Alloc sortedSet -- error with code " << errCode << '\n';
         cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -75,7 +76,7 @@ void sortByWorkLoad(
     cudaDeviceSynchronize();
 
     errCode = cudaMemcpy(sortedDatabaseTmp, dev_sortedDatabaseTmp, sizeof(struct schedulingCell) * (*nNonEmptyCells), cudaMemcpyDeviceToHost);
-    if(errCode != cudaSuccess)
+    if (errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: copy sorted cells from the GPU -- error with code " << errCode << '\n';
         cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -102,21 +103,53 @@ void sortByWorkLoad(
 
     (*originPointIndex) = new unsigned int [(*DBSIZE)];
 
+    uint64_t partitionGPU = 0;
+    // Find the amount of candidate points to attribute to the GPU (and therefore to the CPU)
+    if (SM_HYBRID_STATIC == searchMode)
+    {
+        #if STATIC_SPLIT_QUERIES
+            for (int i = 0; i < (*nNonEmptyCells); ++i)
+            {
+                partitionGPU += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
+            }
+        #endif
+    }
+    partitionGPU *= staticPartition;
+    bool partitioned = false;
+    int partitionPoint = 0;
+
     int prec = 0;
-    for(int i = 0; i < (*nNonEmptyCells); ++i)
+    uint64_t runningPartition = 0;
+    for (int i = 0; i < (*nNonEmptyCells); ++i)
     {
         int cellId = sortedDatabaseTmp[i].cellId;
         int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
 
         accNeighbor += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
 
-        for(int j = 0; j < nbNeighbor; ++j)
+        for (int j = 0; j < nbNeighbor; ++j)
         {
             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
             (*originPointIndex)[prec + j] = tmpId;
+            runningPartition += sortedDatabaseTmp[i].nbPoints;
+
+            // Find the query point that statically partition the candidate points between the CPU and the GPU
+            if (SM_HYBRID_STATIC == searchMode)
+            {
+                #if !STATIC_SPLIT_QUERIES
+                    if (!partitioned && partitionGPU <= runningPartition)
+                    {
+                        partitionPoint = prec + j;
+                        partitioned = true;
+                    }
+                #endif
+            }
         }
         prec += nbNeighbor;
     }
+
+    // Set the query point that statically partition the candidate points between the CPU and the GPU
+    setStaticQueryPoint(partitionPoint);
 
     // Setting some stuff for the CPU so it can begin immediately
     // and allocate buffers to store temp results
@@ -127,7 +160,7 @@ void sortByWorkLoad(
 
     // errCode = cudaMalloc((void**)dev_originPointIndex, ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int));
     errCode = cudaMalloc((void**)dev_originPointIndex, (*DBSIZE) * sizeof(unsigned int));
-    if(errCode != cudaSuccess)
+    if (errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: Alloc point index -- error with code " << errCode << '\n';
         cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -136,7 +169,7 @@ void sortByWorkLoad(
 
     // errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), ((*DBSIZE) - nbQueriesPreComputed) * sizeof(unsigned int), cudaMemcpyHostToDevice);
     errCode = cudaMemcpy( (*dev_originPointIndex), (*originPointIndex), (*DBSIZE) * sizeof(unsigned int), cudaMemcpyHostToDevice);
-    if(errCode != cudaSuccess)
+    if (errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: point index copy -- error with code " << errCode << '\n';
         cout << "[SORT] ~   Details: " << cudaGetErrorString(errCode) << '\n';
@@ -147,11 +180,14 @@ void sortByWorkLoad(
     cout << "[SORT | RESULT] ~ Total number of candidate points to refine: " << accNeighbor << '\n';
     cout << "[SORT | RESULT] ~ Number of candidates: min = " << minNeighbor << ", median = " << sortedDatabaseTmp[(*nNonEmptyCells) / 2].nbPoints << ", max = " << maxNeighbor << ", avg = " << accNeighbor / (*DBSIZE) << '\n';
     cout << "[SORT] ~ Deciles number of candidates: \n";
-    for(int i = 1; i < 10; ++i)
+    for (int i = 1; i < 10; ++i)
     {
         cout << "   [SORT] ~ " << i * 10 << "% = " << sortedDatabaseTmp[decileMark * i].nbPoints << '\n';
     }
     cout.flush();
+
+    printf("[SORT | RESULT] ~ %u query points assigned to the GPU, with %llu candidates to refines\n", partitionPoint, runningPartition);
+    printf("[SORT | RESULT] ~ %u query points assigned to the CPU, with %llu candidates to refines\n", (*DBSIZE) - partitionPoint, accNeighbor - unningPartition);
 
     cudaFree(dev_sortedDatabaseTmp);
 

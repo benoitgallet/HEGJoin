@@ -19,6 +19,10 @@ void setQueueIndex(unsigned int index);
 
 void setQueueIndexCPU(unsigned int index);
 
+void setStaticQueryPoint(unsigned int index);
+
+unsigned int getStaticQueryPoint();
+
 void displayIndexes();
 
 void setWorkQueueReady();

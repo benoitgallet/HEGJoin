@@ -193,7 +193,7 @@ int main(int argc, char * argv[])
 
     double tStartSort = omp_get_wtime();
     #if SORT_BY_WORKLOAD
-        sortByWorkLoad(searchMode, &DBSIZE, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
+        sortByWorkLoad(searchMode, &DBSIZE, staticPartition, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
                 gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
                 &originPointIndex, &dev_originPointIndex);
     #endif
