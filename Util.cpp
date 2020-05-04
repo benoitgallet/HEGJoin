@@ -306,7 +306,7 @@ int pcmp(const void *v1, const void *v2)
 
 
 
-void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, std::vector<int> * result)
+void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * nbCandidate, std::vector<int> * result)
 // void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * result, unsigned int * nbNeighbors)
 {
 	pPoint fst_A = &A[frA];
@@ -341,7 +341,7 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 
 	if (A_sz < MINLEN && B_sz < MINLEN)
 	{
-        simpleJoin4(A, frA, toA, B, frB, toB, i, result);
+        simpleJoin4(A, frA, toA, B, frB, toB, i, nbCandidate, result);
 		// simpleJoin4(A, frA, toA, B, frB, toB, i, result, nbNeighbors);
 
 		return;
@@ -350,10 +350,10 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz >= MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 2 (self-thread)\n");
-        egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
-		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result); // s f
-		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+        egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, nbCandidate, result); // f f
+		egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, nbCandidate, result); // f s
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, nbCandidate, result); // s f
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB + B_sz/2 + 1, toB         , start_dim, nbCandidate, result); // f s
 		// egoJoinV2(A, frA             , frA + A_sz / 2, B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // f f
 		// egoJoinV2(A, frA             , frA + A_sz / 2, B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
 		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // s f
@@ -365,8 +365,8 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz >= MINLEN && B_sz < MINLEN)
 	{
         // printf("\nCase 3 (self-thread)\n");
-        egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result); // f full
-		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result); // s full
+        egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, nbCandidate, result); // f full
+		egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, nbCandidate, result); // s full
 		// egoJoinV2(A, frA             , frA + A_sz / 2, B, frB, toB, start_dim, result, nbNeighbors); // f full
 		// egoJoinV2(A, frA + A_sz/2 + 1, toA           , B, frB, toB, start_dim, result, nbNeighbors); // s full
 		return;
@@ -376,8 +376,8 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 	if (A_sz < MINLEN && B_sz >= MINLEN)
 	{
         // printf("\nCase 4 (self-thread)\n");
-        egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result); // f f
-		egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result); // f s
+        egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, nbCandidate, result); // f f
+		egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, nbCandidate, result); // f s
 		// egoJoinV2(A, frA, toA, B, frB             , frB + B_sz/2, start_dim, result, nbNeighbors); // f f
 		// egoJoinV2(A, frA, toA, B, frB + B_sz/2 + 1, toB         , start_dim, result, nbNeighbors); // f s
 		return;
@@ -386,7 +386,7 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 
 
 
-void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, std::vector<int> * result)
+void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * nbCandidate, std::vector<int> * result)
 // void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * result, unsigned int * nbNeighbors)
 {
 	// for (int i = frA; i <= toA; i++)
@@ -400,6 +400,8 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, s
 		{
 			// pPoint q = &B[j];
 			pPoint p = &A[j];
+
+            (*nbCandidate) += 1;
 
 			REAL sum = 0;
 
@@ -427,7 +429,7 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, s
 
 
 
-void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, std::vector<int> * result)
+void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * nbCandidate, std::vector<int> * result)
 // void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * result, unsigned int * nbNeighbors)
 {
 	int r1_beg = r1[m][0];
@@ -442,7 +444,7 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
     {
         if (r2_end == -1) // 1 interval
         {
-            simpleJoin3(A, frA, toA, B, frB, toB, result);
+            simpleJoin3(A, frA, toA, B, frB, toB, nbCandidate, result);
             // simpleJoin3(A, frA, toA, B, frB, toB, result, nbNeighbors);
             return;
         }
@@ -461,6 +463,8 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
 				pPoint p = &A[j];
 
                 REAL sum = 0;
+
+                (*nbCandidate) += 1;
 
                 //-- scan over range 1 --
                 for (int k = r1_beg; k <= GPUNUMDIM - 1; k++)
@@ -510,6 +514,8 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
 		{
 			// pPoint q = &B[j];
 			pPoint p = &A[j];
+
+            (*nbCandidate) += 1;
 
 			REAL sum = 0;
 

@@ -28,10 +28,12 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
+	unsigned int * nbCandidates = new unsigned int[CPU_THREADS];
 	for(int i = 0; i < CPU_THREADS; ++i)
 	{
 		results[i] = 0;
 		nbQueries[i] = 0;
+		nbCandidates[i] = 0;
 	}
 
 	if(searchMode == SM_HYBRID)
@@ -67,7 +69,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 						unsigned int index = egoMapping[i];
 					#endif
 
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &nbCandidates[tid], resultVector);
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
 					// unsigned int tmpIndex = originPointIndex[i];
@@ -141,7 +143,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 						unsigned int index = egoMapping[i];
 					#endif
 
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, resultVector);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &nbCandidates[tid], resultVector);
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
 					// unsigned int tmpIndex = originPointIndex[i];
@@ -188,13 +190,16 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 	uint64_t result = 0;
 	unsigned int nbQueriesTotal = 0;
+	uint64_t nbCandidatesTotal = 0;
 	for(int i = 0; i < CPU_THREADS; ++i)
 	{
 		result += results[i];
 		nbQueriesTotal += nbQueries[i];
+		nbCandidatesTotal += nbCandidate[i];
 	}
 
 	printf("[EGO | RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);
+	printf("[EGO | RESULT] ~ Candidate points refined by Super-EGPU: %llu\n", nbCandidatesTotal);
 	printf("[EGO | RESULT] ~ Compute time for Super-EGO: %f\n", tEnd - tStart);
 
 	delete[] results;
@@ -268,7 +273,7 @@ uint64_t Util::multiThreadJoinPreQueue(
 			{
 				index = egoMapping[i];
 
-				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, neighborList);
+				Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &nbCandidate[i], neighborList);
 
 				neighborTable[i].pointID = i;
 				neighborTable[i].indexmin = indexmaxPrec;
