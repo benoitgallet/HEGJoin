@@ -110,6 +110,8 @@ void sortByWorkLoad(
         #if STATIC_SPLIT_QUERIES
             for (int i = 0; i < (*nNonEmptyCells); ++i)
             {
+                int cellId = sortedDatabaseTmp[i].cellId;
+                int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
                 partitionGPU += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
             }
         #endif
