@@ -195,7 +195,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 	{
 		result += results[i];
 		nbQueriesTotal += nbQueries[i];
-		nbCandidatesTotal += nbCandidate[i];
+		nbCandidatesTotal += nbCandidates[i];
 	}
 
 	printf("[EGO | RESULT] ~ Query points computed by Super-EGO: %d\n", nbQueriesTotal);
