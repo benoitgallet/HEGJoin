@@ -33,6 +33,8 @@
 //  go to the CPU, corresponding to the other 75% of the queries for example)
 #define STATIC_SPLIT_QUERIES 1
 
+#define COUNT_CANDIDATES 0
+
 
 /*******************************************************************************/
 /*                 Code should not be modified below this line                 */

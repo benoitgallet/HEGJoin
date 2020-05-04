@@ -395,7 +395,9 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, u
 		// pPoint p = &A[i];
 		pPoint q = &B[i];
 
-        (*nbCandidate) += (toA - frA);
+        #if COUNT_CANDIDATES
+            (*nbCandidate) += (toA - frA);
+        #endif
 
 		// for (int j = frB; j <= toB; j++)
 		for(int j = frA; j <= toA; ++j)
@@ -456,7 +458,9 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
             // pPoint p = &A[i];
 			pPoint q = &B[i];
 
-            (*nbCandidate) += (toA - frA);
+            #if COUNT_CANDIDATES
+                (*nbCandidate) += (toA - frA);
+            #endif
 
             // for (int j = frB; j <= toB; j++)
 			for(int j = frA; j <= toA; ++j)
@@ -509,7 +513,9 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
 		// pPoint p = &A[i];
 		pPoint q = &B[i];
 
-        (*nbCandidate) += (toA - frA);
+        #if COUNT_CANDIDATES
+            (*nbCandidate) += (toA - frA);
+        #endif
 
 		// for (int j = frB; j <= toB; j++)
 		for(int j = frA; j <= toA; ++j)
