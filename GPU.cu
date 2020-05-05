@@ -950,6 +950,7 @@ void distanceTableNDGridBatches(
             #endif
         #else
             unsigned int nbQueryPointsStatic = getStaticQueryPoint();
+            cout << "[GPU | DEBUG] ~ Number of candidates for the GPU: " << nbQueryPointsStatic << '\n';
             #if SORT_BY_WORKLOAD
                 estimatedNeighbors = GPUBatchEst_v2(searchMode, &nbQueryPointsStatic, staticPartition, dev_database, dev_originPointIndex, dev_epsilon, dev_grid, dev_indexLookupArr,
                         dev_gridCellLookupArr, dev_minArr, dev_nCells, dev_nNonEmptyCells, &numBatches, &GPUBufferSize, &batchesVector);
