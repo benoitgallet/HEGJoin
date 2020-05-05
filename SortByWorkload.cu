@@ -154,6 +154,7 @@ void sortByWorkLoad(
     if (SM_HYBRID_STATIC == searchMode)
     {
         #if !STATIC_SPLIT_QUERIES
+            cout << "[SORT | DEBUG] ~ Setting the number of query points for the GPU: " << partitionPoint << '\n';
             setStaticQueryPoint(partitionPoint);
         #endif
     }
