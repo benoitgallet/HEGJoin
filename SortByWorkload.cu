@@ -107,7 +107,7 @@ void sortByWorkLoad(
     // Find the amount of candidate points to attribute to the GPU (and therefore to the CPU)
     if (SM_HYBRID_STATIC == searchMode)
     {
-        #if STATIC_SPLIT_QUERIES
+        #if !STATIC_SPLIT_QUERIES
             for (int i = 0; i < (*nNonEmptyCells); ++i)
             {
                 int cellId = sortedDatabaseTmp[i].cellId;
