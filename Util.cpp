@@ -306,7 +306,7 @@ int pcmp(const void *v1, const void *v2)
 
 
 
-void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * nbCandidate, std::vector<int> * result)
+void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, uint64_t * nbCandidate, std::vector<int> * result)
 // void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * result, unsigned int * nbNeighbors)
 {
 	pPoint fst_A = &A[frA];
@@ -386,7 +386,7 @@ void Util::egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int
 
 
 
-void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * nbCandidate, std::vector<int> * result)
+void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, uint64_t * nbCandidate, std::vector<int> * result)
 // void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * result, unsigned int * nbNeighbors)
 {
 	// for (int i = frA; i <= toA; i++)
@@ -431,7 +431,7 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, u
 
 
 
-void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * nbCandidate, std::vector<int> * result)
+void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, uint64_t * nbCandidate, std::vector<int> * result)
 // void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * result, unsigned int * nbNeighbors)
 {
 	int r1_beg = r1[m][0];
