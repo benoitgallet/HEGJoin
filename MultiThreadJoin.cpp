@@ -28,7 +28,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 	uint64_t * results = new uint64_t[CPU_THREADS];
 	unsigned int * nbQueries = new unsigned int[CPU_THREADS];
-	uint64_t * nbCandidates = new unsigned int[CPU_THREADS];
+	uint64_t * nbCandidates = new uint64_t[CPU_THREADS];
 	for (unsigned int i = 0; i < CPU_THREADS; ++i)
 	{
 		results[i] = 0;
