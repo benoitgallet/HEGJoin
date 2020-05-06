@@ -217,10 +217,10 @@ int main(int argc, char * argv[])
             {
                 double tBeginGPU = omp_get_wtime();
                 #if SORT_BY_WORKLOAD
-                    // distanceTableNDGridBatches(searchMode, staticPartition, &DBSIZE, &epsilon, dev_epsilon, database, dev_database,
-                    //         index, dev_index, indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr,
-                    //         minArr, dev_minArr, nCells, dev_nCells, &nNonEmptyCells, dev_nNonEmptyCells,
-                    //         originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
+                    distanceTableNDGridBatches(searchMode, staticPartition, &DBSIZE, &epsilon, dev_epsilon, database, dev_database,
+                            index, dev_index, indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr,
+                            minArr, dev_minArr, nCells, dev_nCells, &nNonEmptyCells, dev_nNonEmptyCells,
+                            originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
                 #else
                     distanceTableNDGridBatches(searchMode, staticPartition, &DBSIZE, &epsilon, dev_epsilon, database, dev_database,
                             index, dev_index, indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr,

@@ -400,30 +400,30 @@ void Util::simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, u
         #endif
 
 		// for (int j = frB; j <= toB; j++)
-		// for(int j = frA; j <= toA; ++j)
-		// {
-		// 	// pPoint q = &B[j];
-		// 	pPoint p = &A[j];
-        //
-		// 	REAL sum = 0;
-        //
-		// 	for (int k = 0; k < GPUNUMDIM; k++)
-		// 	{
-		// 		REAL dx = (p->x[k] - q->x[k]);
-		// 		dx = dx * dx;
-		// 		sum += dx;
-        //
-		// 		if (sum > eps2)
-		// 			goto stop1;
-		// 	}
-        //
-		// 	result->push_back(p->id);
-		// 	// result->push_back(q->id);
-        //     // result[(*nbNeighbors)] = p->id;
-        //     // (*nbNeighbors) += 1;
-        //
-		// 	stop1: ;
-		// }
+		for(int j = frA; j <= toA; ++j)
+		{
+			// pPoint q = &B[j];
+			pPoint p = &A[j];
+
+			REAL sum = 0;
+
+			for (int k = 0; k < GPUNUMDIM; k++)
+			{
+				REAL dx = (p->x[k] - q->x[k]);
+				dx = dx * dx;
+				sum += dx;
+
+				if (sum > eps2)
+					goto stop1;
+			}
+
+			result->push_back(p->id);
+			// result->push_back(q->id);
+            // result[(*nbNeighbors)] = p->id;
+            // (*nbNeighbors) += 1;
+
+			stop1: ;
+		}
 	}
 
 	return;
@@ -463,43 +463,43 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
             #endif
 
             // for (int j = frB; j <= toB; j++)
-			// for(int j = frA; j <= toA; ++j)
-            // {
-            //     // pPoint q = &B[j];
-			// 	pPoint p = &A[j];
-            //
-            //     REAL sum = 0;
-            //
-            //     //-- scan over range 1 --
-            //     for (int k = r1_beg; k <= GPUNUMDIM - 1; k++)
-            //     {
-            //         REAL dx = (p->x[k] - q->x[k]);
-            //         dx = dx * dx;
-            //         sum += dx;
-            //
-            //         if (sum > eps2)
-            //             goto stop_2_int;
-            //     }
-            //
-            //     //-- scan over range 2 --
-            //     for (int k = 0; k <= r2_end; k++)
-            //     {
-            //         REAL dx = (p->x[k] - q->x[k]);
-            //         dx = dx * dx;
-            //         sum += dx;
-            //
-            //         if (sum > eps2)
-            //             goto stop_2_int;
-            //     }
-            //
-            //     result->push_back(p->id);
-            //     // result->push_back(q->id);
-            //     // result[(*nbNeighbors)] = p->id;
-            //     // (*nbNeighbors) += 1;
-            //
-            // stop_2_int: ;
-            //
-            // }
+			for(int j = frA; j <= toA; ++j)
+            {
+                // pPoint q = &B[j];
+				pPoint p = &A[j];
+
+                REAL sum = 0;
+
+                //-- scan over range 1 --
+                for (int k = r1_beg; k <= GPUNUMDIM - 1; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+
+                //-- scan over range 2 --
+                for (int k = 0; k <= r2_end; k++)
+                {
+                    REAL dx = (p->x[k] - q->x[k]);
+                    dx = dx * dx;
+                    sum += dx;
+
+                    if (sum > eps2)
+                        goto stop_2_int;
+                }
+
+                result->push_back(p->id);
+                // result->push_back(q->id);
+                // result[(*nbNeighbors)] = p->id;
+                // (*nbNeighbors) += 1;
+
+            stop_2_int: ;
+
+            }
         }
 
         return;
@@ -518,54 +518,54 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
         #endif
 
 		// for (int j = frB; j <= toB; j++)
-		// for(int j = frA; j <= toA; ++j)
-		// {
-		// 	// pPoint q = &B[j];
-		// 	pPoint p = &A[j];
-        //
-		// 	REAL sum = 0;
-        //
-        //     //-- scan over range 1 --
-        //     for (int k = r1_beg; k <= r1_end; k++)
-        //     {
-        //         REAL dx = (p->x[k] - q->x[k]);
-        //         dx = dx * dx;
-        //         sum += dx;
-        //
-        //         if (sum > eps2)
-        //             goto stop2;
-        //     }
-        //
-        //     //-- scan over range 2 --
-        //     for (int k = 0; k <= r2_end; k++)
-        //     {
-        //         REAL dx = (p->x[k] - q->x[k]);
-        //         dx = dx * dx;
-        //         sum += dx;
-        //
-        //         if (sum > eps2)
-        //             goto stop2;
-        //     }
-        //
-        //     //-- scan over range 3 --
-        //     for (int k = r3_beg; k <= GPUNUMDIM - 1; k++)
-        //     {
-        //         REAL dx = (p->x[k] - q->x[k]);
-        //         dx = dx * dx;
-        //         sum += dx;
-        //
-        //         if (sum > eps2)
-        //             goto stop2;
-        //     }
-        //
-		// 	result->push_back(p->id);
-		// 	// result->push_back(q->id);
-        //     // result[(*nbNeighbors)] = p->id;
-        //     // (*nbNeighbors) += 1;
-        //
-        //  stop2: ;
-        // 
-		// }
+		for(int j = frA; j <= toA; ++j)
+		{
+			// pPoint q = &B[j];
+			pPoint p = &A[j];
+
+			REAL sum = 0;
+
+            //-- scan over range 1 --
+            for (int k = r1_beg; k <= r1_end; k++)
+            {
+                REAL dx = (p->x[k] - q->x[k]);
+                dx = dx * dx;
+                sum += dx;
+
+                if (sum > eps2)
+                    goto stop2;
+            }
+
+            //-- scan over range 2 --
+            for (int k = 0; k <= r2_end; k++)
+            {
+                REAL dx = (p->x[k] - q->x[k]);
+                dx = dx * dx;
+                sum += dx;
+
+                if (sum > eps2)
+                    goto stop2;
+            }
+
+            //-- scan over range 3 --
+            for (int k = r3_beg; k <= GPUNUMDIM - 1; k++)
+            {
+                REAL dx = (p->x[k] - q->x[k]);
+                dx = dx * dx;
+                sum += dx;
+
+                if (sum > eps2)
+                    goto stop2;
+            }
+
+			result->push_back(p->id);
+			// result->push_back(q->id);
+            // result[(*nbNeighbors)] = p->id;
+            // (*nbNeighbors) += 1;
+
+            stop2: ;
+
+		}
 	}
 
 	return;
