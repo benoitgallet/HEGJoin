@@ -188,6 +188,7 @@ int main(int argc, char * argv[])
 
     uint64_t totalNeighbors = 0;
     uint64_t totalNeighborsCPU = 0;
+    uint64_t totalCandidates = 0;
 
     struct schedulingCell * sortedDatabaseTmp;
 
@@ -195,7 +196,7 @@ int main(int argc, char * argv[])
 
     double tStartSort = omp_get_wtime();
     #if SORT_BY_WORKLOAD
-        sortByWorkLoad(searchMode, &DBSIZE, staticPartition, &sortedDatabaseTmp, &epsilon, &dev_epsilon,
+        sortByWorkLoad(searchMode, &DBSIZE, staticPartition, &totalCandidates, &sortedDatabaseTmp, &epsilon, &dev_epsilon,
                 database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
                 gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells,
                 &nNonEmptyCells, &dev_nNonEmptyCells, &originPointIndex, &dev_originPointIndex);
@@ -318,6 +319,7 @@ int main(int argc, char * argv[])
                 }
             }
             fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the GPU: %lu\n", nbCandidatesGPU);
+            fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the CPU (if using the grid): %lu\n", totalCandidates - nbCandidatesGPU);
         }
     #endif
 

@@ -186,6 +186,8 @@ void sortByWorkLoad(
         cout.flush();
     }
 
+    (*totalCandidates) = accNeighbor;
+
     unsigned int decileMark = (*nNonEmptyCells) / 10;
     cout << "[SORT | RESULT] ~ Total number of candidate points to refine: " << accNeighbor << '\n';
     cout << "[SORT | RESULT] ~ Number of candidates: min = " << minNeighbor << ", median = " << (*sortedDatabaseTmp)[(*nNonEmptyCells) / 2].nbPoints << ", max = " << maxNeighbor << ", avg = " << accNeighbor / (*DBSIZE) << '\n';
