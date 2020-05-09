@@ -307,7 +307,7 @@ int main(int argc, char * argv[])
             {
                 int cellId = sortedDatabaseTmp[i].cellId;
                 int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
-                nbCandidatesGPU += (nbNeighbor * (*sortedDatabaseTmp)[i].nbPoints);
+                nbCandidatesGPU += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
             }
             fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the GPU: %lu\n", nbCandidatesGPU);
         }
