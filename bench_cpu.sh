@@ -36,13 +36,35 @@ echo
 echo
 
 echo '~ SW2DB'
+echo '# GPU'
+echo '## Epsilon 0.001388889'
+./main $SW2DB 0.001388889 2 0 | grep "RESULT"
+echo
+./main $SW2DB 0.001388889 2 0 | grep "RESULT"
+echo
+./main $SW2DB 0.001388889 2 0 | grep "RESULT"
+
+echo
+echo
+
+echo '# Hybrid'
+echo '## Epsilon 0.001388889'
+./main $SW2DB 0.001388889 2 1 | grep "RESULT"
+echo
+./main $SW2DB 0.001388889 2 1 | grep "RESULT"
+echo
+./main $SW2DB 0.001388889 2 1 | grep "RESULT"
+
+echo
+echo
+
 echo '# Super-EGO'
 echo '## Epsilon 0.001388889'
-./main $SW2DA 0.001388889 2 3 | grep "RESULT"
+./main $SW2DB 0.001388889 2 3 | grep "RESULT"
 echo
-./main $SW2DA 0.001388889 2 3 | grep "RESULT"
+./main $SW2DB 0.001388889 2 3 | grep "RESULT"
 echo
-./main $SW2DA 0.001388889 2 3 | grep "RESULT"
+./main $SW2DB 0.001388889 2 3 | grep "RESULT"
 
 echo
 echo
