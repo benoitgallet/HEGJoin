@@ -205,7 +205,7 @@ int main(int argc, char * argv[])
 
     fprintf(stdout, "\n\n[MAIN] ~ Time to do everything before computing: %f\n\n\n", tEndSort - tStartStart);
 
-    unsigned int nbCandidatesGPU = 0;
+    unsigned int nbQueriesGPU = 0;
 
     omp_set_nested(1);
 	omp_set_dynamic(0);
@@ -225,12 +225,12 @@ int main(int argc, char * argv[])
                     distanceTableNDGridBatches(searchMode, staticPartition, &DBSIZE, &epsilon, dev_epsilon, database, dev_database,
                             index, dev_index, indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr,
                             minArr, dev_minArr, nCells, dev_nCells, &nNonEmptyCells, dev_nNonEmptyCells,
-                            originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors, &nbCandidatesGPU);
+                            originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors, &nbQueriesGPU);
                 #else
                     distanceTableNDGridBatches(searchMode, staticPartition, &DBSIZE, &epsilon, dev_epsilon, database, dev_database,
                             index, dev_index, indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr,
                             minArr, dev_minArr, nCells, dev_nCells, &nNonEmptyCells, dev_nNonEmptyCells,
-                            nullptr, nullptr, neighborTable, &pointersToNeighbors, &totalNeighbors, &nbCandidatesGPU);
+                            nullptr, nullptr, neighborTable, &pointersToNeighbors, &totalNeighbors, &nbQueriesGPU);
                 #endif
                 tEndGPU = omp_get_wtime();
                 gpuTime = tEndGPU - tBeginGPU;
@@ -313,7 +313,7 @@ int main(int argc, char * argv[])
                     nbCandidatesGPU += (nbQueriesGPU - nbQueriesTmp) * sortedDatabaseTmp[i].nbPoints;
                     break;
                 } else {
-                    nbCandidatesGPU += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
+                    nbCandidatesGPU += (nbPoints * sortedDatabaseTmp[i].nbPoints);
                     nbQueriesTmp += nbPoints;
                 }
             }
