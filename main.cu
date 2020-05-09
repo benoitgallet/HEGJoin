@@ -303,11 +303,19 @@ int main(int argc, char * argv[])
         if (searchMode == SM_HYBRID || searchMode == SM_HYBRID_STATIC)
         {
             uint64_t nbCandidatesGPU = 0;
+            unsigned int nbQueriesTmp = 0;
             for (int i = 0; i < nNonEmptyCells; ++i)
             {
                 int cellId = sortedDatabaseTmp[i].cellId;
-                int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
-                nbCandidatesGPU += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
+                int nbPoints = index[cellId].indexmax - index[cellId].indexmin + 1;
+                if (nbQueriesGPU < nbQueriesTmp + nbPoints)
+                {
+                    nbCandidatesGPU += (nbQueriesGPU - nbQueriesTmp) * sortedDatabaseTmp[i].nbPoints;
+                    break;
+                } else {
+                    nbCandidatesGPU += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
+                    nbQueriesTmp += nbPoints;
+                }
             }
             fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the GPU: %lu\n", nbCandidatesGPU);
         }
