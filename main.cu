@@ -302,7 +302,7 @@ int main(int argc, char * argv[])
     #if COUNT_CANDIDATES_GPU
         if (searchMode == SM_HYBRID || searchMode == SM_HYBRID_STATIC)
         {
-            uint64_t nbCandidatesGPU = 0
+            uint64_t nbCandidatesGPU = 0;
             for (int i = 0; i < nNonEmptyCells; ++i)
             {
                 int cellId = sortedDatabaseTmp[i].cellId;
