@@ -50,7 +50,8 @@ void distanceTableNDGridBatches(
         unsigned int * dev_originPointIndex,
         struct neighborTableLookup * neighborTable,
         std::vector<struct neighborDataPtrs> * pointersToNeighbors,
-        uint64_t * totalNeighbors);
+        uint64_t * totalNeighbors,
+        unsigned int * nbQueriesGPU);
 
 unsigned long long callGPUBatchEst(
         unsigned int * DBSIZE,

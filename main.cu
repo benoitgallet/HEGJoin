@@ -189,18 +189,23 @@ int main(int argc, char * argv[])
     uint64_t totalNeighbors = 0;
     uint64_t totalNeighborsCPU = 0;
 
+    struct schedulingCell * sortedDatabaseTmp;
+
     double sortTime, gpuTime, egoTime, egoReorder, egoSort;
 
     double tStartSort = omp_get_wtime();
     #if SORT_BY_WORKLOAD
-        sortByWorkLoad(searchMode, &DBSIZE, staticPartition, &epsilon, &dev_epsilon, database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
-                gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells, &nNonEmptyCells, &dev_nNonEmptyCells,
-                &originPointIndex, &dev_originPointIndex);
+        sortByWorkLoad(searchMode, &DBSIZE, staticPartition, &sortedDatabaseTmp, &epsilon, &dev_epsilon,
+                database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
+                gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells,
+                &nNonEmptyCells, &dev_nNonEmptyCells, &originPointIndex, &dev_originPointIndex);
     #endif
     double tEndSort = omp_get_wtime();
     sortTime = tEndSort - tStartSort;
 
     fprintf(stdout, "\n\n[MAIN] ~ Time to do everything before computing: %f\n\n\n", tEndSort - tStartStart);
+
+    unsigned int nbCandidatesGPU = 0;
 
     omp_set_nested(1);
 	omp_set_dynamic(0);
@@ -220,12 +225,12 @@ int main(int argc, char * argv[])
                     distanceTableNDGridBatches(searchMode, staticPartition, &DBSIZE, &epsilon, dev_epsilon, database, dev_database,
                             index, dev_index, indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr,
                             minArr, dev_minArr, nCells, dev_nCells, &nNonEmptyCells, dev_nNonEmptyCells,
-                            originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors);
+                            originPointIndex, dev_originPointIndex, neighborTable, &pointersToNeighbors, &totalNeighbors, &nbCandidatesGPU);
                 #else
                     distanceTableNDGridBatches(searchMode, staticPartition, &DBSIZE, &epsilon, dev_epsilon, database, dev_database,
                             index, dev_index, indexLookupArr, dev_indexLookupArr, gridCellLookupArr, dev_gridCellLookupArr,
                             minArr, dev_minArr, nCells, dev_nCells, &nNonEmptyCells, dev_nNonEmptyCells,
-                            nullptr, nullptr, neighborTable, &pointersToNeighbors, &totalNeighbors);
+                            nullptr, nullptr, neighborTable, &pointersToNeighbors, &totalNeighbors, &nbCandidatesGPU);
                 #endif
                 tEndGPU = omp_get_wtime();
                 gpuTime = tEndGPU - tBeginGPU;
@@ -293,6 +298,20 @@ int main(int argc, char * argv[])
     fprintf(stdout, "[RESULT] ~ Total result set size: %lu\n", totalNeighbors + totalNeighborsCPU);
     fprintf(stdout, "   [RESULT] ~ Total result set size on the GPU: %lu\n", totalNeighbors);
     fprintf(stdout, "   [RESULT] ~ Total result set size on the CPU: %lu\n", totalNeighborsCPU);
+
+    #if COUNT_CANDIDATES_GPU
+        if (searchMode == SM_HYBRID || searchMode == SM_HYBRID_STATIC)
+        {
+            uint64_t nbCandidatesGPU = 0
+            for (int i = 0; i < nNonEmptyCells; ++i)
+            {
+                int cellId = sortedDatabaseTmp[i].cellId;
+                int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
+                nbCandidatesGPU += (nbNeighbor * (*sortedDatabaseTmp)[i].nbPoints);
+            }
+            fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the GPU: %lu\n", nbCandidatesGPU);
+        }
+    #endif
 
     fprintf(stdout, "[RESULT] ~ Total execution time: %f\n", computeTime + sortTime);
     fprintf(stdout, "   [RESULT] ~ Total execution time to SortByWL: %f\n", sortTime);

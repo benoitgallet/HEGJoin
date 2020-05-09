@@ -19,6 +19,7 @@ void sortByWorkLoad(
         unsigned int searchMode,
         unsigned int * DBSIZE,
         float staticPartition,
+        struct schedulingCell ** sortedDatabaseTmp,
         DTYPE * epsilon,
         DTYPE ** dev_epsilon,
         DTYPE * database,
@@ -43,7 +44,8 @@ void sortByWorkLoad(
 
     cudaError_t errCode;
 
-    struct schedulingCell * sortedDatabaseTmp = new schedulingCell[sizeof(struct schedulingCell) * (*nNonEmptyCells)];
+    // struct schedulingCell * sortedDatabaseTmp = new schedulingCell[sizeof(struct schedulingCell) * (*nNonEmptyCells)];
+    (*sortedDatabaseTmp) = new schedulingCell[sizeof(struct schedulingCell) * (*nNonEmptyCells)];
     struct schedulingCell * dev_sortedDatabaseTmp;
 
     cudaEvent_t startKernel, endKernel;
@@ -75,7 +77,7 @@ void sortByWorkLoad(
 
     cudaDeviceSynchronize();
 
-    errCode = cudaMemcpy(sortedDatabaseTmp, dev_sortedDatabaseTmp, sizeof(struct schedulingCell) * (*nNonEmptyCells), cudaMemcpyDeviceToHost);
+    errCode = cudaMemcpy((*sortedDatabaseTmp), dev_sortedDatabaseTmp, sizeof(struct schedulingCell) * (*nNonEmptyCells), cudaMemcpyDeviceToHost);
     if (errCode != cudaSuccess)
     {
         cout << "[SORT] ~ Error: copy sorted cells from the GPU -- error with code " << errCode << '\n';
@@ -90,13 +92,13 @@ void sortByWorkLoad(
     cout.flush();
 
     double tBeginSort = omp_get_wtime();
-    std::sort(sortedDatabaseTmp, sortedDatabaseTmp + (*nNonEmptyCells),
+    std::sort((*sortedDatabaseTmp), (*sortedDatabaseTmp) + (*nNonEmptyCells),
             [](const schedulingCell& a, const schedulingCell& b){ return a.nbPoints > b.nbPoints; });
     double tEndSort = omp_get_wtime();
     printf("[SORT] ~ Time to call std::sort = %f\n", tEndSort - tBeginSort);
 
-    unsigned int maxNeighbor = sortedDatabaseTmp[0].nbPoints;
-    unsigned int minNeighbor = sortedDatabaseTmp[(*nNonEmptyCells) - 1].nbPoints;
+    unsigned int maxNeighbor = (*sortedDatabaseTmp)[0].nbPoints;
+    unsigned int minNeighbor = (*sortedDatabaseTmp)[(*nNonEmptyCells) - 1].nbPoints;
     // cout << "max = " << maxNeighbor << '\n';
     // cout << "min = " << minNeighbor << '\n';
     uint64_t accNeighbor = 0;
@@ -110,9 +112,9 @@ void sortByWorkLoad(
         #if !STATIC_SPLIT_QUERIES
             for (int i = 0; i < (*nNonEmptyCells); ++i)
             {
-                int cellId = sortedDatabaseTmp[i].cellId;
+                int cellId = (*sortedDatabaseTmp)[i].cellId;
                 int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
-                partitionGPU += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
+                partitionGPU += (nbNeighbor * (*sortedDatabaseTmp)[i].nbPoints);
             }
         #endif
     }
@@ -124,16 +126,16 @@ void sortByWorkLoad(
     uint64_t runningPartition = 0;
     for (int i = 0; i < (*nNonEmptyCells); ++i)
     {
-        int cellId = sortedDatabaseTmp[i].cellId;
+        int cellId = (*sortedDatabaseTmp)[i].cellId;
         int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
 
-        accNeighbor += (nbNeighbor * sortedDatabaseTmp[i].nbPoints);
+        accNeighbor += (nbNeighbor * (*sortedDatabaseTmp)[i].nbPoints);
 
         for (int j = 0; j < nbNeighbor; ++j)
         {
             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
             (*originPointIndex)[prec + j] = tmpId;
-            runningPartition += sortedDatabaseTmp[i].nbPoints;
+            runningPartition += (*sortedDatabaseTmp)[i].nbPoints;
 
             // Find the query point that statically partition the candidate points between the CPU and the GPU
             if (SM_HYBRID_STATIC == searchMode)
@@ -186,11 +188,11 @@ void sortByWorkLoad(
 
     unsigned int decileMark = (*nNonEmptyCells) / 10;
     cout << "[SORT | RESULT] ~ Total number of candidate points to refine: " << accNeighbor << '\n';
-    cout << "[SORT | RESULT] ~ Number of candidates: min = " << minNeighbor << ", median = " << sortedDatabaseTmp[(*nNonEmptyCells) / 2].nbPoints << ", max = " << maxNeighbor << ", avg = " << accNeighbor / (*DBSIZE) << '\n';
+    cout << "[SORT | RESULT] ~ Number of candidates: min = " << minNeighbor << ", median = " << (*sortedDatabaseTmp)[(*nNonEmptyCells) / 2].nbPoints << ", max = " << maxNeighbor << ", avg = " << accNeighbor / (*DBSIZE) << '\n';
     cout << "[SORT] ~ Deciles number of candidates: \n";
     for (int i = 1; i < 10; ++i)
     {
-        cout << "   [SORT] ~ " << i * 10 << "% = " << sortedDatabaseTmp[decileMark * i].nbPoints << '\n';
+        cout << "   [SORT] ~ " << i * 10 << "% = " << (*sortedDatabaseTmp)[decileMark * i].nbPoints << '\n';
     }
     cout.flush();
 
@@ -204,7 +206,7 @@ void sortByWorkLoad(
 
     cudaFree(dev_sortedDatabaseTmp);
 
-    delete[] sortedDatabaseTmp;
+    // delete[] sortedDatabaseTmp;
     // delete[] nbNeighborPoints;
 
     double tEndSortingCells = omp_get_wtime();

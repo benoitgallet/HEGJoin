@@ -812,7 +812,8 @@ void distanceTableNDGridBatches(
         unsigned int * dev_originPointIndex,
         struct neighborTableLookup * neighborTable,
         std::vector<struct neighborDataPtrs> * pointersToNeighbors,
-        uint64_t * totalNeighbors)
+        uint64_t * totalNeighbors,
+        unsigned int * nbQueriesGPU)
 {
 
 	double tKernelResultsStart = omp_get_wtime();
@@ -1498,7 +1499,7 @@ void distanceTableNDGridBatches(
                 cout.flush();
     		}
             #if !SILENT_GPU
-    		else{
+    		else {
                 cout << "[GPU] ~ Result set size within epsilon: " << cnt[tid] << '\n';
                 cout << "  Details: " << cudaGetErrorString(errCode) << '\n';
                 cout.flush();
@@ -1537,11 +1538,9 @@ void distanceTableNDGridBatches(
     		//THRUST USING STREAMS REQUIRES THRUST V1.8
     		//XXXXXXXXXXXXXXXX
 
-    		try{
+    		try {
     			thrust::sort_by_key(thrust::cuda::par.on(stream[tid]), dev_keys_ptr, dev_keys_ptr + cnt[tid], dev_data_ptr);
-    		}
-    		catch(std::bad_alloc &e)
-    		{
+    		} catch(std::bad_alloc &e) {
     			std::cerr << "[GPU] ~ Ran out of memory while sorting, " << GPUBufferSize << '\n';
                 cout.flush();
     			exit(1);
@@ -1612,6 +1611,7 @@ void distanceTableNDGridBatches(
     {
         nbQueryPointTotal += nbQueryPoint[i];
     }
+    (*nbQueriesGPU) = nbQueryPointTotal;
     printf("[GPU | RESULT] ~ Query points computed by the GPU: %d\n", nbQueryPointTotal);
     printf("[GPU | RESULT] ~ Compute time for the GPU: %f\n", computeTime);
 

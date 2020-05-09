@@ -8,6 +8,7 @@ void sortByWorkLoad(
         unsigned int searchMode,
         unsigned int * DBSIZE,
         float staticPartition,
+        struct schedulingCell ** sortedDatabaseTmp,
         DTYPE * epsilon,
         DTYPE ** dev_epsilon,
         DTYPE * database,
