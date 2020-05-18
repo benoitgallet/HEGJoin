@@ -305,7 +305,8 @@ int main(int argc, char * argv[])
                         {
                             int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
                             int tmpIdEgo = egoMapping[tmpId];
-                            printf("nb_candidates, %d, %lu, %lu\n", tmpId, nbCandidates, nbCandidatesArray[tmpIdEgo]);
+                            pPoint tmpPoint = &A[tmpIdEgo];
+                            printf("nb_candidates, %d, %lu, %lu\n", tmpId, nbCandidates, nbCandidatesArray[tmpPoint->id]);
                         }
                     }
                 #endif
