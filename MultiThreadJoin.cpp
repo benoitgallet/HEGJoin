@@ -22,7 +22,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 	pPoint B, int B_sz,
 	unsigned int * egoMapping,
 	unsigned int * originPointIndex,
-	neighborTableLookup * neighborTable
+	neighborTableLookup * neighborTable,
 	uint64_t * nbCandidatesArray)
 {
 	double tStart = omp_get_wtime();
