@@ -277,16 +277,38 @@ int main(int argc, char * argv[])
 
                 double tBeginEgo = omp_get_wtime();
 
+                uint64_t * nbCandidatesArray = new uint64_t[DBSIZE];
+                for (int i = 0; i < DBSIZE; ++i)
+                {
+                    nbCandidatesArray[i] = 0;
+                }
+
                 fprintf(stdout, "[EGO] ~ Beginning the computation\n");
                 #if SORT_BY_WORKLOAD
-                    totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex, neighborTable);
+                    totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, originPointIndex, neighborTable, nbCandidatesArray);
                 #else
-                    totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, nullptr, neighborTable);
+                    totalNeighborsCPU = Util::multiThreadJoinWorkQueue(searchMode, A, A_sz, B, B_sz, egoMapping, nullptr, neighborTable, nbCandidatesArray);
                 #endif
                 fprintf(stdout, "[EGO] ~ Done with the computation\n");
 
                 tEndEgo = omp_get_wtime();
                 egoTime = tEndEgo - tBeginEgo;
+
+                #if COMPARE_CANDIDATES
+                    for (int i = 0; i < nNonEmptyCells; ++i)
+                    {
+                        int cellId = sortedDatabaseTmp[i].cellId;
+                        int nbPoints = index[cellId].indexmax - index[cellId].indexmin + 1;
+                        uint64_t nbCandidates = sortedDatabaseTmp[i].nbPoints;
+
+                        for (int j = 0; j < nbPoints; ++j)
+                        {
+                            int tmpId = indexLookupArr[ index[cellId].indexmin + j ];
+                            int tmpIdEgo = egoMapping[tmpId];
+                            printf("nb_candidates, %d, %lu, %lu\n", tmpId, nbCandidates, nbCandidatesArray[tmpIdEgo]);
+                        }
+                    }
+                #endif
             } // searchMode
         } // Super-EGO
         #pragma omp barrier

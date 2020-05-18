@@ -22,7 +22,8 @@ uint64_t Util::multiThreadJoinWorkQueue(
 	pPoint B, int B_sz,
 	unsigned int * egoMapping,
 	unsigned int * originPointIndex,
-	neighborTableLookup * neighborTable)
+	neighborTableLookup * neighborTable
+	uint64_t * nbCandidatesArray)
 {
 	double tStart = omp_get_wtime();
 
@@ -69,7 +70,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 						unsigned int index = egoMapping[i];
 					#endif
 
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &nbCandidates[tid], resultVector);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &nbCandidates[tid], resultVector, nbCandidatesArray);
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
 					// unsigned int tmpIndex = originPointIndex[i];
@@ -143,7 +144,7 @@ uint64_t Util::multiThreadJoinWorkQueue(
 						unsigned int index = egoMapping[i];
 					#endif
 
-					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &nbCandidates[tid], resultVector);
+					Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, &nbCandidates[tid], resultVector, nbCandidatesArray);
 					// Util::egoJoinV2(A, 0, A_sz - 1, B, index, index, 0, tmpBuffer, nbNeighbors);
 
 					// unsigned int tmpIndex = originPointIndex[i];

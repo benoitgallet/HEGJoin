@@ -34,7 +34,8 @@
 #define STATIC_SPLIT_QUERIES 1
 
 #define COUNT_CANDIDATES 0
-#define COUNT_CANDIDATES_GPU 1
+#define COUNT_CANDIDATES_GPU 0
+#define COMPARE_CANDIDATES 1
 
 
 /*******************************************************************************/

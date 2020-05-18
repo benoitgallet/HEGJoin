@@ -54,7 +54,8 @@ public:
         int B_sz,
         unsigned int * egoMapping,
         unsigned int * originPointIndex,
-        neighborTableLookup * neighborTable);
+        neighborTableLookup * neighborTable,
+        uint64_t * nbCandidatesArray);
 
     static uint64_t multiThreadJoinPreQueue(
     	pPoint A, int A_sz,
@@ -70,15 +71,15 @@ public:
     	neighborTableLookup * neighborTable);
 
 	// static void egoJoin(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, pThreadParam param);
-	static void egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, uint64_t * nbCandidate, std::vector<int> * result);
+	static void egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, uint64_t * nbCandidate, std::vector<int> * result, uint64_t * nbCandidatesArray);
     // static void egoJoinV2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int start_dim, unsigned int * result, unsigned int * nbNeighbors);
 
 	// static void simpleJoin (pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result);
-	static void simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, uint64_t * nbCandidate, std::vector<int> * result);
+	static void simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, uint64_t * nbCandidate, std::vector<int> * result, uint64_t * nbCandidatesArray);
     // static void simpleJoin3(pPoint A, int frA, int toA, pPoint B, int frB, int toB, unsigned int * result, unsigned int * nbNeighbors);
 
     // static void simpleJoin2(pPoint A, int frA, int toA, pPoint B, int frB, int toB, resCont *result, int i);
-	static void simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, uint64_t * nbCandidate, std::vector<int> * result);
+	static void simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, uint64_t * nbCandidate, std::vector<int> * result, uint64_t * nbCandidatesArray);
     // static void simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, int m, unsigned int * result, unsigned int * nbNeighbors);
 
     static void reorderDim(pPoint A, int A_sz, pPoint B, int B_sz);
