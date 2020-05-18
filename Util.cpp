@@ -450,7 +450,7 @@ void Util::simpleJoin4(pPoint A, int frA, int toA, pPoint B, int frB, int toB, i
     {
         if (r2_end == -1) // 1 interval
         {
-            simpleJoin3(A, frA, toA, B, frB, toB, nbCandidate, result);
+            simpleJoin3(A, frA, toA, B, frB, toB, nbCandidate, result, nbCandidatesArray);
             // simpleJoin3(A, frA, toA, B, frB, toB, result, nbNeighbors);
             return;
         }
