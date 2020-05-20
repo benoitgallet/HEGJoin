@@ -1,3 +1,5 @@
 *.o
 main
 *.pdf
+*.sh
+
