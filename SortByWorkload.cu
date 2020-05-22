@@ -176,7 +176,7 @@ void sortByWorkLoad(
         #if !STATIC_SPLIT_QUERIES
             cout << "[SORT | DEBUG] ~ Setting the number of query points for the GPU: " << partitionPoint << '\n';
             setStaticQueryPoint(partitionPoint);
-        #endif4
+        #endif
     }
 
     // Setting some stuff for the CPU so it can begin immediately
