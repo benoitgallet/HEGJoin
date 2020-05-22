@@ -127,9 +127,9 @@ void sortByWorkLoad(
             uint64_t cpu_cps = partitionGPU / cpuTimeModel;
             uint64_t upper_cps = gpu_cps + cpu_cps;
 
-            double theoreticalTime = partitionGPU / upper_cps;
+            double theoreticalTime = (partitionGPU * 1.0) / (upper_cps * 1.0);
 
-            (*staticPartition) = gpu_cps / upper_cps;
+            (*staticPartition) = (gpu_cps * 1.0) / (upper_cps * 1.0);
 
             fprintf(stdout, "[MODEL] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
             fprintf(stdout, "[MODEL] ~ GPU queries/s: %lu, CPU queries/s: %lu, upper queries/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
