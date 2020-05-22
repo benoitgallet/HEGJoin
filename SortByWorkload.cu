@@ -133,7 +133,7 @@ void sortByWorkLoad(
 
             fprintf(stdout, "[MODEL] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
             fprintf(stdout, "[MODEL] ~ GPU queries/s: %lu, CPU queries/s: %lu, upper queries/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
-            fprintf(stdout, "[MODEL] ~ Modeled GPU partition: %f, CPU partition: %f\n", staticPartition, 1 - staticPartition);
+            fprintf(stdout, "[MODEL] ~ Modeled GPU partition: %f, CPU partition: %f\n", (*staticPartition), 1 - (*staticPartition));
         #endif
     }
     partitionGPU *= (*staticPartition);
