@@ -2,6 +2,7 @@
 #include "params.h"
 
 #include <cstdint>
+#include <iostream>
 
 // Parameters for the GPU split based on the number of candidates
 const double INTERCEPT_GPU_CANDIDATES = -10.45666;
@@ -34,6 +35,7 @@ const double NB_THREADS_CPU_QUERIES = -0.04741;
 double getGPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
 {
     double tmpCandidates = NB_CANDIDATES_GPU_CANDIDATES * nbCandidates;
+    std::cout << "GPU tmp candidates = " << tmpCandidates << '\n';
     return INTERCEPT_GPU_CANDIDATES
         + DIMENSIONALITY_GPU_CANDIDATES * GPUNUMDIM
         + NB_QUERIES_GPU_CANDIDATES * nbQueries
@@ -52,6 +54,7 @@ double getGPUTimeQueries(int nbQueries, DTYPE epsilon)
 double getCPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
 {
     double tmpCandidates = NB_CANDIDATES_CPU_CANDIDATES * nbCandidates;
+    std::cout << "CPU tmp candidates = " << tmpCandidates << '\n';
     return INTERCEPT_CPU_CANDIDATES
         + DIMENSIONALITY_CPU_CANDIDATES * GPUNUMDIM
         + NB_QUERIES_CPU_CANDIDATES * nbQueries
