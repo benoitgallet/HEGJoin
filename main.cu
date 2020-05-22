@@ -153,9 +153,9 @@ int main(int argc, char * argv[])
 
                 staticPartition = (gpu_qps * 1.0) / (upper_qps * 1.0);
 
-                fprintf(stdout, "[MODEL] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
-                fprintf(stdout, "[MODEL] ~ GPU queries/s: %d, CPU queries/s: %d, upper queries/s: %d\n", gpu_qps, cpu_qps, upper_qps);
-                fprintf(stdout, "[MODEL] ~ Modeled GPU partition: %f, CPU partition: %f\n", staticPartition, 1 - staticPartition);
+                fprintf(stdout, "[MODEL | RESULT] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
+                fprintf(stdout, "[MODEL | RESULT] ~ GPU queries/s: %d, CPU queries/s: %d, upper queries/s: %d\n", gpu_qps, cpu_qps, upper_qps);
+                fprintf(stdout, "[MODEL | RESULT] ~ Modeled GPU partition: %f, CPU partition: %f\n", staticPartition, 1 - staticPartition);
             #endif
 
             ////////////////////////////////////////////////////////////////////////////////////////
