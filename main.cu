@@ -149,9 +149,9 @@ int main(int argc, char * argv[])
                 int cpu_qps = DBSIZE / cpuTimeModel;
                 int upper_qps = gpu_qps + cpu_qps;
 
-                double theoreticalTime = DBSIZE / upper_qps;
+                double theoreticalTime = (DBSIZE * 1.0) / (upper_qps * 1.0);
 
-                staticPartition = gpu_qps / upper_qps;
+                staticPartition = (gpu_qps * 1.0) / (upper_qps * 1.0);
 
                 fprintf(stdout, "[MODEL] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
                 fprintf(stdout, "[MODEL] ~ GPU queries/s: %d, CPU queries/s: %d, upper queries/s: %d\n", gpu_qps, cpu_qps, upper_qps);
