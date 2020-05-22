@@ -37,7 +37,7 @@ double getGPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
         + DIMENSIONALITY_GPU_CANDIDATES * GPUNUMDIM
         + NB_QUERIES_GPU_CANDIDATES * nbQueries
         + EPSILON_GPU_CANDIDATES * epsilon
-        + NB_CANDIDATES_GPU_CANDIDATES * nbCandidates;
+        + NB_CANDIDATES_GPU_CANDIDATES * (nbCandidates * 1.0);
 }
 
 double getGPUTimeQueries(int nbQueries, DTYPE epsilon)
@@ -54,7 +54,7 @@ double getCPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
         + DIMENSIONALITY_CPU_CANDIDATES * GPUNUMDIM
         + NB_QUERIES_CPU_CANDIDATES * nbQueries
         + EPSILON_CPU_CANDIDATES * epsilon
-        + NB_CANDIDATES_CPU_CANDIDATES * nbCandidates
+        + NB_CANDIDATES_CPU_CANDIDATES * (nbCandidates * 1.0)
         + NB_THREADS_CPU_CANDIDATES * CPU_THREADS;
 }
 
