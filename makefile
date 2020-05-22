@@ -1,5 +1,5 @@
-SOURCES = import_dataset.cpp main.cu SortByWorkload.cu GPU.cu kernel.cu WorkQueue.cpp
-OBJECTS = import_dataset.o WorkQueue.o
+SOURCES = import_dataset.cpp main.cu SortByWorkload.cu GPU.cu kernel.cu WorkQueue.cpp StaticPartition.cpp
+OBJECTS = import_dataset.o WorkQueue.o StaticPartition.o
 CUDAOBJECTS = SortByWorkload.o GPU.o kernel.o main.o
 EGOSOURCES = multiThreadJoin.cpp Util.cpp Point.cpp
 EGOBJECTS = Point.o Util.o MultiThreadJoin.o
@@ -30,6 +30,9 @@ kernel.o: kernel.cu params.h
 
 GPU.o: GPU.cu params.h
 	$(CC) $(FLAGS) $(CFLAGS) $(SEARCHMODE) $(PARAMS) GPU.cu
+
+StaticPartition.o: StaticPartition.cpp params.h
+	$(CXX) $(CFLAGS) $(CFLAGS2) $(SEARCHMODE) $(PARAMS) StaticPartition.cpp
 
 ################################################################################
 
