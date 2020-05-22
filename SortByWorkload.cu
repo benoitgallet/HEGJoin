@@ -3,6 +3,7 @@
 #include "params.h"
 #include "kernel.h"
 #include "WorkQueue.h"
+#include "StaticPartition.h"
 
 #include <iostream>
 #include <algorithm>
@@ -18,7 +19,7 @@ using std::endl;
 void sortByWorkLoad(
         unsigned int searchMode,
         unsigned int * DBSIZE,
-        float staticPartition,
+        float * staticPartition,
         uint64_t * totalCandidates,
         struct schedulingCell ** sortedDatabaseTmp,
         DTYPE * epsilon,
@@ -117,9 +118,25 @@ void sortByWorkLoad(
                 int nbNeighbor = index[cellId].indexmax - index[cellId].indexmin + 1;
                 partitionGPU += (nbNeighbor * (*sortedDatabaseTmp)[i].nbPoints);
             }
+
+            // Put the model to estimate the partition here, as explained in main.cu
+            double gpuTimeModel = getGPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
+            double cpuTimeModel = getCPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
+
+            uint64_t gpu_cps = partitionGPU / gpuTimeModel;
+            uint64_t cpu_cps = partitionGPU / cpuTimeModel;
+            uint64_t upper_cps = gpu_cps + cpu_cps;
+
+            double theoreticalTime = partitionGPU / upper_cps;
+
+            (*staticPartition) = gpu_cps / upper_cps;
+
+            fprintf(stdout, "[MODEL] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
+            fprintf(stdout, "[MODEL] ~ GPU queries/s: %lu, CPU queries/s: %lu, upper queries/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
+            fprintf(stdout, "[MODEL] ~ Modeled GPU partition: %f, CPU partition: %f\n", staticPartition, 1 - staticPartition);
         #endif
     }
-    partitionGPU *= staticPartition;
+    partitionGPU *= (*staticPartition);
     bool partitioned = false;
     int partitionPoint = 0;
 
@@ -159,7 +176,7 @@ void sortByWorkLoad(
         #if !STATIC_SPLIT_QUERIES
             cout << "[SORT | DEBUG] ~ Setting the number of query points for the GPU: " << partitionPoint << '\n';
             setStaticQueryPoint(partitionPoint);
-        #endif
+        #endif4
     }
 
     // Setting some stuff for the CPU so it can begin immediately

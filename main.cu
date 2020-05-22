@@ -14,6 +14,7 @@
 #include "SortByWorkload.h"
 #include "WorkQueue.h"
 #include "GPU.h"
+#include "StaticPartition.h"
 
 #include "Point.hpp"
 #include "Util.hpp"
@@ -55,34 +56,7 @@ int main(int argc, char * argv[])
     DTYPE epsilon = atof(argv[EPSILON_ARG]);
     int dim = atoi(argv[DIM_ARG]);
     int searchMode = atoi(argv[SEARCHMODE_ARG]);
-    float staticPartition;
-
-    // Static partitioning between CPU and GPU components
-    if (SM_HYBRID_STATIC == searchMode)
-    {
-        if (NB_ARGS_MAX == argc)
-        {
-            staticPartition = atof(argv[STATIC_PART_ARG]);
-            if (staticPartition <= 0.0 || 1.0 <= staticPartition)
-            {
-                fprintf(stderr, "[MAIN] ~ Error: the partitioning should be between ]0.0, 1.0[");
-                return 1;
-            }
-        } else {
-            fprintf(stderr, "[MAIN] ~ Error: you need to indicate the partitioning as the last parameter");
-            return 1;
-        }
-    } else { // Dynamic partitioning or CPU/GPU alone
-        if (SM_GPU == searchMode)
-        {
-            // The GPU is alone so it takes all the work
-            staticPartition = 1.0;
-        } else {
-            // The CPU is alone so it takes all the work, or it's the regular (dynamic) hybrid
-            // so the staticPartition value does not matter
-            staticPartition = 0.0;
-        }
-    }
+    float staticPartition = -1.0; // Set it as a default value for later
 
     if(GPUNUMDIM != dim)
     {
@@ -100,10 +74,10 @@ int main(int argc, char * argv[])
     fprintf(stdout, "[MAIN] ~ Epsilon: %f\n", epsilon);
     fprintf(stdout, "[MAIN] ~ Dimensionality: %d\n", dim);
     fprintf(stdout, "[MAIN] ~ Search mode: %d\n", searchMode);
-    if (SM_HYBRID_STATIC == searchMode)
-    {
-        fprintf(stdout, "[MAIN] ~ GPU part: %f, CPU part: %f\n", staticPartition, 1 - staticPartition);
-    }
+    // if (SM_HYBRID_STATIC == searchMode)
+    // {
+    //     fprintf(stdout, "[MAIN] ~ GPU part: %f, CPU part: %f\n", staticPartition, 1 - staticPartition);
+    // }
 
     Util::eps = epsilon;
     Util::eps2 = epsilon * epsilon;
@@ -153,6 +127,71 @@ int main(int argc, char * argv[])
         // std::copy(NDdataPoints[i].begin(), NDdataPoints[i].end(), database + i * GPUNUMDIM);
     }
 
+    // Static partitioning between CPU and GPU components
+    if (SM_HYBRID_STATIC == searchMode)
+    {
+        if (NB_ARGS_MAX == argc)
+        {
+            // Read the static partition from command line
+            staticPartition = atof(argv[STATIC_PART_ARG]);
+            if (staticPartition <= 0.0 || 1.0 <= staticPartition)
+            {
+                fprintf(stderr, "[MAIN] ~ Error: the partitioning should be between ]0.0, 1.0[");
+                return 1;
+            }
+        } else {
+            // The static partition was not given, so estimate it following our model and other parameters
+            #if STATIC_SPLIT_QUERIES
+                double gpuTimeModel = getGPUTimeQueries(DBSIZE, epsilon);
+                double cpuTimeModel = getCPUTimeQueries(DBSIZE, epsilon);
+
+                int gpu_qps = DBSIZE / gpuTimeModel;
+                int cpu_qps = DBSIZE / cpuTimeModel;
+                int upper_qps = gpu_qps + cpu_qps;
+
+                double theoreticalTime = DBSIZE / upper_qps;
+
+                staticPartition = gpu_qps / upper_qps;
+
+                fprintf(stdout, "[MODEL] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
+                fprintf(stdout, "[MODEL] ~ GPU queries/s: %d, CPU queries/s: %d, upper queries/s: %d\n", gpu_qps, cpu_qps, upper_qps);
+                fprintf(stdout, "[MODEL] ~ Modeled GPU partition: %f, CPU partition: %f\n", staticPartition, 1 - staticPartition);
+            #endif
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // The model to partition based on the candidates is inside the SortByWL function,
+            // as SortByWL needs to know the partition to determine which query point partitions the work,
+            // and the model needs SortByWL to know how many candidates there are.
+            //
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+                // double gpuTimeModel = getGPUTimeCandidates(DBSIZE, epsilon, totalCandidates);
+                // double cpuTimeModel = getCPUTimeCandidates(DBSIZE, epsilon, totalCandidates);
+                //
+                // uint64_t gpu_cps = totalCandidates / gpuTimeModel;
+                // uint64_t cpu_cps = totalCandidates / cpuTimeModel;
+                // uint64_t upper_cps = gpu_cps + cpu_cps;
+                //
+                // staticPartition = gpu_cps / upper_cps;
+                //
+                // fprintf(stdout, "[MODEL] ~ GPU time: %f, CPU time: %f\n", gpuTimeModel, cpuTimeModel);
+                // fprintf(stdout, "[MODEL] ~ GPU queries/s: %lu, CPU queries/s: %lu, upper queries/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
+                // fprintf(stdout, "[MODEL] ~ Modeled GPU partition: %f, CPU partition: %f\n", staticPartition, 1 - staticPartition);
+            // #endif
+        }
+    } else { // Dynamic partitioning or CPU/GPU alone
+        if (SM_GPU == searchMode)
+        {
+            // The GPU is alone so it takes all the work
+            staticPartition = 1.0;
+        } else {
+            // The CPU is alone so it takes all the work, or it's the regular (dynamic) hybrid
+            // so the staticPartition value does not matter
+            staticPartition = 0.0;
+        }
+    }
+
     DTYPE * minArr = new DTYPE [NUMINDEXEDDIM];
     DTYPE * maxArr = new DTYPE [NUMINDEXEDDIM];
     unsigned int * nCells = new unsigned int [NUMINDEXEDDIM];
@@ -196,7 +235,7 @@ int main(int argc, char * argv[])
 
     double tStartSort = omp_get_wtime();
     #if SORT_BY_WORKLOAD
-        sortByWorkLoad(searchMode, &DBSIZE, staticPartition, &totalCandidates, &sortedDatabaseTmp, &epsilon, &dev_epsilon,
+        sortByWorkLoad(searchMode, &DBSIZE, &staticPartition, &totalCandidates, &sortedDatabaseTmp, &epsilon, &dev_epsilon,
                 database, &dev_database, index, &dev_index, indexLookupArr, &dev_indexLookupArr,
                 gridCellLookupArr, &dev_gridCellLookupArr, minArr, &dev_minArr, nCells, &dev_nCells,
                 &nNonEmptyCells, &dev_nNonEmptyCells, &originPointIndex, &dev_originPointIndex);

@@ -7,7 +7,7 @@
 void sortByWorkLoad(
         unsigned int searchMode,
         unsigned int * DBSIZE,
-        float staticPartition,
+        float * staticPartition,
         uint64_t * totalCandidates,
         struct schedulingCell ** sortedDatabaseTmp,
         DTYPE * epsilon,
