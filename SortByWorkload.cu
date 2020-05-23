@@ -122,6 +122,9 @@ void sortByWorkLoad(
             // Put the model to estimate the partition here, as explained in main.cu
             double gpuTimeModel = getGPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
             double cpuTimeModel = getCPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
+            // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
+            gpuTimeModel = pow(10, gpuTimeModel);
+            cpuTimeModel = pow(10, cpuTimeModel);
 
             uint64_t gpu_cps = partitionGPU / gpuTimeModel;
             uint64_t cpu_cps = partitionGPU / cpuTimeModel;
@@ -132,7 +135,7 @@ void sortByWorkLoad(
             (*staticPartition) = (gpu_cps * 1.0) / (upper_cps * 1.0);
 
             fprintf(stdout, "[MODEL | RESULT] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
-            fprintf(stdout, "[MODEL | RESULT] ~ GPU queries/s: %lu, CPU queries/s: %lu, upper queries/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
+            fprintf(stdout, "[MODEL | RESULT] ~ GPU candidates/s: %lu, CPU candidates/s: %lu, upper candidates/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
             fprintf(stdout, "[MODEL | RESULT] ~ Modeled GPU partition: %f, CPU partition: %f\n", (*staticPartition), 1 - (*staticPartition));
         #endif
     }
