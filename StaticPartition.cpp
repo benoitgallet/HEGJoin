@@ -35,11 +35,11 @@ const double NB_THREADS_CPU_QUERIES = -0.04741;
 
 double getGPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
 {
-    double tmpCandidates = log10(NB_CANDIDATES_GPU_CANDIDATES * nbCandidates);
+    double tmpCandidates = log(NB_CANDIDATES_GPU_CANDIDATES * nbCandidates);
     return INTERCEPT_GPU_CANDIDATES
         + DIMENSIONALITY_GPU_CANDIDATES * GPUNUMDIM
         + NB_QUERIES_GPU_CANDIDATES * nbQueries
-        + EPSILON_GPU_CANDIDATES * log10(epsilon)
+        + EPSILON_GPU_CANDIDATES * log(epsilon)
         + tmpCandidates;
 }
 
@@ -48,16 +48,16 @@ double getGPUTimeQueries(int nbQueries, DTYPE epsilon)
     return INTERCEPT_GPU_QUERIES
         + DIMENSIONALITY_GPU_QUERIES * GPUNUMDIM
         + NB_QUERIES_GPU_QUERIES * nbQueries
-        + EPSILON_GPU_QUERIES * log10(epsilon);
+        + EPSILON_GPU_QUERIES * log(epsilon);
 }
 
 double getCPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
 {
-    double tmpCandidates = log10(NB_CANDIDATES_CPU_CANDIDATES * nbCandidates);
+    double tmpCandidates = log(NB_CANDIDATES_CPU_CANDIDATES * nbCandidates);
     return INTERCEPT_CPU_CANDIDATES
         + DIMENSIONALITY_CPU_CANDIDATES * GPUNUMDIM
         + NB_QUERIES_CPU_CANDIDATES * nbQueries
-        + EPSILON_CPU_CANDIDATES * log10(epsilon)
+        + EPSILON_CPU_CANDIDATES * log(epsilon)
         + tmpCandidates
         + NB_THREADS_CPU_CANDIDATES * CPU_THREADS;
 }
@@ -67,6 +67,6 @@ double getCPUTimeQueries(int nbQueries, DTYPE epsilon)
     return INTERCEPT_CPU_QUERIES
         + DIMENSIONALITY_CPU_QUERIES * GPUNUMDIM
         + NB_QUERIES_CPU_QUERIES * nbQueries
-        + EPSILON_CPU_QUERIES * log10(epsilon)
+        + EPSILON_CPU_QUERIES * log(epsilon)
         + NB_THREADS_CPU_QUERIES * CPU_THREADS;
 }
