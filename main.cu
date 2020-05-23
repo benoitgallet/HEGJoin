@@ -144,9 +144,10 @@ int main(int argc, char * argv[])
             #if STATIC_SPLIT_QUERIES
                 double gpuTimeModel = getGPUTimeQueries(DBSIZE, epsilon);
                 double cpuTimeModel = getCPUTimeQueries(DBSIZE, epsilon);
+                fprintf(stdout, "[MODEL] ~ Times before un-logging: GPU = %f, CPU = %f\n", gpuTimeModel, cpuTimeModel);
                 // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
-                gpuTimeModel = pow(10, gpuTimeModel);
-                cpuTimeModel = pow(10, cpuTimeModel);
+                gpuTimeModel = exp(gpuTimeModel);
+                cpuTimeModel = exp(cpuTimeModel);
 
                 int gpu_qps = DBSIZE / gpuTimeModel;
                 int cpu_qps = DBSIZE / cpuTimeModel;
