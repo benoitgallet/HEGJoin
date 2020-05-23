@@ -122,6 +122,7 @@ void sortByWorkLoad(
             // Put the model to estimate the partition here, as explained in main.cu
             double gpuTimeModel = getGPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
             double cpuTimeModel = getCPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
+            fprintf(stdout, "[MODEL] ~ Times before un-logging: GPU = %f, CPU = %f\n", gpuTimeModel, cpuTimeModel);
             // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
             gpuTimeModel = pow(10, gpuTimeModel);
             cpuTimeModel = pow(10, cpuTimeModel);
