@@ -384,7 +384,7 @@ int main(int argc, char * argv[])
                     nbQueriesTmp += nbPoints;
                 }
             }
-            fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the GPU: %lu\n", nbCandidatesGPU);
+            fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the GPU: %lu (f: %f)\n", nbCandidatesGPU, (nbCandidatesGPU * 1.0) / (totalCandidates * 1.0));
             fprintf(stdout, "   [RESULT] ~ Total number of candidate points refined by the CPU (if using the grid): %lu\n", totalCandidates - nbCandidatesGPU);
         }
     #endif

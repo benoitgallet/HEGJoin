@@ -1612,7 +1612,7 @@ void distanceTableNDGridBatches(
         nbQueryPointTotal += nbQueryPoint[i];
     }
     (*nbQueriesGPU) = nbQueryPointTotal;
-    printf("[GPU | RESULT] ~ Query points computed by the GPU: %d\n", nbQueryPointTotal);
+    printf("[GPU | RESULT] ~ Query points computed by the GPU: %d (f: %f)\n", nbQueryPointTotal, (nbQueryPointTotal * 1.0) / ((*DBSIZE) * 1.0));
     printf("[GPU | RESULT] ~ Compute time for the GPU: %f\n", computeTime);
 
     cout << "[GPU] ~ Total result set size on host: " << totalResultsLoop << "\033[00m\n";
