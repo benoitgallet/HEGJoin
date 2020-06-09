@@ -37,6 +37,8 @@
 #define COUNT_CANDIDATES_GPU 0
 #define COMPARE_CANDIDATES 1
 
+#define QUADRO 1
+
 
 /*******************************************************************************/
 /*                 Code should not be modified below this line                 */
