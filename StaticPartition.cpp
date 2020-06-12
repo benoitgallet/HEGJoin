@@ -65,8 +65,8 @@ double getGPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
     double tmpCandidates = NB_CANDIDATES_GPU_CANDIDATES * log(nbCandidates);
     return INTERCEPT_GPU_CANDIDATES
         + DIMENSIONALITY_GPU_CANDIDATES * GPUNUMDIM
-        + NB_QUERIES_GPU_CANDIDATES * nbQueries
-        + EPSILON_GPU_CANDIDATES * log(epsilon)
+        + NB_QUERIES_GPU_CANDIDATES * log(nbQueries)
+        + EPSILON_GPU_CANDIDATES * epsilon
         + tmpCandidates;
 }
 
@@ -74,8 +74,8 @@ double getGPUTimeQueries(int nbQueries, DTYPE epsilon)
 {
     return INTERCEPT_GPU_QUERIES
         + DIMENSIONALITY_GPU_QUERIES * GPUNUMDIM
-        + NB_QUERIES_GPU_QUERIES * nbQueries
-        + EPSILON_GPU_QUERIES * log(epsilon);
+        + NB_QUERIES_GPU_QUERIES * log(nbQueries)
+        + EPSILON_GPU_QUERIES * epsilon;
 }
 
 double getCPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
@@ -89,8 +89,8 @@ double getCPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)
     //     + NB_THREADS_CPU_CANDIDATES * CPU_THREADS;
     return INTERCEPT_CPU_CANDIDATES
         + DIMENSIONALITY_CPU_CANDIDATES * GPUNUMDIM
-        + NB_QUERIES_CPU_CANDIDATES * nbQueries
-        + EPSILON_CPU_CANDIDATES * log(epsilon)
+        + NB_QUERIES_CPU_CANDIDATES * log(nbQueries)
+        + EPSILON_CPU_CANDIDATES * epsilon
         + tmpCandidates;
 }
 
@@ -103,6 +103,6 @@ double getCPUTimeQueries(int nbQueries, DTYPE epsilon)
     //     + NB_THREADS_CPU_QUERIES * CPU_THREADS;
     return INTERCEPT_CPU_QUERIES
         + DIMENSIONALITY_CPU_QUERIES * GPUNUMDIM
-        + NB_QUERIES_CPU_QUERIES * nbQueries
-        + EPSILON_CPU_QUERIES * log(epsilon);
+        + NB_QUERIES_CPU_QUERIES * log(nbQueries)
+        + EPSILON_CPU_QUERIES * epsilon;
 }
