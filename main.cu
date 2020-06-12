@@ -146,8 +146,8 @@ int main(int argc, char * argv[])
                 double cpuTimeModel = getCPUTimeQueries(DBSIZE, epsilon);
                 fprintf(stdout, "[MODEL] ~ Times before un-logging: GPU = %f, CPU = %f\n", gpuTimeModel, cpuTimeModel);
                 // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
-                gpuTimeModel = exp(gpuTimeModel);
-                cpuTimeModel = exp(cpuTimeModel);
+                // gpuTimeModel = exp(gpuTimeModel);
+                // cpuTimeModel = exp(cpuTimeModel);
 
                 int gpu_qps = DBSIZE / gpuTimeModel;
                 int cpu_qps = DBSIZE / cpuTimeModel;

@@ -124,8 +124,8 @@ void sortByWorkLoad(
             double cpuTimeModel = getCPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
             fprintf(stdout, "[MODEL] ~ Times before un-logging: GPU = %f, CPU = %f\n", gpuTimeModel, cpuTimeModel);
             // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
-            gpuTimeModel = exp(gpuTimeModel);
-            cpuTimeModel = exp(cpuTimeModel);
+            // gpuTimeModel = exp(gpuTimeModel);
+            // cpuTimeModel = exp(cpuTimeModel);
 
             uint64_t gpu_cps = partitionGPU / gpuTimeModel;
             uint64_t cpu_cps = partitionGPU / cpuTimeModel;
