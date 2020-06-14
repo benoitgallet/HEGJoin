@@ -119,25 +119,31 @@ void sortByWorkLoad(
                 partitionGPU += (nbNeighbor * (*sortedDatabaseTmp)[i].nbPoints);
             }
 
-            // Put the model to estimate the partition here, as explained in main.cu
-            double gpuTimeModel = getGPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
-            double cpuTimeModel = getCPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
-            fprintf(stdout, "[MODEL] ~ Times before un-logging: GPU = %f, CPU = %f\n", gpuTimeModel, cpuTimeModel);
-            // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
-            // gpuTimeModel = exp(gpuTimeModel);
-            // cpuTimeModel = exp(cpuTimeModel);
+            if(-1.0 == (*staticPartition))
+            {
+                // If the user didn't specify a static partitioning value at runtime, we use our model
+                // Put the model to estimate the partition here, as explained in main.cu
+                double gpuTimeModel = getGPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
+                double cpuTimeModel = getCPUTimeCandidates((*DBSIZE), (*epsilon), partitionGPU);
+                fprintf(stdout, "[MODEL] ~ Times before un-logging: GPU = %f, CPU = %f\n", gpuTimeModel, cpuTimeModel);
+                // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
+                gpuTimeModel = exp(gpuTimeModel);
+                cpuTimeModel = exp(cpuTimeModel);
 
-            uint64_t gpu_cps = partitionGPU / gpuTimeModel;
-            uint64_t cpu_cps = partitionGPU / cpuTimeModel;
-            uint64_t upper_cps = gpu_cps + cpu_cps;
+                uint64_t gpu_cps = partitionGPU / gpuTimeModel;
+                uint64_t cpu_cps = partitionGPU / cpuTimeModel;
+                uint64_t upper_cps = gpu_cps + cpu_cps;
 
-            double theoreticalTime = (partitionGPU * 1.0) / (upper_cps * 1.0);
+                double theoreticalTime = (partitionGPU * 1.0) / (upper_cps * 1.0);
 
-            (*staticPartition) = (gpu_cps * 1.0) / (upper_cps * 1.0);
+                (*staticPartition) = (gpu_cps * 1.0) / (upper_cps * 1.0);
 
-            fprintf(stdout, "[MODEL | RESULT] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
-            fprintf(stdout, "[MODEL | RESULT] ~ GPU candidates/s: %lu, CPU candidates/s: %lu, upper candidates/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
-            fprintf(stdout, "[MODEL | RESULT] ~ Modeled GPU partition: %f, CPU partition: %f\n", (*staticPartition), 1 - (*staticPartition));
+                fprintf(stdout, "[MODEL | RESULT] ~ GPU time: %f, CPU time: %f, theoretical time: %f\n", gpuTimeModel, cpuTimeModel, theoreticalTime);
+                fprintf(stdout, "[MODEL | RESULT] ~ GPU candidates/s: %lu, CPU candidates/s: %lu, upper candidates/s: %lu\n", gpu_cps, cpu_cps, upper_cps);
+                fprintf(stdout, "[MODEL | RESULT] ~ Modeled GPU partition: %f, CPU partition: %f\n", (*staticPartition), 1 - (*staticPartition));
+            } else {
+                // Nothing particular to do, we already know the static partitioning
+            }
         #endif
     }
     partitionGPU *= (*staticPartition);

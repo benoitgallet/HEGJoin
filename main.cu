@@ -139,6 +139,7 @@ int main(int argc, char * argv[])
                 fprintf(stderr, "[MAIN] ~ Error: the partitioning should be between ]0.0, 1.0[");
                 return 1;
             }
+            fprtinf(stdout, "[MODEL | RESULT] ~ Statically partitioning the work, using the partitioning value %f\n", staticPartition);
         } else {
             // The static partition was not given, so estimate it following our model and other parameters
             #if STATIC_SPLIT_QUERIES
@@ -146,8 +147,8 @@ int main(int argc, char * argv[])
                 double cpuTimeModel = getCPUTimeQueries(DBSIZE, epsilon);
                 fprintf(stdout, "[MODEL] ~ Times before un-logging: GPU = %f, CPU = %f\n", gpuTimeModel, cpuTimeModel);
                 // gpuTimeModel and cpuTimeModel are on a log10 scale, so un-log them
-                // gpuTimeModel = exp(gpuTimeModel);
-                // cpuTimeModel = exp(cpuTimeModel);
+                gpuTimeModel = exp(gpuTimeModel);
+                cpuTimeModel = exp(cpuTimeModel);
 
                 int gpu_qps = DBSIZE / gpuTimeModel;
                 int cpu_qps = DBSIZE / cpuTimeModel;

@@ -8,56 +8,56 @@
 #if QUADRO
 // Do not include the number of CPU threads
 // Parameters for the GPU split based on the number of candidates
-    const double INTERCEPT_GPU_CANDIDATES = -460.841;
-    const double DIMENSIONALITY_GPU_CANDIDATES = 13.2635;
-    const double NB_QUERIES_GPU_CANDIDATES = 3.9332;
-    const double EPSILON_GPU_CANDIDATES = 0.9368;
-    const double NB_CANDIDATES_GPU_CANDIDATES = 17.2651;
+    const double INTERCEPT_GPU_CANDIDATES = -12.39066;
+    const double DIMENSIONALITY_GPU_CANDIDATES = 0.07716;
+    const double NB_QUERIES_GPU_CANDIDATES = 0.03136;
+    const double EPSILON_GPU_CANDIDATES = -0.04165;
+    const double NB_CANDIDATES_GPU_CANDIDATES = 0.60094;
 
     // Parameters for the GPU split based on the number of query points
-    const double INTERCEPT_GPU_QUERIES = -142.599;
-    const double DIMENSIONALITY_GPU_QUERIES = 12.339;
-    const double NB_QUERIES_GPU_QUERIES = 13.847;
-    const double EPSILON_GPU_QUERIES = 8.798;
+    const double INTERCEPT_GPU_QUERIES = -1.31374;
+    const double DIMENSIONALITY_GPU_QUERIES = 0.04499;
+    const double NB_QUERIES_GPU_QUERIES = 0.37642;
+    const double EPSILON_GPU_QUERIES = 0.23197;
 
     // Parameters for the CPU split based on the number of candidates
-    const double INTERCEPT_CPU_CANDIDATES = -3410.61;
-    const double DIMENSIONALITY_CPU_CANDIDATES = 145.08;
-    const double NB_QUERIES_CPU_CANDIDATES = 49.22;
-    const double EPSILON_CPU_CANDIDATES = 20.52;
-    const double NB_CANDIDATES_CPU_CANDIDATES = 110.73;
+    const double INTERCEPT_CPU_CANDIDATES = -18.20043;
+    const double DIMENSIONALITY_CPU_CANDIDATES = 1.05048;
+    const double NB_QUERIES_CPU_CANDIDATES = 0.27814;
+    const double EPSILON_CPU_CANDIDATES = 0.09782;
+    const double NB_CANDIDATES_CPU_CANDIDATES = 0.70146;
 
     // Parameters for the CPU split based on the number of query points
-    const double INTERCEPT_CPU_QUERIES = -1369.65;
-    const double DIMENSIONALITY_CPU_QUERIES = 139.16;
-    const double NB_QUERIES_CPU_QUERIES = 112.79;
-    const double EPSILON_CPU_QUERIES = 70.94;
+    const double INTERCEPT_CPU_QUERIES = -5.2706;
+    const double DIMENSIONALITY_CPU_QUERIES = 1.0129;
+    const double NB_QUERIES_CPU_QUERIES = 0.6809;
+    const double EPSILON_CPU_QUERIES = 0.4172;
 #else
     // Parameters for the GPU split based on the number of candidates
-    const double INTERCEPT_GPU_CANDIDATES = -737.307;
-    const double DIMENSIONALITY_GPU_CANDIDATES = 40.512;
-    const double NB_QUERIES_GPU_CANDIDATES = 9.974;
-    const double EPSILON_GPU_CANDIDATES = 5.652;
-    const double NB_CANDIDATES_GPU_CANDIDATES = 25.215;
+    const double INTERCEPT_GPU_CANDIDATES = -12.75402;
+    const double DIMENSIONALITY_GPU_CANDIDATES = 0.46846;
+    const double NB_QUERIES_GPU_CANDIDATES = -0.01421;
+    const double EPSILON_GPU_CANDIDATES = -0.02273;
+    const double NB_CANDIDATES_GPU_CANDIDATES = 0.63990;
 
     // Parameters for the GPU split based on the number of query points
-    const double INTERCEPT_GPU_QUERIES = -272.52;
-    const double DIMENSIONALITY_GPU_QUERIES = 39.16;
-    const double NB_QUERIES_GPU_QUERIES = 24.45;
-    const double EPSILON_GPU_QUERIES = 17.13;
+    const double INTERCEPT_GPU_QUERIES = -0.9589;
+    const double DIMENSIONALITY_GPU_QUERIES = 0.4342;
+    const double NB_QUERIES_GPU_QUERIES = 0.3532;
+    const double EPSILON_GPU_QUERIES = 0.2686;
 
     // Parameters for the CPU split based on the number of candidates, do not include the number of threads
-    const double INTERCEPT_CPU_CANDIDATES = -1481.79;
-    const double DIMENSIONALITY_CPU_CANDIDATES = 64.55;
-    const double NB_QUERIES_CPU_CANDIDATES = 26.91;
-    const double EPSILON_CPU_CANDIDATES = 11.35;
-    const double NB_CANDIDATES_CPU_CANDIDATES = 45.19;
+    const double INTERCEPT_CPU_CANDIDATES = -17.74948;
+    const double DIMENSIONALITY_CPU_CANDIDATES = 0.98041;
+    const double NB_QUERIES_CPU_CANDIDATES = 0.43954;
+    const double EPSILON_CPU_CANDIDATES = 0.16737;
+    const double NB_CANDIDATES_CPU_CANDIDATES = 0.57009;
 
     // Parameters for the CPU split based on the number of query points, do not include the number of threads
-    const double INTERCEPT_CPU_QUERIES = -648.74;
-    const double DIMENSIONALITY_CPU_QUERIES = 62.13;
-    const double NB_QUERIES_CPU_QUERIES = 52.86;
-    const double EPSILON_CPU_QUERIES = 31.93;
+    const double INTERCEPT_CPU_QUERIES = -7.2411;
+    const double DIMENSIONALITY_CPU_QUERIES = 0.9499;
+    const double NB_QUERIES_CPU_QUERIES = 0.7669;
+    const double EPSILON_CPU_QUERIES = 0.4269;
 #endif
 
 double getGPUTimeCandidates(int nbQueries, DTYPE epsilon, uint64_t nbCandidates)

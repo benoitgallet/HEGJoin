@@ -1612,6 +1612,12 @@ void distanceTableNDGridBatches(
         nbQueryPointTotal += nbQueryPoint[i];
     }
     (*nbQueriesGPU) = nbQueryPointTotal;
+
+    for (int i = 0; i < GPUSTREAMS; ++i)
+    {
+        printf("[GPU] ~ Kernel execution time on stream %d: %f\n", i, kernelTimes[i]);
+    }
+
     printf("[GPU | RESULT] ~ Query points computed by the GPU: %d (f: %f)\n", nbQueryPointTotal, (nbQueryPointTotal * 1.0) / ((*DBSIZE) * 1.0));
     printf("[GPU | RESULT] ~ Compute time for the GPU: %f\n", computeTime);
 
