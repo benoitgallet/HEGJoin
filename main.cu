@@ -139,7 +139,7 @@ int main(int argc, char * argv[])
                 fprintf(stderr, "[MAIN] ~ Error: the partitioning should be between ]0.0, 1.0[");
                 return 1;
             }
-            fprtinf(stdout, "[MODEL | RESULT] ~ Statically partitioning the work, using the partitioning value %f\n", staticPartition);
+            fprintf(stdout, "[MODEL | RESULT] ~ Statically partitioning the work, using the partitioning value %f\n", staticPartition);
         } else {
             // The static partition was not given, so estimate it following our model and other parameters
             #if STATIC_SPLIT_QUERIES
