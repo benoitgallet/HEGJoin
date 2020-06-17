@@ -397,9 +397,11 @@ int main(int argc, char * argv[])
 
     if(tEndGPU < tEndEgo)
     {
-        fprintf(stdout, "[RESULT] ~ The GPU ended before the CPU, with a difference of: %f\n", tEndEgo - tEndGPU);
+        double timeDiff = tEndEgo - tEndGPU;
+        fprintf(stdout, "[RESULT] ~ The GPU ended before the CPU, with a difference of: %f (ratio: %f)\n", timeDiff, timeDiff / (computeTime + sortTime));
     }else{
-        fprintf(stdout, "[RESULT] ~ The CPU ended before the GPU, with a difference of: %f\n", tEndGPU - tEndEgo);
+        double timeDiff = tEndGPU - tEndEgo;
+        fprintf(stdout, "[RESULT] ~ The CPU ended before the GPU, with a difference of: %f (ratio: %f)\n", timeDiff, timeDiff / (computeTime + sortTime));
     }
 
     // printNeighborTable(neighborTable, 0, 20);
