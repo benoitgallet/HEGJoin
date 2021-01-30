@@ -49,7 +49,7 @@ Produces a dataset with 2,000,000 points in 2 dimensions. This generated dataset
 
 
 ## Utilisation
-Once the pre-requisite libraries are installed on your computer, and when you have modified the `params.h` file according to the experiment that is going to be computed, compile the sources using:
+Once the pre-requisite libraries are installed on your computer, and when you have modified the `params.h` file according to the experiment that is going to be computed. Furthermore, you should modify the `makefile` to indicate the location of the Boost library, as well as the different compiling options you might prefer (such as the C++ compiler, or the targeted GPU architecture). You can then compile the sources using:
 ```sh
 $ make
 ```
