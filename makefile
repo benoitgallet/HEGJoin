@@ -7,7 +7,7 @@ CC = nvcc -g
 CXX = g++ -g
 EXECUTABLE = main
 
-FLAGS = -std=c++11 -O3 -Xcompiler -fopenmp -arch=compute_60 -code=sm_60 -lcuda -lineinfo -I/home/benoit/boost_1_72_0
+FLAGS = -std=c++11 -O3 -Xcompiler -fopenmp -arch=compute_86 -code=sm_86 -lcuda -lineinfo -I/home/benoit/Dev/boost_1_75_0
 CFLAGS = -c -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES
 CFLAGS2 = -std=c++11 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op
 

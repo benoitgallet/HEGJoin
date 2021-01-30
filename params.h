@@ -1,13 +1,20 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define GPUNUMDIM 2
-#define NUMINDEXEDDIM 2
+// Input data dimension
+#define GPUNUMDIM 16
 
+// Number of dimensions to index
+#define NUMINDEXEDDIM 8
+
+// Number of GPU threads per block
 #define BLOCKSIZE 256
 
+// Number of GPU streams
 #define GPUSTREAMS 3
-#define CPU_THREADS 16
+
+// Number of CPU threads to use when joining with the CPU
+#define CPU_THREADS 8
 
 // Number of query points taken by a CPU thread at once
 #define CPU_BATCH_SIZE 1024
@@ -20,29 +27,27 @@
 // Used by Super-EGO
 #define MINLEN 32
 
-// Limits the output produced by the GPU when computing
-// 0 to output everything, 1 to limit the output
-#define SILENT_GPU 1
-
-// Sorts the point by workload
-#define SORT_BY_WORKLOAD 1
-
 // Statically split the work based on the queries (e.g., 60% of the queries to the GPU, 40% to the CPU)
 // Or statically split the work based on the candidate points (e.g., 60% of the candidates to refine
 //  go to the GPU and corresponding to 25% of the queries for example, and 40% of the candidates to refine
 //  go to the CPU, corresponding to the other 75% of the queries for example)
 #define STATIC_SPLIT_QUERIES 1
 
+// Limits the output produced by the GPU when computing
+// 0 to output everything, 1 to limit the output
+#define SILENT_GPU 1
+
+// Metrics to evaluate the throughput of the CPU and GPU by counting the number of candidate points they refine
 #define COUNT_CANDIDATES 0
-#define COUNT_CANDIDATES_GPU 1
+#define COUNT_CANDIDATES_GPU 0
 #define COMPARE_CANDIDATES 0
 
-#define QUADRO 1
 
 
-/*******************************************************************************/
-/*                 Code should not be modified below this line                 */
-/*******************************************************************************/
+/*********************************************************************/
+/*                 Code below should not be modified                 */
+/*********************************************************************/
+
 
 
 #define NB_ARGS_MAX 6
@@ -56,5 +61,8 @@
 #define SM_HYBRID 1
 #define SM_HYBRID_STATIC 2
 #define SM_CPU 3
+
+// Sorts the point by workload
+#define SORT_BY_WORKLOAD 1
 
 #endif

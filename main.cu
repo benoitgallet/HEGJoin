@@ -20,7 +20,7 @@
 #include "Util.hpp"
 
 // #include <boost/sort/sort.hpp>
-#include <boost_1_72_0/sort/sort.hpp>
+#include <boost/sort/sort.hpp>
 // #include <parallel/algorithm>
 
 using std::cout;
@@ -86,8 +86,8 @@ int main(int argc, char * argv[])
     double tBeginReadDataset = omp_get_wtime();
     // DTYPE * database;
     // unsigned int nbPoints = 0;
-    // importNDDataset(&NDdataPoints, filename);
-    importNDDatasetBinary(&NDdataPoints, filename);
+    importNDDataset(&NDdataPoints, filename);
+    // importNDDatasetBinary(&NDdataPoints, filename);
     // importNDDatasetBinary(&database, filename, &nbPoints);
     double tEndReadDataset = omp_get_wtime();
     fprintf(stdout, "[MAIN] ~ Time to read the dataset: %f\n", tEndReadDataset - tBeginReadDataset);
