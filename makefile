@@ -3,13 +3,13 @@ OBJECTS = import_dataset.o WorkQueue.o StaticPartition.o
 CUDAOBJECTS = SortByWorkload.o GPU.o kernel.o main.o
 EGOSOURCES = multiThreadJoin.cpp Util.cpp Point.cpp
 EGOBJECTS = Point.o Util.o MultiThreadJoin.o
-CC = nvcc -g
-CXX = g++ -g
+CC = nvcc
+CXX = g++
 EXECUTABLE = main
 
-FLAGS = -std=c++11 -O3 -Xcompiler -fopenmp -arch=compute_86 -code=sm_86 -lcuda -lineinfo -I/home/benoit/Dev/boost_1_75_0
+FLAGS = -std=c++14 -O3 -Xcompiler -fopenmp -arch=compute_86 -code=sm_86 -lcuda -lineinfo -I/home/benoit/research/boost_1_75_0
 CFLAGS = -c -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES
-CFLAGS2 = -std=c++11 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op
+CFLAGS2 = -std=c++14 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op
 
 all: $(EXECUTABLE)
 

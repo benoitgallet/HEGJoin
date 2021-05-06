@@ -2,10 +2,10 @@
 #define PARAMS_H
 
 // Input data dimension
-#define GPUNUMDIM 16
+#define GPUNUMDIM 18
 
 // Number of dimensions to index
-#define NUMINDEXEDDIM 8
+#define NUMINDEXEDDIM 6
 
 // Number of GPU threads per block
 #define BLOCKSIZE 256
