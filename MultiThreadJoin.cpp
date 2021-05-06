@@ -120,13 +120,15 @@ uint64_t Util::multiThreadJoinWorkQueue(
 			// unsigned int * tmpBuffer = new unsigned int[getMaxNeighbors()];
 			// unsigned int * nbNeighbors = new unsigned int;
 
-			// if (searchMode == SM_HYBRID_STATIC)
-			// {
+			if (searchMode == SM_HYBRID_STATIC)
+			{
 				do
 				{
 					cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 				}while (cpuBatch.second < cpuBatch.first);
-			// }
+			} else {
+				cpuBatch = getBatchFromQueue(A_sz, CPU_BATCH_SIZE);
+			}
 
 			do
 			{
@@ -155,7 +157,11 @@ uint64_t Util::multiThreadJoinWorkQueue(
 					// std::copy(tmpBuffer, tmpBuffer + (*nbNeighbors), neighborTable[tmpIndex].dataPtr);
 					// results[tid] += (*nbNeighbors);
 
-					unsigned int tmpIndex = originPointIndex[i];
+					#if SORT_BY_WORKLOAD
+						unsigned int tmpIndex = originPointIndex[i];
+					#else
+						unsigned int tmpIndex = i;
+					#endif
 					neighborTable[tmpIndex].pointID = tmpIndex;
 					neighborTable[tmpIndex].indexmin = indexmaxPrec;
 					neighborTable[tmpIndex].indexmax = resultVector->size();
@@ -164,13 +170,17 @@ uint64_t Util::multiThreadJoinWorkQueue(
 
 				for (unsigned int i = cpuBatch.first; i < cpuBatch.second; ++i)
 				{
-					unsigned int tmpIndex = originPointIndex[i];
+					#if SORT_BY_WORKLOAD
+						unsigned int tmpIndex = originPointIndex[i];
+					#else
+						unsigned int tmpIndex = i;
+					#endif
 					neighborTable[tmpIndex].dataPtr = resultVector->data();
 				}
 				resultVector->shrink_to_fit();
 				results[tid] += resultVector->size();
 
-				if ( searchMode == SM_HYBRID_STATIC)
+				if (searchMode == SM_HYBRID_STATIC)
 				{
 					cpuBatch = getBatchFromQueueCPU(A_sz, CPU_BATCH_SIZE);
 				} else {
