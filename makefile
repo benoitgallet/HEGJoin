@@ -9,7 +9,7 @@ EXECUTABLE = main
 
 FLAGS = -std=c++14 -O3 -Xcompiler -fopenmp -arch=compute_80 -code=sm_80 -lcuda -lineinfo -I/home/benoit/research/boost_1_75_0
 CFLAGS = -c -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES
-CFLAGS2 = -std=c++14 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op
+CFLAGS2 = -std=c++14 -O3 -fopenmp -march=native -mavx -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wpedantic -Wunused -Wlogical-op -march=znver2
 
 all: $(EXECUTABLE)
 
