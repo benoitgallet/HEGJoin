@@ -1,7 +1,7 @@
 # Heterogeneous CPU-GPU Epsilon Grid Joins (HEGJoin)
 Authors: Benoit Gallet and Michael Gowanlock
 Institution: Northern Arizona University, *School of Informatics, Computing and Cyber Systems*
-E-mails: <benoit.gallet@nau.edu>, <michael.gowanlock@nau.edu>
+E-mails: <bg724@nau.edu> | <galletbenoit@microsoft.com>, <michael.gowanlock@nau.edu>
 
 Corresponding publications:
 - Benoit Gallet and Michael Gowanlock. Heterogeneous CPU-GPU Epsilon Grid Joins: Static and Dynamic Work Partitioning Strategies, ***Data Science and Engineering***, 2020.
